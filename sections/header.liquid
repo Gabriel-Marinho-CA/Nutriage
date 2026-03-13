@@ -193,7 +193,7 @@
     <div class="wrapper-search-bar-desk">
       {% render 'search-bar-deacloped' %}
     </div>
-    
+
     {%- if section.settings.logo_position == 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
         <h1 class="header__heading">
@@ -281,6 +281,15 @@
           </span>
         </a>
       {%- endif -%}
+
+      <div class="wrapper-help">
+        <div class="svg-wrapper">
+          {{ 'help-ico.svg' | inline_asset_content }}
+        </div>
+        <div class="help-text">
+          {{ section.settings.help_text }}
+        </div>
+      </div>
 
       {%- for block in section.blocks -%}
         {%- case block.type -%}
@@ -522,6 +531,12 @@
       "id": "menu",
       "default": "main-menu",
       "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "richtext",
+      "id": "help_text",
+      "label": "Texto precisa de ajuda",
+      "default": "<p>Precisa de<br/>ajuda?</p>"
     },
     {
       "type": "select",
