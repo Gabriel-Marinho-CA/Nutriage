@@ -2543,6 +2543,7 @@ input[type='checkbox'] {
 .header__icon--account {
   width: auto !important;
   text-decoration: none;
+  gap: 1rem;
   .login-text {
     p {
       margin: 0;
