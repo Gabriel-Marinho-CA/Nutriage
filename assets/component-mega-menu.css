@@ -26,6 +26,12 @@
       margin: 0;
       column-count: 2;
 
+      &:not(:has(li:nth-child(3))) {
+        li:nth-child(2) {
+           border-top: 1px solid #1A4789;
+        }
+      }
+
       li {
         border-bottom: 1px solid #1A4789;
 
