@@ -2559,6 +2559,9 @@ input[type='checkbox'] {
 }
 
 .wrapper-help {
+  @media (max-width:750px) {
+    display: none;
+  }
   a {
     text-decoration: none;
     display: flex;
