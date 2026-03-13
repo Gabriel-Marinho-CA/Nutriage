@@ -2424,10 +2424,21 @@ input[type='checkbox'] {
 .header__heading {
   margin: 0;
   line-height: 0;
+
+  @media (max-width:750px) {
+    order: -2;
+  }
+  
 }
 
 .header>.header__heading-link {
   line-height: 0;
+}
+
+.header {
+  @media (max-width:750px) {
+    flex-wrap: wrap;
+  }
 }
 
 .header__heading,
@@ -2518,7 +2529,9 @@ input[type='checkbox'] {
     gap: 3rem;
     min-width: 380px;
   }
-
+  @media (max-width:750px) {
+    order: -2;
+  }
 }
 
 .header__icons .shopify-app-block {
@@ -2646,6 +2659,11 @@ account-icon {
   display: flex;
 }
 
+@media (max-width:750px) {
+  header-drawer {
+    order: -3;
+  }
+}
 /* Search */
 menu-drawer+.header__search {
   display: none;
@@ -2722,6 +2740,11 @@ details[open] .modal-overlay::after {
 
 .wrapper-search-bar-desk {
   flex: 1;
+
+  @media (max-width:750px) {
+    min-width: 100%;
+    padding-bottom: 1rem;
+  }
 
   .search__input {
     background: #EBF3F8;
