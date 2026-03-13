@@ -25,6 +25,7 @@
     .mega-menu__list {
       margin: 0;
       column-count: 2;
+      column-gap: 1rem;
 
       &:not(:has(li:nth-child(3))) {
         li:nth-child(2) {
