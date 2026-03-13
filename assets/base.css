@@ -2541,6 +2541,8 @@ input[type='checkbox'] {
 }
 
 .header__icon--account {
+  width: auto;
+  text-decoration: none;
   .login-text {
     p {
       margin: 0;
