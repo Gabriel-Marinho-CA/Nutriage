@@ -60,7 +60,7 @@
         "logo_position": "middle-left",
         "mobile_logo_position": "center",
         "menu": "menu-header-novo",
-        "help_text": "<p><a href=\"#\" title=\"#\">Precisa de<br/>ajuda?</a></p>",
+        "help_text": "<p>Precisa de<br/>ajuda?</p>",
         "menu_type_desktop": "mega",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": false,
