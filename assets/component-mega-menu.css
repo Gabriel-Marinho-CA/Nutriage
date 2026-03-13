@@ -36,10 +36,13 @@
       li {
         border-bottom: 1px solid #1A4789;
         padding-block: .4rem;
-        transition: all .3s ease;
+        padding-inline: 1rem;
+       
 
         &:hover {
-          padding-left: 1rem;
+          a {
+            padding-left: 5px;
+          }
         }
 
         &:nth-child(1),
@@ -49,6 +52,7 @@
 
         a {
           font-size: 16px;
+           transition: all .3s ease;
         }
 
         &:hover {
