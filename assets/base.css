@@ -2550,6 +2550,7 @@ input[type='checkbox'] {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       font-size: 14px;
+      line-height: 1.2;
     }
   }
 }
@@ -2568,6 +2569,7 @@ input[type='checkbox'] {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       font-size: 14px;
+      line-height: 1.2;
     }
 
   }
