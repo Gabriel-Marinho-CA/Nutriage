@@ -38,6 +38,24 @@
     },
     "header": {
       "type": "header",
+      "blocks": {
+        "banner_menus_X7gzWX": {
+          "type": "banner_menus",
+          "settings": {
+            "banner_menu": "shopify://shop_images/freepik__fotografia-publicitria-premium-clean-e-minimalista__80489.png"
+          }
+        },
+        "banner_menus_c9XJJk": {
+          "type": "banner_menus",
+          "settings": {
+            "banner_menu": "shopify://shop_images/freepik__fotografia-publicitria-premium-clean-e-minimalista__80489.png"
+          }
+        }
+      },
+      "block_order": [
+        "banner_menus_X7gzWX",
+        "banner_menus_c9XJJk"
+      ],
       "settings": {
         "logo_position": "middle-left",
         "mobile_logo_position": "center",
