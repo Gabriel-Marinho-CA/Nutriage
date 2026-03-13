@@ -15,6 +15,24 @@
   right: 0;
   top: 100%;
 }
+.mega-menu__content {
+  .page-width {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    .mega-menu__list{
+      margin: 0;
+      column-count: 2;
+
+      li {
+        border-top: 1px solid #1A4789;
+        a {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
 
 .shopify-section-header-sticky .mega-menu__content {
   max-height: calc(100vh - var(--header-bottom-position-desktop, 20rem) - 4rem);
