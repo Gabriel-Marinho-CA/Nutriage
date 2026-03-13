@@ -2672,19 +2672,8 @@ details[open] .modal-overlay::after {
 .wrapper-search-bar-desk {
   flex: 1;
 
-  .field {
-
-    &::before,
-    &::after {
-      border-radius: 100px;
-    }
-  }
-
   .search__input {
     background: #EBF3F8;
-    border-radius: 100px;
-
-
   }
 }
 
