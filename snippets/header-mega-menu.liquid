@@ -5,6 +5,8 @@
   {% render 'header-mega-menu' %}
 {% endcomment %}
 
+{% assign size = link.links.size %}
+
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
@@ -67,6 +69,7 @@
                     </li>
                   {%- endfor -%}
                 </ul>
+                {{ block.settings.banner_menu[forloop.index0] | image_url: width: 600 | image_tag: loading: lazy }}
               </div>
             </details>
           </header-menu>
