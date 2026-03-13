@@ -284,12 +284,12 @@
       {%- endif -%}
 
       <div class="wrapper-help">
-        <div class="svg-wrapper">
-          {{ 'help-ico.svg' | inline_asset_content }}
-        </div>
-        <div class="help-text">
+        <a href="{{ section.settings.link_help }}" title="{{   section.settings.help_text }}">
+          <span class="svg-wrapper">
+            {{ 'help-ico.svg' | inline_asset_content }}
+          </span>
           {{ section.settings.help_text }}
-        </div>
+        </a>
       </div>
 
       {%- for block in section.blocks -%}

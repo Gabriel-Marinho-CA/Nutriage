@@ -2544,6 +2544,7 @@ input[type='checkbox'] {
   width: auto !important;
   text-decoration: none;
   gap: 1rem;
+
   .login-text {
     p {
       margin: 0;
@@ -2552,6 +2553,21 @@ input[type='checkbox'] {
     }
   }
 }
+
+.wrapper-help {
+  a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+
+  }
+}
+
 
 .header__icon::after {
   content: none;
