@@ -271,7 +271,7 @@
           {%- else -%}
             <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
           {%- endif -%}
-          <p class="login-text">
+          <div class="login-text">
             {%- liquid
               if customer
                 echo 'customer.account_fallback' | t
@@ -279,7 +279,7 @@
                 echo '<p>Faça seu <strong>login</strong><br/>ou<strong>cadastre-se</strong></p>'
               endif
             -%}
-            </p>
+            </div>
         </a>
       {%- endif -%}
 
