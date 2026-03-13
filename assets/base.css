@@ -2561,9 +2561,13 @@ input[type='checkbox'] {
     align-items: center;
     gap: 1rem;
 
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+
+
+    p {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+    }
 
   }
 }

@@ -284,7 +284,7 @@
       {%- endif -%}
 
       <div class="wrapper-help">
-        <a href="{{ section.settings.link_help }}" title="{{   section.settings.help_text }}">
+        <a href="{{ section.settings.link_help }}" title="{{   section.settings.help_text | strip_html }}">
           <span class="svg-wrapper">
             {{ 'help-ico.svg' | inline_asset_content }}
           </span>
