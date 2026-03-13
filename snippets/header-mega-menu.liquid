@@ -6,6 +6,7 @@
 {% endcomment %}
 
 {% assign size = link.links.size %}
+{% assign banner_blocks = block | where: "type", "banner_menus" %}
 
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
@@ -69,7 +70,10 @@
                     </li>
                   {%- endfor -%}
                 </ul>
-                {{ block.settings.banner_menu[forloop.index0] | image_url: width: 600 | image_tag: loading: lazy }}
+                {%- assign current_banner = banner_blocks[forloop.index0] -%}
+                {%- if current_banner and current_banner.settings.banner_menu != blank -%}
+                  {{ current_banner.settings.banner_menu | image_url: width: 600 | image_tag: loading: 'lazy' }}
+                {%- endif -%}
               </div>
             </details>
           </header-menu>
