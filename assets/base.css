@@ -2726,6 +2726,7 @@ details[open] .modal-overlay::after {
   justify-content: center;
   width: 100%;
   height: 100%;
+  padding-inline: 0 !important;
   line-height: calc(1 + 0.8 / var(--font-body-scale));
   position: relative;
 }
