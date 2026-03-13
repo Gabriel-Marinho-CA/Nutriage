@@ -2513,8 +2513,12 @@ input[type='checkbox'] {
   justify-self: end;
   padding-right: 0.8rem;
   align-items: center;
-  gap: 3rem;
-  min-width: 380px;
+
+  @media (min-width:750px) {
+    gap: 3rem;
+    min-width: 380px;
+  }
+
 }
 
 .header__icons .shopify-app-block {
@@ -2562,6 +2566,7 @@ input[type='checkbox'] {
   @media (max-width:750px) {
     display: none;
   }
+
   a {
     text-decoration: none;
     display: flex;
