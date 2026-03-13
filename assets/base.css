@@ -2564,6 +2564,10 @@ input[type='checkbox'] {
     color: rgb(var(--color-foreground));
 
 
+    .svg-wrapper {
+      width: 30px;
+      height:  30px;
+    }
 
     p {
       margin: 0;
