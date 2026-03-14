@@ -201,31 +201,28 @@
         "enable_language_selector": false
       }
     },
-    "featured_collection_QDRErM": {
-      "type": "featured-collection",
-      "name": "t:sections.featured-collection.presets.name",
+    "res_featured_collection_LM8qWx": {
+      "type": "res-featured-collection",
+      "name": "Coleção em Destaque",
       "settings": {
         "collection": "header",
-        "products_to_show": 25,
-        "title": "Coleção em destaque",
-        "heading_size": "h1",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
+        "products_to_show": 8,
+        "title": "Os mais vendidos",
+        "heading_color": "#1A4789",
+        "heading_size_desktop": "2.8rem",
+        "heading_size_mobile": "2rem",
+        "heading_alignment": "center",
+        "full_width_layout": false,
+        "arrows_position": "outside",
         "columns_desktop": 4,
-        "enable_desktop_slider": true,
-        "full_width": false,
+        "columns_mobile": 1,
         "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
+        "view_all_label": "Ver todos produtos",
+        "view_all_url": "",
+        "image_ratio": "square",
         "quick_add": "standard",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
+        "show_vendor": false,
+        "color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -235,6 +232,6 @@
     "image_banner",
     "res_hero_8CHBni",
     "res_barra_de_avisos_6Vy3Dh",
-    "featured_collection_QDRErM"
+    "res_featured_collection_LM8qWx"
   ]
 }
