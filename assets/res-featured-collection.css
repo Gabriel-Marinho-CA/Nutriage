@@ -134,7 +134,9 @@
 /* Full-bleed: left edge aligns with page content, slides overflow right */
 .res-fc__swiper--padded {
   overflow: visible;
-  padding-left: max(1.5rem, calc((100vw - var(--page-width, 120rem)) / 2 + 1.5rem));
+  padding-left: max(5rem, calc((100vw - var(--page-width, 120rem)) / 2 + 5rem));
+
+
 }
 
 /* Override: Swiper sets overflow:hidden on .swiper — for bleed we undo it */
