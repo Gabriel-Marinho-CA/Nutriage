@@ -48,8 +48,7 @@
 
 @media (max-width: 749px) {
   .res-split__left {
-    padding: 2.4rem;
-    padding-bottom: 7.6rem;
+    padding: 2.4rem 2.4rem 3rem 2.4rem;
     border-radius: 0 0 2rem 2rem;
   }
 }
@@ -174,6 +173,10 @@
   text-decoration: none;
   text-align: center;
   transition: filter 0.2s;
+
+  @media (max-width:750px) {
+    font-size: 13px;
+  }
 }
 
 .res-split__btn:hover {
