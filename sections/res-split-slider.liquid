@@ -43,10 +43,10 @@
                   {%- if block.settings.product_image != blank -%}
                     <div class="res-split__thumb">
                       <img
-                        src="{{ block.settings.product_image | image_url: width: 160 }}"
+                        src="{{ block.settings.product_image | image_url: width: product_image.width }}"
                         alt="{{ block.settings.title | escape }}"
-                        width="80"
-                        height="80"
+                        width="{{block.settings.product_image.width}}"
+                        height="{{block.settings.product_image.height}}"
                         loading="lazy"
                       >
                     </div>
