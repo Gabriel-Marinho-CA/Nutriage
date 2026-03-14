@@ -19,7 +19,7 @@
 
 @media (max-width: 1000px) {
   .res-split__slide {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 }
 
@@ -48,7 +48,6 @@
 
 @media (max-width: 749px) {
   .res-split__left {
-    order: 2;
     padding: 2.4rem;
     padding-bottom: 7.6rem;
     border-radius: 0 0 2rem 2rem;
