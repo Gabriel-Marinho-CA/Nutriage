@@ -63,9 +63,6 @@
 
 @media (max-width: 749px) {
   .res-split__right {
-    order: 1;
-    height: 280px;
-    border-radius: 2rem 2rem 0 0;
   }
 }
 
