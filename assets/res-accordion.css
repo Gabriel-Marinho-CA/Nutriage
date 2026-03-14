@@ -90,6 +90,25 @@
   max-height: 450px;
   overflow: auto;
   padding-right: 2rem;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #1A4789 #C4DCFF;
+}
+
+/* Chrome / Safari / Edge */
+.res-acc__list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.res-acc__list::-webkit-scrollbar-track {
+  background: #C4DCFF;
+  border-radius: 10rem;
+}
+
+.res-acc__list::-webkit-scrollbar-thumb {
+  background: #1A4789;
+  border-radius: 10rem;
 }
 
 /* ── Item / details ── */
