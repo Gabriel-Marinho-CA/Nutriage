@@ -50,9 +50,10 @@
   left: 0;
   width: 300px;
   max-width: 92vw;
-  height: 100%;
+  height: 90%;
   background: #fff;
-  border-radius: 0 2rem 2rem 0;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
   z-index: 9999;
   display: flex;
   flex-direction: column;
