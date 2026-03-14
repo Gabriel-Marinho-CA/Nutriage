@@ -21,6 +21,7 @@
   display: flex;
   align-items: center;
   gap: 1.6rem;
+  padding-bottom: 3rem;
 }
 
 .res-fc__title-row--left   { justify-content: flex-start; }
