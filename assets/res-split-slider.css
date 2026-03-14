@@ -140,7 +140,7 @@
 /* ── Botão ── */
 .res-split__btn {
   display: inline-block;
-  padding: 1.1rem 2.4rem;
+  padding: 1.1rem 4.4rem;
   background: var(--split-btn-bg, #4caf50);
   color: var(--split-btn-color, #fff);
   border-radius: 10rem;
