@@ -62,8 +62,7 @@
 }
 
 @media (max-width: 749px) {
-  .res-split__right {
-  }
+  .res-split__right {}
 }
 
 /* ── Imagens do lado direito ── */
@@ -106,6 +105,7 @@
     margin-top: -88px;
     position: relative;
     z-index: 1;
+    padding-bottom: 1rem;
   }
 }
 
@@ -126,6 +126,10 @@
   font-size: 22px;
   font-weight: bold;
   width: fit-content;
+
+  @media (max-width:750px) {
+    font-size: 13px;
+  }
 }
 
 /* ── Título ── */
@@ -136,11 +140,9 @@
   padding-bottom: 1rem;
   line-height: 1.2;
   color: var(--split-title-color, #fff);
-}
 
-@media (max-width: 749px) {
-  .res-split__title {
-    font-size: 2rem;
+  @media (max-width:750px) {
+    font-size: 18px;
   }
 }
 
@@ -150,6 +152,10 @@
   line-height: 1.55;
   font-size: 18px;
   flex-grow: 1;
+
+  @media (max-width:750px) {
+    font-size: 13px;
+  }
 }
 
 .res-split__desc p {
