@@ -5,6 +5,11 @@
 
 .res-acc {
   background: var(--res-acc-bg-color);
+
+  .res-fc__view-all-btn {
+    --color-foreground: var(--res-acc-button-color);
+    
+  }
 }
 
 /* ── Layout ── */
