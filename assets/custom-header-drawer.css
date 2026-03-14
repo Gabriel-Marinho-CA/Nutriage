@@ -14,9 +14,6 @@
   margin-left: -0.6rem;
   order: -3;
 
-  @media (min-width:750px) {
-    display: none;
-  }
 }
 
 .custom-drawer-trigger .svg-wrapper svg {
@@ -26,7 +23,7 @@
 /* Hide trigger on desktop (same breakpoint as Dawn) */
 @media screen and (min-width: 990px) {
   .custom-drawer-trigger {
-    display: none;
+    display: none !important;
   }
 }
 
