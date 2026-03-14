@@ -36,6 +36,7 @@
   border-radius: 2rem 0 0 2rem;
   margin-right: -2rem;
 }
+
 .wrapper-content-res-split__left {
   margin-block: auto;
 }
@@ -53,7 +54,7 @@
 .res-split__right {
   position: relative;
   overflow: hidden;
-  border-radius:  2rem;
+  border-radius: 2rem;
 }
 
 @media (max-width: 749px) {
@@ -72,13 +73,23 @@
   display: block;
 }
 
-.res-split__img--desktop { display: block; }
-.res-split__img--mobile  { display: none; }
+.res-split__img--desktop {
+  display: block;
+}
+
+.res-split__img--mobile {
+  display: none;
+}
 
 @media (max-width: 749px) {
-  .res-split__img--desktop:not(.res-split__img--all) { display: none; }
+  .res-split__img--desktop:not(.res-split__img--all) {
+    display: none;
+  }
+
   .res-split__img--mobile,
-  .res-split__img--all { display: block; }
+  .res-split__img--all {
+    display: block;
+  }
 }
 
 /* ── Miniatura do produto ── */
@@ -157,7 +168,11 @@
 
 .res-split__actions {
   padding-top: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
 /* ── Setas de navegação ── */
 /* Posicionadas absolutamente sobre o canto inferior-esquerdo do slide */
 .res-split__nav-wrap {
@@ -176,8 +191,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4.4rem;
-  height: 4.4rem;
+  width: 30px;
+  padding: 0;
+  height: 30px;
   border-radius: 50%;
   border: 2px solid var(--split-arrow-color, #fff);
   background: transparent;
