@@ -149,12 +149,20 @@
   font-size: 18px;
   color: #8E8E8F;
   line-height: 1;
+
+  @media (max-width:750px) {
+    font-size: 11px;
+  }
 }
 
 .spot-price {
   font-size: 20px;
   font-weight: 700;
   line-height: 1;
+
+  @media (max-width:750px) {
+    font-size: 12px;
+  }
 }
 
 .price-card-product {
@@ -315,11 +323,19 @@
   margin-bottom: 0;
   font-size: 21px;
   font-weight: bold;
+
+  @media (max-width:750px) {
+    font-size: 13px;
+  }
 }
 
 .extra-info-card-product {
   margin: 0;
   font-size: 16px;
+
+  @media (max-width:750px) {
+    font-size: 10px;
+  }
 }
 
 .card__heading:last-child {
