@@ -24,10 +24,8 @@
 <section id="res-split-{{ section.id }}" class="res-split-section">
   <div class="page-width">
     <div class="res-split__wrapper">
-
       <div id="res-split-swiper-{{ section.id }}" class="swiper res-split__swiper">
         <div class="swiper-wrapper">
-
           {%- for block in section.blocks -%}
             {%- assign is_first = forloop.first -%}
             <div
@@ -36,43 +34,44 @@
               {{ block.shopify_attributes }}
             >
               <div class="res-split__slide">
-
                 {%- comment -%} ── Lado esquerdo ── {%- endcomment -%}
                 <div class="res-split__left">
+                  <div class="wrapper-content-res-split__left">
+                    {%- if block.settings.product_image != blank -%}
+                      <div class="res-split__thumb">
+                        <img
+                          src="{{ block.settings.product_image | image_url: width: block.settings.product_image.width }}"
+                          alt="{{ block.settings.title | escape }}"
+                          width="{{block.settings.product_image.width}}"
+                          height="{{block.settings.product_image.height}}"
+                          loading="lazy"
+                        >
+                      </div>
+                    {%- endif -%}
 
-                  {%- if block.settings.product_image != blank -%}
-                    <div class="res-split__thumb">
-                      <img
-                        src="{{ block.settings.product_image | image_url: width: block.settings.product_image.width }}"
-                        alt="{{ block.settings.title | escape }}"
-                        width="{{block.settings.product_image.width}}"
-                        height="{{block.settings.product_image.height}}"
-                        loading="lazy"
-                      >
-                    </div>
-                  {%- endif -%}
+                    {%- if block.settings.tag_label != blank -%}
+                      <span class="res-split__tag">{{ block.settings.tag_label | escape }}</span>
+                    {%- endif -%}
 
-                  {%- if block.settings.tag_label != blank -%}
-                    <span class="res-split__tag">{{ block.settings.tag_label | escape }}</span>
-                  {%- endif -%}
+                    {%- if block.settings.title != blank -%}
+                      <h2 class="res-split__title">{{ block.settings.title | escape }}</h2>
+                    {%- endif -%}
 
-                  {%- if block.settings.title != blank -%}
-                    <h2 class="res-split__title">{{ block.settings.title | escape }}</h2>
-                  {%- endif -%}
+                    {%- if block.settings.description != blank -%}
+                      <div class="res-split__desc">{{ block.settings.description }}</div>
+                    {%- endif -%}
 
-                  {%- if block.settings.description != blank -%}
-                    <div class="res-split__desc">{{ block.settings.description }}</div>
-                  {%- endif -%}
-
-                  {%- if block.settings.button_label != blank -%}
-                    <div class="res-split__actions">
-                      <a
-                        href="{{ block.settings.button_url | default: '#' }}"
-                        class="res-split__btn"
-                      >{{- block.settings.button_label | escape -}}</a>
-                    </div>
-                  {%- endif -%}
-
+                    {%- if block.settings.button_label != blank -%}
+                      <div class="res-split__actions">
+                        <a
+                          href="{{ block.settings.button_url | default: '#' }}"
+                          class="res-split__btn"
+                        >
+                          {{- block.settings.button_label | escape -}}
+                        </a>
+                      </div>
+                    {%- endif -%}
+                  </div>
                 </div>
 
                 {%- comment -%} ── Lado direito ── {%- endcomment -%}
@@ -94,11 +93,9 @@
                     >
                   {%- endif -%}
                 </div>
-
               </div>
             </div>
           {%- endfor -%}
-
         </div>
       </div>
 
@@ -109,7 +106,15 @@
             class="res-split__nav-btn"
             aria-label="{{ 'general.slider.previous_slide' | t }}"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <polyline points="15 18 9 12 15 6"/>
             </svg>
           </button>
@@ -118,47 +123,60 @@
             class="res-split__nav-btn"
             aria-label="{{ 'general.slider.next_slide' | t }}"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <polyline points="9 18 15 12 9 6"/>
             </svg>
           </button>
         </div>
       {%- endif -%}
-
     </div>
   </div>
 </section>
 
 <script>
-(function () {
-  var sectionEl = document.getElementById('res-split-{{ section.id }}');
-  if (!sectionEl || typeof Swiper === 'undefined') return;
+  (function () {
+    var sectionEl = document.getElementById('res-split-{{ section.id }}');
+    if (!sectionEl || typeof Swiper === 'undefined') return;
 
-  var swiperEl = document.getElementById('res-split-swiper-{{ section.id }}');
-  var navWrap  = sectionEl.querySelector('.res-split__nav-wrap');
-  var prevBtn  = document.getElementById('res-split-prev-{{ section.id }}');
-  var nextBtn  = document.getElementById('res-split-next-{{ section.id }}');
+    var swiperEl = document.getElementById('res-split-swiper-{{ section.id }}');
+    var navWrap = sectionEl.querySelector('.res-split__nav-wrap');
+    var prevBtn = document.getElementById('res-split-prev-{{ section.id }}');
+    var nextBtn = document.getElementById('res-split-next-{{ section.id }}');
 
-  function syncArrowColor(swiper) {
-    if (!navWrap) return;
-    var slide = swiper.slides[swiper.activeIndex];
-    if (!slide) return;
-    var color = slide.style.getPropertyValue('--split-arrow-color') || '#ffffff';
-    navWrap.style.setProperty('--split-arrow-color', color);
-  }
+    function syncArrowColor(swiper) {
+      if (!navWrap) return;
+      var slide = swiper.slides[swiper.activeIndex];
+      if (!slide) return;
+      var color = slide.style.getPropertyValue('--split-arrow-color') || '#ffffff';
+      navWrap.style.setProperty('--split-arrow-color', color);
+    }
 
-  var swiper = new Swiper(swiperEl, {
-    slidesPerView: 1,
-    loop: false,
-    on: {
-      init: syncArrowColor,
-      slideChange: syncArrowColor,
-    },
-  });
+    var swiper = new Swiper(swiperEl, {
+      slidesPerView: 1,
+      loop: false,
+      on: {
+        init: syncArrowColor,
+        slideChange: syncArrowColor,
+      },
+    });
 
-  if (prevBtn) prevBtn.addEventListener('click', function () { swiper.slidePrev(); });
-  if (nextBtn) nextBtn.addEventListener('click', function () { swiper.slideNext(); });
-})();
+    if (prevBtn)
+      prevBtn.addEventListener('click', function () {
+        swiper.slidePrev();
+      });
+    if (nextBtn)
+      nextBtn.addEventListener('click', function () {
+        swiper.slideNext();
+      });
+  })();
 </script>
 
 {% schema %}
@@ -174,28 +192,40 @@
     {
       "type": "range",
       "id": "padding_top",
-      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
       "label": "Padding top (desktop)",
       "default": 36
     },
     {
       "type": "range",
       "id": "padding_bottom",
-      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
       "label": "Padding bottom (desktop)",
       "default": 36
     },
     {
       "type": "range",
       "id": "padding_top_mob",
-      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
       "label": "Padding top (mobile)",
       "default": 24
     },
     {
       "type": "range",
       "id": "padding_bottom_mob",
-      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
       "label": "Padding bottom (mobile)",
       "default": 24
     }
