@@ -47,7 +47,7 @@
                         alt="{{ block.settings.title | escape }}"
                         width="80"
                         height="80"
-                        loading="{% if is_first %}eager{% else %}lazy{% endif %}"
+                        loading="lazy"
                       >
                     </div>
                   {%- endif -%}
@@ -82,7 +82,7 @@
                       class="res-split__img res-split__img--desktop{% if block.settings.image_mobile == blank %} res-split__img--all{% endif %}"
                       src="{{ block.settings.image_desktop | image_url: width: 900 }}"
                       alt="{{ block.settings.title | escape }}"
-                      loading="{% if is_first %}eager{% else %}lazy{% endif %}"
+                      loading="lazy"
                     >
                   {%- endif -%}
                   {%- if block.settings.image_mobile != blank -%}
@@ -90,7 +90,7 @@
                       class="res-split__img res-split__img--mobile"
                       src="{{ block.settings.image_mobile | image_url: width: 600 }}"
                       alt="{{ block.settings.title | escape }}"
-                      loading="{% if is_first %}eager{% else %}lazy{% endif %}"
+                      loading="lazy"
                     >
                   {%- endif -%}
                 </div>
