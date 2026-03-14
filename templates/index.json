@@ -432,10 +432,10 @@
       ],
       "name": "Banner Split Slider",
       "settings": {
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "padding_top_mob": 24,
-        "padding_bottom_mob": 24
+        "padding_top": 60,
+        "padding_bottom": 68,
+        "padding_top_mob": 44,
+        "padding_bottom_mob": 40
       }
     }
   },
