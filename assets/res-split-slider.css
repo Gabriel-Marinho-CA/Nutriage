@@ -102,7 +102,7 @@
   align-items: center;
   background: var(--split-tag-bg, #f0a000);
   color: var(--split-tag-color, #1a4789);
-  padding: 0.3rem 1.2rem;
+  padding: 0.3rem 0;
   border-radius: 10rem;
   font-size: 1.3rem;
   font-weight: 700;
