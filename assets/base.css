@@ -2468,6 +2468,9 @@ input[type='checkbox'] {
   max-width: 100%;
 }
 
+.header__heading-link:has(.header__heading-logo-wrapper) {
+  order: -2;
+}
 .header__heading-logo-wrapper {
   width: 100%;
   display: inline-block;
