@@ -136,6 +136,11 @@
 .card__information {
   grid-row-start: 2;
   padding: 1.3rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.card-information {
+  margin-top: auto;
 }
 
 .card:not(.ratio)>.card__content {
