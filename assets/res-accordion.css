@@ -234,6 +234,7 @@
   font-size: 1.5rem;
   text-decoration: none;
   transition: filter 0.2s;
+  text-align: start;
 }
 
 .res-acc__btn:hover {
