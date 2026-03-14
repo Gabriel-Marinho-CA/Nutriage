@@ -1,0 +1,444 @@
+{% comment %}
+  RES Featured Collection — Swiper carousel
+  CSS: assets/res-featured-collection.css
+  Uses: snippets/swiper-cdn.liquid, snippets/card-product.liquid
+
+  Two layout modes (full_width_layout):
+    false → standard page-width, cards centered
+    true  → left edge aligns with page content, slides overflow to right edge
+
+  Two arrow positions (arrows_position):
+    'outside' → arrows beside the card rail (outside the cards)
+    'inline'  → arrows in the header row, next to the title
+{% endcomment %}
+
+{%- render 'swiper-cdn' -%}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'res-featured-collection.css' | asset_url | stylesheet_tag }}
+
+{%- unless section.settings.quick_add == 'none' -%}
+  {{ 'quick-add.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+{%- endunless -%}
+
+{%- liquid
+  assign full_width     = section.settings.full_width_layout
+  assign arrows_pos     = section.settings.arrows_position
+  assign heading_align  = section.settings.heading_alignment
+  assign products_limit = section.settings.products_to_show
+  assign cols_desk      = section.settings.columns_desktop
+  assign cols_mob       = section.settings.columns_mobile
+
+  if section.settings.view_all_url != blank
+    assign view_all_url = section.settings.view_all_url
+  elsif section.settings.collection != blank
+    assign view_all_url = section.settings.collection.url
+  else
+    assign view_all_url = routes.collections_url
+  endif
+-%}
+
+{%- style -%}
+  #res-fc-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  #res-fc-section-{{ section.id }} .res-fc__title {
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size_mobile }};
+  }
+  @media screen and (min-width: 750px) {
+    #res-fc-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+    #res-fc-section-{{ section.id }} .res-fc__title {
+      font-size: {{ section.settings.heading_size_desktop }};
+    }
+  }
+{%- endstyle -%}
+
+<section
+  id="res-fc-section-{{ section.id }}"
+  class="res-fc color-{{ section.settings.color_scheme }} gradient{% if full_width %} res-fc--full-width{% endif %}"
+>
+
+  {%- comment -%} ── Header ── {%- endcomment -%}
+  {%- if section.settings.title != blank or arrows_pos == 'inline' -%}
+    <div class="res-fc__header page-width">
+      <div class="res-fc__title-row res-fc__title-row--{{ heading_align }}{% if arrows_pos == 'inline' %} res-fc__title-row--has-nav{% endif %}">
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="res-fc__title">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+
+        {%- if arrows_pos == 'inline' -%}
+          <div class="res-fc__inline-nav">
+            <button
+              id="res-fc-prev-{{ section.id }}"
+              class="res-fc__nav-btn res-fc__nav-btn--prev"
+              aria-label="{{ 'general.slider.previous_slide' | t }}"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+            </button>
+            <button
+              id="res-fc-next-{{ section.id }}"
+              class="res-fc__nav-btn res-fc__nav-btn--next"
+              aria-label="{{ 'general.slider.next_slide' | t }}"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </button>
+          </div>
+        {%- endif -%}
+
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── Swiper area ── {%- endcomment -%}
+  <div class="res-fc__swiper-outer{% if arrows_pos == 'outside' %} res-fc__swiper-outer--outside{% elsif full_width == false %} page-width{% endif %}">
+
+    {%- if arrows_pos == 'outside' -%}
+      <button
+        id="res-fc-prev-{{ section.id }}"
+        class="res-fc__nav-btn res-fc__nav-btn--prev res-fc__nav-btn--outside"
+        aria-label="{{ 'general.slider.previous_slide' | t }}"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+    {%- endif -%}
+
+    <div
+      id="res-fc-swiper-{{ section.id }}"
+      class="swiper res-fc__swiper{% if full_width %} res-fc__swiper--padded{% endif %}"
+    >
+      <div class="swiper-wrapper">
+
+        {%- if section.settings.collection.products.size > 0 -%}
+          {%- assign skip_card_product_styles = false -%}
+          {%- for product in section.settings.collection.products limit: products_limit -%}
+            <div class="swiper-slide res-fc__slide">
+              {%- render 'card-product',
+                card_product: product,
+                media_aspect_ratio: section.settings.image_ratio,
+                lazy_load: true,
+                show_secondary_image: false,
+                show_vendor: section.settings.show_vendor,
+                show_rating: false,
+                skip_styles: skip_card_product_styles,
+                section_id: section.id,
+                quick_add: section.settings.quick_add
+              -%}
+            </div>
+            {%- assign skip_card_product_styles = true -%}
+          {%- endfor -%}
+
+        {%- else -%}
+          {%- assign skip_card_product_styles = false -%}
+          {%- for i in (1..cols_desk) -%}
+            <div class="swiper-slide res-fc__slide">
+              {%- assign placeholder_image = 'product-apparel-' | append: forloop.index -%}
+              {%- render 'card-product',
+                media_aspect_ratio: section.settings.image_ratio,
+                placeholder_image: placeholder_image,
+                skip_styles: skip_card_product_styles
+              -%}
+            </div>
+            {%- assign skip_card_product_styles = true -%}
+          {%- endfor -%}
+        {%- endif -%}
+
+      </div>
+    </div>
+
+    {%- if arrows_pos == 'outside' -%}
+      <button
+        id="res-fc-next-{{ section.id }}"
+        class="res-fc__nav-btn res-fc__nav-btn--next res-fc__nav-btn--outside"
+        aria-label="{{ 'general.slider.next_slide' | t }}"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    {%- endif -%}
+
+  </div>
+
+  {%- comment -%} ── View all ── {%- endcomment -%}
+  {%- if section.settings.show_view_all -%}
+    <div class="res-fc__view-all page-width">
+      <a href="{{ view_all_url }}" class="res-fc__view-all-btn button button--secondary">
+        {{ section.settings.view_all_label | escape }}
+      </a>
+    </div>
+  {%- endif -%}
+
+</section>
+
+<script>
+  (function () {
+    var sectionId = {{ section.id | json }};
+
+    function initSwiper() {
+      var el = document.getElementById('res-fc-swiper-' + sectionId);
+      if (!el || typeof Swiper === 'undefined') return;
+
+      new Swiper(el, {
+        slidesPerView: {{ cols_mob }},
+        spaceBetween: 16,
+        navigation: {
+          prevEl: '#res-fc-prev-' + sectionId,
+          nextEl: '#res-fc-next-' + sectionId,
+        },
+        breakpoints: {
+          750: {
+            slidesPerView: Math.min({{ cols_desk }}, 3),
+            spaceBetween: 20,
+          },
+          990: {
+            slidesPerView: {{ cols_desk }},
+            spaceBetween: 24,
+          },
+        },
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSwiper);
+    } else {
+      initSwiper();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Coleção em Destaque",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Coleção"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 25,
+      "step": 1,
+      "default": 8,
+      "label": "Máximo de produtos"
+    },
+    {
+      "type": "header",
+      "content": "Título"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Os mais vendidos",
+      "label": "Título"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#1A4789",
+      "label": "Cor do título"
+    },
+    {
+      "type": "select",
+      "id": "heading_size_desktop",
+      "label": "Tamanho do título (desktop)",
+      "options": [
+        { "value": "5rem",   "label": "Extra grande" },
+        { "value": "3.6rem", "label": "Grande" },
+        { "value": "2.8rem", "label": "Médio" },
+        { "value": "2rem",   "label": "Pequeno" }
+      ],
+      "default": "2.8rem"
+    },
+    {
+      "type": "select",
+      "id": "heading_size_mobile",
+      "label": "Tamanho do título (mobile)",
+      "options": [
+        { "value": "3.2rem", "label": "Extra grande" },
+        { "value": "2.4rem", "label": "Grande" },
+        { "value": "2rem",   "label": "Médio" },
+        { "value": "1.6rem", "label": "Pequeno" }
+      ],
+      "default": "2rem"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Alinhamento do título",
+      "options": [
+        { "value": "left",   "label": "Esquerda" },
+        { "value": "center", "label": "Centro" },
+        { "value": "right",  "label": "Direita" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Layout do slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_layout",
+      "default": false,
+      "label": "Slider vai até a borda direita da tela",
+      "info": "O início dos cards fica alinhado ao conteúdo da página; os cards se estendem até o limite direito da tela."
+    },
+    {
+      "type": "select",
+      "id": "arrows_position",
+      "label": "Posição das setas de navegação",
+      "options": [
+        { "value": "outside", "label": "Fora dos cards (esquerda e direita)" },
+        { "value": "inline",  "label": "Ao lado do título" }
+      ],
+      "default": "outside"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "Colunas visíveis (desktop)"
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2,
+      "label": "Colunas visíveis (mobile)"
+    },
+    {
+      "type": "header",
+      "content": "Botão \"Ver mais\""
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Mostrar botão \"Ver mais\""
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "default": "Ver todos produtos",
+      "label": "Texto do botão"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "Link do botão (opcional)",
+      "info": "Se vazio, usa a URL da coleção."
+    },
+    {
+      "type": "header",
+      "content": "Cards"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        { "value": "adapt",    "label": "t:sections.featured-collection.settings.image_ratio.options__1.label" },
+        { "value": "portrait", "label": "t:sections.featured-collection.settings.image_ratio.options__2.label" },
+        { "value": "square",   "label": "t:sections.featured-collection.settings.image_ratio.options__3.label" }
+      ],
+      "default": "square",
+      "label": "t:sections.featured-collection.settings.image_ratio.label"
+    },
+    {
+      "type": "select",
+      "id": "quick_add",
+      "default": "standard",
+      "label": "t:sections.featured-collection.settings.quick_add.label",
+      "info": "t:sections.featured-collection.settings.quick_add.info",
+      "options": [
+        { "value": "none",     "label": "t:sections.featured-collection.settings.quick_add.options__1.label" },
+        { "value": "standard", "label": "t:sections.featured-collection.settings.quick_add.options__2.label" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.show_vendor.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.colors.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coleção em Destaque",
+      "settings": {
+        "title": "Os mais vendidos",
+        "columns_desktop": 4,
+        "arrows_position": "outside",
+        "full_width_layout": false
+      }
+    },
+    {
+      "name": "Coleção Tela Cheia",
+      "settings": {
+        "title": "Conheça nossos Kits",
+        "columns_desktop": 4,
+        "arrows_position": "inline",
+        "full_width_layout": true,
+        "heading_alignment": "left"
+      }
+    }
+  ]
+}
+{% endschema %}
