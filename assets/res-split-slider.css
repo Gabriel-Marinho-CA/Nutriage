@@ -14,9 +14,7 @@
 
 /* ── Slide: grid 38/62 ── */
 .res-split__slide {
-  display: grid;
-  grid-template-columns: 38% 62%;
-  min-height: 520px;
+  display: flex;
 }
 
 @media (max-width: 749px) {
@@ -36,6 +34,9 @@
   flex-direction: column;
   gap: 1.4rem;
   border-radius: 2rem 0 0 2rem;
+}
+.wrapper-content-res-split__left {
+  margin-block: auto;
 }
 
 @media (max-width: 749px) {
