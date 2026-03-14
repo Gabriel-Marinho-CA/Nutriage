@@ -88,12 +88,84 @@
         "announcement_npqXHT": {
           "type": "announcement",
           "settings": {
-            "text": "<p>Bem-vindo à nossa loja</p>",
+            "text": "<p>Cashback em todas compras</p>",
             "link": "",
-            "text_size_px": 14,
+            "text_size_px": 18,
             "image_width": 24,
             "image_position": "before",
-            "background_color": "",
+            "background_color": "rgba(0,0,0,0)",
+            "enable_border": false,
+            "border_width": 1,
+            "border_color": "#e0e0e0",
+            "border_radius": 0,
+            "padding": 12,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "announcement_xwTyzJ": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p>7% de desconto no Pix</p>",
+            "link": "",
+            "text_size_px": 18,
+            "image_width": 24,
+            "image_position": "before",
+            "background_color": "rgba(0,0,0,0)",
+            "enable_border": false,
+            "border_width": 1,
+            "border_color": "#e0e0e0",
+            "border_radius": 0,
+            "padding": 12,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "announcement_ny7rJz": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p>Frete grátis nas compras acima de 499,00</p>",
+            "link": "",
+            "text_size_px": 18,
+            "image_width": 24,
+            "image_position": "before",
+            "background_color": "rgba(0,0,0,0)",
+            "enable_border": false,
+            "border_width": 1,
+            "border_color": "#e0e0e0",
+            "border_radius": 0,
+            "padding": 12,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "announcement_bYUTAH": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p>Desconto progressivo</p>",
+            "link": "",
+            "text_size_px": 18,
+            "image_width": 24,
+            "image_position": "before",
+            "background_color": "rgba(0,0,0,0)",
+            "enable_border": false,
+            "border_width": 1,
+            "border_color": "#e0e0e0",
+            "border_radius": 0,
+            "padding": 12,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "announcement_UJ3fU9": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p>Compras em até 6x sem juros</p>",
+            "link": "",
+            "text_size_px": 18,
+            "image_width": 24,
+            "image_position": "before",
+            "background_color": "rgba(0,0,0,0)",
             "enable_border": false,
             "border_width": 1,
             "border_color": "#e0e0e0",
@@ -105,14 +177,18 @@
         }
       },
       "block_order": [
-        "announcement_npqXHT"
+        "announcement_npqXHT",
+        "announcement_xwTyzJ",
+        "announcement_ny7rJz",
+        "announcement_bYUTAH",
+        "announcement_UJ3fU9"
       ],
       "name": "res - Barra de Avisos",
       "settings": {
-        "marquee_speed": 20,
+        "marquee_speed": 60,
         "gap_between_items": 32,
-        "background_color": "#ffffff",
-        "text_color": "#1f2021",
+        "background_color": "#1a4789",
+        "text_color": "#ffffff",
         "show_line_separator": true,
         "padding_top": 0,
         "padding_bottom": 0,
