@@ -81,7 +81,7 @@
 
 /* ── Miniatura do produto ── */
 .res-split__thumb {
-
+  max-width: 181px;
   border-radius: 1rem;
   overflow: hidden;
   flex-shrink: 0;
