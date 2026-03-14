@@ -12,6 +12,7 @@
   cursor: pointer;
   padding: 0.6rem;
   margin-left: -0.6rem;
+  order: -3;
 }
 
 .custom-drawer-trigger .svg-wrapper svg {
