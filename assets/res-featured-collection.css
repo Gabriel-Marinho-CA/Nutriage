@@ -138,6 +138,69 @@
   height: 100%;
 }
 
+/* ── Mobile nav (absolute over swiper, hidden on desktop) ── */
+.res-fc__mobile-nav-btn {
+  display: none;
+}
+
+/* ── Mobile overrides (< 750px) ── */
+@media screen and (max-width: 749px) {
+  /* Section clips right overflow for both layouts */
+  .res-fc {
+    overflow: hidden;
+  }
+
+  /* Swiper outer: needs relative for absolute nav buttons */
+  .res-fc__swiper-outer {
+    position: relative;
+  }
+
+  /* Page-width outer: remove right constraint so swiper bleeds right */
+  .res-fc .res-fc__swiper-outer.page-width {
+    padding-right: 0;
+    max-width: none;
+    overflow: visible;
+  }
+
+  /* Outside-arrows outer: reset to block, keep left padding only */
+  .res-fc .res-fc__swiper-outer--outside {
+    display: block;
+    padding-right: 0;
+    max-width: none;
+    padding-left: 1.5rem;
+  }
+
+  /* Make swiper overflow visible so 1.4 slide peeks right */
+  .res-fc .res-fc__swiper.swiper {
+    overflow: visible;
+  }
+
+  /* Show mobile nav buttons (absolutely positioned on swiper sides) */
+  .res-fc__mobile-nav-btn {
+    display: flex;
+    position: absolute;
+    top: 35%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .res-fc__mobile-nav-btn--prev {
+    left: 0.8rem;
+  }
+
+  .res-fc__mobile-nav-btn--next {
+    right: 0.8rem;
+  }
+
+  /* Hide desktop-only nav on mobile */
+  .res-fc__inline-nav,
+  .res-fc__nav-btn--outside {
+    display: none !important;
+  }
+}
+
 /* ── View all ── */
 .res-fc__view-all {
   margin-top: 3.2rem;
