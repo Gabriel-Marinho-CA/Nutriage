@@ -170,26 +170,6 @@
       </button>
     {%- endif -%}
 
-    {%- comment -%} ── Mobile nav — absolute, hidden on desktop, shown on mobile ── {%- endcomment -%}
-    <button
-      id="res-fc-mob-prev-{{ section.id }}"
-      class="res-fc__nav-btn res-fc__mobile-nav-btn res-fc__mobile-nav-btn--prev"
-      aria-label="{{ 'general.slider.previous_slide' | t }}"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
-    </button>
-    <button
-      id="res-fc-mob-next-{{ section.id }}"
-      class="res-fc__nav-btn res-fc__mobile-nav-btn res-fc__mobile-nav-btn--next"
-      aria-label="{{ 'general.slider.next_slide' | t }}"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="9 18 15 12 9 6"/>
-      </svg>
-    </button>
-
   </div>
 
   {%- comment -%} ── View all ── {%- endcomment -%}
@@ -212,17 +192,15 @@
       if (!el || typeof Swiper === 'undefined') return;
 
       new Swiper(el, {
-        // Mobile: always 1.4 slides (peek effect + bleed right)
-        slidesPerView: 1.4,
+        slidesPerView: {{ cols_mob }},
         spaceBetween: 16,
         navigation: {
-          // Each nav selector accepts both desktop & mobile buttons
-          prevEl: ['#res-fc-prev-' + sectionId, '#res-fc-mob-prev-' + sectionId],
-          nextEl: ['#res-fc-next-' + sectionId, '#res-fc-mob-next-' + sectionId],
+          prevEl: '#res-fc-prev-' + sectionId,
+          nextEl: '#res-fc-next-' + sectionId,
         },
         breakpoints: {
           750: {
-            slidesPerView: {{ cols_mob }},
+            slidesPerView: Math.min({{ cols_desk }}, 3),
             spaceBetween: 20,
           },
           990: {
@@ -278,24 +256,28 @@
       "label": "Cor do título"
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "heading_size_desktop",
-      "min": 16,
-      "max": 60,
-      "step": 2,
-      "unit": "px",
-      "default": 28,
-      "label": "Tamanho do título (desktop)"
+      "label": "Tamanho do título (desktop)",
+      "options": [
+        { "value": "5rem",   "label": "Extra grande" },
+        { "value": "3.6rem", "label": "Grande" },
+        { "value": "2.8rem", "label": "Médio" },
+        { "value": "2rem",   "label": "Pequeno" }
+      ],
+      "default": "2.8rem"
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "heading_size_mobile",
-      "min": 16,
-      "max": 60,
-      "step": 2,
-      "unit": "px",
-      "default": 20,
-      "label": "Tamanho do título (mobile)"
+      "label": "Tamanho do título (mobile)",
+      "options": [
+        { "value": "3.2rem", "label": "Extra grande" },
+        { "value": "2.4rem", "label": "Grande" },
+        { "value": "2rem",   "label": "Médio" },
+        { "value": "1.6rem", "label": "Pequeno" }
+      ],
+      "default": "2rem"
     },
     {
       "type": "select",
