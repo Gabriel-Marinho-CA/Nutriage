@@ -44,7 +44,7 @@
     "card_style": "standard",
     "card_image_padding": 0,
     "card_text_alignment": "left",
-    "card_color_scheme": "scheme-21f2e6ec-094d-4baa-8861-c39f40e20225",
+    "card_color_scheme": "scheme-2",
     "card_border_thickness": 0,
     "card_border_opacity": 10,
     "card_corner_radius": 20,
@@ -218,7 +218,7 @@
       },
       "scheme-21f2e6ec-094d-4baa-8861-c39f40e20225": {
         "settings": {
-          "background": "#f3f3f3",
+          "background": "#ffffff",
           "background_gradient": "",
           "text": "#1a4789",
           "button": "#6aad39",
