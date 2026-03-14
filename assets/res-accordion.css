@@ -10,6 +10,12 @@
     color: var(--res-acc-button-color);
     background: transparent;
     border: 1px solid var(--res-acc-button-color);
+    transition: all .3s ease;
+
+    &:hover {
+      background: var(--res-acc-button-color);
+      color: #fff;
+    }
   }
 }
 
@@ -68,7 +74,7 @@
 .res-acc__desc {
   line-height: 1.2;
   font-size: 20px;
-  color:var(--res-acc-description-color);
+  color: var(--res-acc-description-color);
 
   @media (max-width:750px) {
     display: none;
