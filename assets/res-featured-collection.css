@@ -215,8 +215,10 @@
   font-weight: bold;
   display: flex;
   justify-content: center;
+  height: 60px;
   align-items: center;
   width: 100%;
   max-width: 383px;
+  border-color:rgb(var(--color-foreground)); ;
   color:rgb(var(--color-foreground));
 }
