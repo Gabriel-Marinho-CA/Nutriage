@@ -44,6 +44,10 @@
 .res-fc__title-row--center.res-fc__title-row--has-nav,
 .res-fc__title-row--left.res-fc__title-row--has-nav {
   justify-content: space-between;
+
+  @media (max-width:750px){
+    justify-content: center;
+  }
 }
 
 .res-fc__title {
