@@ -221,5 +221,10 @@
   max-width: 383px;
   color:rgb(var(--color-foreground));
 
-  --color-shadow:--color-foreground
+  border: 1px solid rgb(var(--color-foreground));
+  
+  &::before,
+  &::after {
+    display: none;
+  }
 }
