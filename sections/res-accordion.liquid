@@ -72,7 +72,7 @@
             >
               <summary class="res-acc__summary">
                 <span class="res-acc__summary-label">{{ block.settings.title | escape }}</span>
-                <span class="res-acc__chevron" aria-hidden="true">
+                {% comment %} <span class="res-acc__chevron" aria-hidden="true">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -84,7 +84,7 @@
                   >
                     <polyline points="6 9 12 15 18 9"/>
                   </svg>
-                </span>
+                </span> {% endcomment %}
               </summary>
 
               <div class="res-acc__body">
