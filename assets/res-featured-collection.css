@@ -210,6 +210,12 @@
 }
 
 .res-fc__view-all-btn {
-  min-width: 18rem;
   border-radius: 10rem;
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 383px;
 }
