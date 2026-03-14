@@ -161,6 +161,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 1.22rem;
 }
 
 .card:not(.ratio)>.card__content {
