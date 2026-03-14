@@ -22,6 +22,10 @@
   align-items: center;
   gap: 1.6rem;
   padding-bottom: 3rem;
+
+  @media (max-width:750px) {
+    padding-bottom: 1.85rem
+  }
 }
 
 .res-fc__title-row--left {
@@ -240,8 +244,8 @@
   }
 
   &:hover {
-    background:rgb(var(--color-foreground));
-    color:#fff;
+    background: rgb(var(--color-foreground));
+    color: #fff;
   }
 
   @media (max-width:750px) {
