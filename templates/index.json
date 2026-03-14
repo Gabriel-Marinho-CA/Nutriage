@@ -237,7 +237,7 @@
           "type": "item",
           "settings": {
             "title": "Imunidade",
-            "description": "Descrição desta categoria de produtos.",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
             "tag_1": "Vitamina C",
             "tag_2": "Zinco",
             "tag_3": "",
@@ -368,7 +368,7 @@
         "item_open_color": "#FFFFFF",
         "btn_bg": "#4CAF50",
         "btn_color": "#FFFFFF",
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
         "padding_top": 48,
         "padding_bottom": 48,
         "padding_top_mob": 32,
