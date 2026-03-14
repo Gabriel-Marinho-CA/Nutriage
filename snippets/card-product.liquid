@@ -209,7 +209,7 @@
               </p>
             {%- endif -%}
 
-            {% render 'res-price-card-product' %}
+            {% render 'res-price-card-product', product: card_product %}
             {%- if card_product.quantity_price_breaks_configured? -%}
               {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
                 {% liquid
@@ -517,7 +517,7 @@
                         <a href="{{ card_product.url }}" class="full-unstyled-link">
                           <h3>{{ card_product.title | escape }}</h3>
                         </a>
-                        {% render 'res-price-card-product' %}
+                        {% render 'res-price-card-product', product: card_product %}
                         {%- if card_product.quantity_price_breaks_configured? -%}
                           <div class="card__information-volume-pricing-note">
                             <span class="caption">{{ 'products.product.volume_pricing.note' | t }}</span>
@@ -532,7 +532,7 @@
                             {{ card_product.title | escape }}
                           </h3>
                         </a>
-                        {% render 'res-price-card-product' %}
+                        {% render 'res-price-card-product', product: card_product %}
                         {%- if card_product.quantity_price_breaks_configured? -%}
                           <div class="card__information-volume-pricing-note">
                             <span class="caption">{{ 'products.product.volume_pricing.note' | t }}</span>
