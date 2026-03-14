@@ -104,16 +104,16 @@
   color: var(--split-tag-color, #1a4789);
   padding: 0.3rem 0;
   border-radius: 10rem;
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: bold;
   width: fit-content;
 }
 
 /* ── Título ── */
 .res-split__title {
   margin: 0;
-  font-size: 2.8rem;
-  font-weight: 700;
+  font-size: 35px;
+  font-weight: 400;
   padding-bottom: 1rem;
   line-height: 1.2;
   color: var(--split-title-color, #fff);
@@ -129,7 +129,7 @@
 .res-split__desc {
   color: var(--split-desc-color, #fff);
   line-height: 1.55;
-  font-size: 1.4rem;
+  font-size: 18px;
   flex-grow: 1;
 }
 
