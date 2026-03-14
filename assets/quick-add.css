@@ -381,7 +381,7 @@ quick-add-modal .product-media-container.constrain-height {
 quick-add-bulk {
   position: relative;
   grid-row-start: 4;
-  margin: 0 0 1rem;
+  margin: .65rem 0 1rem;
   z-index: 1;
 }
 
