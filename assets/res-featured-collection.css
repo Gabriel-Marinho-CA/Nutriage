@@ -232,7 +232,8 @@
   transition: all .3s ease;
 
   border: 1px solid rgb(var(--color-foreground));
-margin-top: 3rem;
+  margin-top: 3rem;
+
   &::before,
   &::after {
     display: none;
@@ -246,5 +247,6 @@ margin-top: 3rem;
   @media (max-width:750px) {
     font-size: 13px;
     height: 43px;
+    margin-top: 1.75rem;
   }
 }
