@@ -136,6 +136,9 @@
   overflow: visible;
   padding-left: max(5rem, calc((100vw - var(--page-width, 120rem)) / 2 + 5rem));
 
+  @media (max-width:750px) {
+    padding-left: 2rem;
+  }
 
 }
 
