@@ -87,7 +87,7 @@
   border-radius: 1rem;
   overflow: hidden;
   flex-shrink: 0;
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
 }
 
 .res-split__thumb img {
@@ -114,6 +114,7 @@
   margin: 0;
   font-size: 2.8rem;
   font-weight: 700;
+  padding-bottom: 1rem;
   line-height: 1.2;
   color: var(--split-title-color, #fff);
 }
@@ -154,6 +155,9 @@
   filter: brightness(0.9);
 }
 
+.res-split__actions {
+  padding-top: 3rem;
+}
 /* ── Setas de navegação ── */
 /* Posicionadas absolutamente sobre o canto inferior-esquerdo do slide */
 .res-split__nav-wrap {
