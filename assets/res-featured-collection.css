@@ -1,0 +1,151 @@
+/* ============================================================
+   RES Featured Collection — Swiper carousel
+   ============================================================ */
+
+/* Section */
+.res-fc {
+  position: relative;
+}
+
+/* When full-bleed is active, clip the right overflow at section level */
+.res-fc--full-width {
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.res-fc__header {
+  margin-bottom: 2.4rem;
+}
+
+.res-fc__title-row {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.res-fc__title-row--left   { justify-content: flex-start; }
+.res-fc__title-row--right  { justify-content: flex-end; }
+.res-fc__title-row--center { justify-content: center; }
+
+/* When arrows are inline, push them to the end regardless of title alignment */
+.res-fc__title-row--center.res-fc__title-row--has-nav,
+.res-fc__title-row--left.res-fc__title-row--has-nav {
+  justify-content: space-between;
+}
+
+.res-fc__title {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* ── Nav buttons (shared) ── */
+.res-fc__nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.res-fc__nav-btn svg {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.res-fc__nav-btn:hover {
+  background: currentColor;
+}
+
+.res-fc__nav-btn:hover svg {
+  stroke: #fff;
+}
+
+.res-fc__nav-btn.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── Inline nav (arrows next to title) ── */
+.res-fc__inline-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* ── Swiper outer — page-width + outside arrows ── */
+.res-fc__swiper-outer--outside {
+  display: flex;
+  align-items: center;
+  /* Extra horizontal room for the arrows beyond the cards */
+  padding: 0;
+  max-width: calc(var(--page-width, 120rem) + 12rem);
+  margin: 0 auto;
+  padding-left: max(1.5rem, calc((100vw - var(--page-width, 120rem)) / 2 - 4rem));
+  padding-right: max(1.5rem, calc((100vw - var(--page-width, 120rem)) / 2 - 4rem));
+  gap: 1.6rem;
+}
+
+.res-fc__swiper-outer--outside .res-fc__nav-btn--outside {
+  width: 4.4rem;
+  height: 4.4rem;
+}
+
+/* Hide outside arrows on mobile */
+@media screen and (max-width: 749px) {
+  .res-fc__nav-btn--outside {
+    display: none;
+  }
+}
+
+/* ── Swiper outer — full bleed left ── */
+.res-fc--full-width .res-fc__swiper-outer {
+  width: 100%;
+}
+
+/* ── Swiper container ── */
+.res-fc__swiper {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Full-bleed: left edge aligns with page content, slides overflow right */
+.res-fc__swiper--padded {
+  overflow: visible;
+  padding-left: max(1.5rem, calc((100vw - var(--page-width, 120rem)) / 2 + 1.5rem));
+}
+
+/* Override: Swiper sets overflow:hidden on .swiper — for bleed we undo it */
+.res-fc__swiper--padded.swiper {
+  overflow: visible;
+}
+
+/* ── Slides ── */
+.res-fc__slide {
+  height: auto;
+}
+
+.res-fc__slide .card-wrapper {
+  height: 100%;
+}
+
+/* ── View all ── */
+.res-fc__view-all {
+  margin-top: 3.2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.res-fc__view-all-btn {
+  min-width: 18rem;
+  border-radius: 10rem;
+}
