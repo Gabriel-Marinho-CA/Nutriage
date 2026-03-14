@@ -67,9 +67,50 @@
     });
   }
 
+  // ── Cart badge sync ──────────────────────────────────────────
+  // Dawn updates #cart-icon-bubble innerHTML via the Sections API
+  // whenever the cart changes. We observe that element and mirror
+  // the count into the drawer badge.
+  function syncCartBadge(count) {
+    const badge = document.querySelector('.custom-drawer__cart-badge');
+    const wrap = document.querySelector('.custom-drawer__util-icon-wrap');
+    if (!wrap) return;
+
+    if (count > 0) {
+      if (badge) {
+        badge.textContent = count < 100 ? count : '99+';
+      } else {
+        const newBadge = document.createElement('span');
+        newBadge.className = 'custom-drawer__cart-badge';
+        newBadge.setAttribute('aria-hidden', 'true');
+        newBadge.textContent = count < 100 ? count : '99+';
+        wrap.appendChild(newBadge);
+      }
+    } else {
+      if (badge) badge.remove();
+    }
+  }
+
+  function watchCartIconBubble() {
+    const bubble = document.getElementById('cart-icon-bubble');
+    if (!bubble) return;
+
+    const observer = new MutationObserver(function () {
+      const countEl = bubble.querySelector('.cart-count-bubble [aria-hidden="true"]');
+      const count = countEl ? parseInt(countEl.textContent, 10) : 0;
+      syncCartBadge(isNaN(count) ? 0 : count);
+    });
+
+    observer.observe(bubble, { childList: true, subtree: true });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', function () {
+      init();
+      watchCartIconBubble();
+    });
   } else {
     init();
+    watchCartIconBubble();
   }
 })();
