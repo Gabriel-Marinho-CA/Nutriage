@@ -160,6 +160,11 @@
               {{ card_product.title | escape }}
             </a>
           </h3>
+          {% if card_product.metafields.custom.new_texto_card_produto != blank %}
+            <p class="extra-info-card-product">
+              {{ card_product.metafields.custom.new_texto_card_produto  }}
+            </p>
+          {% endif %}
           <div class="card-information">
             {%- if show_vendor -%}
               <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
