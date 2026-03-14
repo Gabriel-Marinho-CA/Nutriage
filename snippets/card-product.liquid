@@ -376,9 +376,6 @@
                       {%- if card_product.selected_or_first_available_variant.available -%}
                         {{ 'products.product.add_to_cart' | t }}
 
-                        <span class="svg-wrapep">
-                          {{ 'cart-icon-card-product.svg' | inline_asset_content }}
-                        </span>
                       {%- else -%}
                         {{ 'products.product.sold_out' | t }}
                       {%- endif -%}
@@ -392,6 +389,9 @@
                       </span>
                     {%- endif -%}
                     {%- render 'loading-spinner' -%}
+                    <span class="svg-wrapper">
+                      {{ 'cart-icon-card-product.svg' | inline_asset_content }}
+                    </span>
                   </button>
                 {%- endform -%}
               </product-form>
