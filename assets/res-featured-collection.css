@@ -232,7 +232,7 @@
   transition: all .3s ease;
 
   border: 1px solid rgb(var(--color-foreground));
-
+margin-top: 3rem;
   &::before,
   &::after {
     display: none;
