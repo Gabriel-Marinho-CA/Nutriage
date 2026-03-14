@@ -65,7 +65,7 @@
           "settings": {
             "image_mobile": "shopify://shop_images/NUT01.png",
             "image_desktop": "shopify://shop_images/Frame_1_1.png",
-            "url": "",
+            "url": "shopify://products/complexo-b-otimizado-60-comprimidos",
             "image_alt": "Imagem Hero"
           }
         }
