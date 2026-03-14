@@ -222,7 +222,7 @@
         },
         breakpoints: {
           750: {
-            slidesPerView: Math.min({{ cols_desk }}, 3),
+            slidesPerView: {{ cols_mob }},
             spaceBetween: 20,
           },
           990: {
@@ -278,28 +278,24 @@
       "label": "Cor do título"
     },
     {
-      "type": "select",
+      "type": "range",
       "id": "heading_size_desktop",
-      "label": "Tamanho do título (desktop)",
-      "options": [
-        { "value": "5rem",   "label": "Extra grande" },
-        { "value": "3.6rem", "label": "Grande" },
-        { "value": "2.8rem", "label": "Médio" },
-        { "value": "2rem",   "label": "Pequeno" }
-      ],
-      "default": "2.8rem"
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 28,
+      "label": "Tamanho do título (desktop)"
     },
     {
-      "type": "select",
+      "type": "range",
       "id": "heading_size_mobile",
-      "label": "Tamanho do título (mobile)",
-      "options": [
-        { "value": "3.2rem", "label": "Extra grande" },
-        { "value": "2.4rem", "label": "Grande" },
-        { "value": "2rem",   "label": "Médio" },
-        { "value": "1.6rem", "label": "Pequeno" }
-      ],
-      "default": "2rem"
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20,
+      "label": "Tamanho do título (mobile)"
     },
     {
       "type": "select",
