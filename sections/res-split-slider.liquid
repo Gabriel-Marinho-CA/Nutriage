@@ -154,35 +154,20 @@
     if (!sectionEl || typeof Swiper === 'undefined') return;
 
     var swiperEl = document.getElementById('res-split-swiper-{{ section.id }}');
-    var navWrap = sectionEl.querySelector('.res-split__nav-wrap');
-    var prevBtn = document.getElementById('res-split-prev-{{ section.id }}');
-    var nextBtn = document.getElementById('res-split-next-{{ section.id }}');
-
-    function syncArrowColor(swiper) {
-      if (!navWrap) return;
-      var slide = swiper.slides[swiper.activeIndex];
-      if (!slide) return;
-      var color = slide.style.getPropertyValue('--split-arrow-color') || '#ffffff';
-      navWrap.style.setProperty('--split-arrow-color', color);
-    }
 
     var swiper = new Swiper(swiperEl, {
       slidesPerView: 1,
+      spaceBetween:10,
       loop: false,
-      on: {
-        init: syncArrowColor,
-        slideChange: syncArrowColor,
-      },
     });
 
-    if (prevBtn)
-      prevBtn.addEventListener('click', function () {
-        swiper.slidePrev();
-      });
-    if (nextBtn)
-      nextBtn.addEventListener('click', function () {
-        swiper.slideNext();
-      });
+    // Todos os botões de cada slide recebem o evento — cores herdadas via CSS var do slide pai
+    sectionEl.querySelectorAll('.res-split__nav-btn--prev').forEach(function (btn) {
+      btn.addEventListener('click', function () { swiper.slidePrev(); });
+    });
+    sectionEl.querySelectorAll('.res-split__nav-btn--next').forEach(function (btn) {
+      btn.addEventListener('click', function () { swiper.slideNext(); });
+    });
   })();
 </script>
 
