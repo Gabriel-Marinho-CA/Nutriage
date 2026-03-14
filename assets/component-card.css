@@ -143,6 +143,16 @@
   margin-top: auto;
 }
 
+.compare-price {
+  font-weight: bold;
+  font-size: 18px;
+  color:#8E8E8F;
+}
+.spot-price {
+  font-size: 20px;
+  font-weight: 700;
+}
+
 .card:not(.ratio)>.card__content {
   grid-template-rows: max-content minmax(0, 1fr) max-content auto;
 }
