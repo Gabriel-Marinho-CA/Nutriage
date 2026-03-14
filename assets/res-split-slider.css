@@ -106,6 +106,9 @@
 
   @media (max-width:1000px) {
     margin-inline: auto;
+    margin-top: -88px;
+    position: relative;
+    z-index: 1;
   }
 }
 
