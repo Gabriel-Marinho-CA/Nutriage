@@ -61,7 +61,52 @@
                       <div class="res-split__desc">{{ block.settings.description }}</div>
                     {%- endif -%}
 
-                    {%- if block.settings.button_label != blank -%}
+                    {% if block.settings.button_label != blank and section.blocks.size > 1 %}
+                      <div class="res-split__actions">
+                        <a
+                          href="{{ block.settings.button_url | default: '#' }}"
+                          class="res-split__btn"
+                        >
+                          {{- block.settings.button_label | escape -}}
+                        </a>
+                        <div class="res-split__nav-wrap">
+                          <button
+                            id="res-split-prev-{{ section.id }}"
+                            class="res-split__nav-btn"
+                            aria-label="{{ 'general.slider.previous_slide' | t }}"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <polyline points="15 18 9 12 15 6"/>
+                            </svg>
+                          </button>
+                          <button
+                            id="res-split-next-{{ section.id }}"
+                            class="res-split__nav-btn"
+                            aria-label="{{ 'general.slider.next_slide' | t }}"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <polyline points="9 18 15 12 9 6"/>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    {% elsif block.settings.button_label != blank %}
                       <div class="res-split__actions">
                         <a
                           href="{{ block.settings.button_url | default: '#' }}"
@@ -70,8 +115,7 @@
                           {{- block.settings.button_label | escape -}}
                         </a>
                       </div>
-                    {%- endif -%}
-                    {%- if section.blocks.size > 1 -%}
+                    {% elsif  section.blocks.size > 1 %}
                       <div class="res-split__nav-wrap">
                         <button
                           id="res-split-prev-{{ section.id }}"
@@ -108,7 +152,7 @@
                           </svg>
                         </button>
                       </div>
-                    {%- endif -%}
+                    {% endif %}
                   </div>
                 </div>
 
