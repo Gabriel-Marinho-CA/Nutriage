@@ -1,0 +1,299 @@
+/* ============================================================
+   Custom Header Drawer — Mobile menu
+   ============================================================ */
+
+/* --- Trigger button (hamburger) --- */
+.custom-drawer-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.6rem;
+  margin-left: -0.6rem;
+}
+
+.custom-drawer-trigger .svg-wrapper svg {
+  display: block;
+}
+
+/* Hide trigger on desktop (same breakpoint as Dawn) */
+@media screen and (min-width: 990px) {
+  .custom-drawer-trigger {
+    display: none;
+  }
+}
+
+/* --- Overlay --- */
+.custom-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.custom-drawer-overlay.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* --- Drawer panel --- */
+.custom-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  max-width: 92vw;
+  height: 100%;
+  background: #fff;
+  border-radius: 0 2rem 2rem 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.custom-drawer.is-open {
+  transform: translateX(0);
+}
+
+/* --- Close row --- */
+.custom-drawer__close-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1.6rem 1.6rem 0.8rem;
+  gap: 0.6rem;
+}
+
+.custom-drawer__close-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1a4789;
+  letter-spacing: 0.04em;
+  padding: 0.4rem 0;
+}
+
+.custom-drawer__close-btn svg {
+  width: 20px;
+  height: 20px;
+  color: #d4a017;
+}
+
+/* --- Scrollable nav area --- */
+.custom-drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.4rem 0 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Primary nav list --- */
+.custom-drawer__nav {
+  padding: 0 1.6rem;
+  flex: 1;
+}
+
+.custom-drawer__nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Top-level items */
+.custom-drawer__nav-item {
+  border-bottom: 1px solid #e0e8f0;
+}
+
+.custom-drawer__nav-item:first-child {
+  border-top: 1px solid #e0e8f0;
+}
+
+/* Link / summary shared styles */
+.custom-drawer__nav-link,
+.custom-drawer__nav-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.1rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a4789;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  list-style: none;
+  line-height: 1.3;
+}
+
+.custom-drawer__nav-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Arrow icon on the right */
+.custom-drawer__nav-link .custom-drawer__arrow,
+.custom-drawer__nav-summary .custom-drawer__arrow {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: #1a4789;
+  transition: transform 0.25s ease;
+}
+
+/* Caret (toggle) icon on summary */
+.custom-drawer__nav-summary .custom-drawer__caret {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: #1a4789;
+  transition: transform 0.25s ease;
+}
+
+/* When details is open, rotate caret */
+details[open] > .custom-drawer__nav-summary .custom-drawer__caret {
+  transform: rotate(180deg);
+}
+
+/* Sub-list */
+.custom-drawer__sub-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0.6rem 0;
+}
+
+.custom-drawer__sub-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #1a4789;
+  text-decoration: none;
+  border-bottom: 1px solid #e0e8f0;
+}
+
+.custom-drawer__sub-link:last-child {
+  border-bottom: none;
+}
+
+.custom-drawer__sub-link .custom-drawer__arrow {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: #1a4789;
+}
+
+/* --- Utility links (carrinho, conta, ajuda) --- */
+.custom-drawer__utilities {
+  padding: 0.8rem 1.6rem 0;
+  border-top: 1px solid #e0e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.custom-drawer__utility-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a4789;
+  text-decoration: none;
+  border-bottom: 1px solid #e0e8f0;
+}
+
+.custom-drawer__utility-link:last-child {
+  border-bottom: none;
+}
+
+.custom-drawer__utility-link .custom-drawer__util-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-drawer__utility-link .custom-drawer__util-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Cart badge */
+.custom-drawer__cart-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #2bbf7e;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  line-height: 1;
+}
+
+.custom-drawer__util-icon-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+/* --- Social links --- */
+.custom-drawer__social {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.4rem 1.6rem 2rem;
+}
+
+.custom-drawer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid #1a4789;
+  color: #1a4789;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.custom-drawer__social-link:hover {
+  background: #1a4789;
+  color: #fff;
+}
+
+.custom-drawer__social-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Prevent body scroll when drawer is open */
+body.custom-drawer-open {
+  overflow: hidden;
+}
