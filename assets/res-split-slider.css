@@ -206,6 +206,8 @@
   &:hover {
     background: #fff;
     color:#1a4789;
+    opacity: 1
+    ;
   }
 }
 
