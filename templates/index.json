@@ -57,34 +57,78 @@
         "show_text_below": false
       }
     },
-    "tp_hero_UkDetG": {
-      "type": "tp-hero",
+    "res_hero_8CHBni": {
+      "type": "res-hero",
       "blocks": {
-        "banner_DLwMHK": {
+        "banner_Hyc3zP": {
           "type": "banner",
           "settings": {
             "image_mobile": "shopify://shop_images/NUT01.png",
             "image_desktop": "shopify://shop_images/Frame_1_1.png",
-            "url": "shopify://products/complexo-b-otimizado-60-comprimidos",
+            "url": "shopify://products/coenzima-q10-plus-60-capsulas-nutriage",
             "image_alt": "Imagem Hero"
           }
         }
       },
       "block_order": [
-        "banner_DLwMHK"
+        "banner_Hyc3zP"
       ],
       "name": "res - Banner Principal",
       "settings": {
         "autoplay": true,
         "tempo_autoplay": 3,
-        "pagination": false,
+        "pagination": true,
         "pagination_color": "#B1BFAB",
         "pagination_color_active": "#000"
+      }
+    },
+    "res_barra_de_avisos_6Vy3Dh": {
+      "type": "res-barra-de-avisos",
+      "blocks": {
+        "announcement_npqXHT": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p>Bem-vindo à nossa loja</p>",
+            "link": "",
+            "text_size_px": 14,
+            "image_width": 24,
+            "image_position": "before",
+            "background_color": "",
+            "enable_border": false,
+            "border_width": 1,
+            "border_color": "#e0e0e0",
+            "border_radius": 0,
+            "padding": 12,
+            "width": 0,
+            "height": 0
+          }
+        }
+      },
+      "block_order": [
+        "announcement_npqXHT"
+      ],
+      "name": "res - Barra de Avisos",
+      "settings": {
+        "marquee_speed": 20,
+        "gap_between_items": 32,
+        "background_color": "#ffffff",
+        "text_color": "#1f2021",
+        "show_line_separator": true,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "letter_spacing": 0,
+        "enable_borders": false,
+        "border_width": 1,
+        "border_color": "#e0e0e0",
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
       }
     }
   },
   "order": [
     "image_banner",
-    "tp_hero_UkDetG"
+    "res_hero_8CHBni",
+    "res_barra_de_avisos_6Vy3Dh"
   ]
 }
