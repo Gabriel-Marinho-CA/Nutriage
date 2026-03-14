@@ -36,7 +36,6 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-
 }
 
 .custom-drawer-overlay.is-open {
@@ -61,7 +60,6 @@
   transform: translateX(-100%);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-    visibility: hidden;
 }
 
 .custom-drawer.is-open {
