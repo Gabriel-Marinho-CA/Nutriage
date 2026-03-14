@@ -2,6 +2,11 @@
    RES Accordion — Imagem + Blocos Acordeão
    ============================================================ */
 
+
+.res-acc {
+  background: var(--res-acc-bg-color);
+}
+
 /* ── Layout ── */
 .res-acc__inner {
   display: grid;
@@ -29,6 +34,11 @@
   font-weight: 700;
   line-height: 1.2;
   color: var(--res-acc-title-color, #1a4789);
+  font-size: 45px;
+
+  @media (max-width:750px) {
+    font-size: 24px;
+  }
 }
 
 .res-acc__img-wrap {
@@ -50,7 +60,13 @@
 }
 
 .res-acc__desc {
-  line-height: 1.65;
+  line-height: 1.2;
+  font-size: 20px;
+  color:var(--res-acc-description-color);
+
+  @media (max-width:750px) {
+    display: none;
+  }
 }
 
 /* ── Lista de itens ── */
@@ -58,6 +74,10 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  max-height: 450px;
+  overflow: auto;
+  padding-right: 2rem;
 }
 
 /* ── Item / details ── */
@@ -82,8 +102,13 @@
 }
 
 /* Remove marcador padrão do browser */
-.res-acc__summary::-webkit-details-marker { display: none; }
-.res-acc__summary::marker { display: none; }
+.res-acc__summary::-webkit-details-marker {
+  display: none;
+}
+
+.res-acc__summary::marker {
+  display: none;
+}
 
 .res-acc__summary-label {
   font-weight: 700;
@@ -105,7 +130,7 @@
 }
 
 /* ── Estado aberto ── */
-.res-acc__details[open] > .res-acc__summary {
+.res-acc__details[open]>.res-acc__summary {
   background: var(--res-acc-open-bg, #1a4789);
   color: var(--res-acc-open-color, #fff);
   border-radius: 1.5rem 1.5rem 0 0;
@@ -134,6 +159,7 @@
     opacity: 0;
     transform: translateY(-6px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -145,6 +171,7 @@
     opacity: 1;
     transform: translateY(0);
   }
+
   to {
     opacity: 0;
     transform: translateY(-6px);
