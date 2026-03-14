@@ -1,0 +1,202 @@
+/* ============================================================
+   RES Accordion — Imagem + Blocos Acordeão
+   ============================================================ */
+
+/* ── Layout ── */
+.res-acc__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+@media screen and (max-width: 749px) {
+  .res-acc__inner {
+    grid-template-columns: 1fr;
+    gap: 2.8rem;
+  }
+}
+
+/* ── Lado esquerdo ── */
+.res-acc__left {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.res-acc__title {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--res-acc-title-color, #1a4789);
+}
+
+.res-acc__img-wrap {
+  border-radius: 1.6rem;
+  overflow: hidden;
+}
+
+.res-acc__img-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Lado direito ── */
+.res-acc__right {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.res-acc__desc {
+  line-height: 1.65;
+}
+
+/* ── Lista de itens ── */
+.res-acc__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Item / details ── */
+.res-acc__details {
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+/* ── Summary (cabeçalho clicável) ── */
+.res-acc__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  background: var(--res-acc-closed-bg, #c8ddef);
+  color: var(--res-acc-closed-color, #1a4789);
+  cursor: pointer;
+  border-radius: 1.5rem;
+  transition: border-radius 0.25s, background 0.25s, color 0.25s;
+  user-select: none;
+}
+
+/* Remove marcador padrão do browser */
+.res-acc__summary::-webkit-details-marker { display: none; }
+.res-acc__summary::marker { display: none; }
+
+.res-acc__summary-label {
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+/* Chevron */
+.res-acc__chevron {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.res-acc__chevron svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── Estado aberto ── */
+.res-acc__details[open] > .res-acc__summary {
+  background: var(--res-acc-open-bg, #1a4789);
+  color: var(--res-acc-open-color, #fff);
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.res-acc__details[open] .res-acc__chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Corpo do item ── */
+.res-acc__body {
+  background: var(--res-acc-open-bg, #1a4789);
+  color: var(--res-acc-open-color, #fff);
+  padding: 0 2rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0 0 1.5rem 1.5rem;
+  animation: res-acc-open 0.28s ease forwards;
+}
+
+.res-acc__body--closing {
+  animation: res-acc-close 0.22s ease forwards;
+}
+
+@keyframes res-acc-open {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes res-acc-close {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* ── Descrição interna ── */
+.res-acc__body-desc {
+  margin: 1.6rem 0 1.4rem;
+  line-height: 1.6;
+  font-size: 1.4rem;
+  opacity: 0.9;
+}
+
+/* ── Tags ── */
+.res-acc__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1.8rem;
+}
+
+.res-acc__tags:empty {
+  display: none;
+  margin-bottom: 0;
+}
+
+.res-acc__tag {
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  border-radius: 10rem;
+  padding: 0.4rem 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--res-acc-open-color, #fff);
+  white-space: nowrap;
+}
+
+/* ── Botão CTA ── */
+.res-acc__btn {
+  display: block;
+  width: 100%;
+  padding: 1.2rem 2rem;
+  background: var(--res-acc-btn-bg, #4caf50);
+  color: var(--res-acc-btn-color, #fff);
+  text-align: center;
+  border-radius: 10rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: filter 0.2s;
+}
+
+.res-acc__btn:hover {
+  filter: brightness(0.9);
+}
