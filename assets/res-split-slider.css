@@ -161,10 +161,6 @@
 /* ── Setas de navegação ── */
 /* Posicionadas absolutamente sobre o canto inferior-esquerdo do slide */
 .res-split__nav-wrap {
-  position: absolute;
-  bottom: 4rem;
-  left: 4rem;
-  z-index: 10;
   display: flex;
   gap: 1rem;
 }
