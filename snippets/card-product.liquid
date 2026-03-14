@@ -162,7 +162,7 @@
           </h3>
           {% if card_product.metafields.custom.new_texto_card_produto != blank %}
             <p class="extra-info-card-product">
-              {{ card_product.metafields.custom.new_texto_card_produto  }}
+              {{ card_product.metafields.custom.new_texto_card_produto }}
             </p>
           {% endif %}
           <div class="card-information">
@@ -374,9 +374,11 @@
                   >
                     <span>
                       {%- if card_product.selected_or_first_available_variant.available -%}
-                        OLA
-                        
                         {{ 'products.product.add_to_cart' | t }}
+
+                        <span class="svg-wrapep">
+                          {{ 'cart-icon-card-product.svg' | inline_asset_content }}
+                        </span>
                       {%- else -%}
                         {{ 'products.product.sold_out' | t }}
                       {%- endif -%}
