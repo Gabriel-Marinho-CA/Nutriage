@@ -1,0 +1,196 @@
+/* ============================================================
+   RES Split Slider — Banner dividido com carousel
+   ============================================================ */
+
+/* ── Wrapper (relative p/ posicionar as setas) ── */
+.res-split__wrapper {
+  position: relative;
+}
+
+/* ── Swiper: border-radius no container (Swiper já tem overflow:hidden) ── */
+.res-split__swiper {
+  border-radius: 2rem;
+}
+
+/* ── Slide: grid 38/62 ── */
+.res-split__slide {
+  display: grid;
+  grid-template-columns: 38% 62%;
+  min-height: 520px;
+}
+
+@media (max-width: 749px) {
+  .res-split__slide {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+}
+
+/* ── Lado esquerdo ── */
+.res-split__left {
+  background: var(--split-left-bg, #1a4789);
+  padding: 4rem;
+  /* extra padding-bottom para não sobrepor as setas absolutas */
+  padding-bottom: 9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  border-radius: 2rem 0 0 2rem;
+}
+
+@media (max-width: 749px) {
+  .res-split__left {
+    order: 2;
+    padding: 2.4rem;
+    padding-bottom: 7.6rem;
+    border-radius: 0 0 2rem 2rem;
+  }
+}
+
+/* ── Lado direito ── */
+.res-split__right {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 2rem 2rem 0;
+}
+
+@media (max-width: 749px) {
+  .res-split__right {
+    order: 1;
+    height: 280px;
+    border-radius: 2rem 2rem 0 0;
+  }
+}
+
+/* ── Imagens do lado direito ── */
+.res-split__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.res-split__img--desktop { display: block; }
+.res-split__img--mobile  { display: none; }
+
+@media (max-width: 749px) {
+  .res-split__img--desktop:not(.res-split__img--all) { display: none; }
+  .res-split__img--mobile,
+  .res-split__img--all { display: block; }
+}
+
+/* ── Miniatura do produto ── */
+.res-split__thumb {
+  width: 80px;
+  height: 80px;
+  border-radius: 1rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.res-split__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ── Tag ── */
+.res-split__tag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--split-tag-bg, #f0a000);
+  color: var(--split-tag-color, #1a4789);
+  padding: 0.3rem 1.2rem;
+  border-radius: 10rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  width: fit-content;
+}
+
+/* ── Título ── */
+.res-split__title {
+  margin: 0;
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--split-title-color, #fff);
+}
+
+@media (max-width: 749px) {
+  .res-split__title {
+    font-size: 2rem;
+  }
+}
+
+/* ── Descrição ── */
+.res-split__desc {
+  color: var(--split-desc-color, #fff);
+  line-height: 1.55;
+  font-size: 1.4rem;
+  flex-grow: 1;
+}
+
+.res-split__desc p {
+  margin: 0;
+}
+
+/* ── Botão ── */
+.res-split__btn {
+  display: inline-block;
+  padding: 1.1rem 2.4rem;
+  background: var(--split-btn-bg, #4caf50);
+  color: var(--split-btn-color, #fff);
+  border-radius: 10rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-decoration: none;
+  text-align: center;
+  transition: filter 0.2s;
+}
+
+.res-split__btn:hover {
+  filter: brightness(0.9);
+}
+
+/* ── Setas de navegação ── */
+/* Posicionadas absolutamente sobre o canto inferior-esquerdo do slide */
+.res-split__nav-wrap {
+  position: absolute;
+  bottom: 4rem;
+  left: 4rem;
+  z-index: 10;
+  display: flex;
+  gap: 1rem;
+}
+
+@media (max-width: 749px) {
+  .res-split__nav-wrap {
+    bottom: 2.4rem;
+    left: 2.4rem;
+  }
+}
+
+.res-split__nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  border: 2px solid var(--split-arrow-color, #fff);
+  background: transparent;
+  color: var(--split-arrow-color, #fff);
+  cursor: pointer;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.res-split__nav-btn svg {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.res-split__nav-btn:hover {
+  opacity: 0.7;
+}
