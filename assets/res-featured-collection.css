@@ -242,4 +242,9 @@ margin-top: 3rem;
     background:rgb(var(--color-foreground));
     color:#fff;
   }
+
+  @media (max-width:750px) {
+    font-size: 13px;
+    height: 43px;
+  }
 }
