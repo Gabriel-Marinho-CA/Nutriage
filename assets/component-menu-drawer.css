@@ -33,7 +33,10 @@ menu-drawer > details[open] > summary::before {
   left: 0;
   top: 100%;
   width: 90%;
+  max-height: 70dvh;
   padding: 0;
+  border-top-right-radius: 36px;
+  border-bottom-right-radius: 36px;
   background-color: rgb(var(--color-background));
   overflow-x: hidden;
   filter: drop-shadow(
@@ -41,6 +44,8 @@ menu-drawer > details[open] > summary::before {
       rgba(var(--color-shadow), var(--drawer-shadow-opacity))
   );
 }
+
+
 
 .js .menu-drawer {
   height: calc(100vh - 100%);
