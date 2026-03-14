@@ -104,11 +104,11 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 4rem;
   background: var(--res-acc-closed-bg, #c8ddef);
   color: var(--res-acc-closed-color, #1a4789);
   cursor: pointer;
-  border-radius: 1.5rem;
+  border-radius: 40px;
   transition: border-radius 0.25s, background 0.25s, color 0.25s;
   user-select: none;
 }
@@ -156,7 +156,7 @@
 .res-acc__body {
   background: var(--res-acc-open-bg, #1a4789);
   color: var(--res-acc-open-color, #fff);
-  padding: 0 2rem 2rem;
+  padding: 0 4rem 2rem 4rem;
   border-top: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 0 0 1.5rem 1.5rem;
   animation: res-acc-open 0.28s ease forwards;
@@ -195,7 +195,7 @@
   margin: 1.6rem 0 1.4rem;
   line-height: 1.6;
   font-size: 1.4rem;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 /* ── Tags ── */
