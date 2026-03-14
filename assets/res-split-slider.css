@@ -103,6 +103,10 @@
   overflow: hidden;
   flex-shrink: 0;
   padding-bottom: 2rem;
+
+  @media (max-width:1000px) {
+    margin-inline: auto;
+  }
 }
 
 .res-split__thumb img {
