@@ -24,8 +24,8 @@
 
 
 
-<section class="tp-hero {{ section.id }}">
-  <div class="tp-wrapper--full-width">
+<section class="res-hero {{ section.id }}">
+  <div class="res-wrapper--full-width">
     <div class="swiper">
       <div class="swiper-wrapper">
         {% for banner in section.blocks %}
@@ -40,9 +40,9 @@
 
           <div class="swiper-slide">
             {% if banner_url %}
-              <a class="tp-slide" href="{{ banner.settings.url }}">
+              <a class="res-slide" href="{{ banner.settings.url }}">
             {% else %}
-              <div class="tp-slide">
+              <div class="res-slide">
             {% endif %}
               {% if banner.type == 'video_banner' %}
                 {% if banner.settings.video_mobile != blank %}
@@ -110,7 +110,7 @@
 
 {% schema %}
 {
-  "name": "TP - Banner Principal",
+  "name": "res - Banner Principal",
   "settings": [
     {
       "type": "checkbox",
@@ -205,8 +205,8 @@
   ],
   "presets": [
     {
-      "name": "TP - Banner Principal",
-      "category": "TP - Seções"
+      "name": "res - Banner Principal",
+      "category": "Res - Seções"
     }
   ]
 }
