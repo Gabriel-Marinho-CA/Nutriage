@@ -1296,3 +1296,22 @@ input.mobile-facets__checkbox {
 .product-count.light.medium-hide.large-up-hide {
   display: none;
 }
+
+.filtrar-drawer {
+  position: fixed;
+  width: 80%;
+  height: 70dvh;
+  background: #fff;
+  z-index: 15;
+  border-bottom-right-radius: 48px;
+  box-shadow: 0px 3px 6px #cecece;
+  padding: 5rem;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transition: all .3s ease;
+
+  &.active {
+    transform: translateX(0);
+  }
+}
