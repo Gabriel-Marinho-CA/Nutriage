@@ -1,0 +1,47 @@
+{% style %}
+  .parcelamentos-{{ block.id }} {
+    background-color: {{ block.settings.bg_color }};
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .parcelamentos-{{ block.id }} .parcelamento-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .parcelamentos-{{ block.id }} .parcelamento-item svg {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    fill: {{ block.settings.text_color }};
+  }
+
+  .parcelamentos-{{ block.id }} .parcelamento-item span {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+{% endstyle %}
+
+<div class="parcelamentos-{{ block.id }}" {{ block.shopify_attributes }}>
+  {% for i in (1..10) %}
+    {% assign enabled_key = 'parcela_' | append: i | append: '_enabled' %}
+    {% assign text_key = 'parcela_' | append: i | append: '_text' %}
+    {% assign is_enabled = block.settings[enabled_key] %}
+    {% assign item_text = block.settings[text_key] %}
+    {% if is_enabled and item_text != blank %}
+      <div class="parcelamento-item">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" aria-hidden="true">
+          <path d="M512 32H64C28.65 32 0 60.65 0 96v32h576V96C576 60.65 547.3 32 512 32zM0 416C0 451.3 28.65 480 64 480h448c35.35 0 64-28.65 64-64V224H0V416zM176 352c0-8.836 7.164-16 16-16h128c8.836 0 16 7.164 16 16v32c0 8.836-7.164 16-16 16H192c-8.836 0-16-7.164-16-16V352zM48 352c0-8.836 7.164-16 16-16h64c8.836 0 16 7.164 16 16v32c0 8.836-7.164 16-16 16H64c-8.836 0-16-7.164-16-16V352z"/>
+        </svg>
+        <span>{{ item_text }}</span>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
