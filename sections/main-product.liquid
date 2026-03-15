@@ -797,6 +797,12 @@
           "visible_if": "{{ block.settings.parcela_1_enabled }}"
         },
         {
+          "type": "image_picker",
+          "id": "parcela_1_icon",
+          "label": "Ícone personalizado",
+          "visible_if": "{{ block.settings.parcela_1_enabled }}"
+        },
+        {
           "type": "header",
           "content": "Parcela 2"
         },
@@ -814,6 +820,12 @@
           "visible_if": "{{ block.settings.parcela_2_enabled }}"
         },
         {
+          "type": "image_picker",
+          "id": "parcela_2_icon",
+          "label": "Ícone personalizado",
+          "visible_if": "{{ block.settings.parcela_2_enabled }}"
+        },
+        {
           "type": "header",
           "content": "Parcela 3"
         },
@@ -828,6 +840,12 @@
           "id": "parcela_3_text",
           "label": "Texto",
           "default": "Parcele em até 3x sem juros",
+          "visible_if": "{{ block.settings.parcela_3_enabled }}"
+        },
+        {
+          "type": "image_picker",
+          "id": "parcela_3_icon",
+          "label": "Ícone personalizado",
           "visible_if": "{{ block.settings.parcela_3_enabled }}"
         },
         {
