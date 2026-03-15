@@ -16,13 +16,39 @@
           "type": "title",
           "settings": {}
         },
+        "quantity_bundle_gA4eDx": {
+          "type": "quantity_bundle",
+          "settings": {
+            "heading": "Escolha sua opção:",
+            "kit1_title": "Compre 3 Leve 5",
+            "kit1_show_badge": true,
+            "kit1_badge": "Menor preço",
+            "kit1_installment_label": "3x sem juros de",
+            "kit1_installment_count": 3,
+            "kit1_qty_label": "05 unidades",
+            "kit2_title": "Compre 2 Leve 3",
+            "kit2_show_badge": false,
+            "kit2_badge": "",
+            "kit2_installment_label": "3x sem juros de",
+            "kit2_installment_count": 3,
+            "kit2_qty_label": "03 unidades",
+            "main_title": "1 unidade",
+            "main_show_badge": false,
+            "main_badge": "Menor preço",
+            "main_installment_label": "3x sem juros de",
+            "main_installment_count": 3,
+            "main_qty_label": "01 unidade"
+          }
+        },
         "price": {
           "type": "price",
+          "disabled": true,
           "settings": {}
         }
       },
       "block_order": [
         "title",
+        "quantity_bundle_gA4eDx",
         "price"
       ],
       "settings": {
