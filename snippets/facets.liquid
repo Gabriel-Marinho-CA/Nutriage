@@ -472,6 +472,8 @@
         </svg>
       </button>
     </div>
+    <p class="text-filter">Filtrar por:</p>
+
     {%- for filter in results.filters -%}
       {% liquid
         assign total_active_values = total_active_values | plus: filter.active_values.size
