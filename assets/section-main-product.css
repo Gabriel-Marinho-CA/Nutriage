@@ -149,6 +149,7 @@ product-info {
 .wrapper-benefits {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 
   .benefits {
     display: flex;
@@ -162,7 +163,7 @@ product-info {
       p {
         margin: 0;
         line-height: 1.2;
-        font-size: 19px;
+        font-size: 14px;
       }
     }
   }
