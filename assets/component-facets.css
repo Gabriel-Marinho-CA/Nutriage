@@ -227,10 +227,14 @@
 .facets__summary:hover .facets__summary-label {
   text-decoration: underline;
   text-underline-offset: 0.3rem;
+}
+
+.facets__summary .facets__summary-label {
   font-size: 25px;
   font-weight: bold;
   color: #1A4789;
 }
+
 
 
 
