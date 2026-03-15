@@ -196,7 +196,13 @@ class FacetFiltersForm extends HTMLElement {
       document.querySelector(selector).innerHTML = html.querySelector(selector).innerHTML;
     });
 
-    document.getElementById('FacetFiltersFormMobile').closest('menu-drawer').bindEvents();
+    const mobileForm = document.getElementById('FacetFiltersFormMobile');
+    if (mobileForm) {
+      const menuDrawer = mobileForm.closest('menu-drawer');
+      if (menuDrawer) menuDrawer.bindEvents();
+      const mobileWrapper = mobileForm.closest('mobile-drawer-wrapper');
+      if (mobileWrapper) mobileWrapper.bindEvents();
+    }
   }
 
   static renderCounts(source, target) {
