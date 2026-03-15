@@ -287,6 +287,12 @@ a.product__text {
   font-size: 35px;
   font-weight: 700;
   color: #1A4789;
+
+  @media (max-width:750px) {
+    font-size: 23px;
+    margin-top: 3rem;
+    text-align: center;
+  }
 }
 
 .product__title>a {

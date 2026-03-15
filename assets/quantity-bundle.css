@@ -16,6 +16,11 @@
   color: inherit;
   font-weight: 400;
   color:#1A4789;
+
+  @media (max-width:750px) {
+    text-align: center;
+    font-size: 14px;
+  }
 }
 
 .qb-heading-qty {
