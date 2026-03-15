@@ -15,22 +15,29 @@
   .title-collection {
     font-size: 30px;
     font-weight: 700;
+
     * {
       margin: 0;
     }
   }
+
   facet-filters-form {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+
 
     .product-count__text.text-body,
     .product-count-vertical.light {
       display: none;
     }
+
     .wrapper-forms-title {
-       border-bottom: 1px solid #1A4789;
+      border-bottom: 1px solid #1A4789;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding-bottom: 2rem;
     }
+
     .facet-filters {
       border: 1px solid #1A4789;
       border-radius: 40px;
