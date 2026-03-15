@@ -158,6 +158,14 @@ product-info {
     background-color: var(--bg-card-color);
     color: var(--text-card-color);
     border-radius: 8px;
+    padding: 1rem;
+
+    .icons-wrapper {
+      img {
+        display: block;
+        height: auto;
+      }
+    }
 
     .text-beneft {
       p {
