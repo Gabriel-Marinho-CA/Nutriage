@@ -28,14 +28,27 @@
     <div class="res-footer__main page-width">
       {%- for block in section.blocks -%}
         {%- case block.type -%}
-
           {%- when 'links' -%}
             <div class="res-footer__col" {{ block.shopify_attributes }}>
               {%- if block.settings.title != blank -%}
                 <div class="res-footer__accordion-item">
                   <button class="res-footer__accordion-btn" aria-expanded="false">
                     {{- block.settings.title | escape -}}
-                    <svg class="res-footer__chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg
+                      class="res-footer__chevron"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
                   </button>
                   <div class="res-footer__accordion-body">
                     {%- if block.settings.menu.links.size > 0 -%}
@@ -68,7 +81,21 @@
                 <div class="res-footer__accordion-item">
                   <button class="res-footer__accordion-btn" aria-expanded="false">
                     {{- block.settings.title_1 | escape -}}
-                    <svg class="res-footer__chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg
+                      class="res-footer__chevron"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
                   </button>
                   <div class="res-footer__accordion-body">
                     {%- if block.settings.menu_1.links.size > 0 -%}
@@ -87,7 +114,21 @@
                 <div class="res-footer__accordion-item">
                   <button class="res-footer__accordion-btn" aria-expanded="false">
                     {{- block.settings.title_2 | escape -}}
-                    <svg class="res-footer__chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg
+                      class="res-footer__chevron"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
                   </button>
                   <div class="res-footer__accordion-body">
                     {%- if block.settings.menu_2.links.size > 0 -%}
@@ -110,7 +151,21 @@
                 <div class="res-footer__accordion-item">
                   <button class="res-footer__accordion-btn" aria-expanded="false">
                     {{- block.settings.payment_title | escape -}}
-                    <svg class="res-footer__chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg
+                      class="res-footer__chevron"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
                   </button>
                   <div class="res-footer__accordion-body">
                     <div class="res-footer__payment-grid">
@@ -138,7 +193,21 @@
                 <div class="res-footer__accordion-item">
                   <button class="res-footer__accordion-btn" aria-expanded="false">
                     {{- block.settings.security_title | escape -}}
-                    <svg class="res-footer__chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg
+                      class="res-footer__chevron"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
                   </button>
                   <div class="res-footer__accordion-body">
                     <div class="res-footer__seals">
@@ -167,9 +236,31 @@
                 </div>
               {%- endif -%}
             </div>
-
         {%- endcase -%}
       {%- endfor -%}
+      <div class="res-footer__accordion-item">
+        <button class="res-footer__accordion-btn" aria-expanded="false">
+          Atendimento
+          <svg
+            class="res-footer__chevron"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="res-footer__accordion-body">
+          {{  section.settings.brand_label  }}
+        </div>
+      </div>
     </div>
   {%- endif -%}
 
@@ -226,25 +317,25 @@
 </footer>
 
 <script>
-(function () {
-  function init() {
-    var footer = document.getElementById('res-footer-{{ section.id }}');
-    if (!footer) return;
-    footer.querySelectorAll('.res-footer__accordion-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var item = btn.closest('.res-footer__accordion-item');
-        var open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', open ? 'false' : 'true');
-        item.classList.toggle('is-open', !open);
+  (function () {
+    function init() {
+      var footer = document.getElementById('res-footer-{{ section.id }}');
+      if (!footer) return;
+      footer.querySelectorAll('.res-footer__accordion-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var item = btn.closest('.res-footer__accordion-item');
+          var open = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+          item.classList.toggle('is-open', !open);
+        });
       });
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
 </script>
 
 {% schema %}
