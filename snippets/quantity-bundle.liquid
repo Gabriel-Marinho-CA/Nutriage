@@ -13,7 +13,7 @@
 <script src="{{ 'quantity-bundle.js' | asset_url }}" defer="defer"></script>
 
 {%- assign _kits = product.metafields.custom.kits.value -%}
-{{  _kits[0] | json }}
+{{  _kits | json }}
 
 <quantity-bundle
   class="quantity-bundle"
