@@ -1,0 +1,18 @@
+{% liquid
+  assign meta = product.metafileds.custom.beneficios_do_produto_novo.value
+  assign icons = meta.icone.value
+  assign texts = meta.texto.value
+%}
+
+<div class="wrapper-benefits">
+  {% for item in icons %}
+    <div class="benefits">
+      <div class="icons-wrapper">
+        {{ item | image_url: width: item.width, height: item.height | image_tag: loading: 'lazy' }}
+      </div>
+      <div class="text-beneft">
+        {{ texts[forloop.index0] }}
+      </div>
+    </div>
+  {% endfor %}
+</div>

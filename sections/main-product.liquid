@@ -96,6 +96,11 @@
                 >
                   {{- block.settings.text -}}
                 </p>
+              {% when 'beneficio_do_produto' %}
+                {% if product.metafileds.custom.beneficios_do_produto_novo.value %}
+                  {%  render 'product_benefits', block: block %}
+                
+                {% endif %}
               {% when 'quantity_bundle' %}
                 {%- render 'quantity-bundle',
                   product: product,
@@ -755,6 +760,30 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type":"beneficio_do_produto",
+      "name":"Benefícios do produto",
+      "settings": [
+        {
+          "type":"text",
+          "id":"title",
+          "label":"Titulo",
+          "default":"Benefícios do produto"
+        },
+        {
+          "type":"color",
+          "id":"bg_color",
+          "label": "Cor do background",
+          "default":"#EBF3F8"
+        },
+        {
+          "type":"color",
+          "id":"text_color",
+          "label": "Cor do texto",
+          "default":"#1A4789"
+        },
+      ]
     },
     {
       "type": "quantity_bundle",
