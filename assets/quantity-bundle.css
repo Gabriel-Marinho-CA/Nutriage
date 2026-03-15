@@ -198,7 +198,7 @@
 
 /* Preço riscado */
 .qb-summary-compare {
-  font-size: 1.4rem;
+  font-size: 2rem;
   color: #888;
   text-decoration: line-through;
 }
@@ -218,5 +218,5 @@
 /* Preço por unidade */
 .qb-summary-unit {
   font-size: 1.2rem;
-  color: #555;
+  color: #1A4789;
 }
