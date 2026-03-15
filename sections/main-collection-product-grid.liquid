@@ -41,6 +41,10 @@
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
     {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
       <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
+        <h1 class="title-collection">
+          {{ collection.title }}
+          <span class="product-count">{{  collection.products_count }}</span>
+        </h1>
         <form class="facets-vertical-form" id="FacetSortForm">
           <div class="facet-filters sorting caption">
             <div class="facet-filters__field">
