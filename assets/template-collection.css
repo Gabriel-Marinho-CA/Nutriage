@@ -28,6 +28,9 @@
     .product-count-vertical.light {
       display: none;
     }
+    .wrapper-forms-title {
+       border-bottom: 1px solid #1A4789;
+    }
     .facet-filters {
       border: 1px solid #1A4789;
       border-radius: 40px;
