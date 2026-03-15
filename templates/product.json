@@ -47,6 +47,14 @@
             "show_gift_card_recipient": true
           }
         },
+        "beneficio_do_produto_rkPxtQ": {
+          "type": "beneficio_do_produto",
+          "settings": {
+            "title": "Benefícios do produto",
+            "bg_color": "#ebf3f8",
+            "text_color": "#1a4789"
+          }
+        },
         "price": {
           "type": "price",
           "disabled": true,
@@ -57,6 +65,7 @@
         "title",
         "quantity_bundle_gA4eDx",
         "buy_buttons_WepnzJ",
+        "beneficio_do_produto_rkPxtQ",
         "price"
       ],
       "settings": {
