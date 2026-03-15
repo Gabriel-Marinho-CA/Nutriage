@@ -24,7 +24,8 @@
     align-items: center;
     justify-content: space-between;
 
-    .product-count__text.text-body {
+    .product-count__text.text-body,
+    .product-count-vertical.light {
       display: none;
     }
     .facet-filters {
