@@ -132,6 +132,9 @@
     },
     "res_related_products_rxHHNP": {
       "type": "res-related-products",
+      "custom_css": [
+        ".res-fc__title-row {border-top: 1px solid #1a4789; padding-top: 4rem;}"
+      ],
       "name": "Produtos Relacionados",
       "settings": {
         "intent": "related",
