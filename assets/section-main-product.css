@@ -402,10 +402,15 @@ a.product__text {
   max-width: 100%;
   button {
     background: #6AAD39;
+    font-size: 20px;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
 
     &::before,
     &::after {
-      border-color: #6AAD39;
+      display: none;
     }
   }
 }
