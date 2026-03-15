@@ -15,7 +15,7 @@
   margin-bottom: 3rem;
   color: inherit;
   font-weight: 400;
-  color:#1A4789;
+  color: #1A4789;
 
   @media (max-width:750px) {
     text-align: center;
@@ -225,4 +225,32 @@
 .qb-summary-unit {
   font-size: 1.2rem;
   color: #1A4789;
+}
+
+@media (max-width:750px) {
+  .qb-card {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-top: 3rem;
+
+    .qb-wrapper-card-img-radio {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+
+      .qb-card-img,
+      .qb-radio {
+        margin: 0;
+      }
+    }
+
+    .qb-wrapper-content {
+      flex: 1;
+      text-align: start;
+    }
+
+  }
 }
