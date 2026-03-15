@@ -146,6 +146,17 @@ product-info {
 
 /* Product form */
 
+.benefit-product-title {
+  color: #1A4789;
+  font-weight: bold;
+  font-size: 20px;
+
+  @media (max-width:750px) {
+    text-align: center;
+    font-size: 16px;
+  }
+}
+
 .wrapper-benefits {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
