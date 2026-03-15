@@ -1,0 +1,430 @@
+{% comment %}
+  RES Footer
+  CSS: assets/res-footer.css
+  Blocks: links | support_institutional | payments_security
+{% endcomment %}
+
+{{ 'res-footer.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #res-footer-{{ section.id }} {
+    --res-footer-bg:          {{ section.settings.bg_color }};
+    --res-footer-accent:      {{ section.settings.accent_color }};
+    --res-footer-title-color: {{ section.settings.title_color }};
+    --res-footer-link-color:  {{ section.settings.link_color }};
+    --res-footer-text-color:  {{ section.settings.text_color }};
+    padding-top: {{ section.settings.padding_top_mob }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #res-footer-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+    }
+  }
+{%- endstyle -%}
+
+<footer id="res-footer-{{ section.id }}" class="res-footer">
+
+  {%- comment -%} ── Colunas principais ── {%- endcomment -%}
+  {%- if section.blocks.size > 0 -%}
+    <div class="res-footer__main page-width">
+      {%- for block in section.blocks -%}
+
+        {%- case block.type -%}
+
+          {%- when 'links' -%}
+            <div class="res-footer__col" {{ block.shopify_attributes }}>
+              {%- if block.settings.title != blank -%}
+                <h3 class="res-footer__col-title">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.menu.links.size > 0 -%}
+                <ul class="res-footer__links{% if block.settings.columns == '2' %} res-footer__links--2col{% endif %}">
+                  {%- for link in block.settings.menu.links -%}
+                    <li><a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </div>
+
+          {%- when 'support_institutional' -%}
+            <div class="res-footer__col" {{ block.shopify_attributes }}>
+              {%- if block.settings.title_1 != blank -%}
+                <h3 class="res-footer__col-title">{{ block.settings.title_1 | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.menu_1.links.size > 0 -%}
+                <ul class="res-footer__links">
+                  {%- for link in block.settings.menu_1.links -%}
+                    <li><a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+              {%- if block.settings.title_2 != blank -%}
+                <h3 class="res-footer__col-title res-footer__col-title--mt">{{ block.settings.title_2 | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.menu_2.links.size > 0 -%}
+                <ul class="res-footer__links">
+                  {%- for link in block.settings.menu_2.links -%}
+                    <li><a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </div>
+
+          {%- when 'payments_security' -%}
+            <div class="res-footer__col res-footer__col--payments" {{ block.shopify_attributes }}>
+
+              {%- if block.settings.payment_title != blank -%}
+                <h3 class="res-footer__col-title">{{ block.settings.payment_title | escape }}</h3>
+              {%- endif -%}
+
+              <div class="res-footer__payment-grid">
+                {%- for i in (1..9) -%}
+                  {%- assign show_key = 'show_pay_' | append: i -%}
+                  {%- assign icon_key = 'icon_pay_' | append: i -%}
+                  {%- if block.settings[show_key] and block.settings[icon_key] != blank -%}
+                    <div class="res-footer__payment-icon">
+                      <img
+                        src="{{ block.settings[icon_key] | image_url: width: 80 }}"
+                        alt="{{ block.settings[icon_key].alt | escape }}"
+                        width="80"
+                        loading="lazy"
+                      >
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+
+              {%- if block.settings.security_title != blank -%}
+                <h3 class="res-footer__col-title res-footer__col-title--mt">{{ block.settings.security_title | escape }}</h3>
+              {%- endif -%}
+
+              <div class="res-footer__seals">
+                {%- if block.settings.seal_1 != blank -%}
+                  <img
+                    src="{{ block.settings.seal_1 | image_url: width: 140 }}"
+                    alt="{{ block.settings.seal_1.alt | escape }}"
+                    class="res-footer__seal"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+                {%- if block.settings.seal_2 != blank -%}
+                  <img
+                    src="{{ block.settings.seal_2 | image_url: width: 140 }}"
+                    alt="{{ block.settings.seal_2.alt | escape }}"
+                    class="res-footer__seal"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+              </div>
+
+            </div>
+
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── Linha inferior: logo + textos ── {%- endcomment -%}
+  <div class="res-footer__bottom page-width">
+    <div class="res-footer__brand">
+      {%- if section.settings.logo != blank -%}
+        <img
+          src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}"
+          alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+          style="width: {{ section.settings.logo_width }}px"
+          loading="lazy"
+          class="res-footer__logo"
+        >
+      {%- else -%}
+        <span class="res-footer__brand-name">{{ shop.name }}</span>
+      {%- endif -%}
+      {%- if section.settings.logo_text != blank -%}
+        <div class="res-footer__brand-text">{{ section.settings.logo_text }}</div>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.extra_text != blank -%}
+      <div class="res-footer__info-text">{{ section.settings.extra_text }}</div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} ── Barra de copyright ── {%- endcomment -%}
+  <div class="res-footer__copyright-bar page-width">
+    {%- if section.settings.copyright_text != blank -%}
+      <span class="res-footer__copyright-text">{{ section.settings.copyright_text | escape }}</span>
+    {%- endif -%}
+    {%- if section.settings.brand_logo != blank or section.settings.brand_label != blank -%}
+      <div class="res-footer__tech">
+        {%- if section.settings.brand_label != blank -%}
+          <span class="res-footer__tech-label">{{ section.settings.brand_label | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.brand_logo != blank -%}
+          <img
+            src="{{ section.settings.brand_logo | image_url: width: section.settings.brand_logo_width }}"
+            alt="{{ section.settings.brand_logo.alt | escape }}"
+            style="width: {{ section.settings.brand_logo_width }}px"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo e Informações"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 5,
+      "unit": "px",
+      "label": "Largura da logo",
+      "default": 120
+    },
+    {
+      "type": "richtext",
+      "id": "logo_text",
+      "label": "Texto ao lado da logo",
+      "default": "<p>Nome da empresa<br>CNPJ 00.000.000/0000-00</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "extra_text",
+      "label": "Texto complementar (direita)",
+      "default": "<p>Atendimento de Segunda a Sexta 8h às 18h, exceto feriados.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Copyright"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Texto de copyright",
+      "default": "Copyright 2026 - Todos os direitos reservados"
+    },
+    {
+      "type": "text",
+      "id": "brand_label",
+      "label": "Rótulo da tecnologia",
+      "default": "Tecnologia:"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo",
+      "label": "Logo da tecnologia"
+    },
+    {
+      "type": "range",
+      "id": "brand_logo_width",
+      "min": 50,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Largura do logo da tecnologia",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Cores"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#1A4789"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Borda superior (destaque)",
+      "default": "#E8A020"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Cor dos títulos",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Cor dos links",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor dos textos",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top (desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mob",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top (mobile)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "links",
+      "name": "Coluna de links",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título da coluna"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu de links",
+          "default": "footer"
+        },
+        {
+          "type": "select",
+          "id": "columns",
+          "label": "Colunas de links",
+          "options": [
+            { "value": "1", "label": "1 coluna" },
+            { "value": "2", "label": "2 colunas" }
+          ],
+          "default": "1"
+        }
+      ]
+    },
+    {
+      "type": "support_institutional",
+      "name": "Suporte / Institucional",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_1",
+          "label": "Título grupo 1",
+          "default": "Suporte"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_1",
+          "label": "Links grupo 1",
+          "default": "footer"
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "label": "Título grupo 2",
+          "default": "Institucional"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_2",
+          "label": "Links grupo 2",
+          "default": "footer"
+        }
+      ]
+    },
+    {
+      "type": "payments_security",
+      "name": "Pagamentos & Segurança",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "payment_title",
+          "label": "Título pagamentos",
+          "default": "Formas de pagamento"
+        },
+        { "type": "checkbox", "id": "show_pay_1", "label": "Ícone de pagamento 1", "default": true },
+        { "type": "image_picker", "id": "icon_pay_1", "label": "Ícone 1", "visible_if": "{{ block.settings.show_pay_1 == true }}" },
+        { "type": "checkbox", "id": "show_pay_2", "label": "Ícone de pagamento 2", "default": true },
+        { "type": "image_picker", "id": "icon_pay_2", "label": "Ícone 2", "visible_if": "{{ block.settings.show_pay_2 == true }}" },
+        { "type": "checkbox", "id": "show_pay_3", "label": "Ícone de pagamento 3", "default": true },
+        { "type": "image_picker", "id": "icon_pay_3", "label": "Ícone 3", "visible_if": "{{ block.settings.show_pay_3 == true }}" },
+        { "type": "checkbox", "id": "show_pay_4", "label": "Ícone de pagamento 4", "default": false },
+        { "type": "image_picker", "id": "icon_pay_4", "label": "Ícone 4", "visible_if": "{{ block.settings.show_pay_4 == true }}" },
+        { "type": "checkbox", "id": "show_pay_5", "label": "Ícone de pagamento 5", "default": false },
+        { "type": "image_picker", "id": "icon_pay_5", "label": "Ícone 5", "visible_if": "{{ block.settings.show_pay_5 == true }}" },
+        { "type": "checkbox", "id": "show_pay_6", "label": "Ícone de pagamento 6", "default": false },
+        { "type": "image_picker", "id": "icon_pay_6", "label": "Ícone 6", "visible_if": "{{ block.settings.show_pay_6 == true }}" },
+        { "type": "checkbox", "id": "show_pay_7", "label": "Ícone de pagamento 7", "default": false },
+        { "type": "image_picker", "id": "icon_pay_7", "label": "Ícone 7", "visible_if": "{{ block.settings.show_pay_7 == true }}" },
+        { "type": "checkbox", "id": "show_pay_8", "label": "Ícone de pagamento 8", "default": false },
+        { "type": "image_picker", "id": "icon_pay_8", "label": "Ícone 8", "visible_if": "{{ block.settings.show_pay_8 == true }}" },
+        { "type": "checkbox", "id": "show_pay_9", "label": "Ícone de pagamento 9", "default": false },
+        { "type": "image_picker", "id": "icon_pay_9", "label": "Ícone 9", "visible_if": "{{ block.settings.show_pay_9 == true }}" },
+        {
+          "type": "text",
+          "id": "security_title",
+          "label": "Título segurança",
+          "default": "Segurança"
+        },
+        {
+          "type": "image_picker",
+          "id": "seal_1",
+          "label": "Selo de segurança 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "seal_2",
+          "label": "Selo de segurança 2"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "category": "Res - Seções",
+      "blocks": [
+        {
+          "type": "links",
+          "settings": { "title": "Produtos", "columns": "2" }
+        },
+        {
+          "type": "links",
+          "settings": { "title": "Kits" }
+        },
+        {
+          "type": "support_institutional",
+          "settings": { "title_1": "Suporte", "title_2": "Institucional" }
+        },
+        {
+          "type": "payments_security"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
