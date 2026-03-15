@@ -52,6 +52,7 @@ class QuantityBundle extends HTMLElement {
     const installmentCount = parseInt(card.dataset.installmentCount, 10) || 1;
     const installmentLabel = card.dataset.installmentLabel || '';
     const qtyLabel = card.dataset.qtyLabel || '';
+    const qtyTotal = card.dataset.qtyNumber || 1;
 
     // Heading
     if (this._headingQty) {
@@ -73,7 +74,7 @@ class QuantityBundle extends HTMLElement {
       this.dispatchEvent(
         new CustomEvent('quantity-bundle:change', {
           bubbles: true,
-          detail: { variantId, price, compare, installmentCount, installmentLabel },
+          detail: { variantId, price, compare, installmentCount, installmentLabel, qtyTotal  },
         })
       );
     }
@@ -104,6 +105,9 @@ class QuantityBundle extends HTMLElement {
     // Preço principal
     if (this._summaryPrice) {
       this._summaryPrice.textContent = fmt(price);
+    }
+    if(this._summaryUnit) {
+      this._summaryPrice 
     }
   }
 
