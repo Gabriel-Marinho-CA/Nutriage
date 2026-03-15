@@ -23,14 +23,11 @@
 {%- endstyle -%}
 
 <footer id="res-footer-{{ section.id }}" class="res-footer">
-
   {%- comment -%} ── Colunas principais ── {%- endcomment -%}
   {%- if section.blocks.size > 0 -%}
     <div class="res-footer__main page-width">
       {%- for block in section.blocks -%}
-
         {%- case block.type -%}
-
           {%- when 'links' -%}
             <div class="res-footer__col" {{ block.shopify_attributes }}>
               {%- if block.settings.title != blank -%}
@@ -39,7 +36,9 @@
               {%- if block.settings.menu.links.size > 0 -%}
                 <ul class="res-footer__links{% if block.settings.columns == '2' %} res-footer__links--2col{% endif %}">
                   {%- for link in block.settings.menu.links -%}
-                    <li><a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a></li>
+                    <li>
+                      <a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a>
+                    </li>
                   {%- endfor -%}
                 </ul>
               {%- endif -%}
@@ -53,7 +52,9 @@
               {%- if block.settings.menu_1.links.size > 0 -%}
                 <ul class="res-footer__links">
                   {%- for link in block.settings.menu_1.links -%}
-                    <li><a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a></li>
+                    <li>
+                      <a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a>
+                    </li>
                   {%- endfor -%}
                 </ul>
               {%- endif -%}
@@ -63,7 +64,9 @@
               {%- if block.settings.menu_2.links.size > 0 -%}
                 <ul class="res-footer__links">
                   {%- for link in block.settings.menu_2.links -%}
-                    <li><a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a></li>
+                    <li>
+                      <a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a>
+                    </li>
                   {%- endfor -%}
                 </ul>
               {%- endif -%}
@@ -71,7 +74,6 @@
 
           {%- when 'payments_security' -%}
             <div class="res-footer__col res-footer__col--payments" {{ block.shopify_attributes }}>
-
               {%- if block.settings.payment_title != blank -%}
                 <h3 class="res-footer__col-title">{{ block.settings.payment_title | escape }}</h3>
               {%- endif -%}
@@ -94,7 +96,9 @@
               </div>
 
               {%- if block.settings.security_title != blank -%}
-                <h3 class="res-footer__col-title res-footer__col-title--mt">{{ block.settings.security_title | escape }}</h3>
+                <h3 class="res-footer__col-title res-footer__col-title--mt">
+                  {{ block.settings.security_title | escape }}
+                </h3>
               {%- endif -%}
 
               <div class="res-footer__seals">
@@ -115,61 +119,62 @@
                   >
                 {%- endif -%}
               </div>
-
             </div>
-
         {%- endcase -%}
       {%- endfor -%}
     </div>
   {%- endif -%}
 
   {%- comment -%} ── Linha inferior: logo + textos ── {%- endcomment -%}
-  <div class="res-footer__bottom page-width">
-    <div class="res-footer__brand">
-      {%- if section.settings.logo != blank -%}
-        <img
-          src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}"
-          alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
-          style="width: {{ section.settings.logo_width }}px"
-          loading="lazy"
-          class="res-footer__logo"
-        >
-      {%- else -%}
-        <span class="res-footer__brand-name">{{ shop.name }}</span>
-      {%- endif -%}
-      {%- if section.settings.logo_text != blank -%}
-        <div class="res-footer__brand-text">{{ section.settings.logo_text }}</div>
+  <div class="page-width">
+    <div class="res-footer__bottom">
+      <div class="res-footer__brand">
+        {%- if section.settings.logo != blank -%}
+          <img
+            src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}"
+            alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+            style="width: {{ section.settings.logo_width }}px"
+            loading="lazy"
+            class="res-footer__logo"
+          >
+        {%- else -%}
+          <span class="res-footer__brand-name">{{ shop.name }}</span>
+        {%- endif -%}
+        {%- if section.settings.logo_text != blank -%}
+          <div class="res-footer__brand-text">{{ section.settings.logo_text }}</div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.extra_text != blank -%}
+        <div class="res-footer__info-text">{{ section.settings.extra_text }}</div>
       {%- endif -%}
     </div>
-    {%- if section.settings.extra_text != blank -%}
-      <div class="res-footer__info-text">{{ section.settings.extra_text }}</div>
-    {%- endif -%}
   </div>
 
   {%- comment -%} ── Barra de copyright ── {%- endcomment -%}
-  <div class="res-footer__copyright-bar page-width">
-    {%- if section.settings.copyright_text != blank -%}
-      <span class="res-footer__copyright-text">{{ section.settings.copyright_text | escape }}</span>
-    {%- endif -%}
-    {%- if section.settings.brand_logo != blank or section.settings.brand_label != blank -%}
-      <div class="res-footer__tech">
-        {%- if section.settings.brand_label != blank -%}
-          <span class="res-footer__tech-label">{{ section.settings.brand_label | escape }}</span>
-        {%- endif -%}
-        {%- if section.settings.brand_logo != blank -%}
-          <a href="{{  section.settings.link_tec }}" title="Tecnologia Resultate">
-            <img
-              src="{{ section.settings.brand_logo | image_url: width: section.settings.brand_logo_width }}"
-              alt="{{ section.settings.brand_logo.alt | escape }}"
-              style="width: {{ section.settings.brand_logo_width }}px"
-              loading="lazy"
-            >
-          </a>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
+  <div class="page-width">
+    <div class="res-footer__copyright-bar">
+      {%- if section.settings.copyright_text != blank -%}
+        <span class="res-footer__copyright-text">{{ section.settings.copyright_text | escape }}</span>
+      {%- endif -%}
+      {%- if section.settings.brand_logo != blank or section.settings.brand_label != blank -%}
+        <div class="res-footer__tech">
+          {%- if section.settings.brand_label != blank -%}
+            <span class="res-footer__tech-label">{{ section.settings.brand_label | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.brand_logo != blank -%}
+            <a href="{{  section.settings.link_tec }}" title="Tecnologia Resultate">
+              <img
+                src="{{ section.settings.brand_logo | image_url: width: section.settings.brand_logo_width }}"
+                alt="{{ section.settings.brand_logo.alt | escape }}"
+                style="width: {{ section.settings.brand_logo_width }}px"
+                loading="lazy"
+              >
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
   </div>
-
 </footer>
 
 {% schema %}
@@ -374,23 +379,68 @@
           "default": "Formas de pagamento"
         },
         { "type": "checkbox", "id": "show_pay_1", "label": "Ícone de pagamento 1", "default": true },
-        { "type": "image_picker", "id": "icon_pay_1", "label": "Ícone 1", "visible_if": "{{ block.settings.show_pay_1 == true }}" },
+        {
+          "type": "image_picker",
+          "id": "icon_pay_1",
+          "label": "Ícone 1",
+          "visible_if": "{{ block.settings.show_pay_1 == true }}"
+        },
         { "type": "checkbox", "id": "show_pay_2", "label": "Ícone de pagamento 2", "default": true },
-        { "type": "image_picker", "id": "icon_pay_2", "label": "Ícone 2", "visible_if": "{{ block.settings.show_pay_2 == true }}" },
+        {
+          "type": "image_picker",
+          "id": "icon_pay_2",
+          "label": "Ícone 2",
+          "visible_if": "{{ block.settings.show_pay_2 == true }}"
+        },
         { "type": "checkbox", "id": "show_pay_3", "label": "Ícone de pagamento 3", "default": true },
-        { "type": "image_picker", "id": "icon_pay_3", "label": "Ícone 3", "visible_if": "{{ block.settings.show_pay_3 == true }}" },
+        {
+          "type": "image_picker",
+          "id": "icon_pay_3",
+          "label": "Ícone 3",
+          "visible_if": "{{ block.settings.show_pay_3 == true }}"
+        },
         { "type": "checkbox", "id": "show_pay_4", "label": "Ícone de pagamento 4", "default": false },
-        { "type": "image_picker", "id": "icon_pay_4", "label": "Ícone 4", "visible_if": "{{ block.settings.show_pay_4 == true }}" },
+        {
+          "type": "image_picker",
+          "id": "icon_pay_4",
+          "label": "Ícone 4",
+          "visible_if": "{{ block.settings.show_pay_4 == true }}"
+        },
         { "type": "checkbox", "id": "show_pay_5", "label": "Ícone de pagamento 5", "default": false },
-        { "type": "image_picker", "id": "icon_pay_5", "label": "Ícone 5", "visible_if": "{{ block.settings.show_pay_5 == true }}" },
+        {
+          "type": "image_picker",
+          "id": "icon_pay_5",
+          "label": "Ícone 5",
+          "visible_if": "{{ block.settings.show_pay_5 == true }}"
+        },
         { "type": "checkbox", "id": "show_pay_6", "label": "Ícone de pagamento 6", "default": false },
-        { "type": "image_picker", "id": "icon_pay_6", "label": "Ícone 6", "visible_if": "{{ block.settings.show_pay_6 == true }}" },
+        {
+          "type": "image_picker",
+          "id": "icon_pay_6",
+          "label": "Ícone 6",
+          "visible_if": "{{ block.settings.show_pay_6 == true }}"
+        },
         { "type": "checkbox", "id": "show_pay_7", "label": "Ícone de pagamento 7", "default": false },
-        { "type": "image_picker", "id": "icon_pay_7", "label": "Ícone 7", "visible_if": "{{ block.settings.show_pay_7 == true }}" },
+        {
+          "type": "image_picker",
+          "id": "icon_pay_7",
+          "label": "Ícone 7",
+          "visible_if": "{{ block.settings.show_pay_7 == true }}"
+        },
         { "type": "checkbox", "id": "show_pay_8", "label": "Ícone de pagamento 8", "default": false },
-        { "type": "image_picker", "id": "icon_pay_8", "label": "Ícone 8", "visible_if": "{{ block.settings.show_pay_8 == true }}" },
+        {
+          "type": "image_picker",
+          "id": "icon_pay_8",
+          "label": "Ícone 8",
+          "visible_if": "{{ block.settings.show_pay_8 == true }}"
+        },
         { "type": "checkbox", "id": "show_pay_9", "label": "Ícone de pagamento 9", "default": false },
-        { "type": "image_picker", "id": "icon_pay_9", "label": "Ícone 9", "visible_if": "{{ block.settings.show_pay_9 == true }}" },
+        {
+          "type": "image_picker",
+          "id": "icon_pay_9",
+          "label": "Ícone 9",
+          "visible_if": "{{ block.settings.show_pay_9 == true }}"
+        },
         {
           "type": "text",
           "id": "security_title",
