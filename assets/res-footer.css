@@ -130,6 +130,10 @@
   gap: 2.4rem;
   padding-block: 2.4rem;
   border-top: 1px solid #DEE7F1;
+
+    @media (max-width:749px) {
+      border-top: 0;
+    }
 }
 
 .res-footer__brand {
