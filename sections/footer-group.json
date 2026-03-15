@@ -20,15 +20,15 @@
         "placeholder_name": "Seu nome",
         "placeholder_email": "Seu e-mail",
         "btn_label": "Assinar",
-        "bg_color": "#c9a870",
-        "text_color": "#1a4789",
-        "btn_bg": "#1a4789",
-        "btn_color": "#ffffff",
-        "social_color": "#1a4789",
-        "padding_top": 32,
-        "padding_bottom": 32,
-        "padding_top_mob": 36,
-        "padding_bottom_mob": 36
+        "bg_color": "#C9A870",
+        "text_color": "#1A4789",
+        "btn_bg": "#1A4789",
+        "btn_color": "#FFFFFF",
+        "social_color": "#1A4789",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_top_mob": 24,
+        "padding_bottom_mob": 24
       }
     },
     "footer": {
