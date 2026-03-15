@@ -157,12 +157,14 @@
           <span class="res-footer__tech-label">{{ section.settings.brand_label | escape }}</span>
         {%- endif -%}
         {%- if section.settings.brand_logo != blank -%}
-          <img
-            src="{{ section.settings.brand_logo | image_url: width: section.settings.brand_logo_width }}"
-            alt="{{ section.settings.brand_logo.alt | escape }}"
-            style="width: {{ section.settings.brand_logo_width }}px"
-            loading="lazy"
-          >
+          <a href="{{  section.settings.link_tec }}" title="Tecnologia Resultate">
+            <img
+              src="{{ section.settings.brand_logo | image_url: width: section.settings.brand_logo_width }}"
+              alt="{{ section.settings.brand_logo.alt | escape }}"
+              style="width: {{ section.settings.brand_logo_width }}px"
+              loading="lazy"
+            >
+          </a>
         {%- endif -%}
       </div>
     {%- endif -%}
@@ -227,6 +229,11 @@
       "type": "image_picker",
       "id": "brand_logo",
       "label": "Logo da tecnologia"
+    },
+    {
+      "type": "url",
+      "id": "link_tec",
+      "label": "Link tecnologia"
     },
     {
       "type": "range",
