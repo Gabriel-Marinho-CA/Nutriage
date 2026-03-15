@@ -55,6 +55,33 @@
             "text_color": "#1a4789"
           }
         },
+        "parcelamento_7RRfn4": {
+          "type": "parcelamento",
+          "settings": {
+            "bg_color": "#ebf3f8",
+            "text_color": "#1a4789",
+            "parcela_1_enabled": true,
+            "parcela_1_text": "Parcele em até 1x sem juros",
+            "parcela_2_enabled": true,
+            "parcela_2_text": "Parcele em até 2x sem juros",
+            "parcela_3_enabled": true,
+            "parcela_3_text": "Parcele em até 3x sem juros",
+            "parcela_4_enabled": false,
+            "parcela_4_text": "Parcele em até 4x sem juros",
+            "parcela_5_enabled": false,
+            "parcela_5_text": "Parcele em até 5x sem juros",
+            "parcela_6_enabled": false,
+            "parcela_6_text": "Parcele em até 6x sem juros",
+            "parcela_7_enabled": false,
+            "parcela_7_text": "Parcele em até 7x sem juros",
+            "parcela_8_enabled": false,
+            "parcela_8_text": "Parcele em até 8x sem juros",
+            "parcela_9_enabled": false,
+            "parcela_9_text": "Parcele em até 9x sem juros",
+            "parcela_10_enabled": false,
+            "parcela_10_text": "Parcele em até 10x sem juros"
+          }
+        },
         "price": {
           "type": "price",
           "disabled": true,
@@ -66,6 +93,7 @@
         "quantity_bundle_gA4eDx",
         "buy_buttons_WepnzJ",
         "beneficio_do_produto_rkPxtQ",
+        "parcelamento_7RRfn4",
         "price"
       ],
       "settings": {
