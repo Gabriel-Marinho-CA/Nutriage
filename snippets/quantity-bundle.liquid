@@ -25,6 +25,8 @@
   </p>
 
   <div class="qb-cards">
+    {{  _kits[0].selected_or_first_available_variant  }}
+    {{  _kits[0].value.selected_or_first_available_variant  }}
 
     {%- comment -%}——— Kit 1 (primeiro do metafield) ———{%- endcomment -%}
     {%- if _kits != blank and _kits.size > 0 -%}
