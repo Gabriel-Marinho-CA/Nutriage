@@ -97,8 +97,8 @@
                   {{- block.settings.text -}}
                 </p>
               {% when 'beneficio_do_produto' %}
-                {% if product.metafileds.custom.beneficios_do_produto_novo.value %}
-                  {{ product.metafileds.custom.beneficios_do_produto_novo.value | json }}
+                {% if product.metafileds.custom.beneficios_do_produto_novo %}
+                  {{ product.metafileds.custom.beneficios_do_produto_novo | json }}
                   {%  render 'product_benefits', block: block %}
                 
                 {% endif %}
