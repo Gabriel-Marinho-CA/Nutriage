@@ -538,9 +538,14 @@
   visibility: visible;
 }
 
+.facet-checkbox>input[type='checkbox']~svg {
+  border: 1px solid;
+  border-radius: 50%;
+}
+
 .facet-checkbox>input[type='checkbox']:checked~.svg-wrapper {
   left: 2px;
-  top: 15px;
+  top: 14px;
 }
 
 .icon-checkmark {
