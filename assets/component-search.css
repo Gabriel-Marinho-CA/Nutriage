@@ -6,6 +6,10 @@
   right: var(--inputs-border-width);
   top: var(--inputs-border-width);
   padding-right: 1rem;
+
+  .svg-wrapper {
+    width: 1.85rem;
+  }
 }
 
 .reset__button {
