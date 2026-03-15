@@ -142,7 +142,8 @@
     </span>
 
     <span class="qb-price-big">
-      {{ qb_v.price | money }}
+      
+      {{ qb_v.price | divided_by: block.settings.main_installment_count | money }}
     </span>
 
     <span class="qb-price-cash">
