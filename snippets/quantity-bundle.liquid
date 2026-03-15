@@ -1,0 +1,150 @@
+{%- comment -%}
+  Snippet: quantity-bundle
+  Web Component sem shadow DOM para seleção de kits/bundles.
+
+  Requer:
+    - product        : produto atual (1 unidade / produto principal)
+    - section        : objeto section
+    - block          : bloco do tipo quantity_bundle
+    - product_form_id: ID do product-form da seção
+{%- endcomment -%}
+
+{{ 'quantity-bundle.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'quantity-bundle.js' | asset_url }}" defer="defer"></script>
+
+{%- assign _kits = product.metafields.custom.kits.value -%}
+
+<quantity-bundle
+  class="quantity-bundle"
+  data-section-id="{{ section.id }}"
+  data-form-id="{{ product_form_id }}"
+  {{ block.shopify_attributes }}
+>
+  <p class="qb-heading">
+    {{- block.settings.heading | default: 'Escolha sua opção:' -}}&nbsp;<strong class="qb-heading-qty"></strong>
+  </p>
+
+  <div class="qb-cards">
+
+    {%- comment -%}——— Kit 1 (primeiro do metafield) ———{%- endcomment -%}
+    {%- if _kits != blank and _kits.size > 0 -%}
+      {%- assign _k = _kits[0] -%}
+      {%- assign _v = _k.selected_or_first_available_variant -%}
+      {%- assign _compare = _v.compare_at_price | default: _v.price -%}
+
+      <div class="qb-card"
+        data-variant-id="{{ _v.id }}"
+        data-price="{{ _v.price }}"
+        data-compare="{{ _compare }}"
+        data-installment-count="{{ block.settings.kit1_installment_count | default: 3 }}"
+        data-installment-label="{{ block.settings.kit1_installment_label | default: '3x sem juros de' | escape }}"
+        data-qty-label="{{ block.settings.kit1_qty_label | escape }}"
+      >
+        {%- if block.settings.kit1_show_badge -%}
+          <span class="qb-badge">{{ block.settings.kit1_badge | default: 'Menor preço' }}</span>
+        {%- endif -%}
+
+        <div class="qb-card-img">
+          {%- if _k.featured_image -%}
+            <img
+              src="{{ _k.featured_image | image_url: width: 300 }}"
+              alt="{{ _k.title | escape }}"
+              width="150" height="150"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+
+        <div class="qb-radio" aria-hidden="true"><span class="qb-radio-dot"></span></div>
+
+        <strong class="qb-card-title">{{ block.settings.kit1_title | default: _k.title }}</strong>
+        <span class="qb-installment-label">{{ block.settings.kit1_installment_label | default: '3x sem juros de' }}</span>
+        <span class="qb-price-big">{{ _v.price | money }}</span>
+        <span class="qb-price-cash">ou {{ _compare | money }} à vista</span>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%}——— Kit 2 (segundo do metafield) ———{%- endcomment -%}
+    {%- if _kits != blank and _kits.size > 1 -%}
+      {%- assign _k = _kits[1] -%}
+      {%- assign _v = _k.selected_or_first_available_variant -%}
+      {%- assign _compare = _v.compare_at_price | default: _v.price -%}
+
+      <div class="qb-card"
+        data-variant-id="{{ _v.id }}"
+        data-price="{{ _v.price }}"
+        data-compare="{{ _compare }}"
+        data-installment-count="{{ block.settings.kit2_installment_count | default: 3 }}"
+        data-installment-label="{{ block.settings.kit2_installment_label | default: '3x sem juros de' | escape }}"
+        data-qty-label="{{ block.settings.kit2_qty_label | escape }}"
+      >
+        {%- if block.settings.kit2_show_badge -%}
+          <span class="qb-badge">{{ block.settings.kit2_badge }}</span>
+        {%- endif -%}
+
+        <div class="qb-card-img">
+          {%- if _k.featured_image -%}
+            <img
+              src="{{ _k.featured_image | image_url: width: 300 }}"
+              alt="{{ _k.title | escape }}"
+              width="150" height="150"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+
+        <div class="qb-radio" aria-hidden="true"><span class="qb-radio-dot"></span></div>
+
+        <strong class="qb-card-title">{{ block.settings.kit2_title | default: _k.title }}</strong>
+        <span class="qb-installment-label">{{ block.settings.kit2_installment_label | default: '3x sem juros de' }}</span>
+        <span class="qb-price-big">{{ _v.price | money }}</span>
+        <span class="qb-price-cash">ou {{ _compare | money }} à vista</span>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%}——— Produto principal (1 unidade) ———{%- endcomment -%}
+    {%- assign _v = product.selected_or_first_available_variant -%}
+    {%- assign _compare = _v.compare_at_price | default: _v.price -%}
+
+    <div class="qb-card"
+      data-variant-id="{{ _v.id }}"
+      data-price="{{ _v.price }}"
+      data-compare="{{ _compare }}"
+      data-installment-count="{{ block.settings.main_installment_count | default: 3 }}"
+      data-installment-label="{{ block.settings.main_installment_label | default: '3x sem juros de' | escape }}"
+      data-qty-label="{{ block.settings.main_qty_label | default: '1 unidade' | escape }}"
+    >
+      {%- if block.settings.main_show_badge -%}
+        <span class="qb-badge">{{ block.settings.main_badge }}</span>
+      {%- endif -%}
+
+      <div class="qb-card-img">
+        {%- if product.featured_image -%}
+          <img
+            src="{{ product.featured_image | image_url: width: 300 }}"
+            alt="{{ product.title | escape }}"
+            width="150" height="150"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+
+      <div class="qb-radio" aria-hidden="true"><span class="qb-radio-dot"></span></div>
+
+      <strong class="qb-card-title">{{ block.settings.main_title | default: '1 unidade' }}</strong>
+      <span class="qb-installment-label">{{ block.settings.main_installment_label | default: '3x sem juros de' }}</span>
+      <span class="qb-price-big">{{ _v.price | money }}</span>
+      <span class="qb-price-cash">ou {{ _compare | money }} à vista</span>
+    </div>
+
+  </div>
+
+  {%- comment -%}——— Barra de preço resumo ———{%- endcomment -%}
+  <div class="qb-summary">
+    <span class="qb-summary-badge" hidden></span>
+    <s class="qb-summary-compare" hidden></s>
+    <span class="qb-summary-price"></span>
+    <span class="qb-summary-unit"></span>
+  </div>
+
+</quantity-bundle>
