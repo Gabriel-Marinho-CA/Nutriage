@@ -263,6 +263,13 @@
     transition: max-height 0.35s ease;
   }
 
+  .res-footer__accordion-body .atendimento {
+    p {
+      margin-block: 0 1rem;
+      color: #fff;
+    }
+  }
+
   /* Corpo expandido */
   .res-footer__accordion-item.is-open .res-footer__accordion-body {
     max-height: 800px;
