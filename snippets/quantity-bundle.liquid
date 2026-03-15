@@ -7,13 +7,28 @@
     - section        : objeto section
     - block          : bloco do tipo quantity_bundle
     - product_form_id: ID do product-form da seção
+
+  Suporta metafield custom.kits tanto como:
+    - product_reference      → um único produto kit (kit1 = esse produto)
+    - list.product_reference → array de produtos  (kit1 = [0], kit2 = [1])
 {%- endcomment -%}
 
 {{ 'quantity-bundle.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'quantity-bundle.js' | asset_url }}" defer="defer"></script>
 
-{%- assign _kits = product.metafields.custom.kits.value -%}
-{{  _kits | json }}
+{%- assign _kits_raw = product.metafields.custom.kits.value -%}
+
+{%- comment -%}
+  Normaliza: se for product_reference singular (tem .id), cria "array" manual.
+  Se for list.product_reference, já é array indexável.
+{%- endcomment -%}
+{%- if _kits_raw.id -%}
+  {%- assign _kit1 = _kits_raw -%}
+  {%- assign _kit2 = nil -%}
+{%- else -%}
+  {%- assign _kit1 = _kits_raw[0] -%}
+  {%- assign _kit2 = _kits_raw[1] -%}
+{%- endif -%}
 
 <quantity-bundle
   class="quantity-bundle"
@@ -26,13 +41,10 @@
   </p>
 
   <div class="qb-cards">
-    {{  _kits[0].selected_or_first_available_variant  }}
-    {{  _kits[0].value.selected_or_first_available_variant  }}
 
-    {%- comment -%}——— Kit 1 (primeiro do metafield) ———{%- endcomment -%}
-    {%- if _kits != blank and _kits.size > 0 -%}
-      {%- assign _k = _kits[0] -%}
-      {%- assign _v = _k.selected_or_first_available_variant -%}
+    {%- comment -%}——— Kit 1 ———{%- endcomment -%}
+    {%- if _kit1 != blank -%}
+      {%- assign _v = _kit1.selected_or_first_available_variant -%}
       {%- assign _compare = _v.compare_at_price | default: _v.price -%}
 
       <div class="qb-card"
@@ -48,10 +60,10 @@
         {%- endif -%}
 
         <div class="qb-card-img">
-          {%- if _k.featured_image -%}
+          {%- if _kit1.featured_image -%}
             <img
-              src="{{ _k.featured_image | image_url: width: 300 }}"
-              alt="{{ _k.title | escape }}"
+              src="{{ _kit1.featured_image | image_url: width: 300 }}"
+              alt="{{ _kit1.title | escape }}"
               width="150" height="150"
               loading="lazy"
             >
@@ -60,17 +72,16 @@
 
         <div class="qb-radio" aria-hidden="true"><span class="qb-radio-dot"></span></div>
 
-        <strong class="qb-card-title">{{ block.settings.kit1_title | default: _k.title }}</strong>
+        <strong class="qb-card-title">{{ block.settings.kit1_title | default: _kit1.title }}</strong>
         <span class="qb-installment-label">{{ block.settings.kit1_installment_label | default: '3x sem juros de' }}</span>
         <span class="qb-price-big">{{ _v.price | money }}</span>
         <span class="qb-price-cash">ou {{ _compare | money }} à vista</span>
       </div>
     {%- endif -%}
 
-    {%- comment -%}——— Kit 2 (segundo do metafield) ———{%- endcomment -%}
-    {%- if _kits != blank and _kits.size > 1 -%}
-      {%- assign _k = _kits[1] -%}
-      {%- assign _v = _k.selected_or_first_available_variant -%}
+    {%- comment -%}——— Kit 2 ———{%- endcomment -%}
+    {%- if _kit2 != blank -%}
+      {%- assign _v = _kit2.selected_or_first_available_variant -%}
       {%- assign _compare = _v.compare_at_price | default: _v.price -%}
 
       <div class="qb-card"
@@ -86,10 +97,10 @@
         {%- endif -%}
 
         <div class="qb-card-img">
-          {%- if _k.featured_image -%}
+          {%- if _kit2.featured_image -%}
             <img
-              src="{{ _k.featured_image | image_url: width: 300 }}"
-              alt="{{ _k.title | escape }}"
+              src="{{ _kit2.featured_image | image_url: width: 300 }}"
+              alt="{{ _kit2.title | escape }}"
               width="150" height="150"
               loading="lazy"
             >
@@ -98,7 +109,7 @@
 
         <div class="qb-radio" aria-hidden="true"><span class="qb-radio-dot"></span></div>
 
-        <strong class="qb-card-title">{{ block.settings.kit2_title | default: _k.title }}</strong>
+        <strong class="qb-card-title">{{ block.settings.kit2_title | default: _kit2.title }}</strong>
         <span class="qb-installment-label">{{ block.settings.kit2_installment_label | default: '3x sem juros de' }}</span>
         <span class="qb-price-big">{{ _v.price | money }}</span>
         <span class="qb-price-cash">ou {{ _compare | money }} à vista</span>
