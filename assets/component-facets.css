@@ -1342,5 +1342,7 @@ input.mobile-facets__checkbox {
   transform: translateX(-100%);
 }
 .orderby-drawer {
- transform: translateX(100%);
+  left: auto;
+  right: 0;
+ transform: translateX(200%);
 }
