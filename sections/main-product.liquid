@@ -175,7 +175,7 @@
                 {%- endif -%}
               {% when 'beneficio_do_produto' %}
                 {% if product.metafields.custom.beneficios_do_produto_novo.value %}
-                  <p class="benefit-product-title">{{ block.settings.title }}</p>
+                  <p style="color: {{ block.settings.text_color }}" class="benefit-product-title">{{ block.settings.title }}</p>
                   {% render 'product_benefits', block: block %}
                 {% endif %}
               {% when 'quantity_bundle' %}
