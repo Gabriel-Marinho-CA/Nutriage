@@ -18,7 +18,9 @@
         {{ item | image_url: width: item.width, height: item.height | image_tag: loading: 'lazy' }}
       </div>
       <div class="text-beneft">
-        {{ texts[forloop.index0] }}
+        <p>
+            {{ texts[forloop.index0] }}
+        </p>
       </div>
     </div>
   {% endfor %}
