@@ -40,15 +40,17 @@
 
     {%- for block in section.blocks -%}
       {%- if block.type == 'composicao_produto' or block.type == 'tabela_nutricional' -%}
-        #Details-{{ block.id }}-{{ section.id }} > details {
+        #Details-{{ block.id }}-{{ section.id }}  {
           background-color: {{ block.settings.bg_color }};
           color: {{ block.settings.text_color }};
+          border-radius:10px;
         }
         #Details-{{ block.id }}-{{ section.id }} > summary svg {
           fill: {{ block.settings.text_color }};
         }
         #Details-{{ block.id }}-{{ section.id }} > summary .accordion__title {
           color: {{ block.settings.text_color }};
+          padding-left:1rem;
         }
         #ProductAccordion-{{ block.id }}-{{ section.id }} {
           background-color: {{ block.settings.bg_color }};
