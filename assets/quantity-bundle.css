@@ -183,6 +183,10 @@
   flex-wrap: wrap;
   gap: 0.8rem 1rem;
   padding: 3rem 0 0.4rem 0;
+
+  @media (max-width:750px) {
+    gap: .7rem;
+  }
 }
 
 /* Badge "X% off" */
@@ -198,8 +202,8 @@
   line-height: 1;
 
   @media (max-width:750px) {
-    font-size: 1rem;
-    padding: .75rem 1.2rem;
+    font-size: .8rem;
+    padding: .75rem 1rem;
   }
 }
 
@@ -230,7 +234,7 @@
   line-height: 1;
 
   @media (max-width:750px) {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -238,6 +242,9 @@
 .qb-summary-unit {
   font-size: 1.2rem;
   color: #1A4789;
+    @media (max-width:750px) {
+    font-size: .9rem;
+  }
 }
 
 @media (max-width:750px) {
