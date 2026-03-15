@@ -96,10 +96,12 @@
                 >
                   {{- block.settings.text -}}
                 </p>
+              {% when 'parcelamento' %}
+                {% render 'parcelamentos', block: block %}
               {% when 'beneficio_do_produto' %}
                 {% if product.metafields.custom.beneficios_do_produto_novo.value %}
                   {%  render 'product_benefits', block: block %}
-                
+
                 {% endif %}
               {% when 'quantity_bundle' %}
                 {%- render 'quantity-bundle',
@@ -760,6 +762,194 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "parcelamento",
+      "name": "Parcelamentos",
+      "settings": [
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Cor do background",
+          "default": "#EBF3F8"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Cor do texto",
+          "default": "#1A4789"
+        },
+        {
+          "type": "header",
+          "content": "Parcela 1"
+        },
+        {
+          "type": "checkbox",
+          "id": "parcela_1_enabled",
+          "label": "Mostrar",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "parcela_1_text",
+          "label": "Texto",
+          "default": "Parcele em até 1x sem juros",
+          "visible_if": "{{ block.settings.parcela_1_enabled }}"
+        },
+        {
+          "type": "header",
+          "content": "Parcela 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "parcela_2_enabled",
+          "label": "Mostrar",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "parcela_2_text",
+          "label": "Texto",
+          "default": "Parcele em até 2x sem juros",
+          "visible_if": "{{ block.settings.parcela_2_enabled }}"
+        },
+        {
+          "type": "header",
+          "content": "Parcela 3"
+        },
+        {
+          "type": "checkbox",
+          "id": "parcela_3_enabled",
+          "label": "Mostrar",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "parcela_3_text",
+          "label": "Texto",
+          "default": "Parcele em até 3x sem juros",
+          "visible_if": "{{ block.settings.parcela_3_enabled }}"
+        },
+        {
+          "type": "header",
+          "content": "Parcela 4"
+        },
+        {
+          "type": "checkbox",
+          "id": "parcela_4_enabled",
+          "label": "Mostrar",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "parcela_4_text",
+          "label": "Texto",
+          "default": "Parcele em até 4x sem juros",
+          "visible_if": "{{ block.settings.parcela_4_enabled }}"
+        },
+        {
+          "type": "header",
+          "content": "Parcela 5"
+        },
+        {
+          "type": "checkbox",
+          "id": "parcela_5_enabled",
+          "label": "Mostrar",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "parcela_5_text",
+          "label": "Texto",
+          "default": "Parcele em até 5x sem juros",
+          "visible_if": "{{ block.settings.parcela_5_enabled }}"
+        },
+        {
+          "type": "header",
+          "content": "Parcela 6"
+        },
+        {
+          "type": "checkbox",
+          "id": "parcela_6_enabled",
+          "label": "Mostrar",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "parcela_6_text",
+          "label": "Texto",
+          "default": "Parcele em até 6x sem juros",
+          "visible_if": "{{ block.settings.parcela_6_enabled }}"
+        },
+        {
+          "type": "header",
+          "content": "Parcela 7"
+        },
+        {
+          "type": "checkbox",
+          "id": "parcela_7_enabled",
+          "label": "Mostrar",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "parcela_7_text",
+          "label": "Texto",
+          "default": "Parcele em até 7x sem juros",
+          "visible_if": "{{ block.settings.parcela_7_enabled }}"
+        },
+        {
+          "type": "header",
+          "content": "Parcela 8"
+        },
+        {
+          "type": "checkbox",
+          "id": "parcela_8_enabled",
+          "label": "Mostrar",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "parcela_8_text",
+          "label": "Texto",
+          "default": "Parcele em até 8x sem juros",
+          "visible_if": "{{ block.settings.parcela_8_enabled }}"
+        },
+        {
+          "type": "header",
+          "content": "Parcela 9"
+        },
+        {
+          "type": "checkbox",
+          "id": "parcela_9_enabled",
+          "label": "Mostrar",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "parcela_9_text",
+          "label": "Texto",
+          "default": "Parcele em até 9x sem juros",
+          "visible_if": "{{ block.settings.parcela_9_enabled }}"
+        },
+        {
+          "type": "header",
+          "content": "Parcela 10"
+        },
+        {
+          "type": "checkbox",
+          "id": "parcela_10_enabled",
+          "label": "Mostrar",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "parcela_10_text",
+          "label": "Texto",
+          "default": "Parcele em até 10x sem juros",
+          "visible_if": "{{ block.settings.parcela_10_enabled }}"
+        }
+      ]
     },
     {
       "type":"beneficio_do_produto",
