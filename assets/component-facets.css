@@ -1314,4 +1314,27 @@ input.mobile-facets__checkbox {
   &.active {
     transform: translateX(0);
   }
+
+  .custom-drawer__close-filter {
+    button {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      margin-bottom: 2rem;
+      border: none;
+      background: none;
+      font-size: 15px;
+      color: #1A4789;
+      gap: 1rem;
+
+      svg {
+        width: 3.5rem;
+        color: #E0BE80;
+      }
+    }
+  }
+  .facets-wrap.parent-wrap.facets-wrap-vertical {
+    border: none;
+    
+  }
 }
