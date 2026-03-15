@@ -113,7 +113,7 @@
   justify-content: space-between;
   gap: 2.4rem;
   padding-block: 2.4rem;
-  border-top: 1px solid #fff;
+  border-top: 1px solid #DEE7F1;
 }
 
 .res-footer__brand {
@@ -162,7 +162,7 @@
   justify-content: space-between;
   gap: 1.6rem;
   padding-block: 1.6rem;
-  border-top: 1px solid #fff;
+  border-top: 1px solid #DEE7F1;
 }
 
 .res-footer__copyright-text {
