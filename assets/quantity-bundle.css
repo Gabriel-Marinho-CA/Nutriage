@@ -196,6 +196,11 @@
   padding: 1rem 1.2rem;
   border-radius: 2rem;
   line-height: 1;
+
+  @media (max-width:750px) {
+    font-size: 1rem;
+    padding: .75rem 1.2rem;
+  }
 }
 
 .qb-summary-badge[hidden] {
@@ -207,6 +212,10 @@
   font-size: 2rem;
   color: #888;
   text-decoration: line-through;
+
+  @media (max-width:750px) {
+    font-size: 1.4rem;
+  }
 }
 
 .qb-summary-compare[hidden] {
@@ -219,6 +228,10 @@
   font-weight: 700;
   color: #1a3a6e;
   line-height: 1;
+
+  @media (max-width:750px) {
+    font-size: 2rem;
+  }
 }
 
 /* Preço por unidade */
