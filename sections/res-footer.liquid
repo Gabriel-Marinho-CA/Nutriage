@@ -238,7 +238,7 @@
             </div>
         {%- endcase -%}
       {%- endfor -%}
-      <div class="res-footer__accordion-item">
+      <div class="res-footer__accordion-item large-up-hidden medium-hide">
         <button class="res-footer__accordion-btn" aria-expanded="false">
           Atendimento
           <svg
@@ -257,7 +257,7 @@
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
         </button>
-        <div class="res-footer__accordion-body">
+        <div class="res-footer__accordion-body atendimento">
           {{  section.settings.extra_text }}
         </div>
       </div>
@@ -284,7 +284,7 @@
         {%- endif -%}
       </div>
       {%- if section.settings.extra_text != blank -%}
-        <div class="res-footer__info-text">{{ section.settings.extra_text }}</div>
+        <div class="res-footer__info-text small-hide">{{ section.settings.extra_text }}</div>
       {%- endif -%}
     </div>
   </div>
