@@ -536,7 +536,7 @@
 
 .facet-checkbox>input[type='checkbox']:checked~.svg-wrapper {
   left: 2px;
-  top: 14px;
+  top: 15px;
 }
 
 .icon-checkmark {
@@ -545,6 +545,7 @@
   color: #E0BE80;
   width: 12px;
   height: 12px;
+  min-height: 12px;
   min-width: 12px;
 }
 
