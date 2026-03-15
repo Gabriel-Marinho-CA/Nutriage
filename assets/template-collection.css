@@ -11,6 +11,31 @@
   }
 }
 
+.product-collection-grid-wrapper {
+  .title-collection {
+    font-size: 30px;
+    font-weight: 700;
+    * {
+      margin: 0;
+    }
+  }
+  facet-filters-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .product-count__text.text-body {
+      display: none;
+    }
+    .facet-filters {
+      border: 1px solid #1A4789;
+      border-radius: 40px;
+      padding: 1rem;
+    }
+  }
+
+}
+
 .collection .loading-overlay {
   position: absolute;
   z-index: 1;
@@ -63,7 +88,7 @@
   }
 }
 
-.collection__description > * {
+.collection__description>* {
   margin: 0;
 }
 
