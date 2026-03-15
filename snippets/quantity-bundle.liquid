@@ -29,7 +29,7 @@
 
   {%- if qb_kits != blank -%}
 
-    {%- for kit in qb_kits -%}
+    {%- for kit in qb_kits reversed -%}
 
       {%- assign qb_v = kit.selected_or_first_available_variant -%}
       {%- assign qb_compare = qb_v.compare_at_price | default: qb_v.price -%}
