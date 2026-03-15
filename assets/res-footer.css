@@ -50,7 +50,7 @@
 }
 
 /* Desktop: espaçamento entre itens accordion na mesma coluna */
-.res-footer__accordion-item + .res-footer__accordion-item {
+.res-footer__accordion-item+.res-footer__accordion-item {
   margin-top: 2.8rem;
 }
 
@@ -136,6 +136,14 @@
   display: flex;
   align-items: center;
   gap: 1.6rem;
+
+  @media (max-width:749px) {
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    border-bottom: 0;
+  }
 }
 
 .res-footer__logo {
@@ -217,7 +225,7 @@
   }
 
   /* Remove margem desktop entre itens */
-  .res-footer__accordion-item + .res-footer__accordion-item {
+  .res-footer__accordion-item+.res-footer__accordion-item {
     margin-top: 0;
   }
 
@@ -227,7 +235,7 @@
   }
 
   /* Borda superior no primeiro item do footer */
-  .res-footer__main > :first-child .res-footer__accordion-item:first-child {
+  .res-footer__main> :first-child .res-footer__accordion-item:first-child {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
   }
 
