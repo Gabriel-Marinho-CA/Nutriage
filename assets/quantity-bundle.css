@@ -75,10 +75,11 @@
   transform: translateX(-50%);
   background: #3da843;
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 16px;
   font-weight: 700;
   padding: 0.3rem 1.2rem;
-  border-radius: 0 0 1rem 1rem;
+  top: -14px;
+  border-radius: 40px;
   white-space: nowrap;
   line-height: 1.4;
 }
@@ -111,7 +112,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: .55rem;
   flex-shrink: 0;
   transition: border-color 0.15s;
 }
@@ -129,7 +130,7 @@
 }
 
 .qb-card.is-selected .qb-radio-dot {
-  background: #1a3a6e;
+  background: #6AAD39;
 }
 
 /* ——— Título do card ——— */
@@ -185,8 +186,8 @@
   background: #f5a623;
   color: #fff;
   font-size: 1.2rem;
-  font-weight: 700;
-  padding: 0.4rem 1.2rem;
+  font-weight: 400;
+  padding: 1rem 1.2rem;
   border-radius: 2rem;
   line-height: 1;
 }
