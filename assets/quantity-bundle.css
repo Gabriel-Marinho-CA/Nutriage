@@ -176,7 +176,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.8rem 1rem;
-  padding: 1rem 0 0.4rem;
+  padding: 3rem 0 0.4rem 0;
 }
 
 /* Badge "X% off" */
