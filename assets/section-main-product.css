@@ -279,10 +279,14 @@ a.product__text {
 .product__title {
   word-break: break-word;
   margin-bottom: 1.5rem;
+
 }
 
 .product__title>* {
   margin: 0;
+  font-size: 35px;
+  font-weight: 700;
+  color: #1A4789;
 }
 
 .product__title>a {
