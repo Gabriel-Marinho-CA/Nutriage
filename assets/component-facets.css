@@ -1296,3 +1296,155 @@ input.mobile-facets__checkbox {
 .product-count.light.medium-hide.large-up-hide {
   display: none;
 }
+
+/* ─── Mobile facets bar: dois botões pill (Filtrar + Ordenar por) ─── */
+@media screen and (max-width: 749px) {
+  .mobile-facets-bar {
+    display: flex;
+    gap: 1.2rem;
+    padding: 1.2rem 1.6rem 0.4rem;
+  }
+
+  .mobile-facets-bar .mobile-facets__wrapper,
+  .mobile-facets-bar .mobile-sort__wrapper {
+    flex: 1;
+  }
+
+  /* Botão pill trigger */
+  .mobile-facets-bar__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    border: 0.15rem solid #1A4789;
+    border-radius: 5rem;
+    padding: 0.9rem 1.4rem;
+    background: transparent;
+    color: #1A4789;
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    list-style: none;
+  }
+
+  .mobile-facets-bar__btn::marker,
+  .mobile-facets-bar__btn::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-facets-bar__btn .svg-wrapper {
+    width: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  /* Rotaciona o caret quando o drawer está aberto */
+  .mobile-facets__disclosure[open] > .mobile-facets-bar__btn .svg-wrapper {
+    transform: rotate(180deg);
+  }
+
+  .mobile-facets-bar__btn-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .mobile-facets-bar__active-count {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  /* Esconde o antigo botão X fixo (estava dentro do summary) */
+  .mobile-facets-bar .mobile-facets__close {
+    display: none !important;
+  }
+
+  /* Header do drawer: título à esquerda, Fechar à direita */
+  .mobile-facets__header {
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+  }
+
+  .mobile-facets__header .mobile-facets__header-inner {
+    flex: 1;
+  }
+
+  .mobile-facets__heading {
+    font-weight: 700;
+    color: #1A4789;
+    font-size: 1.6rem;
+  }
+
+  /* Botão "Fechar ✕" dentro do header */
+  .mobile-facets__header-close {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: inherit;
+    padding: 0.4rem 0;
+    flex-shrink: 0;
+    font-family: inherit;
+  }
+
+  .mobile-facets__header-close svg {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  /* ─── Drawer de ordenação: lista de opções com radio ─── */
+  .mobile-sort__options-list {
+    padding: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  .mobile-sort__option {
+    display: flex;
+    align-items: center;
+    padding: 1.6rem 2.5rem;
+    border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+    cursor: pointer;
+    font-size: 1.4rem;
+    gap: 1rem;
+  }
+
+  .mobile-sort__option:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-sort__radio {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+
+  .mobile-sort__option-label {
+    flex: 1;
+  }
+
+  .mobile-sort__option-check {
+    display: none;
+    width: 1.4rem;
+    color: #1A4789;
+  }
+
+  .mobile-sort__option:has(.mobile-sort__radio:checked) .mobile-sort__option-check {
+    display: block;
+  }
+
+  .mobile-sort__option:has(.mobile-sort__radio:checked) .mobile-sort__option-label {
+    font-weight: 600;
+    color: #1A4789;
+  }
+}
