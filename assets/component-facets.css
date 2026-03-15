@@ -1166,6 +1166,8 @@ input.mobile-facets__checkbox {
 
   .facets-vertical .facets-wrapper {
     padding-right: 3rem;
+
+    min-width: 350px;
   }
 
   .facets-vertical .facets-wrapper--no-filters {
