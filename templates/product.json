@@ -136,7 +136,7 @@
       "settings": {
         "intent": "related",
         "products_to_show": 8,
-        "title": "Você também pode gostar",
+        "title": "Complemente o resultado",
         "heading_color": "#1a4789",
         "heading_size_desktop": 28,
         "heading_size_mobile": 20,
