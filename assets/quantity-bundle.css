@@ -231,7 +231,6 @@
   .qb-card {
     flex-direction: row;
     justify-content: space-between;
-    gap: 1.5rem;
     padding-top: 3rem;
 
     .qb-wrapper-card-img-radio {
@@ -250,6 +249,7 @@
     .qb-wrapper-content {
       flex: 1;
       text-align: start;
+      padding-left: 1.5rem;
     }
 
   }
