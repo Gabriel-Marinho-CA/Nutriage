@@ -22,60 +22,6 @@
 
 <div class="qb-cards">
 
-  {%- comment -%}
-  ---- PRODUTO PRINCIPAL (1 unidade)
-  {%- endcomment -%}
-
-  {%- assign qb_v = product.selected_or_first_available_variant -%}
-  {%- assign qb_compare = qb_v.compare_at_price | default: qb_v.price -%}
-
-  <div class="qb-card"
-    data-variant-id="{{ qb_v.id }}"
-    data-price="{{ qb_v.price }}"
-    data-compare="{{ qb_compare }}"
-    data-installment-count="{{ block.settings.main_installment_count | default: 3 }}"
-    data-installment-label="{{ block.settings.main_installment_label | default: '3x sem juros de' | escape }}"
-    data-qty-label="{{ block.settings.main_qty_label | default: '1 unidade' | escape }}"
-  >
-
-    {%- if block.settings.main_show_badge -%}
-      <span class="qb-badge">{{ block.settings.main_badge }}</span>
-    {%- endif -%}
-
-    <div class="qb-card-img">
-      {%- if product.featured_image -%}
-        <img
-          src="{{ product.featured_image | image_url: width: 300 }}"
-          alt="{{ product.title | escape }}"
-          width="150"
-          height="150"
-          loading="lazy"
-        >
-      {%- endif -%}
-    </div>
-
-    <div class="qb-radio">
-      <span class="qb-radio-dot"></span>
-    </div>
-
-    <strong class="qb-card-title">
-      {{ block.settings.main_title | default: '1 unidade' }}
-    </strong>
-
-    <span class="qb-installment-label">
-      {{ block.settings.main_installment_label | default: '3x sem juros de' }}
-    </span>
-
-    <span class="qb-price-big">
-      {{ qb_v.price | money }}
-    </span>
-
-    <span class="qb-price-cash">
-      ou {{ qb_compare | money }} à vista
-    </span>
-
-  </div>
-
 
   {%- comment -%}
   ---- KITS (metafield)
@@ -150,6 +96,60 @@
     {%- endfor -%}
 
   {%- endif -%}
+
+  {%- comment -%}
+  ---- PRODUTO PRINCIPAL (1 unidade)
+  {%- endcomment -%}
+
+  {%- assign qb_v = product.selected_or_first_available_variant -%}
+  {%- assign qb_compare = qb_v.compare_at_price | default: qb_v.price -%}
+
+  <div class="qb-card"
+    data-variant-id="{{ qb_v.id }}"
+    data-price="{{ qb_v.price }}"
+    data-compare="{{ qb_compare }}"
+    data-installment-count="{{ block.settings.main_installment_count | default: 3 }}"
+    data-installment-label="{{ block.settings.main_installment_label | default: '3x sem juros de' | escape }}"
+    data-qty-label="{{ block.settings.main_qty_label | default: '1 unidade' | escape }}"
+  >
+
+    {%- if block.settings.main_show_badge -%}
+      <span class="qb-badge">{{ block.settings.main_badge }}</span>
+    {%- endif -%}
+
+    <div class="qb-card-img">
+      {%- if product.featured_image -%}
+        <img
+          src="{{ product.featured_image | image_url: width: 300 }}"
+          alt="{{ product.title | escape }}"
+          width="150"
+          height="150"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+
+    <div class="qb-radio">
+      <span class="qb-radio-dot"></span>
+    </div>
+
+    <strong class="qb-card-title">
+      {{ block.settings.main_title | default: '1 unidade' }}
+    </strong>
+
+    <span class="qb-installment-label">
+      {{ block.settings.main_installment_label | default: '3x sem juros de' }}
+    </span>
+
+    <span class="qb-price-big">
+      {{ qb_v.price | money }}
+    </span>
+
+    <span class="qb-price-cash">
+      ou {{ qb_compare | money }} à vista
+    </span>
+
+  </div>
 
 </div>
 
