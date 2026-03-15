@@ -54,9 +54,9 @@
           "type": "support_institutional",
           "settings": {
             "title_1": "Suporte",
-            "menu_1": "footer",
+            "menu_1": "suporte-novo",
             "title_2": "Institucional",
-            "menu_2": "footer"
+            "menu_2": "institucional-novo"
           }
         },
         "payments_security_37KwD3": {
