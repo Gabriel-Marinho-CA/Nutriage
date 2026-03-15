@@ -195,6 +195,10 @@ product-info {
         margin: 0;
         line-height: 1.2;
         font-size: 14px;
+
+            @media (max-width:750px) {
+              font-size: 12px;
+            }
       }
     }
   }
