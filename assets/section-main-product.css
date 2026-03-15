@@ -400,9 +400,11 @@ a.product__text {
 
 .product-form__buttons {
   max-width: 100%;
+
   button {
     background: #6AAD39;
     font-size: 20px;
+    transition: transform .3s ease;
 
     &:hover {
       transform: translateY(-5px);
