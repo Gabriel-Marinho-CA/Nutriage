@@ -404,6 +404,12 @@ a.product__text {
   margin-bottom: 1.2rem;
 }
 
+product-form.product-form {
+  @media (max-width:750px) {
+    margin-top: 0 !important;
+  }
+}
+
 .product-form__buttons {
   max-width: 100%;
 
