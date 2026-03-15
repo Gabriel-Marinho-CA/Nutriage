@@ -1,3 +1,10 @@
+{% style %}
+  .wrapper-benefits {
+      --bg-card-color: {{ block.settings.bg_color }};
+      --text-card-color: {{ block.settings.text_color }};
+  }
+{% endstyle %}
+
 {% liquid
   assign meta = product.metafields.custom.beneficios_do_produto_novo.value
   assign icons = meta.icone.value
