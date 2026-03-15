@@ -11,6 +11,74 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "res_footer_bmr3je": {
+      "type": "res-footer",
+      "blocks": {
+        "links_PGWmJQ": {
+          "type": "links",
+          "settings": {
+            "title": "Produtos",
+            "menu": "footer",
+            "columns": "2"
+          }
+        },
+        "links_aQt7mm": {
+          "type": "links",
+          "settings": {
+            "title": "Kits",
+            "menu": "footer",
+            "columns": "1"
+          }
+        },
+        "support_institutional_pPHYLh": {
+          "type": "support_institutional",
+          "settings": {
+            "title_1": "Suporte",
+            "menu_1": "footer",
+            "title_2": "Institucional",
+            "menu_2": "footer"
+          }
+        },
+        "payments_security_37KwD3": {
+          "type": "payments_security",
+          "settings": {
+            "payment_title": "Formas de pagamento",
+            "show_pay_1": true,
+            "show_pay_2": true,
+            "show_pay_3": true,
+            "show_pay_4": false,
+            "show_pay_5": false,
+            "show_pay_6": false,
+            "show_pay_7": false,
+            "show_pay_8": false,
+            "show_pay_9": false,
+            "security_title": "Segurança"
+          }
+        }
+      },
+      "block_order": [
+        "links_PGWmJQ",
+        "links_aQt7mm",
+        "support_institutional_pPHYLh",
+        "payments_security_37KwD3"
+      ],
+      "name": "Footer",
+      "settings": {
+        "logo_width": 120,
+        "logo_text": "<p>Nome da empresa<br/>CNPJ 00.000.000/0000-00</p>",
+        "extra_text": "<p>Atendimento de Segunda a Sexta 8h às 18h, exceto feriados.</p>",
+        "copyright_text": "Copyright 2026 - Todos os direitos reservados",
+        "brand_label": "Tecnologia:",
+        "brand_logo_width": 100,
+        "bg_color": "#1A4789",
+        "accent_color": "#E8A020",
+        "title_color": "#FFFFFF",
+        "link_color": "#FFFFFF",
+        "text_color": "#FFFFFF",
+        "padding_top": 0,
+        "padding_top_mob": 0
+      }
+    },
     "res_newsletter_JRk3pB": {
       "type": "res-newsletter",
       "name": "Newsletter Bar",
@@ -61,6 +129,7 @@
         "footer-1",
         "footer-2"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
@@ -79,6 +148,7 @@
   },
   "order": [
     "res_newsletter_JRk3pB",
+    "res_footer_bmr3je",
     "footer"
   ]
 }
