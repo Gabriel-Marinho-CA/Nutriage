@@ -16,18 +16,18 @@
 {{ 'quantity-bundle.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'quantity-bundle.js' | asset_url }}" defer="defer"></script>
 
-{%- assign _kits_raw = product.metafields.custom.kits.value -%}
+{%- assign qb_kits_raw = product.metafields.custom.kits.value -%}
 
 {%- comment -%}
-  Normaliza: se for product_reference singular (tem .id), cria "array" manual.
+  Normaliza: se for product_reference singular (tem .id), usa direto como kit1.
   Se for list.product_reference, já é array indexável.
 {%- endcomment -%}
-{%- if _kits_raw.id -%}
-  {%- assign _kit1 = _kits_raw -%}
-  {%- assign _kit2 = nil -%}
+{%- if qb_kits_raw.id -%}
+  {%- assign qb_kit1 = qb_kits_raw -%}
+  {%- assign qb_kit2 = nil -%}
 {%- else -%}
-  {%- assign _kit1 = _kits_raw[0] -%}
-  {%- assign _kit2 = _kits_raw[1] -%}
+  {%- assign qb_kit1 = qb_kits_raw[0] -%}
+  {%- assign qb_kit2 = qb_kits_raw[1] -%}
 {%- endif -%}
 
 <quantity-bundle
@@ -43,14 +43,14 @@
   <div class="qb-cards">
 
     {%- comment -%}——— Kit 1 ———{%- endcomment -%}
-    {%- if _kit1 != blank -%}
-      {%- assign _v = _kit1.selected_or_first_available_variant -%}
-      {%- assign _compare = _v.compare_at_price | default: _v.price -%}
+    {%- if qb_kit1 != blank -%}
+      {%- assign qb_v = qb_kit1.selected_or_first_available_variant -%}
+      {%- assign qb_compare = qb_v.compare_at_price | default: qb_v.price -%}
 
       <div class="qb-card"
-        data-variant-id="{{ _v.id }}"
-        data-price="{{ _v.price }}"
-        data-compare="{{ _compare }}"
+        data-variant-id="{{ qb_v.id }}"
+        data-price="{{ qb_v.price }}"
+        data-compare="{{ qb_compare }}"
         data-installment-count="{{ block.settings.kit1_installment_count | default: 3 }}"
         data-installment-label="{{ block.settings.kit1_installment_label | default: '3x sem juros de' | escape }}"
         data-qty-label="{{ block.settings.kit1_qty_label | escape }}"
@@ -60,10 +60,10 @@
         {%- endif -%}
 
         <div class="qb-card-img">
-          {%- if _kit1.featured_image -%}
+          {%- if qb_kit1.featured_image -%}
             <img
-              src="{{ _kit1.featured_image | image_url: width: 300 }}"
-              alt="{{ _kit1.title | escape }}"
+              src="{{ qb_kit1.featured_image | image_url: width: 300 }}"
+              alt="{{ qb_kit1.title | escape }}"
               width="150" height="150"
               loading="lazy"
             >
@@ -72,22 +72,22 @@
 
         <div class="qb-radio" aria-hidden="true"><span class="qb-radio-dot"></span></div>
 
-        <strong class="qb-card-title">{{ block.settings.kit1_title | default: _kit1.title }}</strong>
+        <strong class="qb-card-title">{{ block.settings.kit1_title | default: qb_kit1.title }}</strong>
         <span class="qb-installment-label">{{ block.settings.kit1_installment_label | default: '3x sem juros de' }}</span>
-        <span class="qb-price-big">{{ _v.price | money }}</span>
-        <span class="qb-price-cash">ou {{ _compare | money }} à vista</span>
+        <span class="qb-price-big">{{ qb_v.price | money }}</span>
+        <span class="qb-price-cash">ou {{ qb_compare | money }} à vista</span>
       </div>
     {%- endif -%}
 
     {%- comment -%}——— Kit 2 ———{%- endcomment -%}
-    {%- if _kit2 != blank -%}
-      {%- assign _v = _kit2.selected_or_first_available_variant -%}
-      {%- assign _compare = _v.compare_at_price | default: _v.price -%}
+    {%- if qb_kit2 != blank -%}
+      {%- assign qb_v = qb_kit2.selected_or_first_available_variant -%}
+      {%- assign qb_compare = qb_v.compare_at_price | default: qb_v.price -%}
 
       <div class="qb-card"
-        data-variant-id="{{ _v.id }}"
-        data-price="{{ _v.price }}"
-        data-compare="{{ _compare }}"
+        data-variant-id="{{ qb_v.id }}"
+        data-price="{{ qb_v.price }}"
+        data-compare="{{ qb_compare }}"
         data-installment-count="{{ block.settings.kit2_installment_count | default: 3 }}"
         data-installment-label="{{ block.settings.kit2_installment_label | default: '3x sem juros de' | escape }}"
         data-qty-label="{{ block.settings.kit2_qty_label | escape }}"
@@ -97,10 +97,10 @@
         {%- endif -%}
 
         <div class="qb-card-img">
-          {%- if _kit2.featured_image -%}
+          {%- if qb_kit2.featured_image -%}
             <img
-              src="{{ _kit2.featured_image | image_url: width: 300 }}"
-              alt="{{ _kit2.title | escape }}"
+              src="{{ qb_kit2.featured_image | image_url: width: 300 }}"
+              alt="{{ qb_kit2.title | escape }}"
               width="150" height="150"
               loading="lazy"
             >
@@ -109,21 +109,21 @@
 
         <div class="qb-radio" aria-hidden="true"><span class="qb-radio-dot"></span></div>
 
-        <strong class="qb-card-title">{{ block.settings.kit2_title | default: _kit2.title }}</strong>
+        <strong class="qb-card-title">{{ block.settings.kit2_title | default: qb_kit2.title }}</strong>
         <span class="qb-installment-label">{{ block.settings.kit2_installment_label | default: '3x sem juros de' }}</span>
-        <span class="qb-price-big">{{ _v.price | money }}</span>
-        <span class="qb-price-cash">ou {{ _compare | money }} à vista</span>
+        <span class="qb-price-big">{{ qb_v.price | money }}</span>
+        <span class="qb-price-cash">ou {{ qb_compare | money }} à vista</span>
       </div>
     {%- endif -%}
 
     {%- comment -%}——— Produto principal (1 unidade) ———{%- endcomment -%}
-    {%- assign _v = product.selected_or_first_available_variant -%}
-    {%- assign _compare = _v.compare_at_price | default: _v.price -%}
+    {%- assign qb_v = product.selected_or_first_available_variant -%}
+    {%- assign qb_compare = qb_v.compare_at_price | default: qb_v.price -%}
 
     <div class="qb-card"
-      data-variant-id="{{ _v.id }}"
-      data-price="{{ _v.price }}"
-      data-compare="{{ _compare }}"
+      data-variant-id="{{ qb_v.id }}"
+      data-price="{{ qb_v.price }}"
+      data-compare="{{ qb_compare }}"
       data-installment-count="{{ block.settings.main_installment_count | default: 3 }}"
       data-installment-label="{{ block.settings.main_installment_label | default: '3x sem juros de' | escape }}"
       data-qty-label="{{ block.settings.main_qty_label | default: '1 unidade' | escape }}"
@@ -147,8 +147,8 @@
 
       <strong class="qb-card-title">{{ block.settings.main_title | default: '1 unidade' }}</strong>
       <span class="qb-installment-label">{{ block.settings.main_installment_label | default: '3x sem juros de' }}</span>
-      <span class="qb-price-big">{{ _v.price | money }}</span>
-      <span class="qb-price-cash">ou {{ _compare | money }} à vista</span>
+      <span class="qb-price-big">{{ qb_v.price | money }}</span>
+      <span class="qb-price-cash">ou {{ qb_compare | money }} à vista</span>
     </div>
 
   </div>
