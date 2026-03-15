@@ -60,7 +60,7 @@ class QuantityBundle extends HTMLElement {
     }
 
     // Barra de resumo
-    this._updateSummary(price, compare);
+    this._updateSummary(price, compare, parseInt(qtyTotal, 10) || 1);
 
     // Atualiza o form sem disparar eventos do produto (evita conflito com product-info.js)
     const formId = this.dataset.formId;
@@ -80,7 +80,7 @@ class QuantityBundle extends HTMLElement {
     }
   }
 
-  _updateSummary(price, compare) {
+  _updateSummary(price, compare, qtyTotal = 1) {
     const fmt = (cents) => this._fmt(cents);
 
     // Badge de desconto
