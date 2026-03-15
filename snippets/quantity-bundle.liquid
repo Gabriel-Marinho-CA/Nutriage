@@ -16,8 +16,11 @@
 {{ 'quantity-bundle.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'quantity-bundle.js' | asset_url }}" defer="defer"></script>
 
+
 {%- assign qb_kits_raw = product.metafields.custom.kits.value -%}
 
+
+{{ product.metafields.custom.kits.value | json }}
 {%- comment -%}
   Normaliza: se for product_reference singular (tem .id), usa direto como kit1.
   Se for list.product_reference, já é array indexável.
