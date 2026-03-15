@@ -176,6 +176,7 @@ product-info {
       text-align: center;
       justify-content: center;
       align-items: center;
+      padding-block: 2.65rem;
     }
 
     .icons-wrapper {
