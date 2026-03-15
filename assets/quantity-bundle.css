@@ -120,6 +120,7 @@
   margin-bottom: .55rem;
   flex-shrink: 0;
   transition: border-color 0.15s;
+  margin-inline: auto;
 }
 
 .qb-card.is-selected .qb-radio {
