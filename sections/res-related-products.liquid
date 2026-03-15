@@ -1,0 +1,494 @@
+{% comment %}
+  RES Related Products — Swiper carousel with product-recommendations
+  CSS: assets/res-featured-collection.css (reaproveitado)
+  Funcionalidade: product-recommendations (related ou complementary)
+  Swiper init via MutationObserver após o fetch das recomendações.
+{% endcomment %}
+
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'res-featured-collection.css' | asset_url | stylesheet_tag }}
+
+{%- unless section.settings.quick_add == 'none' -%}
+  {{ 'quick-add.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+{%- endunless -%}
+
+{%- liquid
+  assign full_width     = section.settings.full_width_layout
+  assign arrows_pos     = section.settings.arrows_position
+  assign heading_align  = section.settings.heading_alignment
+  assign products_limit = section.settings.products_to_show
+  assign cols_desk      = section.settings.columns_desktop
+  assign cols_mob       = section.settings.columns_mobile
+  assign intent         = section.settings.intent
+-%}
+
+{%- style -%}
+  #res-rp-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top_mob }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mob }}px;
+  }
+  #res-rp-section-{{ section.id }} .res-fc__title {
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size_mobile }}px;
+    font-weight: {{ section.settings.heading_font_weight }};
+  }
+  @media screen and (min-width: 750px) {
+    #res-rp-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+    #res-rp-section-{{ section.id }} .res-fc__title {
+      font-size: {{ section.settings.heading_size_desktop }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  id="res-rp-section-{{ section.id }}"
+  class="res-fc color-{{ section.settings.color_scheme }} gradient{% if full_width %} res-fc--full-width{% endif %}"
+>
+
+  <product-recommendations
+    data-url="{{ routes.product_recommendations_url }}?limit={{ products_limit }}&intent={{ intent }}"
+    data-section-id="{{ section.id }}"
+    data-product-id="{{ product.id }}"
+  >
+    {%- if recommendations.performed and recommendations.products_count > 0 -%}
+
+      {%- comment -%} ── Header ── {%- endcomment -%}
+      {%- if section.settings.title != blank or arrows_pos == 'inline' -%}
+        <div class="res-fc__header page-width">
+          <div class="res-fc__title-row res-fc__title-row--{{ heading_align }}{% if arrows_pos == 'inline' %} res-fc__title-row--has-nav{% endif %}">
+
+            {%- if section.settings.title != blank -%}
+              <h2 class="res-fc__title">{{ section.settings.title | escape }}</h2>
+            {%- endif -%}
+
+            {%- if arrows_pos == 'inline' -%}
+              <div class="res-fc__inline-nav">
+                <button
+                  id="res-rp-prev-{{ section.id }}"
+                  class="res-fc__nav-btn res-fc__nav-btn--prev"
+                  aria-label="{{ 'general.slider.previous_slide' | t }}"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"/>
+                  </svg>
+                </button>
+                <button
+                  id="res-rp-next-{{ section.id }}"
+                  class="res-fc__nav-btn res-fc__nav-btn--next"
+                  aria-label="{{ 'general.slider.next_slide' | t }}"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                </button>
+              </div>
+            {%- endif -%}
+
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} ── Swiper area ── {%- endcomment -%}
+      <div class="res-fc__swiper-outer{% if arrows_pos == 'outside' %} res-fc__swiper-outer--outside{% elsif full_width == false %} page-width{% endif %}">
+
+        {%- if arrows_pos == 'outside' -%}
+          <button
+            id="res-rp-prev-{{ section.id }}"
+            class="res-fc__nav-btn res-fc__nav-btn--prev res-fc__nav-btn--outside"
+            aria-label="{{ 'general.slider.previous_slide' | t }}"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+        {%- endif -%}
+
+        <div
+          id="res-rp-swiper-{{ section.id }}"
+          class="swiper res-fc__swiper{% if full_width %} res-fc__swiper--padded{% endif %}"
+        >
+          <div class="swiper-wrapper">
+            {%- assign skip_card_product_styles = false -%}
+            {%- for recommendation in recommendations.products -%}
+              <div class="swiper-slide res-fc__slide">
+                {%- render 'card-product',
+                  card_product: recommendation,
+                  media_aspect_ratio: section.settings.image_ratio,
+                  lazy_load: true,
+                  show_secondary_image: false,
+                  show_vendor: section.settings.show_vendor,
+                  show_rating: false,
+                  skip_styles: skip_card_product_styles,
+                  section_id: section.id,
+                  quick_add: section.settings.quick_add
+                -%}
+              </div>
+              {%- assign skip_card_product_styles = true -%}
+            {%- endfor -%}
+          </div>
+        </div>
+
+        {%- if arrows_pos == 'outside' -%}
+          <button
+            id="res-rp-next-{{ section.id }}"
+            class="res-fc__nav-btn res-fc__nav-btn--next res-fc__nav-btn--outside"
+            aria-label="{{ 'general.slider.next_slide' | t }}"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        {%- endif -%}
+
+        <button
+          id="res-rp-mob-prev-{{ section.id }}"
+          class="res-fc__nav-btn res-fc__mobile-nav-btn res-fc__mobile-nav-btn--prev"
+          aria-label="{{ 'general.slider.previous_slide' | t }}"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <button
+          id="res-rp-mob-next-{{ section.id }}"
+          class="res-fc__nav-btn res-fc__mobile-nav-btn res-fc__mobile-nav-btn--next"
+          aria-label="{{ 'general.slider.next_slide' | t }}"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+
+      </div>
+
+      {%- comment -%} ── View all ── {%- endcomment -%}
+      {%- if section.settings.show_view_all and section.settings.view_all_url != blank -%}
+        <div class="res-fc__view-all page-width">
+          <a href="{{ section.settings.view_all_url }}" class="res-fc__view-all-btn button button--secondary">
+            {{ section.settings.view_all_label | escape }}
+          </a>
+        </div>
+      {%- endif -%}
+
+    {%- endif -%}
+  </product-recommendations>
+
+</section>
+
+<script>
+  (function () {
+    var sectionId = {{ section.id | json }};
+    var colsMob   = {{ cols_mob }};
+    var colsDesk  = {{ cols_desk }};
+
+    function initSwiper() {
+      var el = document.getElementById('res-rp-swiper-' + sectionId);
+      if (!el || typeof Swiper === 'undefined' || el._swiperInit) return;
+      el._swiperInit = true;
+
+      new Swiper(el, {
+        slidesPerView: 1.4,
+        spaceBetween: 16,
+        navigation: {
+          prevEl: '#res-rp-prev-' + sectionId + ', #res-rp-mob-prev-' + sectionId,
+          nextEl: '#res-rp-next-' + sectionId + ', #res-rp-mob-next-' + sectionId,
+        },
+        breakpoints: {
+          750: { slidesPerView: colsMob, spaceBetween: 20 },
+          990: { slidesPerView: colsDesk, spaceBetween: 24 },
+        },
+      });
+    }
+
+    // Init Swiper após product-recommendations popular o DOM via AJAX
+    var container = document.querySelector(
+      'product-recommendations[data-section-id="' + sectionId + '"]'
+    );
+    if (container) {
+      var mo = new MutationObserver(function () {
+        if (document.getElementById('res-rp-swiper-' + sectionId)) {
+          mo.disconnect();
+          initSwiper();
+        }
+      });
+      mo.observe(container, { childList: true, subtree: true });
+    }
+
+    // Fallback: caso o tema renderize SSR com recomendações já disponíveis
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSwiper);
+    } else {
+      initSwiper();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Relacionados (Res)",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Os produtos são carregados automaticamente via API de recomendações da Shopify."
+    },
+    {
+      "type": "select",
+      "id": "intent",
+      "label": "Tipo de recomendação",
+      "info": "related = baseado no histórico / complementary = produtos complementares configurados no admin.",
+      "options": [
+        { "value": "related",       "label": "Relacionados (related)" },
+        { "value": "complementary", "label": "Complementares (complementary)" }
+      ],
+      "default": "related"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 25,
+      "step": 1,
+      "default": 8,
+      "label": "Máximo de produtos"
+    },
+    {
+      "type": "header",
+      "content": "Título"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Você também pode gostar",
+      "label": "Título"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#1A4789",
+      "label": "Cor do título"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 28,
+      "label": "Tamanho do título (desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20,
+      "label": "Tamanho do título (mobile)"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Peso da fonte do título",
+      "options": [
+        { "value": "400", "label": "400 — Regular" },
+        { "value": "500", "label": "500 — Medium" },
+        { "value": "600", "label": "600 — Semi-bold" },
+        { "value": "700", "label": "700 — Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Alinhamento do título",
+      "options": [
+        { "value": "left",   "label": "Esquerda" },
+        { "value": "center", "label": "Centro" },
+        { "value": "right",  "label": "Direita" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Layout do slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_layout",
+      "default": false,
+      "label": "Slider vai até a borda direita da tela",
+      "info": "O início dos cards fica alinhado ao conteúdo da página; os cards se estendem até o limite direito da tela."
+    },
+    {
+      "type": "select",
+      "id": "arrows_position",
+      "label": "Posição das setas de navegação",
+      "options": [
+        { "value": "outside", "label": "Fora dos cards (esquerda e direita)" },
+        { "value": "inline",  "label": "Ao lado do título" }
+      ],
+      "default": "outside"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "Colunas visíveis (desktop)"
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2,
+      "label": "Colunas visíveis (mobile)"
+    },
+    {
+      "type": "header",
+      "content": "Botão \"Ver mais\""
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": false,
+      "label": "Mostrar botão \"Ver mais\""
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "default": "Ver todos produtos",
+      "label": "Texto do botão"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "Link do botão"
+    },
+    {
+      "type": "header",
+      "content": "Cards"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        { "value": "adapt",    "label": "t:sections.featured-collection.settings.image_ratio.options__1.label" },
+        { "value": "portrait", "label": "t:sections.featured-collection.settings.image_ratio.options__2.label" },
+        { "value": "square",   "label": "t:sections.featured-collection.settings.image_ratio.options__3.label" }
+      ],
+      "default": "square",
+      "label": "t:sections.featured-collection.settings.image_ratio.label"
+    },
+    {
+      "type": "select",
+      "id": "quick_add",
+      "default": "none",
+      "label": "t:sections.main-collection-product-grid.settings.quick_add.label",
+      "options": [
+        { "value": "none",     "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_1" },
+        { "value": "standard", "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_2" },
+        { "value": "bulk",     "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_3" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.show_vendor.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.colors.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top (mobile)",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mob",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom (mobile)",
+      "default": 28
+    }
+  ],
+  "presets": [
+    {
+      "name": "Produtos Relacionados",
+      "category": "Res - Seções",
+      "settings": {
+        "intent": "related",
+        "title": "Você também pode gostar",
+        "columns_desktop": 4,
+        "arrows_position": "outside",
+        "full_width_layout": false
+      }
+    },
+    {
+      "name": "Produtos Complementares",
+      "category": "Res - Seções",
+      "settings": {
+        "intent": "complementary",
+        "title": "Complete o seu pedido",
+        "columns_desktop": 4,
+        "arrows_position": "inline",
+        "full_width_layout": true,
+        "heading_alignment": "left"
+      }
+    }
+  ]
+}
+{% endschema %}
