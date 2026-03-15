@@ -439,6 +439,20 @@
     </facet-filters-form>
   {%- endif -%}
   {% comment %}  Drawer and mobile filter {% endcomment %}
+   <div class="wrapper-filters">
+    <button class="filter-buttons filtrar-btn">
+      Filtrar
+      <span class="svg-wrapper">
+        {{ 'icon-caret.svg' | inline_asset_content }}
+      </span>
+    </button>
+    <button class="filter-buttons orderby-btn">
+      Ordenar por
+      <span class="svg-wrapper">
+        {{ 'icon-caret.svg' | inline_asset_content }}
+      </span>
+    </button>
+   </div>
   <menu-drawer
     class="mobile-facets__wrapper{% if filter_type == 'horizontal' or filter_type == 'vertical' %} medium-hide large-up-hide{% endif %}"
     data-breakpoint="mobile"
