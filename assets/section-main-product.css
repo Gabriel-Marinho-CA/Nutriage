@@ -149,6 +149,7 @@ product-info {
 .benefit-product-title {
   font-weight: bold;
   font-size: 20px;
+  padding-top: 2rem;
 
   @media (max-width:750px) {
     text-align: center;
@@ -169,6 +170,11 @@ product-info {
     color: var(--text-card-color);
     border-radius: 8px;
     padding: 1.75rem 1rem;
+
+    @media (max-width:750px) {
+      flex-direction: column;
+      text-align: center;
+    }
 
     .icons-wrapper {
       img {
