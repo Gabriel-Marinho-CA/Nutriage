@@ -40,6 +40,13 @@
             "main_qty_label": "01 unidade"
           }
         },
+        "buy_buttons_WepnzJ": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
         "price": {
           "type": "price",
           "disabled": true,
@@ -49,6 +56,7 @@
       "block_order": [
         "title",
         "quantity_bundle_gA4eDx",
+        "buy_buttons_WepnzJ",
         "price"
       ],
       "settings": {
