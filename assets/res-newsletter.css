@@ -101,6 +101,7 @@
   width: 3.8rem;
   height: 3.8rem;
   border-radius: 50%;
+  border: 1px solid var(--res-nl-social-color, #1A4789);
   display: flex;
   align-items: center;
   justify-content: center;
