@@ -36,19 +36,19 @@
 
       {%- comment -%} Seleciona settings por índice do kit {%- endcomment -%}
       {%- if forloop.index == 1 -%}
-        {%- assign qb_inst_count = block.settings.kit1_installment_count | default: 3 -%}
-        {%- assign qb_inst_label = block.settings.kit1_installment_label | default: '3x sem juros de' -%}
-        {%- assign qb_kit_title  = block.settings.kit1_title | default: kit.title -%}
-        {%- assign qb_qty_label  = block.settings.kit1_qty_label | default: kit.title -%}
-        {%- assign qb_show_badge = block.settings.kit1_show_badge -%}
-        {%- assign qb_badge_text = block.settings.kit1_badge | default: 'Menor preço' -%}
-      {%- elsif forloop.index == 2 -%}
         {%- assign qb_inst_count = block.settings.kit2_installment_count | default: 3 -%}
         {%- assign qb_inst_label = block.settings.kit2_installment_label | default: '3x sem juros de' -%}
         {%- assign qb_kit_title  = block.settings.kit2_title | default: kit.title -%}
         {%- assign qb_qty_label  = block.settings.kit2_qty_label | default: kit.title -%}
         {%- assign qb_show_badge = block.settings.kit2_show_badge -%}
-        {%- assign qb_badge_text = block.settings.kit2_badge -%}
+        {%- assign qb_badge_text = block.settings.kit2_badge | default: 'Menor preço' -%}
+      {%- elsif forloop.index == 2 -%}
+        {%- assign qb_inst_count = block.settings.kit1_installment_count | default: 3 -%}
+        {%- assign qb_inst_label = block.settings.kit1_installment_label | default: '3x sem juros de' -%}
+        {%- assign qb_kit_title  = block.settings.kit1_title | default: kit.title -%}
+        {%- assign qb_qty_label  = block.settings.kit1_qty_label | default: kit.title -%}
+        {%- assign qb_show_badge = block.settings.kit1_show_badge -%}
+        {%- assign qb_badge_text = block.settings.kit1_badge -%}
       {%- else -%}
         {%- assign qb_inst_count = 3 -%}
         {%- assign qb_inst_label = '3x sem juros de' -%}
