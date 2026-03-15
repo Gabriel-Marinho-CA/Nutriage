@@ -26,45 +26,51 @@
   {%- endif -%}
 
   {%- style -%}
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-    }
-
-    @media screen and (min-width: 750px) {
       .section-{{ section.id }}-padding {
-        padding-top: {{ section.settings.padding_top }}px;
-        padding-bottom: {{ section.settings.padding_bottom }}px;
+        padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+        padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
       }
-    }
 
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'composicao_produto' or block.type == 'tabela_nutricional' -%}
-        #Details-{{ block.id }}-{{ section.id }}  {
-          background-color: {{ block.settings.bg_color }};
-          color: {{ block.settings.text_color }};
-          border-radius:40px;
+      @media screen and (min-width: 750px) {
+        .section-{{ section.id }}-padding {
+          padding-top: {{ section.settings.padding_top }}px;
+          padding-bottom: {{ section.settings.padding_bottom }}px;
         }
-        #Details-{{ block.id }}-{{ section.id }} > summary svg {
-          fill: {{ block.settings.text_color }};
-        }
-        #Details-{{ block.id }}-{{ section.id }} > summary .accordion__title {
-          color: {{ block.settings.text_color }};
-          padding-left:1rem;
-        }
-        #ProductAccordion-{{ block.id }}-{{ section.id }} {
-          background-color: {{ block.settings.bg_color }};
-        }
-        #ProductAccordion-{{ block.id }}-{{ section.id }} img {
-          max-width: 100%;
-          height: auto;
-          display: block;
-        }
-        #Details-{{ block.id }}-{{ section.id }}[open] #ProductAccordion-{{ block.id }}-{{ section.id }} {
-          animation: animateMenuOpen var(--duration-default) ease;
-        }
-      {%- endif -%}
-    {%- endfor -%}
+      }
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'composicao_produto' or block.type == 'tabela_nutricional' -%}
+          #Details-{{ block.id }}-{{ section.id }}  {
+            background-color: {{ block.settings.bg_color }};
+            color: {{ block.settings.text_color }};
+            border-radius:40px;
+          }
+          #Details-{{ block.id }}-{{ section.id }} > summary svg {
+            fill: {{ block.settings.text_color }};
+          }
+          #Details-{{ block.id }}-{{ section.id }} > summary .accordion__title {
+            color: {{ block.settings.text_color }};
+            padding-left:2rem;
+          }
+           #Details-{{ block.id }}-{{ section.id }}[open] .accordion__content {
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            padding-inline: 2.5rem;
+            padding-bottom: .45rem;
+           }
+          #ProductAccordion-{{ block.id }}-{{ section.id }} {
+            background-color: {{ block.settings.bg_color }};
+          }
+          #ProductAccordion-{{ block.id }}-{{ section.id }} img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+          }
+          #Details-{{ block.id }}-{{ section.id }}[open] #ProductAccordion-{{ block.id }}-{{ section.id }} {
+            animation: animateMenuOpen var(--duration-default) ease;
+          }
+        {%- endif -%}
+      {%- endfor -%}
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -168,8 +174,7 @@
                 {%- endif -%}
               {% when 'beneficio_do_produto' %}
                 {% if product.metafields.custom.beneficios_do_produto_novo.value %}
-                  {%  render 'product_benefits', block: block %}
-
+                  {% render 'product_benefits', block: block %}
                 {% endif %}
               {% when 'quantity_bundle' %}
                 {%- render 'quantity-bundle',
@@ -1080,27 +1085,27 @@
       ]
     },
     {
-      "type":"beneficio_do_produto",
-      "name":"Benefícios do produto",
+      "type": "beneficio_do_produto",
+      "name": "Benefícios do produto",
       "settings": [
         {
-          "type":"text",
-          "id":"title",
-          "label":"Titulo",
-          "default":"Benefícios do produto"
+          "type": "text",
+          "id": "title",
+          "label": "Titulo",
+          "default": "Benefícios do produto"
         },
         {
-          "type":"color",
-          "id":"bg_color",
+          "type": "color",
+          "id": "bg_color",
           "label": "Cor do background",
-          "default":"#EBF3F8"
+          "default": "#EBF3F8"
         },
         {
-          "type":"color",
-          "id":"text_color",
+          "type": "color",
+          "id": "text_color",
           "label": "Cor do texto",
-          "default":"#1A4789"
-        },
+          "default": "#1A4789"
+        }
       ]
     },
     {
@@ -1459,7 +1464,7 @@
       ]
     },
     {
-      "type": "composicao_produto", 
+      "type": "composicao_produto",
       "name": "Composição do Produto",
       "settings": [
         {
