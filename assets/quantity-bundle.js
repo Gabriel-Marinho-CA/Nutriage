@@ -108,8 +108,9 @@ class QuantityBundle extends HTMLElement {
     }
     if (this._summaryUnit) {
 
+
       const unitPrice = Math.round(price / qtyTotal);
-      this._summaryUnit.textContent = `(${this._fmt(unitPrice)}/unidade) + ${qtyTotal}`;
+      this._summaryUnit.textContent = qtyTotal > 1 ? `(${this._fmt(unitPrice)}/unidade)`: '';
     }
   }
 
