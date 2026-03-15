@@ -981,6 +981,12 @@
           "visible_if": "{{ block.settings.parcela_9_enabled }}"
         },
         {
+          "type": "image_picker",
+          "id": "parcela_9_icon",
+          "label": "Ícone personalizado",
+          "visible_if": "{{ block.settings.parcela_9_enabled }}"
+        },
+        {
           "type": "header",
           "content": "Parcela 10"
         },
@@ -995,6 +1001,12 @@
           "id": "parcela_10_text",
           "label": "Texto",
           "default": "Parcele em até 10x sem juros",
+          "visible_if": "{{ block.settings.parcela_10_enabled }}"
+        },
+        {
+          "type": "image_picker",
+          "id": "parcela_10_icon",
+          "label": "Ícone personalizado",
           "visible_if": "{{ block.settings.parcela_10_enabled }}"
         }
       ]
