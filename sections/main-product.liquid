@@ -60,6 +60,9 @@
           height: auto;
           display: block;
         }
+        #Details-{{ block.id }}-{{ section.id }}[open] #ProductAccordion-{{ block.id }}-{{ section.id }} {
+          animation: animateMenuOpen var(--duration-default) ease;
+        }
       {%- endif -%}
     {%- endfor -%}
   {%- endstyle -%}
