@@ -98,8 +98,7 @@
                 </p>
               {% when 'beneficio_do_produto' %}
                 {% if product.metafields.custom.beneficios_do_produto_novo.value %}
-                  {{ product.metafields.custom.beneficios_do_produto_novo.value | json }}
-                  {%  render 'product_benefits', block: block %}
+                  {%  render 'product_benefits', block: block, section: section %}
                 
                 {% endif %}
               {% when 'quantity_bundle' %}
