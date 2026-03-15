@@ -28,98 +28,142 @@
     <div class="res-footer__main page-width">
       {%- for block in section.blocks -%}
         {%- case block.type -%}
+
           {%- when 'links' -%}
             <div class="res-footer__col" {{ block.shopify_attributes }}>
               {%- if block.settings.title != blank -%}
-                <h3 class="res-footer__col-title">{{ block.settings.title | escape }}</h3>
-              {%- endif -%}
-              {%- if block.settings.menu.links.size > 0 -%}
-                <ul class="res-footer__links{% if block.settings.columns == '2' %} res-footer__links--2col{% endif %}">
-                  {%- for link in block.settings.menu.links -%}
-                    <li>
-                      <a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a>
-                    </li>
-                  {%- endfor -%}
-                </ul>
+                <div class="res-footer__accordion-item">
+                  <button class="res-footer__accordion-btn" aria-expanded="false">
+                    {{- block.settings.title | escape -}}
+                    <svg class="res-footer__chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </button>
+                  <div class="res-footer__accordion-body">
+                    {%- if block.settings.menu.links.size > 0 -%}
+                      <ul class="res-footer__links{% if block.settings.columns == '2' %} res-footer__links--2col{% endif %}">
+                        {%- for link in block.settings.menu.links -%}
+                          <li>
+                            <a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- else -%}
+                {%- if block.settings.menu.links.size > 0 -%}
+                  <ul class="res-footer__links{% if block.settings.columns == '2' %} res-footer__links--2col{% endif %}">
+                    {%- for link in block.settings.menu.links -%}
+                      <li>
+                        <a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
               {%- endif -%}
             </div>
 
           {%- when 'support_institutional' -%}
             <div class="res-footer__col" {{ block.shopify_attributes }}>
               {%- if block.settings.title_1 != blank -%}
-                <h3 class="res-footer__col-title">{{ block.settings.title_1 | escape }}</h3>
-              {%- endif -%}
-              {%- if block.settings.menu_1.links.size > 0 -%}
-                <ul class="res-footer__links">
-                  {%- for link in block.settings.menu_1.links -%}
-                    <li>
-                      <a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a>
-                    </li>
-                  {%- endfor -%}
-                </ul>
+                <div class="res-footer__accordion-item">
+                  <button class="res-footer__accordion-btn" aria-expanded="false">
+                    {{- block.settings.title_1 | escape -}}
+                    <svg class="res-footer__chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </button>
+                  <div class="res-footer__accordion-body">
+                    {%- if block.settings.menu_1.links.size > 0 -%}
+                      <ul class="res-footer__links">
+                        {%- for link in block.settings.menu_1.links -%}
+                          <li>
+                            <a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </div>
+                </div>
               {%- endif -%}
               {%- if block.settings.title_2 != blank -%}
-                <h3 class="res-footer__col-title res-footer__col-title--mt">{{ block.settings.title_2 | escape }}</h3>
-              {%- endif -%}
-              {%- if block.settings.menu_2.links.size > 0 -%}
-                <ul class="res-footer__links">
-                  {%- for link in block.settings.menu_2.links -%}
-                    <li>
-                      <a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a>
-                    </li>
-                  {%- endfor -%}
-                </ul>
+                <div class="res-footer__accordion-item">
+                  <button class="res-footer__accordion-btn" aria-expanded="false">
+                    {{- block.settings.title_2 | escape -}}
+                    <svg class="res-footer__chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </button>
+                  <div class="res-footer__accordion-body">
+                    {%- if block.settings.menu_2.links.size > 0 -%}
+                      <ul class="res-footer__links">
+                        {%- for link in block.settings.menu_2.links -%}
+                          <li>
+                            <a href="{{ link.url }}" class="res-footer__link">{{ link.title }}</a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </div>
+                </div>
               {%- endif -%}
             </div>
 
           {%- when 'payments_security' -%}
             <div class="res-footer__col res-footer__col--payments" {{ block.shopify_attributes }}>
               {%- if block.settings.payment_title != blank -%}
-                <h3 class="res-footer__col-title">{{ block.settings.payment_title | escape }}</h3>
-              {%- endif -%}
-
-              <div class="res-footer__payment-grid">
-                {%- for i in (1..9) -%}
-                  {%- assign show_key = 'show_pay_' | append: i -%}
-                  {%- assign icon_key = 'icon_pay_' | append: i -%}
-                  {%- if block.settings[show_key] and block.settings[icon_key] != blank -%}
-                    <div class="res-footer__payment-icon">
-                      <img
-                        src="{{ block.settings[icon_key] | image_url: width: 80 }}"
-                        alt="{{ block.settings[icon_key].alt | escape }}"
-                        width="80"
-                        loading="lazy"
-                      >
+                <div class="res-footer__accordion-item">
+                  <button class="res-footer__accordion-btn" aria-expanded="false">
+                    {{- block.settings.payment_title | escape -}}
+                    <svg class="res-footer__chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </button>
+                  <div class="res-footer__accordion-body">
+                    <div class="res-footer__payment-grid">
+                      {%- for i in (1..9) -%}
+                        {%- assign show_key = 'show_pay_' | append: i -%}
+                        {%- assign icon_key = 'icon_pay_' | append: i -%}
+                        {%- if block.settings[show_key] and block.settings[icon_key] != blank -%}
+                          <div class="res-footer__payment-icon">
+                            <img
+                              src="{{ block.settings[icon_key] | image_url: width: 80 }}"
+                              alt="{{ block.settings[icon_key].alt | escape }}"
+                              width="80"
+                              height="35"
+                              loading="lazy"
+                            >
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
                     </div>
-                  {%- endif -%}
-                {%- endfor -%}
-              </div>
+                  </div>
+                </div>
+              {%- endif -%}
 
               {%- if block.settings.security_title != blank -%}
-                <h3 class="res-footer__col-title res-footer__col-title--mt">
-                  {{ block.settings.security_title | escape }}
-                </h3>
+                <div class="res-footer__accordion-item">
+                  <button class="res-footer__accordion-btn" aria-expanded="false">
+                    {{- block.settings.security_title | escape -}}
+                    <svg class="res-footer__chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </button>
+                  <div class="res-footer__accordion-body">
+                    <div class="res-footer__seals">
+                      {%- if block.settings.seal_1 != blank -%}
+                        <img
+                          src="{{ block.settings.seal_1 | image_url: width: 140 }}"
+                          alt="{{ block.settings.seal_1.alt | escape }}"
+                          class="res-footer__seal"
+                          loading="lazy"
+                        >
+                      {%- endif -%}
+                      {%- if block.settings.seal_2 != blank -%}
+                        <img
+                          src="{{ block.settings.seal_2 | image_url: width: 140 }}"
+                          alt="{{ block.settings.seal_2.alt | escape }}"
+                          class="res-footer__seal"
+                          loading="lazy"
+                        >
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
               {%- endif -%}
-
-              <div class="res-footer__seals">
-                {%- if block.settings.seal_1 != blank -%}
-                  <img
-                    src="{{ block.settings.seal_1 | image_url: width: 140 }}"
-                    alt="{{ block.settings.seal_1.alt | escape }}"
-                    class="res-footer__seal"
-                    loading="lazy"
-                  >
-                {%- endif -%}
-                {%- if block.settings.seal_2 != blank -%}
-                  <img
-                    src="{{ block.settings.seal_2 | image_url: width: 140 }}"
-                    alt="{{ block.settings.seal_2.alt | escape }}"
-                    class="res-footer__seal"
-                    loading="lazy"
-                  >
-                {%- endif -%}
-              </div>
             </div>
+
         {%- endcase -%}
       {%- endfor -%}
     </div>
@@ -176,6 +220,28 @@
     </div>
   </div>
 </footer>
+
+<script>
+(function () {
+  function init() {
+    var footer = document.getElementById('res-footer-{{ section.id }}');
+    if (!footer) return;
+    footer.querySelectorAll('.res-footer__accordion-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var item = btn.closest('.res-footer__accordion-item');
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+        item.classList.toggle('is-open', !open);
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 
 {% schema %}
 {
