@@ -113,6 +113,11 @@
           id="main-collection-filters"
           data-id="{{ section.id }}"
         >
+          <div class="wrapper-breadcrumb">
+            <span class="svg-wrapper">
+              {{ 'home.svg' | inline_asset_content }}
+            </span>
+          </div>
           {% render 'facets',
             results: collection,
             enable_filtering: section.settings.enable_filtering,
