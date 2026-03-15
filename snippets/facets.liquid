@@ -475,16 +475,18 @@
     <p class="text-filter">Ordenar por:</p>
 
     {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
-    {%- for option in results.sort_options -%}
-      <option
-        value="{{ option.value | escape }}"
-        {% if option.value == sort_by %}
-          selected="selected"
-        {% endif %}
-      >
-        {{ option.name | escape }}
-      </option>
-    {%- endfor -%}
+    <select class="mobile-sort-select" aria-label="{{ 'products.facets.sort_by_label' | t }}">
+      {%- for option in results.sort_options -%}
+        <option
+          value="{{ option.value | escape }}"
+          {% if option.value == sort_by %}
+            selected="selected"
+          {% endif %}
+        >
+          {{ option.name | escape }}
+        </option>
+      {%- endfor -%}
+    </select>
   </div>
 
   <div class="filtrar-drawer">
