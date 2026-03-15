@@ -52,7 +52,7 @@ class QuantityBundle extends HTMLElement {
     const installmentCount = parseInt(card.dataset.installmentCount, 10) || 1;
     const installmentLabel = card.dataset.installmentLabel || '';
     const qtyLabel = card.dataset.qtyLabel || '';
-    const qtyTotal = card.dataset.qtyNumber || 1;
+    const qtyTotal = card.dataset.qtyNumber || null;
 
     // Heading
     if (this._headingQty) {
