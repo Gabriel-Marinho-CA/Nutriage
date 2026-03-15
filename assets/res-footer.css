@@ -1,0 +1,228 @@
+/* ================================================================
+   RES Footer
+   ================================================================ */
+
+.res-footer {
+  background: var(--res-footer-bg, #1A4789);
+  border-top: 4px solid var(--res-footer-accent, #E8A020);
+}
+
+/* ── Colunas principais ── */
+.res-footer__main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3.2rem;
+  padding: 4.8rem 0 4rem;
+}
+
+.res-footer__col {
+  flex: 1 1 180px;
+  min-width: 0;
+}
+
+/* Coluna de pagamentos não estica demais */
+.res-footer__col--payments {
+  flex: 0 1 200px;
+}
+
+/* ── Título das colunas ── */
+.res-footer__col-title {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--res-footer-title-color, #fff);
+  line-height: 1.3;
+}
+
+.res-footer__col-title--mt {
+  margin-top: 2.8rem;
+}
+
+/* ── Lista de links ── */
+.res-footer__links {
+  list-style: none;
+  margin: 1.2rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.res-footer__links--2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem 2rem;
+}
+
+.res-footer__link {
+  color: var(--res-footer-link-color, rgba(255, 255, 255, 0.85));
+  text-decoration: none;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  transition: color 0.2s;
+}
+
+.res-footer__link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* ── Grid de ícones de pagamento ── */
+.res-footer__payment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+.res-footer__payment-icon {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.6rem;
+  padding: 0.8rem 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.res-footer__payment-icon img {
+  display: block;
+  height: 2.2rem;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ── Selos de segurança ── */
+.res-footer__seals {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.2rem;
+}
+
+.res-footer__seal {
+  display: block;
+  height: 6rem;
+  width: auto;
+  object-fit: contain;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.6rem;
+}
+
+/* ── Linha inferior: logo + textos ── */
+.res-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  padding: 2.4rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.res-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.res-footer__logo {
+  display: block;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.res-footer__brand-name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--res-footer-title-color, #fff);
+}
+
+.res-footer__brand-text {
+  color: var(--res-footer-text-color, rgba(255, 255, 255, 0.85));
+  font-size: 1.3rem;
+  line-height: 1.7;
+}
+
+.res-footer__brand-text p {
+  margin: 0;
+}
+
+.res-footer__info-text {
+  color: var(--res-footer-text-color, rgba(255, 255, 255, 0.85));
+  font-size: 1.3rem;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.res-footer__info-text p {
+  margin: 0;
+}
+
+/* ── Barra de copyright ── */
+.res-footer__copyright-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 1.6rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.res-footer__copyright-text {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 1.3rem;
+}
+
+.res-footer__tech {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.res-footer__tech-label {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.res-footer__tech img {
+  display: block;
+  height: auto;
+}
+
+/* ── Mobile ── */
+@media screen and (max-width: 749px) {
+  .res-footer__main {
+    padding: 3.2rem 0 2.4rem;
+    gap: 2.4rem;
+  }
+
+  .res-footer__col,
+  .res-footer__col--payments {
+    flex: 1 1 calc(50% - 1.2rem);
+  }
+
+  .res-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.6rem;
+  }
+
+  .res-footer__info-text {
+    text-align: left;
+  }
+
+  .res-footer__copyright-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.6rem 0 2.4rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .res-footer__col,
+  .res-footer__col--payments {
+    flex: 1 1 100%;
+  }
+}
