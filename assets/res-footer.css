@@ -49,9 +49,7 @@
 }
 
 .res-footer__links--2col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.8rem 2rem;
+  column-count: 2;
 }
 
 .res-footer__link {
