@@ -98,7 +98,7 @@
                 </p>
               {% when 'beneficio_do_produto' %}
                 {% if product.metafields.custom.beneficios_do_produto_novo.value %}
-                  {%  render 'product_benefits', block: block, section: section %}
+                  {%  render 'product_benefits', block: block %}
                 
                 {% endif %}
               {% when 'quantity_bundle' %}
