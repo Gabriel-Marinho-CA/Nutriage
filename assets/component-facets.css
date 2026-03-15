@@ -546,7 +546,7 @@
 
 .facet-checkbox>input[type='checkbox']:checked~.svg-wrapper {
   left: 2px;
-  top: 14px;
+  top: 14.5px;
 }
 
 .icon-checkmark {
