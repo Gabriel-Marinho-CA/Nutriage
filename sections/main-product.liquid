@@ -759,16 +759,134 @@
     {
       "type": "quantity_bundle",
       "name": "Bundle de quantidade",
+      "limit": 1,
       "settings": [
         {
           "type": "text",
-          "label": "Titulo",
-          "id": "title"
+          "id": "heading",
+          "label": "Título do seletor",
+          "default": "Escolha sua opção:"
+        },
+        {
+          "type": "header",
+          "content": "Kit 1 — primeiro do metafield"
+        },
+        {
+          "type": "text",
+          "id": "kit1_title",
+          "label": "Título",
+          "default": "Compre 3 Leve 5"
         },
         {
           "type": "checkbox",
-          "id": "enable_tag",
-          "label": "Ativar tag"
+          "id": "kit1_show_badge",
+          "label": "Mostrar tag",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "kit1_badge",
+          "label": "Texto da tag",
+          "default": "Menor preço"
+        },
+        {
+          "type": "text",
+          "id": "kit1_installment_label",
+          "label": "Label do parcelamento",
+          "default": "3x sem juros de",
+          "info": "Ex: '3x sem juros de', '6x de'"
+        },
+        {
+          "type": "number",
+          "id": "kit1_installment_count",
+          "label": "Número de parcelas",
+          "default": 3
+        },
+        {
+          "type": "text",
+          "id": "kit1_qty_label",
+          "label": "Quantidade (heading)",
+          "default": "05 unidades",
+          "info": "Aparece no título ao selecionar este card"
+        },
+        {
+          "type": "header",
+          "content": "Kit 2 — segundo do metafield"
+        },
+        {
+          "type": "text",
+          "id": "kit2_title",
+          "label": "Título",
+          "default": "Compre 2 Leve 3"
+        },
+        {
+          "type": "checkbox",
+          "id": "kit2_show_badge",
+          "label": "Mostrar tag",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "kit2_badge",
+          "label": "Texto da tag",
+        },
+        {
+          "type": "text",
+          "id": "kit2_installment_label",
+          "label": "Label do parcelamento",
+          "default": "3x sem juros de"
+        },
+        {
+          "type": "number",
+          "id": "kit2_installment_count",
+          "label": "Número de parcelas",
+          "default": 3
+        },
+        {
+          "type": "text",
+          "id": "kit2_qty_label",
+          "label": "Quantidade (heading)",
+          "default": "03 unidades"
+        },
+        {
+          "type": "header",
+          "content": "Produto principal — 1 unidade"
+        },
+        {
+          "type": "text",
+          "id": "main_title",
+          "label": "Título",
+          "default": "1 unidade"
+        },
+        {
+          "type": "checkbox",
+          "id": "main_show_badge",
+          "label": "Mostrar tag",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "main_badge",
+          "label": "Texto da tag",
+          "default": "Menor preço"
+        },
+        {
+          "type": "text",
+          "id": "main_installment_label",
+          "label": "Label do parcelamento",
+          "default": "3x sem juros de"
+        },
+        {
+          "type": "number",
+          "id": "main_installment_count",
+          "label": "Número de parcelas",
+          "default": 3
+        },
+        {
+          "type": "text",
+          "id": "main_qty_label",
+          "label": "Quantidade (heading)",
+          "default": "01 unidade"
         }
       ]
     },
