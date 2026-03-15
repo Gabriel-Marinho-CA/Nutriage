@@ -50,6 +50,7 @@
 
 .res-footer__links--2col {
   column-count: 2;
+  display: list-item;
 }
 
 .res-footer__link {
