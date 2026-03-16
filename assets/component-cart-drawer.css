@@ -426,4 +426,12 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
     }
   }
 
+  .drawer__cart-items-wrapper {
+    thead {
+      display: none;
+    }
+  }
+
+
+
 }
