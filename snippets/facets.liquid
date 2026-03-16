@@ -765,6 +765,7 @@
         closeBtns.forEach((el) => el.addEventListener('click', (ev) => closeMenus()));
       }
       function openMenus(ev) {
+        closeMenus();
         const classContainer = ev.currentTarget.classList[1].replace('-btn', '');
         const containerToOpen = document.querySelector(`.${classContainer}-drawer`);
 
