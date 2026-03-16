@@ -12,6 +12,7 @@
   position: absolute;
   right: 2rem;
   top: 6px;
+  z-index: 2;
 }
 
 .order-bump__title {
