@@ -16,7 +16,7 @@
           {% if cart_total >= free_shipping_min %}
             Parabéns, você ganhou <b>frete grátis!</b>
           {% else %}
-            faltam <b>{{ amount_left | money }}</b> para o frete grátis.
+            Faltam <b>{{ amount_left | money }}</b> para o frete grátis.
           {% endif %}
         </span>
         <span class="svg-wrapper">
