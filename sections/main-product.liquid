@@ -948,222 +948,182 @@
     </div>
   </div>
 
-<script>
-(function () {
-  const sectionId = '{{ section.id }}';
-  const stickyBar = document.getElementById('StickyAtc-' + sectionId);
-  const productInfo = document.getElementById('MainProduct-' + sectionId);
-  const stickyFormInput = document.querySelector('#{{ sticky_form_id }} input[name="id"]');
-  const stickySelect = document.getElementById('StickyAtcSelect-' + sectionId);
+  <script>
+    (function () {
+      const sectionId = '{{ section.id }}';
+      const stickyBar = document.getElementById('StickyAtc-' + sectionId);
+      const productInfo = document.getElementById('MainProduct-' + sectionId);
+      const stickyFormInput = document.querySelector('#{{ sticky_form_id }} input[name="id"]');
+      const stickySelect = document.getElementById('StickyAtcSelect-' + sectionId);
 
-  if (!stickyBar || !productInfo) return;
+      if (!stickyBar || !productInfo) return;
 
-  const summaryBadge = stickyBar.querySelector('.sticky-atc__summary-badge');
-  const summaryCompare = stickyBar.querySelector('.sticky-atc__summary-compare');
-  const summaryPrice = stickyBar.querySelector('.sticky-atc__summary-price');
+      const summaryBadge = stickyBar.querySelector('.sticky-atc__summary-badge');
+      const summaryCompare = stickyBar.querySelector('.sticky-atc__summary-compare');
+      const summaryPrice = stickyBar.querySelector('.sticky-atc__summary-price');
 
-  function fmtMoney(cents) {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(cents / 100);
-  }
-
-  function updateSummary(price, compare) {
-    if (!summaryPrice) return;
-
-    summaryPrice.textContent = fmtMoney(price);
-
-    if (compare && compare > price) {
-      const pct = Math.round(((compare - price) / compare) * 100);
-
-      if (summaryBadge) {
-        summaryBadge.textContent = pct + '% off';
-        summaryBadge.hidden = false;
+      function fmtMoney(cents) {
+        return new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        }).format(cents / 100);
       }
 
-      if (summaryCompare) {
-        summaryCompare.textContent = fmtMoney(compare);
-        summaryCompare.hidden = false;
-      }
+      function updateSummary(price, compare) {
+        if (!summaryPrice) return;
 
-    } else {
-      if (summaryBadge) summaryBadge.hidden = true;
-      if (summaryCompare) summaryCompare.hidden = true;
-    }
-  }
+        summaryPrice.textContent = fmtMoney(price);
 
-  // ── Quantity-bundle sync ─────────────────────────────────
+        if (compare && compare > price) {
+          const pct = Math.round(((compare - price) / compare) * 100);
 
-  document.addEventListener('quantity-bundle:change', function (e) {
+          if (summaryBadge) {
+            summaryBadge.textContent = pct + '% off';
+            summaryBadge.hidden = false;
+          }
 
-    const bundle = e.target.closest('quantity-bundle');
-    if (!bundle || bundle.dataset.sectionId !== sectionId) return;
-
-    const { variantId, price, compare } = e.detail;
-
-    if (stickyFormInput) stickyFormInput.value = variantId;
-    if (stickySelect) stickySelect.value = variantId;
-
-    updateSummary(price, compare);
-
-  });
-
-  // ── Build select from qb-cards ───────────────────────────
-
-  if (stickySelect) {
-
-    const quantityBundle = document.querySelector(
-      'quantity-bundle[data-section-id="' + sectionId + '"]'
-    );
-
-    if (quantityBundle) {
-
-      const cards = quantityBundle.querySelectorAll('.qb-card');
-
-      stickySelect.innerHTML = '';
-
-      cards.forEach(function (card) {
-
-        const variantId = card.dataset.variantId;
-        const qtyLabel = card.dataset.qtyLabel || '';
-        const price = parseInt(card.dataset.price, 10) || 0;
-
-        const opt = document.createElement('option');
-
-        opt.value = variantId;
-        opt.dataset.baseLabel = qtyLabel;
-        opt.textContent = qtyLabel + ' — ' + fmtMoney(price);
-
-        if (card.classList.contains('is-selected')) {
-          opt.selected = true;
-
-          if (stickyFormInput) stickyFormInput.value = variantId;
-
-          updateSummary(
-            price,
-            parseInt(card.dataset.compare, 10) || 0
-          );
-        }
-
-        stickySelect.appendChild(opt);
-
-      });
-
-      stickySelect.addEventListener('change', function () {
-
-        const targetCard = quantityBundle.querySelector(
-          '.qb-card[data-variant-id="' + stickySelect.value + '"]'
-        );
-
-        if (targetCard) targetCard.click();
-
-      });
-
-    } else {
-
-      stickySelect.addEventListener('change', function () {
-
-        const opt = stickySelect.options[stickySelect.selectedIndex];
-
-        if (stickyFormInput) stickyFormInput.value = stickySelect.value;
-
-        updateSummary(
-          parseInt(opt.dataset.price, 10) || 0,
-          parseInt(opt.dataset.compare, 10) || 0
-        );
-
-      });
-
-      const mainFormInput = document.querySelector(
-        '#product-form-' + sectionId + ' input[name="id"]'
-      );
-
-      if (mainFormInput && stickyFormInput) {
-
-        mainFormInput.addEventListener('change', function () {
-          stickyFormInput.value = mainFormInput.value;
-        });
-
-      }
-    }
-
-  } else {
-
-    const mainFormInput = document.querySelector(
-      '#product-form-' + sectionId + ' input[name="id"]'
-    );
-
-    if (mainFormInput && stickyFormInput) {
-
-      mainFormInput.addEventListener('change', function () {
-
-        stickyFormInput.value = mainFormInput.value;
-
-        if (mainFormInput.disabled) {
-          stickyFormInput.setAttribute('disabled', '');
+          if (summaryCompare) {
+            summaryCompare.textContent = fmtMoney(compare);
+            summaryCompare.hidden = false;
+          }
         } else {
-          stickyFormInput.removeAttribute('disabled');
+          if (summaryBadge) summaryBadge.hidden = true;
+          if (summaryCompare) summaryCompare.hidden = true;
         }
+      }
 
+      // ── Quantity-bundle sync ─────────────────────────────────
+
+      document.addEventListener('quantity-bundle:change', function (e) {
+        const bundle = e.target.closest('quantity-bundle');
+        if (!bundle || bundle.dataset.sectionId !== sectionId) return;
+
+        const { variantId, price, compare } = e.detail;
+
+        if (stickyFormInput) stickyFormInput.value = variantId;
+        if (stickySelect) stickySelect.value = variantId;
+
+        updateSummary(price, compare);
       });
-    }
-  }
 
-  // ── Sticky visibility logic ──────────────────────────────
+      // ── Build select from qb-cards ───────────────────────────
 
-  let footerVisible = false;
-  let productInfoVisible = true;
+      if (stickySelect) {
+        const quantityBundle = document.querySelector('quantity-bundle[data-section-id="' + sectionId + '"]');
 
-  function updateVisibility() {
+        if (quantityBundle) {
+          const cards = quantityBundle.querySelectorAll('.qb-card');
 
-    if (!productInfoVisible && !footerVisible) {
+          stickySelect.innerHTML = '';
 
-      stickyBar.classList.add('is-visible');
-      stickyBar.removeAttribute('aria-hidden');
+          cards.forEach(function (card) {
+            const variantId = card.dataset.variantId;
+            const qtyLabel = card.dataset.qtyLabel || '';
+            const price = parseInt(card.dataset.price, 10) || 0;
 
-    } else {
+            const opt = document.createElement('option');
 
-      stickyBar.classList.remove('is-visible');
-      stickyBar.setAttribute('aria-hidden', 'true');
+            opt.value = variantId;
+            opt.dataset.baseLabel = qtyLabel;
+            opt.textContent = qtyLabel + ' — ' + fmtMoney(price);
 
-    }
-  }
+            if (card.classList.contains('is-selected')) {
+              opt.selected = true;
 
-  // Product info observer
+              if (stickyFormInput) stickyFormInput.value = variantId;
 
-  new IntersectionObserver(function (entries) {
+              updateSummary(price, parseInt(card.dataset.compare, 10) || 0);
+            }
 
-    productInfoVisible = entries[0].isIntersecting;
-    updateVisibility();
+            stickySelect.appendChild(opt);
+          });
 
-  }, {
-    threshold: 0
-  }).observe(productInfo);
+          stickySelect.addEventListener('change', function () {
+            const targetCard = quantityBundle.querySelector('.qb-card[data-variant-id="' + stickySelect.value + '"]');
 
-  // Footer observer (oculta antes de chegar nele)
+            if (targetCard) targetCard.click();
+          });
+        } else {
+          stickySelect.addEventListener('change', function () {
+            const opt = stickySelect.options[stickySelect.selectedIndex];
 
-  const footer =
-    document.querySelector('.res-footer') ||
-    document.querySelector('footer');
+            if (stickyFormInput) stickyFormInput.value = stickySelect.value;
 
-    console.log(footer);
-  if (footer) {
+            updateSummary(parseInt(opt.dataset.price, 10) || 0, parseInt(opt.dataset.compare, 10) || 0);
+          });
 
-    new IntersectionObserver(function (entries) {
+          const mainFormInput = document.querySelector('#product-form-' + sectionId + ' input[name="id"]');
 
-      footerVisible = entries[0].isIntersecting;
-      updateVisibility();
+          if (mainFormInput && stickyFormInput) {
+            mainFormInput.addEventListener('change', function () {
+              stickyFormInput.value = mainFormInput.value;
+            });
+          }
+        }
+      } else {
+        const mainFormInput = document.querySelector('#product-form-' + sectionId + ' input[name="id"]');
 
-    }, {
-      threshold: 0,
-      rootMargin: '0px 0px -150px 0px'
-    }).observe(footer);
+        if (mainFormInput && stickyFormInput) {
+          mainFormInput.addEventListener('change', function () {
+            stickyFormInput.value = mainFormInput.value;
 
-  }
+            if (mainFormInput.disabled) {
+              stickyFormInput.setAttribute('disabled', '');
+            } else {
+              stickyFormInput.removeAttribute('disabled');
+            }
+          });
+        }
+      }
 
-})();
-</script>
+      // ── Sticky visibility logic ──────────────────────────────
+
+      let footerVisible = false;
+      let productInfoVisible = true;
+
+      function updateVisibility() {
+        if (!productInfoVisible && !footerVisible) {
+          stickyBar.classList.add('is-visible');
+          stickyBar.removeAttribute('aria-hidden');
+        } else {
+          stickyBar.classList.remove('is-visible');
+          stickyBar.setAttribute('aria-hidden', 'true');
+        }
+      }
+
+      // Product info observer
+
+      new IntersectionObserver(
+        function (entries) {
+          productInfoVisible = entries[0].isIntersecting;
+          updateVisibility();
+        },
+        {
+          threshold: 0,
+        }
+      ).observe(productInfo);
+
+      // Footer observer (oculta antes de chegar nele)
+
+      setTimeout(() => {
+        const footer = document.querySelector('.res-footer') || document.querySelector('footer');
+
+        console.log(footer);
+        if (footer) {
+          new IntersectionObserver(
+            function (entries) {
+              footerVisible = entries[0].isIntersecting;
+              updateVisibility();
+            },
+            {
+              threshold: 0,
+              rootMargin: '0px 0px -150px 0px',
+            }
+          ).observe(footer);
+        }
+      }, 1500);
+    })();
+  </script>
 {%- endif -%}
 
 {% schema %}
