@@ -6,6 +6,12 @@
 .res-acc {
   background: var(--res-acc-bg-color);
 
+  .res-fc__view-all {
+    margin-top: 3.2rem;
+    display: flex;
+    justify-content: center;
+  }
+
   .res-fc__view-all-btn-accordion {
     border-radius: 10rem;
     font-size: 22px;
@@ -29,9 +35,9 @@
     }
 
     @media (max-width: 750px) {
-        font-size: 13px;
-        height: 43px;
-        margin-top: .75rem;
+      font-size: 13px;
+      height: 43px;
+      margin-top: .75rem;
     }
   }
 }
