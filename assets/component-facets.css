@@ -1372,6 +1372,23 @@ input.mobile-facets__checkbox {
     border-top: 1px solid #1A4789;
     padding-block: 1rem;
     font-size: 14px;
+
+    .circle {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid #1A4789;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: .1rem;
+
+      .inner-circle {
+        background-color: #E0BE80;
+        width: 12px;
+        height: 12px;
+      }
+    }
   }
 }
 
