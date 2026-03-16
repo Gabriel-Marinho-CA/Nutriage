@@ -1620,6 +1620,18 @@ product-form.product-form {
   display: flex;
   align-items: center;
   gap: 16px;
+
+  @media (max-width:900px) {
+    flex-wrap: wrap;
+
+    product-form {
+      min-width: 100%;
+      button {
+        max-width: 80%;
+        height: 37px;
+      }
+    }
+  }
 }
 
 .sticky-atc__img {
@@ -1745,17 +1757,9 @@ product-form.product-form {
 
 @media (max-width: 749px) {
 
-  .sticky-atc__img,
-  .sticky-atc__info {
-    display: none;
-  }
 
   .sticky-atc__btn {
     width: 100%;
   }
 
-  .sticky-atc__select {
-    font-size: 1.2rem;
-    padding: 9px 30px 9px 12px;
-  }
 }
