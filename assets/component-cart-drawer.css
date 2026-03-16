@@ -496,6 +496,10 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
     }
   }
 
+  .drawer__footer {
+    border: none;
+  }
+
   .totals {
     display: flex;
     align-items: flex-start;
