@@ -432,6 +432,11 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
     }
   }
 
+  .cart-item__name  {
+    font-size: 17px;
+  font-weight: bold;
+  }
+
   .cart-item__totals {
     justify-content: flex-start;
 
@@ -452,6 +457,9 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
       justify-content: space-between;
       margin-top: 2rem;
 
+      .price  {
+        font-weight: bold;
+      }
       .cart-item__quantity {
         padding: 0;
 
