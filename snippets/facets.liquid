@@ -1188,7 +1188,7 @@
         orderbyBtn.addEventListener('click', (ev) => openMenus(ev));
       }
         function openMenus(ev) {
-          const classContainer = ev.target.classList.replace('-btn','');
+          const classContainer = ev.target.classList[0].replace('-btn','');
           const containerToOpen = document.querySelector(`.${classContainer}-drawer`);
 
           containerToOpen.classList.add('active');
