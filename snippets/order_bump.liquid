@@ -14,7 +14,7 @@
         assign visible_count = visible_count | plus: 1
       endunless
     endfor
-  -%}
+  -%} 
 
   {%- if visible_count > 0 -%}
     {{ 'component-order-bump.css' | asset_url | stylesheet_tag }}
