@@ -40,10 +40,161 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "res_accordion_k8JHXR": {
+      "type": "res-accordion",
+      "blocks": {
+        "item_AehfyX": {
+          "type": "item",
+          "settings": {
+            "title": "Imunidade",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+            "tag_1": "Vitamina C",
+            "tag_2": "Zinco",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": "",
+            "button_label": "Ver todos",
+            "button_url": ""
+          }
+        },
+        "item_MpydWB": {
+          "type": "item",
+          "settings": {
+            "title": "Imunidade",
+            "description": "Descrição desta categoria de produtos.",
+            "tag_1": "Vitamina C",
+            "tag_2": "Zinco",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": "",
+            "button_label": "Ver todos",
+            "button_url": ""
+          }
+        },
+        "item_qyXrLH": {
+          "type": "item",
+          "settings": {
+            "title": "Imunidade",
+            "description": "Descrição desta categoria de produtos.",
+            "tag_1": "Vitamina C",
+            "tag_2": "Zinco",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": "",
+            "button_label": "Ver todos",
+            "button_url": ""
+          }
+        },
+        "item_AHNJkj": {
+          "type": "item",
+          "settings": {
+            "title": "Imunidade",
+            "description": "Descrição desta categoria de produtos.",
+            "tag_1": "Vitamina C",
+            "tag_2": "Zinco",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": "",
+            "button_label": "Ver todos",
+            "button_url": ""
+          }
+        },
+        "item_KpMmnQ": {
+          "type": "item",
+          "settings": {
+            "title": "Imunidade",
+            "description": "Descrição desta categoria de produtos.",
+            "tag_1": "Vitamina C",
+            "tag_2": "Zinco",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": "",
+            "button_label": "Ver todos",
+            "button_url": ""
+          }
+        },
+        "item_YpX4hf": {
+          "type": "item",
+          "settings": {
+            "title": "Imunidade",
+            "description": "Descrição desta categoria de produtos.",
+            "tag_1": "Vitamina C",
+            "tag_2": "Zinco",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": "",
+            "button_label": "Ver todos",
+            "button_url": ""
+          }
+        },
+        "item_JrrNQK": {
+          "type": "item",
+          "settings": {
+            "title": "Energia e disposição",
+            "description": "Descrição desta categoria de produtos.",
+            "tag_1": "Cafeína",
+            "tag_2": "B12",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": "",
+            "button_label": "Ver todos",
+            "button_url": ""
+          }
+        },
+        "item_KCMYmE": {
+          "type": "item",
+          "settings": {
+            "title": "Cuidados com a pele",
+            "description": "Descrição desta categoria de produtos.",
+            "tag_1": "",
+            "tag_2": "",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": "",
+            "button_label": "Ver todos",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_AehfyX",
+        "item_MpydWB",
+        "item_qyXrLH",
+        "item_AHNJkj",
+        "item_KpMmnQ",
+        "item_YpX4hf",
+        "item_JrrNQK",
+        "item_KCMYmE"
+      ],
+      "name": "Acordeão com Imagem",
+      "settings": {
+        "title": "O que você busca hoje?",
+        "image": "shopify://shop_images/freepik__cena-de-fotografia-publicitria-premium-clean-e-min__80491.png",
+        "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>",
+        "label_btn": "Ver todos produtos",
+        "link_btn": "",
+        "bg_color": "#EBF3F8",
+        "title_color": "#1a4789",
+        "description_color": "#1a4789",
+        "button_color": "#1a4789",
+        "item_closed_bg": "#c8ddef",
+        "item_closed_color": "#1a4789",
+        "item_open_bg": "#1a4789",
+        "item_open_color": "#ffffff",
+        "btn_bg": "#4caf50",
+        "btn_color": "#ffffff",
+        "color_scheme": "scheme-2",
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "padding_top_mob": 32,
+        "padding_bottom_mob": 32
+      }
     }
   },
   "order": [
     "banner",
-    "product-grid"
+    "product-grid",
+    "res_accordion_k8JHXR"
   ]
 }
