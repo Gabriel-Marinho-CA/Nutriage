@@ -952,7 +952,7 @@
     (function () {
       const sectionId = '{{ section.id }}';
       const stickyBar = document.getElementById('StickyAtc-' + sectionId);
-      const productInfo = document.getElementById('MainProduct-' + sectionId);
+      const productInfo = document.getElementById('MainProduct-' + sectionId).querySelector('.product-form__buttons');
       const stickyFormInput = document.querySelector('#{{ sticky_form_id }} input[name="id"]');
       const stickySelect = document.getElementById('StickyAtcSelect-' + sectionId);
 
