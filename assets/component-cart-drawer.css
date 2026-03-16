@@ -30,6 +30,10 @@
   border-bottom-left-radius: 40px;
   border-top-left-radius: 40px;
   border-bottom-right-radius: 40px;
+
+  @media (max-width:750px) {
+    height: 92%;
+  }
 }
 
 .drawer__inner-empty {
@@ -524,6 +528,7 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
       padding-top: .2rem;
     }
   }
+
   .cart__ctas {
     flex-direction: column;
 
