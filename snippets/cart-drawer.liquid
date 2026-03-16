@@ -479,6 +479,79 @@
         </form>
       </cart-drawer-items>
       <div class="drawer__footer">
+         {%- assign cart_pids = ',' -%}
+        {%- for ci in cart.items -%}
+          {%- assign cart_pids = cart_pids | append: ci.product.id | append: ',' -%}
+        {%- endfor -%}
+
+        {%- capture bump_cards -%}
+          {%- assign bump_shown = ',' -%}
+          {%- for item in cart.items -%}
+            {%- assign bump_meta = item.product.metafields['shopify--discovery--product_recommendation']['complementary_products'] -%}
+            {%- if bump_meta != blank -%}
+              {%- for rec in bump_meta.value -%}
+                {%- assign pid_tag = ',' | append: rec.id | append: ',' -%}
+                {%- unless cart_pids contains pid_tag -%}
+                  {%- unless bump_shown contains pid_tag -%}
+                    {%- assign bump_shown = bump_shown | append: rec.id | append: ',' -%}
+                    <div class="cdv2-bump__card" data-variants-count="{{ rec.variants.size }}">
+                      <div class="cdv2-bump__header">combina com</div>
+                      <div class="cdv2-bump__body">
+                        <a href="{{ rec.url }}" class="cdv2-bump__img-wrap">
+                          <img src="{{ rec.featured_image | image_url: width: 120 }}" alt="{{ rec.title | escape }}" class="cdv2-bump__img" loading="lazy">
+                        </a>
+                        <div class="cdv2-bump__info">
+                          <span class="cdv2-bump__name">{{ rec.title }}</span>
+                          <span class="cdv2-bump__price">
+                            {%- if rec.compare_at_price > rec.price -%}
+                              <s class="cdv2-bump__price-old">{{ rec.compare_at_price | money }}</s>
+                            {%- endif -%}
+                            {{ rec.price | money }}
+                          </span>
+                        </div>
+                        <button type="button" class="cdv2-bump__add" data-variant-id="{{ rec.variants.first.id }}" aria-label="Adicionar {{ rec.title | escape }}">
+                          <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                            <path d="M6 6V5C6 3.93913 6.42143 2.92172 7.17157 2.17157C7.92172 1.42143 8.93913 1 10 1C11.0609 1 12.0783 1.42143 12.8284 2.17157C13.5786 2.92172 14 3.93913 14 5V6M3 6H17L16 19H4L3 6Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </button>
+                      </div>
+                      {%- if rec.has_only_default_variant == false and rec.variants.size > 1 -%}
+                        <div class="cdv2-bump__variants">
+                          <div class="cdv2-bump__variants-inner">
+                            {%- for v in rec.variants -%}
+                              <button type="button" class="cdv2-bump__variant-btn" data-variant-id="{{ v.id }}">{{ v.title }}</button>
+                            {%- endfor -%}
+                          </div>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  {%- endunless -%}
+                {%- endunless -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+
+        {%- assign bump_stripped = bump_cards | strip -%}
+        {%- if bump_stripped != '' -%}
+          <div class="cdv2-bump">
+            <div class="cdv2-bump__carousel">
+              <button type="button" class="cdv2-bump__arrow cdv2-bump__arrow--prev" aria-label="Anterior">
+                <svg width="8" height="14" viewBox="0 0 8 14" fill="none">
+                  <path d="M7 1L1 7L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="cdv2-bump__track">
+                {{ bump_cards }}
+              </div>
+              <button type="button" class="cdv2-bump__arrow cdv2-bump__arrow--next" aria-label="Próximo">
+                <svg width="8" height="14" viewBox="0 0 8 14" fill="none">
+                  <path d="M1 1L7 7L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        {%- endif -%}
         {%- if settings.show_cart_note -%}
           <details id="Details-CartDrawer">
             <summary>
