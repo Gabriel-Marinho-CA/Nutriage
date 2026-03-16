@@ -16,11 +16,12 @@
     align-items: center;
     width: 100%;
     max-width: 383px;
-    margin-top: 3rem;
+    margin-top: 6rem;
     color: var(--res-acc-button-color);
     background: transparent;
     border: 1px solid var(--res-acc-button-color);
     transition: all .3s ease;
+    margin-inline: auto;
 
     &:hover {
       background: var(--res-acc-button-color);
@@ -28,11 +29,9 @@
     }
 
     @media (max-width: 750px) {
-      .res-fc__view-all-btn {
         font-size: 13px;
         height: 43px;
         margin-top: .75rem;
-      }
     }
   }
 }
