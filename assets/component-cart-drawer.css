@@ -440,5 +440,33 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
       left: 0;
     }
   }
+  .cart-item__details {
+    grid-column: 2/5;
+
+    .product-option {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .cart-item__quantity  {
+        padding: 0;
+
+        .cart-item__quantity-wrapper {
+          display: flex;
+          align-items: center;
+        }
+
+        quantity-input {
+          display: flex;
+          padding-inline: 1rem;
+
+
+          .quantity__button {
+            width: 20px;
+          }
+        }
+      }
+    }
+  }
 
 }
