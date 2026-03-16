@@ -792,22 +792,31 @@
         });
       });
 
-      // Fechar drawers após AJAX completar
-      document.addEventListener('facets:updated', function () {
-        closeMenus();
-      });
-
-      // Feedback visual imediato ao marcar/desmarcar checkbox
-      var mobileForm = document.getElementById('FacetFiltersFormMobile');
-      if (mobileForm) {
-        mobileForm.addEventListener('input', function (e) {
+      // Feedback visual imediato ao clicar num checkbox
+      var filtrarDrawer = document.querySelector('.filtrar-drawer');
+      if (filtrarDrawer) {
+        filtrarDrawer.addEventListener('change', function (e) {
           if (e.target.type !== 'checkbox') return;
           var label = e.target.closest('label');
-          if (label) {
-            label.classList.toggle('active', e.target.checked);
-          }
+          if (label) label.classList.toggle('active', e.target.checked);
         });
       }
+
+      // Após AJAX: fechar drawers + sincronizar estado visual com a URL atual
+      document.addEventListener('facets:updated', function () {
+        closeMenus();
+
+        var params = new URLSearchParams(window.location.search);
+        var form = document.getElementById('FacetFiltersFormMobile');
+        if (!form) return;
+
+        form.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+          var isActive = params.getAll(cb.name).indexOf(cb.value) !== -1;
+          cb.checked = isActive;
+          var label = cb.closest('label');
+          if (label) label.classList.toggle('active', isActive);
+        });
+      });
     })();
   </script>
 
