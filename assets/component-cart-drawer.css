@@ -415,6 +415,9 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
 
 
 #CartDrawer {
+  .cart-item {
+    border-bottom: 1px solid #1A4789;
+  }
   .drawer__header {
     .drawer__heading {
       font-size: 18px;
