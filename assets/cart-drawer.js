@@ -134,3 +134,39 @@ class CartDrawerItems extends CartItems {
 }
 
 customElements.define('cart-drawer-items', CartDrawerItems);
+
+
+class OrderBumpSlider extends HTMLElement {
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    this.initSwiper();
+  }
+
+  initSwiper() {
+    const swiperEl = this.querySelector('.order-bump__swiper');
+
+    if (!swiperEl) return;
+
+    this.swiper = new Swiper(swiperEl, {
+      slidesPerView: 1,
+      spaceBetween: 12,
+      loop: false,
+
+      navigation: {
+        nextEl: this.querySelector('.order-bump__next'),
+        prevEl: this.querySelector('.order-bump__prev'),
+      },
+
+      breakpoints: {
+        750: {
+          slidesPerView: 1
+        }
+      }
+    });
+  }
+}
+
+customElements.define('order-bump-slider', OrderBumpSlider);
