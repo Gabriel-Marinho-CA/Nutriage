@@ -523,7 +523,10 @@
 
           <div class="totals" role="status">
             <h2 class="totals__total">Total</h2>
-            <p class="totals__total-value">{{ cart.total_price | money }}</p>
+            <div class="wrapper-totals-price">
+              <p class="totals__total-value">{{ cart.total_price | money }}</p>
+              {% render 'res-installments' %}
+            </div>
           </div> 
 
           {% comment %} <small class="tax-note caption-large rte">
