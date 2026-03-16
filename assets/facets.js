@@ -195,8 +195,11 @@ class FacetFiltersForm extends HTMLElement {
       if (!html.querySelector(selector)) return;
       document.querySelector(selector).innerHTML = html.querySelector(selector).innerHTML;
     });
-
+    if(document.getElementById('FacetFiltersFormMobile').closest('menu-drawer')) {
     document.getElementById('FacetFiltersFormMobile').closest('menu-drawer').bindEvents();
+
+    }
+
   }
 
   static renderCounts(source, target) {
