@@ -520,4 +520,13 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
       padding-top: .2rem;
     }
   }
+  .cart__ctas {
+    flex-direction: column;
+
+    .keep-buying {
+      margin: 0;
+      text-decoration: none;
+      color: rgb(var(--color-foreground));
+    }
+  }
 }
