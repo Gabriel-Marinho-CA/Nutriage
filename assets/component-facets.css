@@ -1430,6 +1430,7 @@ input.mobile-facets__checkbox {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  width: calc(100% + 21px);
 
   .filter-buttons {
     background: none;
