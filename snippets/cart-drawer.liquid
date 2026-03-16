@@ -480,7 +480,7 @@
         </form>
       </cart-drawer-items>
       <div class="drawer__footer">
-        {% if settings.order_bump_enabled and cart.empty? == false %}
+        {% if settings.order_bump_enabled  %}
           {% render 'order_bump' %}
         {% endif %}
         {%- if settings.show_cart_note -%}
