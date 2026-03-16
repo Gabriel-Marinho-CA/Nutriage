@@ -475,16 +475,16 @@
     <p class="text-filter">Ordenar por:</p>
 
     {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
-      {%- for option in results.sort_options -%}
-        <option
-          value="{{ option.value | escape }}"
-          {% if option.value == sort_by %}
-            selected="selected"
-          {% endif %}
-        >
-          {{ option.name | escape }}
-        </option>
-      {%- endfor -%}
+    {%- for option in results.sort_options -%}
+      <option
+        value="{{ option.value | escape }}"
+        {% if option.value == sort_by %}
+          selected="selected"
+        {% endif %}
+      >
+        {{ option.name | escape }}
+      </option>
+    {%- endfor -%}
   </div>
 
   <div class="filtrar-drawer">
@@ -650,48 +650,6 @@
                             {% endif %}
                           >
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                           {%- if presentation == 'image' -%}
                             <div class="facets__image-wrapper">
                               {%- if value.image -%}
@@ -700,8 +658,6 @@
                                   | image_url: width: 300
                                   | image_tag: class: 'facets__image', alt: value.alt
                                 }}
-
-
                               {%- endif -%}
                             </div>
                           {%- else -%}
@@ -711,33 +667,6 @@
                               {{- 'icon-checkmark.svg' | inline_asset_content -}}
                             </div>
                           {%- endif -%}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                           {{ text_value }}
                         </label>
@@ -752,50 +681,6 @@
                     class="button-show-more link underlined-link"
                     id="Show-More-{{ forloop.index }}-{{ section.id }}"
                     type="button"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                   >
                     <span class="label-show-more label-text"
                       ><span aria-hidden="true">+ </span>{{ 'products.facets.show_more' | t -}}
@@ -849,21 +734,32 @@
     {%- endfor -%}
   </div>
 
-    <script>
+  <script>
     (function () { 
       function bindButtons() {
+        const closeBtns = document.querySelectorAll('.custom-drawer-filter__close-btn');
         const filterBtn = document.querySelector('.filtrar-btn');
         const orderbyBtn = document.querySelector('.orderby-btn');
 
         filterBtn.addEventListener('click', (ev) => openMenus(ev));
 
         orderbyBtn.addEventListener('click', (ev) => openMenus(ev));
+
+        closeBtns.addEventListener('click', (ev) => closeMenus());
       }
         function openMenus(ev) {
           const classContainer = ev.currentTarget.classList[1].replace('-btn','');
           const containerToOpen = document.querySelector(`.${classContainer}-drawer`);
 
           containerToOpen.classList.add('active');
+        }
+        function closeMenus() {
+          const containersMenu = Array.from(
+            document.querySelector('.orderby-drawer')
+            document.querySelector('.filtrar-drawer')          
+          )
+
+          containersMenu.forEach(el => el.classList.remove('active'));
         }
 
         bindButtons();
