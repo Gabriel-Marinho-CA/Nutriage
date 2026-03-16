@@ -40,13 +40,16 @@
 
     .shipping-bar__text {
         color: var(--text-color);
-        font-family: "Plus Jakarta Sans";
+        
         font-size: 12px;
         font-style: normal;
         font-weight: 400;
         line-height: 130%;
         /* 15.6px */
-        text-align: center;
+        text-align: start;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
         color: rgba(var(--color-foreground));
 
