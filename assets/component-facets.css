@@ -1310,7 +1310,7 @@ input.mobile-facets__checkbox {
   top: 0;
   left: 0;
   transition: all .3s ease;
-
+  overflow: auto;
   &.active {
     transform: translateX(0);
   }
@@ -1360,6 +1360,7 @@ input.mobile-facets__checkbox {
 
   border-bottom-left-radius: 40px;
   border-bottom-right-radius: 0;
+
 }
 
 .wrapper-sort-by-buttons {
