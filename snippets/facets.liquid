@@ -476,14 +476,13 @@
 
     {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
     {%- for option in results.sort_options -%}
-      <option
-        value="{{ option.value | escape }}"
-        {% if option.value == sort_by %}
-          selected="selected"
-        {% endif %}
+      <button
+        type="button"
+        class="orderby-option{% if option.value == sort_by %} orderby-option--active{% endif %}"
+        data-sort-value="{{ option.value | escape }}"
       >
         {{ option.name | escape }}
-      </option>
+      </button>
     {%- endfor -%}
   </div>
 
