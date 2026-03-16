@@ -1605,6 +1605,11 @@ product-form.product-form {
   transform: translateY(100%);
   transition: transform 0.3s ease;
   will-change: transform;
+
+
+  product-form {
+    flex: 1;
+  }
 }
 
 .sticky-atc.is-visible {
@@ -1627,6 +1632,7 @@ product-form.product-form {
 
 .sticky-atc__info {
   flex: 1;
+  max-width: 500px;
   min-width: 0;
 }
 
@@ -1686,14 +1692,18 @@ product-form.product-form {
 .sticky-atc__select {
   appearance: none;
   -webkit-appearance: none;
-  border: 1.5px solid rgba(var(--color-foreground), 0.3);
+  border: 1.5px solid #1A4789;
   border-radius: 40px;
-  padding: 10px 36px 10px 16px;
+  padding: 2rem 36px 2rem 16px;
   font-size: 1.3rem;
   background: transparent;
   cursor: pointer;
   color: rgb(var(--color-foreground));
   line-height: 1.2;
+
+
+  font-size: 1.7rem;
+  color: #1A4789;
 }
 
 .sticky-atc__select:focus-visible {
@@ -1717,7 +1727,16 @@ product-form.product-form {
 
 .sticky-atc__btn {
   white-space: nowrap;
-  min-width: 180px;
+  width: 100%;
+  max-width: 426px;
+  background-color: #6AAD39;
+  font-size: 1.65rem;
+  padding-block: 2rem;
+
+  &::before,
+  &::after {
+    display: none;
+  }
 }
 
 @media (max-width: 749px) {
