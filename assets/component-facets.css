@@ -1316,6 +1316,9 @@ input.mobile-facets__checkbox {
     transform: translateX(0);
   }
 
+  .text-filter {
+    font-size: 1.3rem;
+  }
   .custom-drawer__close-filter {
     button {
       display: flex;
