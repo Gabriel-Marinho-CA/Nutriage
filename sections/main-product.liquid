@@ -832,6 +832,10 @@
 
 {%- if section.settings.enable_sticky_atc -%}
   {%- assign sticky_form_id = 'product-form-sticky-' | append: section.id -%}
+  {%- assign sticky_has_kits = false -%}
+  {%- if product.metafields.custom.kits.value != blank -%}
+    {%- assign sticky_has_kits = true -%}
+  {%- endif -%}
 
   <div id="StickyAtc-{{ section.id }}" class="sticky-atc" aria-hidden="true">
     <div class="sticky-atc__inner page-width">
@@ -847,8 +851,28 @@
       {%- endif -%}
       <div class="sticky-atc__info">
         <p class="sticky-atc__title">{{ product.title | escape }}</p>
-        <p class="sticky-atc__price">{{ product.selected_or_first_available_variant.price | money }}</p>
       </div>
+
+      {%- if sticky_has_kits -%}
+        <div class="sticky-atc__select-wrap">
+          <select id="StickyAtcSelect-{{ section.id }}" class="sticky-atc__select" aria-label="Selecione a quantidade">
+            {%- comment -%} Populated by JS from qb-cards to match labels exactly {%- endcomment -%}
+            {%- for kit in product.metafields.custom.kits.value reversed -%}
+              {%- assign qb_v = kit.selected_or_first_available_variant -%}
+              <option value="{{ qb_v.id }}">{{ kit.title }} — {{ qb_v.price | money }}</option>
+            {%- endfor -%}
+            <option value="{{ product.selected_or_first_available_variant.id }}" selected>
+              1 Unidade — {{ product.selected_or_first_available_variant.price | money }}
+            </option>
+          </select>
+          <span class="sticky-atc__select-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </div>
+      {%- else -%}
+        <p class="sticky-atc__price">{{ product.selected_or_first_available_variant.price | money }}</p>
+      {%- endif -%}
+
       <product-form
         class="product-form sticky-atc__form"
         data-hide-errors="true"
@@ -930,7 +954,7 @@
     .sticky-atc__title {
       font-size: 1.4rem;
       font-weight: 600;
-      margin: 0 0 2px;
+      margin: 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -938,6 +962,37 @@
     .sticky-atc__price {
       font-size: 1.3rem;
       margin: 0;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .sticky-atc__select-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .sticky-atc__select {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1.5px solid rgba(var(--color-foreground), 0.3);
+      border-radius: 40px;
+      padding: 10px 36px 10px 16px;
+      font-size: 1.3rem;
+      background: transparent;
+      cursor: pointer;
+      color: rgb(var(--color-foreground));
+      line-height: 1.2;
+    }
+    .sticky-atc__select:focus-visible {
+      outline: 2px solid rgba(var(--color-foreground), 0.5);
+      outline-offset: 2px;
+    }
+    .sticky-atc__select-arrow {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
     }
     .sticky-atc__form {
       flex-shrink: 0;
@@ -954,6 +1009,10 @@
       .sticky-atc__btn {
         width: 100%;
       }
+      .sticky-atc__select {
+        font-size: 1.2rem;
+        padding: 9px 30px 9px 12px;
+      }
     }
   </style>
 
@@ -962,11 +1021,94 @@
       const sectionId = '{{ section.id }}';
       const stickyBar = document.getElementById('StickyAtc-' + sectionId);
       const productInfo = document.getElementById('MainProduct-' + sectionId);
-      const mainFormInput = document.querySelector('#product-form-' + sectionId + ' input[name="id"]');
       const stickyFormInput = document.querySelector('#{{ sticky_form_id }} input[name="id"]');
+      const stickySelect = document.getElementById('StickyAtcSelect-' + sectionId);
 
       if (!stickyBar || !productInfo) return;
 
+      function fmtMoney(cents) {
+        return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(cents / 100);
+      }
+
+      // ── Quantity-bundle sync ──────────────────────────────────────────────
+      // quantity-bundle.js updates the main form input directly (no change event),
+      // but dispatches "quantity-bundle:change" with variantId + price in detail.
+      document.addEventListener('quantity-bundle:change', function (e) {
+        const bundle = e.target.closest('quantity-bundle');
+        if (!bundle || bundle.dataset.sectionId !== sectionId) return;
+
+        const { variantId, price } = e.detail;
+
+        if (stickyFormInput) stickyFormInput.value = variantId;
+
+        if (stickySelect) {
+          stickySelect.value = variantId;
+          // Update label of the matching option to keep price current
+          const opt = stickySelect.querySelector('option[value="' + variantId + '"]');
+          if (opt) {
+            const label = opt.dataset.baseLabel || opt.textContent.split('—')[0].trim();
+            opt.dataset.baseLabel = label;
+            opt.textContent = label + ' — ' + fmtMoney(price);
+          }
+        }
+      });
+
+      // ── Build select from qb-cards (overrides Liquid fallback labels) ─────
+      if (stickySelect) {
+        const quantityBundle = document.querySelector('quantity-bundle[data-section-id="' + sectionId + '"]');
+        if (quantityBundle) {
+          const cards = quantityBundle.querySelectorAll('.qb-card');
+          // Clear and rebuild options with exact labels from quantity-bundle
+          stickySelect.innerHTML = '';
+          cards.forEach(function (card) {
+            const variantId = card.dataset.variantId;
+            const qtyLabel = card.dataset.qtyLabel || '';
+            const price = parseInt(card.dataset.price, 10) || 0;
+            const opt = document.createElement('option');
+            opt.value = variantId;
+            opt.dataset.baseLabel = qtyLabel;
+            opt.textContent = qtyLabel + ' — ' + fmtMoney(price);
+            if (card.classList.contains('is-selected')) {
+              opt.selected = true;
+              if (stickyFormInput) stickyFormInput.value = variantId;
+            }
+            stickySelect.appendChild(opt);
+          });
+
+          // Select change → click the matching qb-card (updates main form + dispatches event)
+          stickySelect.addEventListener('change', function () {
+            const targetCard = quantityBundle.querySelector('.qb-card[data-variant-id="' + stickySelect.value + '"]');
+            if (targetCard) targetCard.click();
+          });
+        } else {
+          // No quantity-bundle: select change just updates sticky form input
+          stickySelect.addEventListener('change', function () {
+            if (stickyFormInput) stickyFormInput.value = stickySelect.value;
+          });
+          // Also keep initial sticky form in sync with main form variant picker
+          const mainFormInput = document.querySelector('#product-form-' + sectionId + ' input[name="id"]');
+          if (mainFormInput && stickyFormInput) {
+            mainFormInput.addEventListener('change', function () {
+              stickyFormInput.value = mainFormInput.value;
+            });
+          }
+        }
+      } else {
+        // No select (no kits): sync from main form change event (variant picker)
+        const mainFormInput = document.querySelector('#product-form-' + sectionId + ' input[name="id"]');
+        if (mainFormInput && stickyFormInput) {
+          mainFormInput.addEventListener('change', function () {
+            stickyFormInput.value = mainFormInput.value;
+            if (mainFormInput.disabled) {
+              stickyFormInput.setAttribute('disabled', '');
+            } else {
+              stickyFormInput.removeAttribute('disabled');
+            }
+          });
+        }
+      }
+
+      // ── Visibility observers ──────────────────────────────────────────────
       let footerVisible = false;
       let productInfoVisible = true;
 
@@ -980,39 +1122,17 @@
         }
       }
 
-      // Watch product-info: show bar when it leaves viewport
-      const productInfoObserver = new IntersectionObserver(
-        (entries) => {
-          productInfoVisible = entries[0].isIntersecting;
-          updateVisibility();
-        },
-        { threshold: 0 }
-      );
-      productInfoObserver.observe(productInfo);
+      new IntersectionObserver(function (entries) {
+        productInfoVisible = entries[0].isIntersecting;
+        updateVisibility();
+      }, { threshold: 0 }).observe(productInfo);
 
-      // Watch footer: hide bar when footer is near
       const footer = document.querySelector('.footer-section, footer[role], footer, .footer');
       if (footer) {
-        const footerObserver = new IntersectionObserver(
-          (entries) => {
-            footerVisible = entries[0].isIntersecting;
-            updateVisibility();
-          },
-          { threshold: 0, rootMargin: '100px 0px 0px 0px' }
-        );
-        footerObserver.observe(footer);
-      }
-
-      // Sync variant changes from main form to sticky form
-      if (mainFormInput && stickyFormInput) {
-        mainFormInput.addEventListener('change', () => {
-          stickyFormInput.value = mainFormInput.value;
-          if (mainFormInput.disabled) {
-            stickyFormInput.setAttribute('disabled', '');
-          } else {
-            stickyFormInput.removeAttribute('disabled');
-          }
-        });
+        new IntersectionObserver(function (entries) {
+          footerVisible = entries[0].isIntersecting;
+          updateVisibility();
+        }, { threshold: 0, rootMargin: '100px 0px 0px 0px' }).observe(footer);
       }
     })();
   </script>
