@@ -963,25 +963,18 @@
       const summaryPrice = stickyBar.querySelector('.sticky-atc__summary-price');
 
       function fmtMoney(cents) {
-        return new Intl.NumberFormat('pt-BR', {
-          style: 'currency',
-          currency: 'BRL',
-        }).format(cents / 100);
+        return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(cents / 100);
       }
 
       function updateSummary(price, compare) {
         if (!summaryPrice) return;
-
         summaryPrice.textContent = fmtMoney(price);
-
         if (compare && compare > price) {
           const pct = Math.round(((compare - price) / compare) * 100);
-
           if (summaryBadge) {
             summaryBadge.textContent = pct + '% off';
             summaryBadge.hidden = false;
           }
-
           if (summaryCompare) {
             summaryCompare.textContent = fmtMoney(compare);
             summaryCompare.hidden = false;
@@ -992,8 +985,7 @@
         }
       }
 
-      // ── Quantity-bundle sync ─────────────────────────────────
-
+      // ── Quantity-bundle sync ──────────────────────────────────────────────
       document.addEventListener('quantity-bundle:change', function (e) {
         const bundle = e.target.closest('quantity-bundle');
         if (!bundle || bundle.dataset.sectionId !== sectionId) return;
@@ -1002,58 +994,46 @@
 
         if (stickyFormInput) stickyFormInput.value = variantId;
         if (stickySelect) stickySelect.value = variantId;
-
         updateSummary(price, compare);
       });
 
-      // ── Build select from qb-cards ───────────────────────────
-
+      // ── Build select from qb-cards (overrides Liquid fallback labels) ─────
       if (stickySelect) {
         const quantityBundle = document.querySelector('quantity-bundle[data-section-id="' + sectionId + '"]');
-
         if (quantityBundle) {
-          const cards = quantityBundle.querySelectorAll('.qb-card');
-
+          // DOM order: [5un, 3un, 1un, main-product] → reverse → [main-product, 1un, 3un, 5un]
+          const cards = Array.from(quantityBundle.querySelectorAll('.qb-card')).reverse();
           stickySelect.innerHTML = '';
-
-          cards.forEach(function (card) {
+          cards.forEach(function (card, idx) {
             const variantId = card.dataset.variantId;
             const qtyLabel = card.dataset.qtyLabel || '';
             const price = parseInt(card.dataset.price, 10) || 0;
-
             const opt = document.createElement('option');
-
             opt.value = variantId;
             opt.dataset.baseLabel = qtyLabel;
             opt.textContent = qtyLabel + ' — ' + fmtMoney(price);
-
-            if (card.classList.contains('is-selected')) {
+            // Always pre-select first option (main product / 1 Unidade)
+            if (idx === 0) {
               opt.selected = true;
-
               if (stickyFormInput) stickyFormInput.value = variantId;
-
               updateSummary(price, parseInt(card.dataset.compare, 10) || 0);
             }
-
             stickySelect.appendChild(opt);
           });
 
+          // Select change → click matching qb-card (triggers full bundle logic + event)
           stickySelect.addEventListener('change', function () {
             const targetCard = quantityBundle.querySelector('.qb-card[data-variant-id="' + stickySelect.value + '"]');
-
             if (targetCard) targetCard.click();
           });
         } else {
+          // No quantity-bundle: update sticky form + summary from select's data attributes
           stickySelect.addEventListener('change', function () {
             const opt = stickySelect.options[stickySelect.selectedIndex];
-
             if (stickyFormInput) stickyFormInput.value = stickySelect.value;
-
             updateSummary(parseInt(opt.dataset.price, 10) || 0, parseInt(opt.dataset.compare, 10) || 0);
           });
-
           const mainFormInput = document.querySelector('#product-form-' + sectionId + ' input[name="id"]');
-
           if (mainFormInput && stickyFormInput) {
             mainFormInput.addEventListener('change', function () {
               stickyFormInput.value = mainFormInput.value;
@@ -1061,12 +1041,11 @@
           }
         }
       } else {
+        // No select (no kits): sync from main form change event (variant picker)
         const mainFormInput = document.querySelector('#product-form-' + sectionId + ' input[name="id"]');
-
         if (mainFormInput && stickyFormInput) {
           mainFormInput.addEventListener('change', function () {
             stickyFormInput.value = mainFormInput.value;
-
             if (mainFormInput.disabled) {
               stickyFormInput.setAttribute('disabled', '');
             } else {
@@ -1076,8 +1055,7 @@
         }
       }
 
-      // ── Sticky visibility logic ──────────────────────────────
-
+      // ── Visibility observers ──────────────────────────────────────────────
       let footerVisible = false;
       let productInfoVisible = true;
 
@@ -1091,38 +1069,24 @@
         }
       }
 
-      // Product info observer
-
       new IntersectionObserver(
         function (entries) {
           productInfoVisible = entries[0].isIntersecting;
           updateVisibility();
         },
-        {
-          threshold: 0,
-          rootMargin: '0px 0px 350px 0px',
-        }
+        { threshold: 0 }
       ).observe(productInfo);
 
-      // Footer observer (oculta antes de chegar nele)
-
-      setTimeout(() => {
-        const footer = document.querySelector('.res-footer') || document.querySelector('footer');
-
-        console.log(footer);
-        if (footer) {
-          new IntersectionObserver(
-            function (entries) {
-              footerVisible = entries[0].isIntersecting;
-              updateVisibility();
-            },
-            {
-              threshold: 0,
-              rootMargin: '0px 0px -150px 0px',
-            }
-          ).observe(footer);
-        }
-      }, 1500);
+      const footer = document.querySelector('.res-footer, footer.footer');
+      if (footer) {
+        new IntersectionObserver(
+          function (entries) {
+            footerVisible = entries[0].isIntersecting;
+            updateVisibility();
+          },
+          { threshold: 0, rootMargin: '20px 0px 0px 0px' }
+        ).observe(footer);
+      }
     })();
   </script>
 {%- endif -%}
