@@ -469,6 +469,9 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
       margin-top: 2rem;
       flex-wrap: wrap;
 
+      @media (max-width:750px) {
+        margin-top: 1rem;
+      }
       .price {
         font-weight: bold;
       }
