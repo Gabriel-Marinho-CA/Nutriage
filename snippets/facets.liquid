@@ -475,6 +475,7 @@
     <p class="text-filter">Ordenar por:</p>
 
     {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
+    <div class="wrapper-sort-by-buttons">
     {%- for option in results.sort_options -%}
       <button
         type="button"
@@ -484,6 +485,8 @@
         {{ option.name | escape }}
       </button>
     {%- endfor -%}
+    </div>
+
   </div>
 
   <div class="filtrar-drawer">
