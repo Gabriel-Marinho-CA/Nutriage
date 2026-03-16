@@ -1362,6 +1362,10 @@ input.mobile-facets__checkbox {
       rotate: 180deg;
     }
   }
+  .facets__price {
+    padding-inline: 0;
+  gap: 1rem;
+  }
 }
 
 .orderby-drawer {
