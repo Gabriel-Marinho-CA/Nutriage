@@ -1053,31 +1053,37 @@
 
       if (!stickyBar || !productInfo) return;
 
+      const summaryBadge   = stickyBar.querySelector('.sticky-atc__summary-badge');
+      const summaryCompare = stickyBar.querySelector('.sticky-atc__summary-compare');
+      const summaryPrice   = stickyBar.querySelector('.sticky-atc__summary-price');
+
       function fmtMoney(cents) {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(cents / 100);
       }
 
+      function updateSummary(price, compare) {
+        if (!summaryPrice) return;
+        summaryPrice.textContent = fmtMoney(price);
+        if (compare && compare > price) {
+          const pct = Math.round(((compare - price) / compare) * 100);
+          if (summaryBadge)   { summaryBadge.textContent = pct + '% off'; summaryBadge.hidden = false; }
+          if (summaryCompare) { summaryCompare.textContent = fmtMoney(compare); summaryCompare.hidden = false; }
+        } else {
+          if (summaryBadge)   summaryBadge.hidden = true;
+          if (summaryCompare) summaryCompare.hidden = true;
+        }
+      }
+
       // ── Quantity-bundle sync ──────────────────────────────────────────────
-      // quantity-bundle.js updates the main form input directly (no change event),
-      // but dispatches "quantity-bundle:change" with variantId + price in detail.
       document.addEventListener('quantity-bundle:change', function (e) {
         const bundle = e.target.closest('quantity-bundle');
         if (!bundle || bundle.dataset.sectionId !== sectionId) return;
 
-        const { variantId, price } = e.detail;
+        const { variantId, price, compare } = e.detail;
 
         if (stickyFormInput) stickyFormInput.value = variantId;
-
-        if (stickySelect) {
-          stickySelect.value = variantId;
-          // Update label of the matching option to keep price current
-          const opt = stickySelect.querySelector('option[value="' + variantId + '"]');
-          if (opt) {
-            const label = opt.dataset.baseLabel || opt.textContent.split('—')[0].trim();
-            opt.dataset.baseLabel = label;
-            opt.textContent = label + ' — ' + fmtMoney(price);
-          }
-        }
+        if (stickySelect) stickySelect.value = variantId;
+        updateSummary(price, compare);
       });
 
       // ── Build select from qb-cards (overrides Liquid fallback labels) ─────
@@ -1085,12 +1091,11 @@
         const quantityBundle = document.querySelector('quantity-bundle[data-section-id="' + sectionId + '"]');
         if (quantityBundle) {
           const cards = quantityBundle.querySelectorAll('.qb-card');
-          // Clear and rebuild options with exact labels from quantity-bundle
           stickySelect.innerHTML = '';
           cards.forEach(function (card) {
             const variantId = card.dataset.variantId;
-            const qtyLabel = card.dataset.qtyLabel || '';
-            const price = parseInt(card.dataset.price, 10) || 0;
+            const qtyLabel  = card.dataset.qtyLabel || '';
+            const price     = parseInt(card.dataset.price, 10) || 0;
             const opt = document.createElement('option');
             opt.value = variantId;
             opt.dataset.baseLabel = qtyLabel;
@@ -1098,21 +1103,26 @@
             if (card.classList.contains('is-selected')) {
               opt.selected = true;
               if (stickyFormInput) stickyFormInput.value = variantId;
+              updateSummary(price, parseInt(card.dataset.compare, 10) || 0);
             }
             stickySelect.appendChild(opt);
           });
 
-          // Select change → click the matching qb-card (updates main form + dispatches event)
+          // Select change → click matching qb-card (triggers full bundle logic + event)
           stickySelect.addEventListener('change', function () {
             const targetCard = quantityBundle.querySelector('.qb-card[data-variant-id="' + stickySelect.value + '"]');
             if (targetCard) targetCard.click();
           });
         } else {
-          // No quantity-bundle: select change just updates sticky form input
+          // No quantity-bundle: update sticky form + summary from select's data attributes
           stickySelect.addEventListener('change', function () {
+            const opt = stickySelect.options[stickySelect.selectedIndex];
             if (stickyFormInput) stickyFormInput.value = stickySelect.value;
+            updateSummary(
+              parseInt(opt.dataset.price, 10) || 0,
+              parseInt(opt.dataset.compare, 10) || 0
+            );
           });
-          // Also keep initial sticky form in sync with main form variant picker
           const mainFormInput = document.querySelector('#product-form-' + sectionId + ' input[name="id"]');
           if (mainFormInput && stickyFormInput) {
             mainFormInput.addEventListener('change', function () {
@@ -1154,7 +1164,7 @@
         updateVisibility();
       }, { threshold: 0 }).observe(productInfo);
 
-      const footer = document.querySelector('.footer-section, footer[role], footer, .footer');
+      const footer = document.querySelector('.res-footer, footer.footer');
       if (footer) {
         new IntersectionObserver(function (entries) {
           footerVisible = entries[0].isIntersecting;
