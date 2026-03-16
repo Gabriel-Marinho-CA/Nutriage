@@ -1373,6 +1373,12 @@ input.mobile-facets__checkbox {
     padding-block: 1rem;
     font-size: 14px;
 
+    &.orderby-option--active {
+      .inner-circle {
+        background:#E0BE80 ;
+      }
+    }
+
     .circle {
       width: 14px;
       height: 14px;
@@ -1381,12 +1387,13 @@ input.mobile-facets__checkbox {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: .1rem;
+      padding: .1remx;
 
       .inner-circle {
-        background-color: #E0BE80;
+        background:none;
         width: 12px;
         height: 12px;
+        border-radius: 50%;
       }
     }
   }
