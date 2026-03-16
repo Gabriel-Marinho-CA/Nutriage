@@ -830,7 +830,193 @@
 </product-info>
 
 
-{% comment %} // SESSÃO SUSPENSA AQUI {% endcomment %}
+{%- if section.settings.enable_sticky_atc -%}
+  {%- assign sticky_form_id = 'product-form-sticky-' | append: section.id -%}
+
+  <div id="StickyAtc-{{ section.id }}" class="sticky-atc" aria-hidden="true">
+    <div class="sticky-atc__inner page-width">
+      {%- if product.featured_image -%}
+        <img
+          src="{{ product.featured_image | image_url: width: 100 }}"
+          alt="{{ product.title | escape }}"
+          width="50"
+          height="50"
+          loading="lazy"
+          class="sticky-atc__img"
+        >
+      {%- endif -%}
+      <div class="sticky-atc__info">
+        <p class="sticky-atc__title">{{ product.title | escape }}</p>
+        <p class="sticky-atc__price">{{ product.selected_or_first_available_variant.price | money }}</p>
+      </div>
+      <product-form
+        class="product-form sticky-atc__form"
+        data-hide-errors="true"
+        data-section-id="{{ section.id }}"
+      >
+        <div class="product-form__error-message-wrapper" role="alert" hidden>
+          <span class="product-form__error-message"></span>
+        </div>
+        {%- form 'product',
+          product,
+          id: sticky_form_id,
+          class: 'form',
+          novalidate: 'novalidate',
+          data-type: 'add-to-cart-form'
+        -%}
+          <input
+            type="hidden"
+            name="id"
+            value="{{ product.selected_or_first_available_variant.id }}"
+            {% if product.selected_or_first_available_variant.available == false
+              or product.selected_or_first_available_variant == null
+            %}
+              disabled
+            {% endif %}
+            class="product-variant-id"
+          >
+          <button
+            id="StickySubmitButton-{{ section.id }}"
+            type="submit"
+            name="add"
+            class="product-form__submit button button--primary sticky-atc__btn"
+            {% if product.selected_or_first_available_variant.available == false
+              or product.selected_or_first_available_variant == null
+            %}
+              disabled
+            {% endif %}
+          >
+            <span>Adicionar ao carrinho</span>
+            {%- render 'loading-spinner' -%}
+          </button>
+        {%- endform -%}
+      </product-form>
+    </div>
+  </div>
+
+  <style>
+    .sticky-atc {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: #fff;
+      box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.12);
+      padding: 12px 0;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      will-change: transform;
+    }
+    .sticky-atc.is-visible {
+      transform: translateY(0);
+    }
+    .sticky-atc__inner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .sticky-atc__img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      flex-shrink: 0;
+      border-radius: 4px;
+    }
+    .sticky-atc__info {
+      flex: 1;
+      min-width: 0;
+    }
+    .sticky-atc__title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 0 0 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sticky-atc__price {
+      font-size: 1.3rem;
+      margin: 0;
+    }
+    .sticky-atc__form {
+      flex-shrink: 0;
+    }
+    .sticky-atc__btn {
+      white-space: nowrap;
+      min-width: 180px;
+    }
+    @media (max-width: 749px) {
+      .sticky-atc__img,
+      .sticky-atc__info {
+        display: none;
+      }
+      .sticky-atc__btn {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <script>
+    (function () {
+      const sectionId = '{{ section.id }}';
+      const stickyBar = document.getElementById('StickyAtc-' + sectionId);
+      const productInfo = document.getElementById('MainProduct-' + sectionId);
+      const mainFormInput = document.querySelector('#product-form-' + sectionId + ' input[name="id"]');
+      const stickyFormInput = document.querySelector('#{{ sticky_form_id }} input[name="id"]');
+
+      if (!stickyBar || !productInfo) return;
+
+      let footerVisible = false;
+      let productInfoVisible = true;
+
+      function updateVisibility() {
+        if (!productInfoVisible && !footerVisible) {
+          stickyBar.classList.add('is-visible');
+          stickyBar.removeAttribute('aria-hidden');
+        } else {
+          stickyBar.classList.remove('is-visible');
+          stickyBar.setAttribute('aria-hidden', 'true');
+        }
+      }
+
+      // Watch product-info: show bar when it leaves viewport
+      const productInfoObserver = new IntersectionObserver(
+        (entries) => {
+          productInfoVisible = entries[0].isIntersecting;
+          updateVisibility();
+        },
+        { threshold: 0 }
+      );
+      productInfoObserver.observe(productInfo);
+
+      // Watch footer: hide bar when footer is near
+      const footer = document.querySelector('.footer-section, footer[role], footer, .footer');
+      if (footer) {
+        const footerObserver = new IntersectionObserver(
+          (entries) => {
+            footerVisible = entries[0].isIntersecting;
+            updateVisibility();
+          },
+          { threshold: 0, rootMargin: '100px 0px 0px 0px' }
+        );
+        footerObserver.observe(footer);
+      }
+
+      // Sync variant changes from main form to sticky form
+      if (mainFormInput && stickyFormInput) {
+        mainFormInput.addEventListener('change', () => {
+          stickyFormInput.value = mainFormInput.value;
+          if (mainFormInput.disabled) {
+            stickyFormInput.setAttribute('disabled', '');
+          } else {
+            stickyFormInput.removeAttribute('disabled');
+          }
+        });
+      }
+    })();
+  </script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -2660,6 +2846,12 @@
       "id": "enable_sticky_info",
       "default": true,
       "label": "t:sections.main-product.settings.enable_sticky_info.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_atc",
+      "default": false,
+      "label": "Barra suspensa de adicionar ao carrinho"
     },
     {
       "type": "color_scheme",
