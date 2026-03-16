@@ -2,10 +2,10 @@
 
     /* === COLORS === */
 
-    --inner-bar-background: #F79445;
-    --background-wrapper: #F5E9D4;
-    --text-color-complete-bar: #F79445;
-    --text-color: #2C2B2B;
+    --inner-bar-background: #6AAD39;
+    --background-wrapper: #EBF3F8;
+    --text-color-complete-bar: #1A4789;
+    --text-color: #1A4789;
     --not-complete-inner-bar: #fff;
 
     /* === COLORS === */
@@ -40,6 +40,7 @@
 
     .shipping-bar__text {
         color: var(--text-color);
+        width: 100%;
         
         font-size: 12px;
         font-style: normal;
