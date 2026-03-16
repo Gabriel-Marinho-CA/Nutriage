@@ -1469,7 +1469,7 @@
         "type": "collection",
         "id": "cart_drawer_collection",
         "label": "t:settings_schema.cart.settings.cart_drawer.collection.label",
-        "info": "t:settings_schema.cart.settings.cart_drawer.collection.info"
+        "info": "Coleção do order bump"
       },
       {
         "type": "color_scheme",
