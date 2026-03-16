@@ -421,6 +421,7 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
   .cart-item {
     border-bottom: 1px solid #1A4789;
   }
+
   .drawer__header {
     .drawer__heading {
       font-size: 18px;
@@ -438,9 +439,9 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
     }
   }
 
-  .cart-item__name  {
+  .cart-item__name {
     font-size: 17px;
-  font-weight: bold;
+    font-weight: bold;
   }
 
   .cart-item__totals {
@@ -463,9 +464,10 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
       justify-content: space-between;
       margin-top: 2rem;
 
-      .price  {
+      .price {
         font-weight: bold;
       }
+
       .cart-item__quantity {
         padding: 0;
 
@@ -494,4 +496,28 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
     }
   }
 
+  .totals {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 3rem;
+    padding-bottom: 2rem;
+
+    .totals__total {
+      margin: 0;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .totals__total-value {
+      margin: 0;
+      text-align: end;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .res-installments {
+      font-size: 14px;
+      padding-top: .2rem;
+    }
+  }
 }
