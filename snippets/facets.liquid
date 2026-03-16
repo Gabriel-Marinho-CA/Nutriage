@@ -1189,10 +1189,9 @@
       }
         function openMenus(ev) {
           const classContainer = ev.currentTarget.classList[1].replace('-btn','');
-          console.log(classContainer)
-          {% comment %} const containerToOpen = document.querySelector(`.${classContainer}-drawer`); {% endcomment %}
+          const containerToOpen = document.querySelector(`.${classContainer}-drawer`);
 
-          {% comment %} containerToOpen.classList.add('active'); {% endcomment %}
+          containerToOpen.classList.add('active');
         }
 
         bindButtons();
