@@ -487,7 +487,7 @@
         {%- capture bump_cards -%}
           {%- assign bump_shown = ',' -%}
           {%- for item in cart.items -%}
-            {%- assign bump_meta = item.product.metafields['shopify--discovery--product_recommendation']['complementary_products'] -%}
+            {%- assign bump_meta = item.product.metafields['shopify--discovery--product_recommendation']['related'] -%}
             {%- if bump_meta != blank -%}
               {%- for rec in bump_meta.value -%}
                 {%- assign pid_tag = ',' | append: rec.id | append: ',' -%}
