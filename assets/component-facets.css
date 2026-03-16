@@ -1372,6 +1372,11 @@ input.mobile-facets__checkbox {
     border-top: 1px solid #1A4789;
     padding-block: 1rem;
     font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    
 
     &.orderby-option--active {
       .inner-circle {
