@@ -1311,6 +1311,7 @@ input.mobile-facets__checkbox {
   left: 0;
   transition: all .3s ease;
   overflow: auto;
+
   &.active {
     transform: translateX(0);
   }
@@ -1352,9 +1353,13 @@ input.mobile-facets__checkbox {
 .filtrar-drawer {
   transform: translateX(-100%);
 
+  .icon-caret {
+    transition: all .3s ease;
+  }
+
   details[open] {
     .icon-caret {
-      rotate:180deg;
+      rotate: 180deg;
     }
   }
 }
@@ -1383,16 +1388,16 @@ input.mobile-facets__checkbox {
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    color:#1A4789;
+    color: #1A4789;
 
 
     &:last-child {
-      border-bottom:1px solid #1A4789;
+      border-bottom: 1px solid #1A4789;
     }
 
     &.orderby-option--active {
       .inner-circle {
-        background:#E0BE80 !important;
+        background: #E0BE80 !important;
       }
     }
 
@@ -1407,7 +1412,7 @@ input.mobile-facets__checkbox {
       padding: .1remx;
 
       .inner-circle {
-        background:none;
+        background: none;
         width: 12px;
         height: 12px;
         border-radius: 50%;
