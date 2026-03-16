@@ -1406,6 +1406,27 @@
     ]
   },
   {
+    "name": "RES Frete Grátis",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Configurações de Frete"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_free_shipping",
+        "label": "Mostrar frete grátis",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "min_free_shipping",
+        "label": "Valor mínimo para frete grátis",
+        "default": "299,99"
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.cart.name",
     "settings": [
       {
