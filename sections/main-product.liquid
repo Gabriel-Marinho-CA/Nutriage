@@ -852,8 +852,16 @@
       <div class="sticky-atc__info">
         <p class="sticky-atc__title">{{ product.title | escape }}</p>
         <div class="sticky-atc__summary">
-          <span class="sticky-atc__summary-badge" hidden></span>
-          <s class="sticky-atc__summary-compare" hidden></s>
+          <span class="sticky-atc__summary-badge">
+
+            {% liquid
+              assign discount = product.selected_or_first_available_variant.price | minus: product.selected_or_first_available_variant.compare_at_price
+            %}
+            {{ discount }}
+          </span>
+          <s class="sticky-atc__summary-compare">
+            {{  product.selected_or_first_available_variant.compare_at_price }}
+          </s>
           <span class="sticky-atc__summary-price">{{ product.selected_or_first_available_variant.price | money }}</span>
         </div>
       </div>
