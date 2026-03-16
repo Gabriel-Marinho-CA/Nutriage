@@ -849,6 +849,27 @@
     {%- endfor -%}
   </div>
 
+    <script>
+    (function () { 
+      function bindButtons() {
+        const filterBtn = document.querySelector('.filtrar-btn');
+        const orderbyBtn = document.querySelector('.orderby-btn');
+
+        filterBtn.addEventListener('click', (ev) => openMenus(ev));
+
+        orderbyBtn.addEventListener('click', (ev) => openMenus(ev));
+      }
+        function openMenus(ev) {
+          const classContainer = ev.currentTarget.classList[1].replace('-btn','');
+          const containerToOpen = document.querySelector(`.${classContainer}-drawer`);
+
+          containerToOpen.classList.add('active');
+        }
+
+        bindButtons();
+    })();
+  </script>
+
   {% comment %}
     <menu-drawer
       class="mobile-facets__wrapper{% if filter_type == 'horizontal' or filter_type == 'vertical' %} medium-hide large-up-hide{% endif %}"
