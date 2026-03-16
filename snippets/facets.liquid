@@ -791,6 +791,23 @@
           closeMenus();
         });
       });
+
+      // Fechar drawers após AJAX completar
+      document.addEventListener('facets:updated', function () {
+        closeMenus();
+      });
+
+      // Feedback visual imediato ao marcar/desmarcar checkbox
+      var mobileForm = document.getElementById('FacetFiltersFormMobile');
+      if (mobileForm) {
+        mobileForm.addEventListener('input', function (e) {
+          if (e.target.type !== 'checkbox') return;
+          var label = e.target.closest('label');
+          if (label) {
+            label.classList.toggle('active', e.target.checked);
+          }
+        });
+      }
     })();
   </script>
 
