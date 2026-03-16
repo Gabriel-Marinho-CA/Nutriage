@@ -16,10 +16,9 @@
 }
 
 .drawer__inner {
-  height: 100%;
   width: 47rem;
   max-width: calc(100vw - 3rem);
-  padding: 0 1.5rem;
+  padding: 1rem 1.5rem;
   border: 0.1rem solid rgba(var(--color-foreground), 0.2);
   border-right: 0;
   overflow: hidden;
@@ -27,6 +26,10 @@
   flex-direction: column;
   transform: translateX(100%);
   transition: transform var(--duration-default) ease;
+  height: 85%;
+  border-bottom-left-radius: 40px;
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
 }
 
 .drawer__inner-empty {
