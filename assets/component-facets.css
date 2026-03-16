@@ -1354,3 +1354,22 @@ input.mobile-facets__checkbox {
   right: 0;
  transform: translateX(200%);
 }
+
+
+.wrapper-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  .filter-buttons {
+    background:none;
+    border: 1px solid #1A4789;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 42px;
+    padding-inline: 1.3rem;
+  }
+}
