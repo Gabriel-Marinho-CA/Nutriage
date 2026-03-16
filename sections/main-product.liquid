@@ -851,6 +851,11 @@
       {%- endif -%}
       <div class="sticky-atc__info">
         <p class="sticky-atc__title">{{ product.title | escape }}</p>
+        <div class="sticky-atc__summary">
+          <span class="sticky-atc__summary-badge" hidden></span>
+          <s class="sticky-atc__summary-compare" hidden></s>
+          <span class="sticky-atc__summary-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+        </div>
       </div>
 
       {%- if sticky_has_kits -%}
@@ -954,10 +959,32 @@
     .sticky-atc__title {
       font-size: 1.4rem;
       font-weight: 600;
-      margin: 0;
+      margin: 0 0 3px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+    .sticky-atc__summary {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .sticky-atc__summary-badge {
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: #e8f5e9;
+      color: #2e7d32;
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+    .sticky-atc__summary-compare {
+      font-size: 1.2rem;
+      color: rgba(var(--color-foreground), 0.5);
+    }
+    .sticky-atc__summary-price {
+      font-size: 1.4rem;
+      font-weight: 700;
     }
     .sticky-atc__price {
       font-size: 1.3rem;
