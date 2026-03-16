@@ -1342,6 +1342,9 @@ input.mobile-facets__checkbox {
     position: initial;
   background: none;
   }
+  .mobile-facets {
+    pointer-events: initial;
+  }
 }
 .filtrar-drawer {
   transform: translateX(-100%);
