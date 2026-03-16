@@ -3,6 +3,8 @@
     assign installment_number = settings.installment_number
     assign minimum_installment_value = settings.minimum_installment_value | times: 100
   %}
+  {{ installment_number }}
+  {{ minimum_installment_value }}
   <div class="res-installments">
     {% for number in (2..installment_number) reversed %}
       {% assign installment_value = tp_price | divided_by: number %}
