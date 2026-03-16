@@ -1179,104 +1179,22 @@
   </div>
   <script>
     (function () {
-      // Custom element wrapper so facets.js renderAdditionalElements can call bindEvents()
-      if (!customElements.get('mobile-drawer-wrapper')) {
-        class MobileDrawerWrapper extends HTMLElement {
-          bindEvents() {
-            // Re-attach close button listeners after AJAX filter update
-            initCustomDrawers();
-          }
-        }
-        customElements.define('mobile-drawer-wrapper', MobileDrawerWrapper);
+      function bindButtons() {
+        const filterBtn = document.querySelector('.filtrar-btn');
+        const orderbyBtn = document.querySelector('.orderby-btn');
+
+        filterBtn.addEventListener('click', (ev) => openMenus(ev));
+
+        orderbyBtn.addEventListener('click', (ev) => openMenus(ev));
       }
+        function openMenus(ev) {
+          const classContainer = ev.target.classList.replace('-btn','');
+          const containerToOpen = document.querySelector(`.${classContainer}-drawer`);
 
-      function initCustomDrawers() {
-        var overlay = document.querySelector('.custom-drawer-overlay');
-
-        // Create overlay if it doesn't exist
-        if (!overlay) {
-          overlay = document.createElement('div');
-          overlay.className = 'custom-drawer-overlay';
-          document.body.appendChild(overlay);
+          containerToOpen.classList.add('active');
         }
 
-        function openDrawer(drawer) {
-          closeAllDrawers();
-          drawer.classList.add('active');
-          overlay.classList.add('active');
-          document.body.classList.add('overflow-hidden');
-        }
-
-        function closeAllDrawers() {
-          document.querySelectorAll('.filtrar-drawer, .orderby-drawer').forEach(function (d) {
-            d.classList.remove('active');
-          });
-          if (overlay) overlay.classList.remove('active');
-          document.body.classList.remove('overflow-hidden');
-        }
-
-        // Filtrar button
-        document.querySelectorAll('.filtrar-btn').forEach(function (btn) {
-          btn.replaceWith(btn.cloneNode(true)); // remove old listeners
-        });
-        document.querySelectorAll('.filtrar-btn').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            var drawer = document.querySelector('.filtrar-drawer');
-            if (drawer) openDrawer(drawer);
-          });
-        });
-
-        // Orderby button
-        document.querySelectorAll('.orderby-btn').forEach(function (btn) {
-          btn.replaceWith(btn.cloneNode(true));
-        });
-        document.querySelectorAll('.orderby-btn').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            var drawer = document.querySelector('.orderby-drawer');
-            if (drawer) openDrawer(drawer);
-          });
-        });
-
-        // Close buttons inside drawers
-        document.querySelectorAll('.custom-drawer-filter__close-btn').forEach(function (btn) {
-          btn.replaceWith(btn.cloneNode(true));
-        });
-        document.querySelectorAll('.custom-drawer-filter__close-btn').forEach(function (btn) {
-          btn.addEventListener('click', closeAllDrawers);
-        });
-
-        // Apply button inside filtrar-drawer
-        document.querySelectorAll('.filtrar-apply-btn').forEach(function (btn) {
-          btn.replaceWith(btn.cloneNode(true));
-        });
-        document.querySelectorAll('.filtrar-apply-btn').forEach(function (btn) {
-          btn.addEventListener('click', closeAllDrawers);
-        });
-
-        // Overlay click closes all drawers
-        overlay.replaceWith(overlay.cloneNode(true));
-        overlay = document.querySelector('.custom-drawer-overlay');
-        overlay.addEventListener('click', closeAllDrawers);
-
-        // Mobile sort select: update URL preserving existing params
-        document.querySelectorAll('.mobile-sort-select').forEach(function (sel) {
-          sel.replaceWith(sel.cloneNode(true));
-        });
-        document.querySelectorAll('.mobile-sort-select').forEach(function (sel) {
-          sel.addEventListener('change', function () {
-            var url = new URL(window.location.href);
-            url.searchParams.set('sort_by', this.value);
-            window.location.href = url.toString();
-          });
-        });
-      }
-
-      // Init on DOMContentLoaded and after Shopify section re-renders
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initCustomDrawers);
-      } else {
-        initCustomDrawers();
-      }
+        bindButtons();
     })();
   </script>
 
