@@ -506,6 +506,17 @@
     </div>
     <p class="text-filter">Filtrar por:</p>
 
+    <facet-filters-form>
+      <form id="FacetFiltersFormMobile" class="mobile-facets">
+        <input type="hidden" name="sort_by" value="{{ sort_by }}">
+        {%- if results.current_vendor or results.current_type -%}
+          <input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+        {%- endif -%}
+        {%- if results.terms -%}
+          <input type="hidden" name="q" value="{{ results.terms | escape }}">
+          <input name="options[prefix]" type="hidden" value="last">
+        {%- endif -%}
+
     {%- for filter in results.filters -%}
       {% liquid
         assign total_active_values = total_active_values | plus: filter.active_values.size
@@ -731,6 +742,8 @@
           </details>
       {% endcase %}
     {%- endfor -%}
+      </form>
+    </facet-filters-form>
   </div>
 
   <script>
