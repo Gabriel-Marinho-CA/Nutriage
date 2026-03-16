@@ -1337,6 +1337,11 @@ input.mobile-facets__checkbox {
     border: none;
 
   }
+
+  #FacetFiltersFormMobile {
+    position: initial;
+  background: none;
+  }
 }
 .filtrar-drawer {
   transform: translateX(-100%);
