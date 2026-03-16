@@ -1376,7 +1376,12 @@ input.mobile-facets__checkbox {
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
+    color:#1A4789;
 
+
+    &:last-child {
+      border-bottom:1px solid #1A4789;
+    }
 
     &.orderby-option--active {
       .inner-circle {
