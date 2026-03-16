@@ -1687,6 +1687,10 @@ product-form.product-form {
 .sticky-atc__select-wrap {
   position: relative;
   flex-shrink: 0;
+
+  @media (max-width:1000px) {
+    display: none;
+  }
 }
 
 .sticky-atc__select {
