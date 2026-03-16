@@ -6,7 +6,7 @@
 .res-acc {
   background: var(--res-acc-bg-color);
 
-  .res-fc__view-all-btn {
+  .res-fc__view-all-btn-accordion {
     border-radius: 10rem;
     font-size: 22px;
     font-weight: 700;
