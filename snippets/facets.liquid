@@ -477,18 +477,16 @@
     {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
     <div class="wrapper-sort-by-buttons">
       {%- for option in results.sort_options -%}
-        <div class="{% if option.value == sort_by %} orderby-option--active{% endif %} order-by-wrapper-option">
-          <div class="circle">
-            <div class="inner-circle"></div>
-          </div>
-          <button
-            type="button"
-            class="orderby-option{% if option.value == sort_by %} orderby-option--active{% endif %}"
-            data-sort-value="{{ option.value | escape }}"
-          >
-            {{ option.name | escape }}
-          </button>
-        </div>
+        <button
+          type="button"
+          class="orderby-option{% if option.value == sort_by %} orderby-option--active{% endif %}"
+          data-sort-value="{{ option.value | escape }}"
+        >
+          <span class="circle">
+            <span class="inner-circle"></span>
+          </span>
+          {{ option.name | escape }}
+        </button>
       {%- endfor -%}
     </div>
   </div>
