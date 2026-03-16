@@ -433,6 +433,7 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
   }
 
   .cart-item__totals {
+    justify-content: flex-start;
     .loading__spinner {
       padding: 0;
       right: auto;
