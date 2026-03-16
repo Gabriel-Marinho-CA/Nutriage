@@ -772,6 +772,25 @@
       }
 
       bindButtons();
+
+      document.querySelectorAll('.orderby-option').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var sortValue = this.dataset.sortValue;
+
+          var sortInput = document.querySelector('#FacetFiltersFormMobile input[name="sort_by"]');
+          if (sortInput) sortInput.value = sortValue;
+
+          document.querySelectorAll('.orderby-option').forEach(function (b) {
+            b.classList.remove('orderby-option--active');
+          });
+          this.classList.add('orderby-option--active');
+
+          var params = new URLSearchParams(window.location.search);
+          params.set('sort_by', sortValue);
+          FacetFiltersForm.renderPage(params.toString());
+          closeMenus();
+        });
+      });
     })();
   </script>
 
