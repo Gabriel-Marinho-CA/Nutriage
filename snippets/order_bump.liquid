@@ -1,6 +1,6 @@
 {%- if settings.cart_drawer_collection != blank -%}
   {%- liquid
-    assign product_form_id = 'product-form-' | append: section.id}
+    assign product_form_id = 'product-form-' | append: section.id
     assign cart_product_ids = ''
     for item in cart.items
       assign cart_product_ids = cart_product_ids | append: item.product_id | append: ','
