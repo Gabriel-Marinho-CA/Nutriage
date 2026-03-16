@@ -36,6 +36,7 @@
   height: 26px;
   /* border: 1px solid rgba(var(--color-foreground), 0.2); */
   border-radius: 50%;
+  border: none;
   background: transparent;
   cursor: pointer;
   color: rgb(var(--color-foreground));
@@ -61,10 +62,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(var(--color-foreground), 0.03);
   border-radius: 10px;
   padding: 10px;
-  border: 1px solid rgba(var(--color-foreground), 0.07);
 }
 
 .order-bump__img-wrap {
