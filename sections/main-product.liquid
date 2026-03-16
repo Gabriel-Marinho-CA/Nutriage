@@ -859,7 +859,7 @@
               assign compare = product.selected_or_first_available_variant.compare_at_price
 
               assign discount = compare | minus: price
-              assign discount_percent = discount | times: 100 | divided_by: compare
+              assign discount_percent = discount | times: 100.00 | divided_by: compare
             %}
             {{ discount_percent }}
           </span>
