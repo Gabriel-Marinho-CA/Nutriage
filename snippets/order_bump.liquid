@@ -122,7 +122,9 @@
                         %}
                           disabled
                         {% endif %}
-                      >Adicionar</button>
+                      >Adicionar
+                      {%- render 'loading-spinner' -%}
+                    </button>
                     {% endform %}
                   </product-form>
                 </div>
