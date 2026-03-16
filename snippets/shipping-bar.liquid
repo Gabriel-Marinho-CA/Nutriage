@@ -11,16 +11,21 @@
       {% assign progress = 100 %}
     {% endif %}
     <div class="shipping-bar__wrapper">
+      <div class="shipping-bar__text">
+        <span>
+          {% if cart_total >= free_shipping_min %}
+            Parabéns, você ganhou <b>frete grátis!</b>
+          {% else %}
+            faltam <b>{{ amount_left | money }}</b> para o frete grátis.
+          {% endif %}
+        </span>
+        <span class="svg-wrapper">
+          {{ 'icon-truck-cart.svg' | inline_asset_content }}
+        </span>
+      </div>
       <div class="shipping-bar">
         <div class="shipping-bar__fill" style="--width: {{ progress }}%;"></div>
       </div>
-      <span class="shipping-bar__text">
-        {% if cart_total >= free_shipping_min %}
-          Parabéns, você ganhou <b>frete grátis!</b>
-        {% else %}
-          faltam <b>{{ amount_left | money }}</b> para o frete grátis.
-        {% endif %}
-      </span>
     </div>
   {% endif %}
 {% endif %}
