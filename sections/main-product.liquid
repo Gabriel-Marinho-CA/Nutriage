@@ -1001,9 +1001,10 @@
       if (stickySelect) {
         const quantityBundle = document.querySelector('quantity-bundle[data-section-id="' + sectionId + '"]');
         if (quantityBundle) {
-          const cards = quantityBundle.querySelectorAll('.qb-card');
+          // DOM order: [5un, 3un, 1un, main-product] → reverse → [main-product, 1un, 3un, 5un]
+          const cards = Array.from(quantityBundle.querySelectorAll('.qb-card')).reverse();
           stickySelect.innerHTML = '';
-          cards.forEach(function (card) {
+          cards.forEach(function (card, idx) {
             const variantId = card.dataset.variantId;
             const qtyLabel = card.dataset.qtyLabel || '';
             const price = parseInt(card.dataset.price, 10) || 0;
@@ -1011,7 +1012,8 @@
             opt.value = variantId;
             opt.dataset.baseLabel = qtyLabel;
             opt.textContent = qtyLabel + ' — ' + fmtMoney(price);
-            if (card.classList.contains('is-selected')) {
+            // Always pre-select first option (main product / 1 Unidade)
+            if (idx === 0) {
               opt.selected = true;
               if (stickyFormInput) stickyFormInput.value = variantId;
               updateSummary(price, parseInt(card.dataset.compare, 10) || 0);
