@@ -26,52 +26,52 @@
   {%- endif -%}
 
   {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 750px) {
       .section-{{ section.id }}-padding {
-        padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-        padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
       }
+    }
 
-      @media screen and (min-width: 750px) {
-        .section-{{ section.id }}-padding {
-          padding-top: {{ section.settings.padding_top }}px;
-          padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'composicao_produto' or block.type == 'tabela_nutricional' -%}
+        #Details-{{ block.id }}-{{ section.id }}  {
+          background-color: {{ block.settings.bg_color }};
+          color: {{ block.settings.text_color }};
+          border-radius:40px;
+          overflow:hidden;
         }
-      }
+        #Details-{{ block.id }}-{{ section.id }} > summary svg {
+          fill: {{ block.settings.text_color }};
+          margin-right:1rem;
+        }
+        #Details-{{ block.id }}-{{ section.id }} > summary .accordion__title {
+          color: {{ block.settings.text_color }};
+          padding-left:2rem;
+        }
+         #Details-{{ block.id }}-{{ section.id }} .accordion__content {
+          padding-inline: 2.5rem;
+          padding-bottom: .45rem;
+         }
 
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'composicao_produto' or block.type == 'tabela_nutricional' -%}
-          #Details-{{ block.id }}-{{ section.id }}  {
-            background-color: {{ block.settings.bg_color }};
-            color: {{ block.settings.text_color }};
-            border-radius:40px;
-            overflow:hidden;
-          }
-          #Details-{{ block.id }}-{{ section.id }} > summary svg {
-            fill: {{ block.settings.text_color }};
-            margin-right:1rem;
-          }
-          #Details-{{ block.id }}-{{ section.id }} > summary .accordion__title {
-            color: {{ block.settings.text_color }};
-            padding-left:2rem;
-          }
-           #Details-{{ block.id }}-{{ section.id }} .accordion__content {
-            padding-inline: 2.5rem;
-            padding-bottom: .45rem;
-           }
-
-          #ProductAccordion-{{ block.id }}-{{ section.id }} {
-            background-color: {{ block.settings.bg_color }};
-          }
-          #ProductAccordion-{{ block.id }}-{{ section.id }} img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-          }
-          #Details-{{ block.id }}-{{ section.id }}[open] #ProductAccordion-{{ block.id }}-{{ section.id }} {
-            animation: animateMenuOpen var(--duration-default) ease;
-          }
-        {%- endif -%}
-      {%- endfor -%}
+        #ProductAccordion-{{ block.id }}-{{ section.id }} {
+          background-color: {{ block.settings.bg_color }};
+        }
+        #ProductAccordion-{{ block.id }}-{{ section.id }} img {
+          max-width: 100%;
+          height: auto;
+          display: block;
+        }
+        #Details-{{ block.id }}-{{ section.id }}[open] #ProductAccordion-{{ block.id }}-{{ section.id }} {
+          animation: animateMenuOpen var(--duration-default) ease;
+        }
+      {%- endif -%}
+    {%- endfor -%}
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -175,7 +175,9 @@
                 {%- endif -%}
               {% when 'beneficio_do_produto' %}
                 {% if product.metafields.custom.beneficios_do_produto_novo.value %}
-                  <p style="color: {{ block.settings.text_color }}" class="benefit-product-title">{{ block.settings.title }}</p>
+                  <p style="color: {{ block.settings.text_color }}" class="benefit-product-title">
+                    {{ block.settings.title }}
+                  </p>
                   {% render 'product_benefits', block: block %}
                 {% endif %}
               {% when 'quantity_bundle' %}
@@ -829,7 +831,6 @@
   </div>
 </product-info>
 
-
 {%- if section.settings.enable_sticky_atc -%}
   {%- assign sticky_form_id = 'product-form-sticky-' | append: section.id -%}
   {%- assign sticky_has_kits = false -%}
@@ -853,14 +854,17 @@
         <p class="sticky-atc__title">{{ product.title | escape }}</p>
         <div class="sticky-atc__summary">
           <span class="sticky-atc__summary-badge">
-
             {% liquid
-              assign discount = product.selected_or_first_available_variant.price | minus: product.selected_or_first_available_variant.compare_at_price
+              assign price = product.selected_or_first_available_variant.price
+              assign compare = product.selected_or_first_available_variant.compare_at_price
+
+              assign discount = compare | minus: price
+              assign discount_percent = discount | times: 100 | divided_by: compare
             %}
-            {{ discount }}
+            {{ discount_percent }}
           </span>
           <s class="sticky-atc__summary-compare">
-            {{  product.selected_or_first_available_variant.compare_at_price }}
+            {{ product.selected_or_first_available_variant.compare_at_price | money }}
           </s>
           <span class="sticky-atc__summary-price">{{ product.selected_or_first_available_variant.price | money }}</span>
         </div>
@@ -879,7 +883,20 @@
             </option>
           </select>
           <span class="sticky-atc__select-arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
           </span>
         </div>
       {%- else -%}
@@ -941,9 +958,9 @@
 
       if (!stickyBar || !productInfo) return;
 
-      const summaryBadge   = stickyBar.querySelector('.sticky-atc__summary-badge');
+      const summaryBadge = stickyBar.querySelector('.sticky-atc__summary-badge');
       const summaryCompare = stickyBar.querySelector('.sticky-atc__summary-compare');
-      const summaryPrice   = stickyBar.querySelector('.sticky-atc__summary-price');
+      const summaryPrice = stickyBar.querySelector('.sticky-atc__summary-price');
 
       function fmtMoney(cents) {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(cents / 100);
@@ -954,10 +971,16 @@
         summaryPrice.textContent = fmtMoney(price);
         if (compare && compare > price) {
           const pct = Math.round(((compare - price) / compare) * 100);
-          if (summaryBadge)   { summaryBadge.textContent = pct + '% off'; summaryBadge.hidden = false; }
-          if (summaryCompare) { summaryCompare.textContent = fmtMoney(compare); summaryCompare.hidden = false; }
+          if (summaryBadge) {
+            summaryBadge.textContent = pct + '% off';
+            summaryBadge.hidden = false;
+          }
+          if (summaryCompare) {
+            summaryCompare.textContent = fmtMoney(compare);
+            summaryCompare.hidden = false;
+          }
         } else {
-          if (summaryBadge)   summaryBadge.hidden = true;
+          if (summaryBadge) summaryBadge.hidden = true;
           if (summaryCompare) summaryCompare.hidden = true;
         }
       }
@@ -982,8 +1005,8 @@
           stickySelect.innerHTML = '';
           cards.forEach(function (card) {
             const variantId = card.dataset.variantId;
-            const qtyLabel  = card.dataset.qtyLabel || '';
-            const price     = parseInt(card.dataset.price, 10) || 0;
+            const qtyLabel = card.dataset.qtyLabel || '';
+            const price = parseInt(card.dataset.price, 10) || 0;
             const opt = document.createElement('option');
             opt.value = variantId;
             opt.dataset.baseLabel = qtyLabel;
@@ -1006,10 +1029,7 @@
           stickySelect.addEventListener('change', function () {
             const opt = stickySelect.options[stickySelect.selectedIndex];
             if (stickyFormInput) stickyFormInput.value = stickySelect.value;
-            updateSummary(
-              parseInt(opt.dataset.price, 10) || 0,
-              parseInt(opt.dataset.compare, 10) || 0
-            );
+            updateSummary(parseInt(opt.dataset.price, 10) || 0, parseInt(opt.dataset.compare, 10) || 0);
           });
           const mainFormInput = document.querySelector('#product-form-' + sectionId + ' input[name="id"]');
           if (mainFormInput && stickyFormInput) {
@@ -1047,17 +1067,23 @@
         }
       }
 
-      new IntersectionObserver(function (entries) {
-        productInfoVisible = entries[0].isIntersecting;
-        updateVisibility();
-      }, { threshold: 0 }).observe(productInfo);
+      new IntersectionObserver(
+        function (entries) {
+          productInfoVisible = entries[0].isIntersecting;
+          updateVisibility();
+        },
+        { threshold: 0 }
+      ).observe(productInfo);
 
       const footer = document.querySelector('.res-footer, footer.footer');
       if (footer) {
-        new IntersectionObserver(function (entries) {
-          footerVisible = entries[0].isIntersecting;
-          updateVisibility();
-        }, { threshold: 0, rootMargin: '20px 0px 0px 0px' }).observe(footer);
+        new IntersectionObserver(
+          function (entries) {
+            footerVisible = entries[0].isIntersecting;
+            updateVisibility();
+          },
+          { threshold: 0, rootMargin: '20px 0px 0px 0px' }
+        ).observe(footer);
       }
     })();
   </script>
