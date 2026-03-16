@@ -55,11 +55,11 @@
               {%- endif -%}
             </div>
           </div>
-          {%- if settings.cart_drawer_collection != blank -%}
+          {% comment %} {%- if settings.cart_drawer_collection != blank -%}
             <div class="cart-drawer__collection">
               {% render 'card-collection', card_collection: settings.cart_drawer_collection, columns: 1 %}
             </div>
-          {%- endif -%}
+          {%- endif -%} {% endcomment %}
         </div>
       {%- endif -%}
       <div class="drawer__header">
