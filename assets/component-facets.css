@@ -1376,11 +1376,11 @@ input.mobile-facets__checkbox {
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    
+
 
     &.orderby-option--active {
       .inner-circle {
-        background:#E0BE80 ;
+        background:#E0BE80 !important;
       }
     }
 
