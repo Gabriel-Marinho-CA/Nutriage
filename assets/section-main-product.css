@@ -1623,9 +1623,11 @@ product-form.product-form {
 
   @media (max-width:900px) {
     flex-wrap: wrap;
+    justify-content: center;
 
     product-form {
       min-width: 100%;
+      text-align: center;
       button {
         max-width: 80%;
         height: 37px;
@@ -1646,6 +1648,9 @@ product-form.product-form {
   flex: 1;
   max-width: 500px;
   min-width: 0;
+  @media (max-width:900px) {
+    max-width: fit-content;
+  }
 }
 
 .sticky-atc__title {
