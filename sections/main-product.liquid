@@ -873,12 +873,11 @@
       {%- if sticky_has_kits -%}
         <div class="sticky-atc__select-wrap">
           <select id="StickyAtcSelect-{{ section.id }}" class="sticky-atc__select" aria-label="Selecione a quantidade">
-            {%- comment -%} Populated by JS from qb-cards to match labels exactly {%- endcomment -%}
-
+            {%- comment -%} Fallback (JS sobrescreve com labels exatos do quantity-bundle, ordem: 1un primeiro) {%- endcomment -%}
             <option value="{{ product.selected_or_first_available_variant.id }}" selected>
               1 Unidade — {{ product.selected_or_first_available_variant.price | money }}
             </option>
-            {%- for kit in product.metafields.custom.kits.value reversed -%}
+            {%- for kit in product.metafields.custom.kits.value -%}
               {%- assign qb_v = kit.selected_or_first_available_variant -%}
               <option value="{{ qb_v.id }}">{{ kit.title }} — {{ qb_v.price | money }}</option>
             {%- endfor -%}
