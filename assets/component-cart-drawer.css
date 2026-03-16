@@ -467,6 +467,7 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
       gap: 1rem;
       justify-content: space-between;
       margin-top: 2rem;
+      flex-wrap: wrap;
 
       .price {
         font-weight: bold;
