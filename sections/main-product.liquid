@@ -861,7 +861,7 @@
               assign discount = compare | minus: price
               assign discount_percent = discount | times: 100.00 | divided_by: compare
             %}
-            {{ discount_percent | ceil }}% OFF
+            {{ discount_percent | ceil }}% off
           </span>
           <s class="sticky-atc__summary-compare">
             {{ product.selected_or_first_available_variant.compare_at_price | money }}
