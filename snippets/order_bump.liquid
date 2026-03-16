@@ -1,3 +1,176 @@
-{% for item  in settings.cart_drawer_collection %}
-  
-{% endfor %}
+{%- if settings.cart_drawer_collection != blank -%}
+  {%- liquid
+    assign cart_product_ids = ''
+    for item in cart.items
+      assign cart_product_ids = cart_product_ids | append: item.product_id | append: ','
+    endfor
+
+    assign bump_products = settings.cart_drawer_collection.products
+    assign visible_count = 0
+    for product in bump_products
+      assign pid_check = product.id | append: ','
+      unless cart_product_ids contains pid_check
+        assign visible_count = visible_count | plus: 1
+      endunless
+    endfor
+  -%}
+
+  {%- if visible_count > 0 -%}
+    {{ 'component-order-bump.css' | asset_url | stylesheet_tag }}
+
+    <order-bump-slider class="order-bump">
+      <div class="order-bump__header">
+        <p class="order-bump__title">Adicione também</p>
+        <div class="order-bump__nav">
+          <button class="order-bump__nav-btn order-bump__prev" type="button" aria-label="Anterior">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="order-bump__nav-btn order-bump__next" type="button" aria-label="Próximo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="swiper order-bump__swiper">
+        <div class="swiper-wrapper">
+          {%- for product in bump_products -%}
+            {%- assign pid_check = product.id | append: ',' -%}
+            {%- unless cart_product_ids contains pid_check -%}
+              {%- assign variant = product.selected_or_first_available_variant -%}
+              <div class="swiper-slide">
+                <div class="order-bump__card">
+                  <div class="order-bump__img-wrap">
+                    {%- if product.featured_image -%}
+                      <img
+                        src="{{ product.featured_image | image_url: width: 120 }}"
+                        alt="{{ product.title | escape }}"
+                        width="60"
+                        height="60"
+                        loading="lazy"
+                      >
+                    {%- endif -%}
+                  </div>
+                  <div class="order-bump__info">
+                    <p class="order-bump__name">{{ product.title | escape }}</p>
+                    <p class="order-bump__price">{{ variant.price | money }}</p>
+                  </div>
+                  <button
+                    class="order-bump__add-btn"
+                    type="button"
+                    data-variant-id="{{ variant.id }}"
+                  >
+                    Adicionar
+                  </button>
+                </div>
+              </div>
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </order-bump-slider>
+
+    <script>
+      (() => {
+        if (customElements.get('order-bump-slider')) return;
+
+        class OrderBumpSlider extends HTMLElement {
+          connectedCallback() {
+            this._loadSwiper().then(() => this._initSwiper());
+            this._bindButtons();
+          }
+
+          _loadSwiper() {
+            if (window.Swiper) return Promise.resolve();
+            return new Promise((resolve) => {
+              if (document.getElementById('order-bump-swiper-js')) {
+                const poll = setInterval(() => {
+                  if (window.Swiper) { clearInterval(poll); resolve(); }
+                }, 30);
+                return;
+              }
+              const css = document.createElement('link');
+              css.rel = 'stylesheet';
+              css.href = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
+              document.head.appendChild(css);
+
+              const js = document.createElement('script');
+              js.id = 'order-bump-swiper-js';
+              js.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+              js.onload = resolve;
+              document.head.appendChild(js);
+            });
+          }
+
+          _initSwiper() {
+            this._swiper = new Swiper(this.querySelector('.order-bump__swiper'), {
+              slidesPerView: 1,
+              spaceBetween: 12,
+              navigation: {
+                prevEl: this.querySelector('.order-bump__prev'),
+                nextEl: this.querySelector('.order-bump__next'),
+              },
+            });
+          }
+
+          _bindButtons() {
+            this.addEventListener('click', async (e) => {
+              const btn = e.target.closest('.order-bump__add-btn');
+              if (!btn || btn.disabled) return;
+
+              btn.disabled = true;
+              const originalText = btn.textContent.trim();
+              btn.textContent = '...';
+
+              try {
+                const res = await fetch('/cart/add.js', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    id: Number(btn.dataset.variantId),
+                    quantity: 1,
+                    sections: ['cart-drawer'],
+                  }),
+                });
+
+                if (!res.ok) throw new Error('add_failed');
+                const data = await res.json();
+
+                if (data.sections?.['cart-drawer']) {
+                  this._updateCartDrawer(data.sections['cart-drawer']);
+                }
+              } catch {
+                btn.disabled = false;
+                btn.textContent = originalText;
+              }
+            });
+          }
+
+          _updateCartDrawer(sectionHtml) {
+            const parser = new DOMParser();
+            const newDoc = parser.parseFromString(sectionHtml, 'text/html');
+
+            // Update cart items (reveals items if drawer was empty)
+            const newItems = newDoc.querySelector('cart-drawer-items');
+            const currItems = document.querySelector('cart-drawer-items');
+            if (newItems && currItems) currItems.replaceWith(newItems);
+
+            // Update footer: totals + re-rendered order bump (now without the added product)
+            const newFooter = newDoc.querySelector('.drawer__footer');
+            const currFooter = document.querySelector('#CartDrawer .drawer__footer');
+            if (newFooter && currFooter) currFooter.replaceWith(newFooter);
+
+            // Remove is-empty state if cart was empty before
+            const cartDrawer = document.querySelector('cart-drawer');
+            if (cartDrawer) cartDrawer.classList.remove('is-empty');
+          }
+        }
+
+        customElements.define('order-bump-slider', OrderBumpSlider);
+      })();
+    </script>
+  {%- endif -%}
+{%- endif -%}
