@@ -1351,6 +1351,12 @@ input.mobile-facets__checkbox {
 
 .filtrar-drawer {
   transform: translateX(-100%);
+
+  details[open] {
+    .icon-caret {
+      rotate:180deg;
+    }
+  }
 }
 
 .orderby-drawer {
