@@ -1,0 +1,68 @@
+.shipping-bar__wrapper {
+
+    /* === COLORS === */
+
+    --inner-bar-background: #F79445;
+    --background-wrapper: #F5E9D4;
+    --text-color-complete-bar: #F79445;
+    --text-color: #2C2B2B;
+    --not-complete-inner-bar: #fff;
+
+    /* === COLORS === */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 2.4rem 1.2rem;
+    background: var(--background-wrapper);
+    border-radius: 0.8rem;
+    margin-bottom: 1.5rem;
+
+    .shipping-bar {
+        background: var(--not-complete-inner-bar);
+        border-radius: 100px;
+        height: 12px;
+        width: 100%;
+        display: flex;
+    }
+
+    .shipping-bar__fill {
+        display: block !important;
+        background: var(--inner-bar-background);
+        height: 100%;
+        border-radius: inherit;
+        transition: width 0.3s;
+        width: var(--width);
+
+        height: 12px;
+    }
+
+    .shipping-bar__text {
+        color: var(--text-color);
+        font-family: "Plus Jakarta Sans";
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;
+        /* 15.6px */
+        text-align: center;
+
+        color: rgba(var(--color-foreground));
+
+        b {
+            color: var(--text-color-complete-bar);
+        }
+    }
+}
+
+.drawer__inner-empty .shipping-bar__wrapper {
+    position: absolute;
+    top: 6rem;
+    width: calc(100% - 3rem);
+}
+
+
+.cart-drawer__warnings {
+    padding: 16rem 0;
+}
