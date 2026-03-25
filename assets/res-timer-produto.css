@@ -69,7 +69,9 @@
 .res-tp__titulo {
   margin: 0 0 10px;
   line-height: 1.2;
-  text-align:center;
+    @media (max-width:750px) {
+      text-align:center;
+    }
 }
 
 .res-tp__row {
