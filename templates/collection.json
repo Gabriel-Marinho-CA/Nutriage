@@ -21,9 +21,11 @@
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
+        "text_color": "#ffffff",
+        "bg_color": "linear-gradient(46deg, rgba(52, 133, 236, 1) 13%, rgba(170, 248, 219, 1) 86%)",
         "breadcrumb_collections_label": "Produtos",
         "breadcrumb_color": "#ffffff",
-        "breadcrumb_bg": "#5873F9",
+        "breadcrumb_bg": "#5873f9",
         "products_per_page": 16,
         "columns_desktop": 3,
         "columns_mobile": "2",
