@@ -196,7 +196,9 @@
         "border_radius": 16,
         "padding_top": 40,
         "padding_bottom": 40,
-        "padding_horizontal": 40
+        "padding_horizontal": 40,
+        "margin_top": 20,
+        "margin_bottom": 52
       }
     },
     "res_accordion_EatW3W": {
