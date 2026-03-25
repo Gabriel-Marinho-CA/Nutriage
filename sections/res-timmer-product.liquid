@@ -15,12 +15,15 @@
 -%}
 
 {% style %}
+  #{{section.id }}.res-timer-produto-section {
+    margin-block: {{ section.settings.margin_top }}px  {{ section.settings.margin_bottom }}pxs
+  }
   #res-tp-{{ section.id }} {
     background-color: {{ section.settings.bg_color }};
     color: {{ section.settings.text_color }};
     border-radius: {{ section.settings.border_radius }}px;
     padding: {{ section.settings.padding_top }}px {{ section.settings.padding_horizontal }}px {{ section.settings.padding_bottom }}px;
-    margin-block: {{ section.settings.margin_top }}px  {{ section.settings.margin_bottom }}px
+ 
 
     @media (max-width:750px) {
       padding-inline: 1rem;
