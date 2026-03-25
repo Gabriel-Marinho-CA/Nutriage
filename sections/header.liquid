@@ -16,7 +16,6 @@
   <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
 
-
 <style>
   header-drawer {
     justify-self: start;
@@ -54,13 +53,16 @@
 
   summary.list-menu__item {
     padding-right: 2.7rem;
-
-      @media screen and (min-width: 750px) {
-        padding-block:2.7rem;
-        margin-bottom: -4px;
-      }
   }
 
+
+      @media screen and (min-width: 750px) {
+        .header__menu-item{
+             padding-block:2.7rem;
+        margin-bottom: -4px;
+        }
+
+      }
   .list-menu__item {
     display: flex;
     align-items: center;
@@ -142,7 +144,7 @@
     endif
   -%}
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
-            {% comment %} render 'header-drawer' {% endcomment %}
+    {% comment %} render 'header-drawer' {% endcomment %}
     {%- liquid
       if section.settings.menu != blank
         render 'custom-header-drawer'
