@@ -1,77 +1,11 @@
-{{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
-{{ 'component-slider.css' | asset_url | stylesheet_tag }}
-
-<style>
-  .marquee-wrapper {
-    overflow: hidden;
-    width: 100%;
-    position: relative;
-  }
-
-  .marquee-content {
-    display: flex;
-    width: max-content;
-    animation: marquee {{ section.settings.marquee_speed }}s linear infinite;
-  }
-
-  .marquee-content:hover {
-    animation-play-state: paused;
-  }
-
-  .marquee-item {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    padding: 0 {{ section.settings.gap_between_items | default: 32 }}px;
-  }
-
-  .marquee-item .announcement-bar__message {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .marquee-item .announcement-bar__image {
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
-  .marquee-item .announcement-bar__image img {
-    display: block;
-    height: auto;
-    object-fit: contain;
-  }
-
-  .utility-bar {
-    color: inherit;
-    font-family: var(--font-body-family);
-    font-weight: 600;
-  }
-
-  .utility-bar .announcement-bar__message,
-  .utility-bar .announcement-bar__link {
-    font-family: var(--font-body-family);
-    font-weight: 400;
-  }
-
-  @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-</style>
+{{ 'res-barra-de-avisos.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign social_icons = true
   if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
     assign social_icons = false
   endif
+  assign language_country_selector = false
   if section.settings.enable_country_selector or section.settings.enable_language_selector
     assign language_country_selector = true
   endif
@@ -81,58 +15,130 @@
   {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
 {% endif %}
 
+{% style %}
+  .{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.enable_borders %}
+      border-top: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+      border-bottom: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+    {% endif %}
+  }
+
+  .{{ section.id }} .res-aviso-barra__faixa {
+    animation-name: {% if section.settings.marquee_direction == 'right' %}res-marquee-rtl{% else %}res-marquee-ltr{% endif %};
+    animation-duration: {{ section.settings.marquee_speed }}s;
+  }
+
+  .{{ section.id }} .res-aviso-barra__item {
+    padding-inline: {{ section.settings.gap_between_items | default: 32 }}px;
+  }
+
+  .{{ section.id }} .res-aviso-barra__conteudo {
+    gap: {{ section.settings.gap_image_text_desktop | default: 10 }}px;
+  }
+
+  .{{ section.id }} .res-aviso-barra__texto {
+    font-size: {{ section.settings.font_size_desktop | default: 14 }}px;
+    letter-spacing: {{ section.settings.letter_spacing | default: 0 }}px;
+  }
+
+  @media (max-width: 749px) {
+    .{{ section.id }} .res-aviso-barra__conteudo {
+      gap: {{ section.settings.gap_image_text_mobile | default: 10 }}px;
+    }
+    .{{ section.id }} .res-aviso-barra__texto {
+      font-size: {{ section.settings.font_size_mobile | default: 14 }}px;
+    }
+  }
+
+  {% for block in section.blocks %}
+    .{{ section.id }} .res-aviso-barra__conteudo--{{ block.id }} {
+      border-radius: {{ block.settings.border_radius }}px;
+      padding: {{ block.settings.padding }}px;
+      {% if block.settings.item_bg_type == 'color' and block.settings.item_bg_color != blank %}
+        background: {{ block.settings.item_bg_color }};
+      {% elsif block.settings.item_bg_type == 'gradient' and block.settings.item_bg_gradient != blank %}
+        background: {{ block.settings.item_bg_gradient }};
+      {% endif %}
+      {% if block.settings.enable_border %}
+        border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+      {% endif %}
+      {% if block.settings.width > 0 %}width: {{ block.settings.width }}px;{% endif %}
+      {% if block.settings.height > 0 %}height: {{ block.settings.height }}px;{% endif %}
+    }
+    .{{ section.id }} .res-aviso-barra__texto--{{ block.id }} {
+      {% if block.settings.text_bg_type == 'color' and block.settings.text_bg_color != blank %}
+        background: {{ block.settings.text_bg_color }};
+      {% elsif block.settings.text_bg_type == 'gradient' and block.settings.text_bg_gradient != blank %}
+        background: {{ block.settings.text_bg_gradient }};
+      {% endif %}
+      border-radius: {{ block.settings.text_border_radius }}px;
+      {% if block.settings.text_padding > 0 %}padding: {{ block.settings.text_padding }}px;{% endif %}
+      {% if block.settings.text_enable_border %}
+        border: {{ block.settings.text_border_width }}px solid {{ block.settings.text_border_color }};
+      {% endif %}
+    }
+  {% endfor %}
+{% endstyle %}
+
 <div
-  class="utility-bar{% if section.settings.show_line_separator and section.blocks.size > 0 %} utility-bar--bottom-border{% elsif section.settings.show_line_separator and section.settings.show_social and social_icons%} utility-bar--bottom-border-social-only{% endif %}{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header-localization{% endif %}"
-  style="{% if section.settings.background_color %}background-color: {{ section.settings.background_color }};{% endif %}{% if section.settings.text_color %}color: {{ section.settings.text_color }};{% endif %}{% if section.settings.padding_top %}padding-top: {{ section.settings.padding_top }}px;{% endif %}{% if section.settings.padding_bottom %}padding-bottom: {{ section.settings.padding_bottom }}px;{% endif %}{% if section.settings.enable_borders %}border-top: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};border-bottom: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};{% endif %}"
+  class="res-aviso-barra {{ section.id }}{% if section.settings.show_line_separator %} res-aviso-barra--bordas{% endif %}{% if language_country_selector %} header-localization{% endif %}"
 >
   {%- if section.blocks.size >= 1 -%}
     <div
-      class="announcement-bar marquee-wrapper"
+      class="res-aviso-barra__marquee"
       role="region"
       aria-label="Comunicados"
     >
-      <div class="marquee-content">
+      <div class="res-aviso-barra__faixa">
         {%- for i in (1..10) -%}
           {%- for block in section.blocks -%}
             {%- if block.settings.text != blank or block.settings.image != blank -%}
-              <div class="marquee-item" {{ block.shopify_attributes }}>
+              <div class="res-aviso-barra__item" {{ block.shopify_attributes }}>
                 {%- if block.settings.link != blank -%}
                   <a
                     href="{{ block.settings.link }}"
-                    class="announcement-bar__link link link--text focus-inset"
-                    style="{% if section.settings.text_color %}color: {{ section.settings.text_color }};{% endif %}display: flex; align-items: center; gap: 0.5rem; text-decoration: none;{% if block.settings.background_color %}background-color: {{ block.settings.background_color }};{% endif %}{% if block.settings.enable_border %}border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};{% endif %}border-radius: {{ block.settings.border_radius }}px;padding: {{ block.settings.padding }}px;{% if block.settings.width > 0 %}width: {{ block.settings.width }}px;{% endif %}{% if block.settings.height > 0 %}height: {{ block.settings.height }}px;{% endif %}"
+                    class="res-aviso-barra__conteudo res-aviso-barra__conteudo--{{ block.id }} focus-inset"
                   >
                 {%- else -%}
-                  <div style="display: flex; align-items: center; gap: 0.5rem;{% if block.settings.background_color %}background-color: {{ block.settings.background_color }};{% endif %}{% if block.settings.enable_border %}border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};{% endif %}border-radius: {{ block.settings.border_radius }}px;padding: {{ block.settings.padding }}px;{% if block.settings.width > 0 %}width: {{ block.settings.width }}px;{% endif %}{% if block.settings.height > 0 %}height: {{ block.settings.height }}px;{% endif %}">
+                  <div class="res-aviso-barra__conteudo res-aviso-barra__conteudo--{{ block.id }}">
                 {%- endif -%}
+
                 {%- if block.settings.image != blank and block.settings.image_position == 'before' -%}
-                  <div class="announcement-bar__image" style="width: {{ block.settings.image_width }}px;">
+                  <div class="res-aviso-barra__imagem" style="width: {{ block.settings.image_width }}px;">
                     {{
                       block.settings.image
                       | image_url: width: block.settings.image_width
-                      | image_tag: loading: 'lazy', alt: block.settings.image.alt
-                      | default: block.settings.text
+                      | image_tag:
+                        loading: 'lazy',
+                        alt: block.settings.image.alt | default: '',
+                        widths: '24, 32, 48, 64, 80'
                     }}
                   </div>
                 {%- endif -%}
+
                 {%- if block.settings.text != blank -%}
-                  <div
-                    class="announcement-bar__message h5"
-                    style="{% if section.settings.text_color %}color: {{ section.settings.text_color }};{% endif %}{% if block.settings.text_size_px %}font-size: {{ block.settings.text_size_px }}px;{% endif %}{% if section.settings.letter_spacing %}letter-spacing: {{ section.settings.letter_spacing }}px;{% endif %}"
-                  >
+                  <div class="res-aviso-barra__texto res-aviso-barra__texto--{{ block.id }}">
                     {{ block.settings.text }}
                   </div>
                 {%- endif -%}
+
                 {%- if block.settings.image != blank and block.settings.image_position == 'after' -%}
-                  <div class="announcement-bar__image" style="width: {{ block.settings.image_width }}px;">
+                  <div class="res-aviso-barra__imagem" style="width: {{ block.settings.image_width }}px;">
                     {{
                       block.settings.image
                       | image_url: width: block.settings.image_width
-                      | image_tag: loading: 'lazy', alt: block.settings.image.alt
-                      | default: block.settings.text
+                      | image_tag:
+                        loading: 'lazy',
+                        alt: block.settings.image.alt | default: '',
+                        widths: '24, 32, 48, 64, 80'
                     }}
                   </div>
                 {%- endif -%}
+
                 {%- if block.settings.link != blank -%}
                   </a>
                 {%- else -%}
@@ -145,12 +151,13 @@
       </div>
     </div>
   {%- endif -%}
+
   {%- if section.settings.show_social and social_icons or language_country_selector -%}
-    <div class="page-width utility-bar__grid{% if language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--2-col{% endif %}">
+    <div class="page-width res-aviso-barra__utilidades{% if language_country_selector or section.settings.show_social and social_icons %} res-aviso-barra__utilidades--2-col{% endif %}">
       {%- if section.settings.show_social and social_icons -%}
         {%- render 'social-icons' -%}
       {%- endif -%}
-      <div class="localization-wrapper">
+      <div>
         {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
           <localization-form class="small-hide medium-hide">
             {%- form 'localization', id: 'AnnouncementCountryForm', class: 'localization-form' -%}
@@ -160,7 +167,7 @@
               </div>
             {%- endform -%}
           </localization-form>
-        {% endif %}
+        {%- endif -%}
 
         {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
           <localization-form class="small-hide medium-hide">
@@ -178,21 +185,73 @@
 </div>
 
 {% schema %}
-{
-  "name": "RES - Barra de Avisos",
+{ 
+  "name": "RES - E__SCROLL_PROMO__V1",
   "max_blocks": 12,
-  "class": "announcement-bar-section",
+  "class": "res-barra-de-avisos-section",
   "settings": [
+    {
+      "type": "header",
+      "content": "Animação"
+    },
     {
       "type": "range",
       "id": "marquee_speed",
       "min": 5,
-      "max": 60,
+      "max": 80,
       "step": 5,
       "unit": "s",
-      "label": "Velocidade do deslizamento",
+      "label": "Velocidade",
       "default": 20,
       "info": "Valores menores = mais rápido"
+    },
+    {
+      "type": "select",
+      "id": "marquee_direction",
+      "label": "Direção",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Esquerda (padrão)" },
+        { "value": "right", "label": "Direita" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Tipografia"
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do texto (desktop)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do texto (mobile)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": -2,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "label": "Espaçamento entre letras",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
     },
     {
       "type": "range",
@@ -201,27 +260,28 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Espaçamento entre comunicados",
-      "default": 32,
-      "info": "Gap entre cada comunicado"
+      "label": "Gap entre comunicados",
+      "default": 32
     },
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Cor de fundo",
-      "default": "#ffffff"
+      "type": "range",
+      "id": "gap_image_text_desktop",
+      "min": 10,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap imagem/texto (desktop)",
+      "default": 10
     },
     {
-      "type": "color",
-      "id": "text_color",
-      "label": "Cor do texto",
-      "default": "#1f2021"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_line_separator",
-      "default": true,
-      "label": "Mostrar separador de linha"
+      "type": "range",
+      "id": "gap_image_text_mobile",
+      "min": 10,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap imagem/texto (mobile)",
+      "default": 10
     },
     {
       "type": "range",
@@ -244,21 +304,32 @@
       "default": 0
     },
     {
-      "type": "range",
-      "id": "letter_spacing",
-      "min": -2,
-      "max": 5,
-      "step": 0.1,
-      "unit": "px",
-      "label": "Espaçamento entre letras",
-      "default": 0
+      "type": "header",
+      "content": "Aparência"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do texto",
+      "default": "#1f2021"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": true,
+      "label": "Mostrar separador de linha"
     },
     {
       "type": "checkbox",
       "id": "enable_borders",
       "default": false,
-      "label": "Ativar bordas",
-      "info": "Para ativar as bordas superiores e inferiores, ative o campo acima"
+      "label": "Ativar bordas"
     },
     {
       "type": "range",
@@ -281,10 +352,6 @@
     {
       "type": "header",
       "content": "Utilidades"
-    },
-    {
-      "type": "paragraph",
-      "content": "Configure opções adicionais como redes sociais e seletores de país/idioma"
     },
     {
       "type": "checkbox",
@@ -314,6 +381,10 @@
       "name": "Comunicado",
       "settings": [
         {
+          "type": "header",
+          "content": "Conteúdo"
+        },
+        {
           "type": "richtext",
           "id": "text",
           "default": "<p>Bem-vindo à nossa loja</p>",
@@ -323,16 +394,6 @@
           "type": "url",
           "id": "link",
           "label": "Link"
-        },
-        {
-          "type": "range",
-          "id": "text_size_px",
-          "min": 10,
-          "max": 48,
-          "step": 1,
-          "unit": "px",
-          "label": "Tamanho do texto",
-          "default": 14
         },
         {
           "type": "image_picker",
@@ -355,25 +416,111 @@
           "label": "Posição da imagem",
           "default": "before",
           "options": [
-            {
-              "value": "before",
-              "label": "Antes do texto"
-            },
-            {
-              "value": "after",
-              "label": "Depois do texto"
-            }
+            { "value": "before", "label": "Antes do texto" },
+            { "value": "after", "label": "Depois do texto" }
           ]
         },
         {
           "type": "header",
-          "content": "Estilo do comunicado"
+          "content": "Fundo do Item"
+        },
+        {
+          "type": "select",
+          "id": "item_bg_type",
+          "label": "Tipo",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "Nenhum" },
+            { "value": "color", "label": "Cor sólida" },
+            { "value": "gradient", "label": "Gradiente" }
+          ]
         },
         {
           "type": "color",
-          "id": "background_color",
-          "label": "Cor de fundo",
-          "info": "Deixe em branco para usar transparente"
+          "id": "item_bg_color",
+          "label": "Cor",
+          "visible_if": "{{ block.settings.item_bg_type == 'color' }}"
+        },
+        {
+          "type": "color_background",
+          "id": "item_bg_gradient",
+          "label": "Gradiente",
+          "visible_if": "{{ block.settings.item_bg_type == 'gradient' }}"
+        },
+        {
+          "type": "header",
+          "content": "Fundo do Texto"
+        },
+        {
+          "type": "select",
+          "id": "text_bg_type",
+          "label": "Tipo",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "Nenhum" },
+            { "value": "color", "label": "Cor sólida" },
+            { "value": "gradient", "label": "Gradiente" }
+          ]
+        },
+        {
+          "type": "color",
+          "id": "text_bg_color",
+          "label": "Cor",
+          "visible_if": "{{ block.settings.text_bg_type == 'color' }}"
+        },
+        {
+          "type": "color_background",
+          "id": "text_bg_gradient",
+          "label": "Gradiente",
+          "visible_if": "{{ block.settings.text_bg_type == 'gradient' }}"
+        },
+        {
+          "type": "checkbox",
+          "id": "text_enable_border",
+          "default": false,
+          "label": "Ativar borda"
+        },
+        {
+          "type": "range",
+          "id": "text_border_width",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "unit": "px",
+          "label": "Largura da borda",
+          "default": 1,
+          "visible_if": "{{ block.settings.text_enable_border == true }}"
+        },
+        {
+          "type": "color",
+          "id": "text_border_color",
+          "label": "Cor da borda",
+          "default": "#e0e0e0",
+          "visible_if": "{{ block.settings.text_enable_border == true }}"
+        },
+        {
+          "type": "range",
+          "id": "text_border_radius",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Arredondamento",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "text_padding",
+          "min": 0,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "label": "Padding interno",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Estilo"
         },
         {
           "type": "checkbox",
@@ -389,13 +536,15 @@
           "step": 1,
           "unit": "px",
           "label": "Largura da borda",
-          "default": 1
+          "default": 1,
+          "visible_if": "{{ block.settings.enable_border == true }}"
         },
         {
           "type": "color",
           "id": "border_color",
           "label": "Cor da borda",
-          "default": "#e0e0e0"
+          "default": "#e0e0e0",
+          "visible_if": "{{ block.settings.enable_border == true }}"
         },
         {
           "type": "range",
@@ -404,19 +553,8 @@
           "max": 100,
           "step": 1,
           "unit": "px",
-          "label": "Border radius",
+          "label": "Arredondamento",
           "default": 0
-        },
-        {
-          "type": "range",
-          "id": "padding",
-          "min": 0,
-          "max": 40,
-          "step": 2,
-          "unit": "px",
-          "label": "Padding interno",
-          "default": 12,
-          "info": "Espaçamento interno do comunicado"
         },
         {
           "type": "header",
@@ -429,9 +567,9 @@
           "max": 800,
           "step": 10,
           "unit": "px",
-          "label": "Largura (width)",
+          "label": "Largura",
           "default": 0,
-          "info": "Deixe em 0 para largura automática"
+          "info": "0 = automático"
         },
         {
           "type": "range",
@@ -440,17 +578,17 @@
           "max": 200,
           "step": 5,
           "unit": "px",
-          "label": "Altura (height)",
+          "label": "Altura",
           "default": 0,
-          "info": "Deixe em 0 para altura automática"
+          "info": "0 = automático"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "res - Barra de Avisos",
-      "category": "Res - Seções",
+      "name": "RES - Barra de Avisos",
+      "category": "RES - Seções",
       "blocks": [
         {
           "type": "announcement"
