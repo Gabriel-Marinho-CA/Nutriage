@@ -114,7 +114,7 @@
     <div class="res-tp__esquerda">
       {%- comment -%} Tags do topo {%- endcomment -%}
       {%- if section.settings.tag1_texto != blank or section.settings.tag2_texto != blank -%}
-        <div class="res-tp__tags">
+        <div class="res-tp__tags small-hide">
           {%- if section.settings.tag1_texto != blank -%}
             <span class="res-tp__tag res-tp__tag--1">{{ section.settings.tag1_texto }}</span>
           {%- endif -%}
@@ -130,7 +130,7 @@
         {%- assign titulo_final = prod.title -%}
       {%- endif -%}
       {%- if titulo_final != blank -%}
-        <h2 class="res-tp__titulo">{{ titulo_final }}</h2>
+        <h2 class="res-tp__titulo small-hide">{{ titulo_final }}</h2>
       {%- endif -%}
 
       {%- comment -%} Preço original + desconto 1 {%- endcomment -%}
@@ -164,7 +164,7 @@
 
       {%- comment -%} Tag frete {%- endcomment -%}
       {%- if section.settings.frete_texto != blank -%}
-        <div style="margin-bottom: 16px;">
+        <div style="margin-bottom: 16px;" class="small-hide">
           <span class="res-tp__frete-tag">{{ section.settings.frete_texto }}</span>
         </div>
       {%- endif -%}
@@ -206,6 +206,24 @@
 
     {%- comment -%} ══ CENTRO (imagem) ══ {%- endcomment -%}
     <div class="res-tp__centro">
+      {%- if section.settings.tag1_texto != blank or section.settings.tag2_texto != blank -%}
+        <div class="res-tp__tags large-up-hide medium-hide">
+          {%- if section.settings.tag1_texto != blank -%}
+            <span class="res-tp__tag res-tp__tag--1">{{ section.settings.tag1_texto }}</span>
+          {%- endif -%}
+          {%- if section.settings.tag2_texto != blank -%}
+            <span class="res-tp__tag res-tp__tag--2">{{ section.settings.tag2_texto }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- comment -%} Título {%- endcomment -%}
+      {%- assign titulo_final = section.settings.titulo -%}
+      {%- if titulo_final == blank and prod != blank -%}
+        {%- assign titulo_final = prod.title -%}
+      {%- endif -%}
+      {%- if titulo_final != blank -%}
+        <h2 class="res-tp__titulo large-up-hide medium-hide">{{ titulo_final }}</h2>
+      {%- endif -%}
       {%- if img != blank -%}
         <div class="res-tp__imagem">
           {{
