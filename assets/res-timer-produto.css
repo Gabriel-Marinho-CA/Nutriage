@@ -246,9 +246,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 2rem;
   width: 100%;
-  padding: 14px 24px;
+  padding: 14px 24px 2rem 24px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
