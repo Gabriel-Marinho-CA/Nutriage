@@ -70,6 +70,9 @@ class QuantityBundle extends HTMLElement {
       if (input) input.value = variantId;
     }
 
+    // Atualiza imagem principal da galeria
+    this._updateGalleryImage(card);
+
     if (!silent) {
       this.dispatchEvent(
         new CustomEvent('quantity-bundle:change', {
@@ -78,6 +81,31 @@ class QuantityBundle extends HTMLElement {
         })
       );
     }
+  }
+
+  _updateGalleryImage(card) {
+    const newSrc = card.dataset.featuredImage;
+    const newSrcset = card.dataset.featuredSrcset;
+    if (!newSrc) return;
+
+    const sectionId = this.dataset.sectionId;
+    const viewer = document.getElementById('GalleryViewer-' + sectionId);
+    if (!viewer) return;
+
+    const activeSlide = viewer.querySelector('.product__media-item.is-active');
+    if (!activeSlide) return;
+
+    const img = activeSlide.querySelector('.product__media img');
+    if (!img) return;
+
+    // Preserva src/srcset originais na primeira troca
+    if (!img.dataset.originalSrc) {
+      img.dataset.originalSrc = img.src;
+      img.dataset.originalSrcset = img.srcset || '';
+    }
+
+    img.src = newSrc;
+    img.srcset = newSrcset || '';
   }
 
   _updateSummary(price, compare, qtyTotal = 1) {

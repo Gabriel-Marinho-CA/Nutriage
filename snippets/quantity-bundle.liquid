@@ -64,6 +64,10 @@
           data-installment-count="{{ qb_inst_count }}"
           data-installment-label="{{ qb_inst_label | escape }}"
           data-qty-label="{{ qb_qty_label | escape }}"
+          {%- if kit.featured_image -%}
+            data-featured-image="{{ kit.featured_image | image_url: width: 1946 }}"
+            data-featured-srcset="{{ kit.featured_image | image_url: width: 493 }} 493w, {{ kit.featured_image | image_url: width: 823 }} 823w, {{ kit.featured_image | image_url: width: 1100 }} 1100w, {{ kit.featured_image | image_url: width: 1946 }} 1946w"
+          {%- endif -%}
         >
           {%- if qb_show_badge -%}
             <span class="qb-badge">{{ qb_badge_text }}</span>
@@ -121,6 +125,10 @@
       data-installment-count="{{ block.settings.main_installment_count | default: 3 }}"
       data-installment-label="{{ block.settings.main_installment_label | default: '3x sem juros de' | escape }}"
       data-qty-label="{{ block.settings.main_qty_label | default: '1 unidade' | escape }}"
+      {%- if product.featured_image -%}
+        data-featured-image="{{ product.featured_image | image_url: width: 1946 }}"
+        data-featured-srcset="{{ product.featured_image | image_url: width: 493 }} 493w, {{ product.featured_image | image_url: width: 823 }} 823w, {{ product.featured_image | image_url: width: 1100 }} 1100w, {{ product.featured_image | image_url: width: 1946 }} 1946w"
+      {%- endif -%}
     >
       {%- if block.settings.main_show_badge -%}
         <span class="qb-badge">{{ block.settings.main_badge }}</span>
