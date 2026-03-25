@@ -27,7 +27,7 @@
 <footer id="res-footer-{{ section.id }}" class="res-footer">
   {%- comment -%} ── Colunas principais ── {%- endcomment -%}
   {%- if section.blocks.size > 0 -%}
-    <div class="res-footer__main page-width">
+    <div class="res-footer__main page-width scroll-trigger animate--slide-in">
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'links' -%}
@@ -267,7 +267,7 @@
   {%- endif -%}
 
   {%- comment -%} ── Linha inferior: logo + textos ── {%- endcomment -%}
-  <div class="page-width">
+  <div class="page-width scroll-trigger animate--slide-in">
     <div class="res-footer__bottom">
       <div class="res-footer__brand">
         {%- if section.settings.logo != blank -%}
@@ -292,7 +292,7 @@
   </div>
 
   {%- comment -%} ── Barra de copyright ── {%- endcomment -%}
-  <div class="page-width">
+  <div class="page-width scroll-trigger animate--slide-in">
     <div class="res-footer__copyright-bar">
       {%- if section.settings.copyright_text != blank -%}
         <span class="res-footer__copyright-text">{{ section.settings.copyright_text | escape }}</span>

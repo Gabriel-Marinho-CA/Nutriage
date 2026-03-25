@@ -67,7 +67,7 @@
 
   {%- comment -%} ── Header ── {%- endcomment -%}
   {%- if section.settings.title != blank or arrows_pos == 'inline' -%}
-    <div class="res-fc__header page-width">
+    <div class="res-fc__header page-width scroll-trigger animate--slide-in">
       <div class="res-fc__title-row res-fc__title-row--{{ heading_align }}{% if arrows_pos == 'inline' %} res-fc__title-row--has-nav{% endif %}">
 
         {%- if section.settings.title != blank -%}
@@ -102,7 +102,7 @@
   {%- endif -%}
 
   {%- comment -%} ── Swiper area ── {%- endcomment -%}
-  <div class="res-fc__swiper-outer{% if arrows_pos == 'outside' %} res-fc__swiper-outer--outside{% elsif full_width == false %} page-width{% endif %}">
+  <div class="res-fc__swiper-outer{% if arrows_pos == 'outside' %} res-fc__swiper-outer--outside{% elsif full_width == false %} page-width{% endif %} scroll-trigger animate--slide-in">
 
     {%- if arrows_pos == 'outside' -%}
       <button

@@ -71,7 +71,7 @@
   {%- if section.blocks.size >= 1 -%}
 
     {%- comment -%} Desktop: grid {%- endcomment -%}
-    <div class="res-beneficios-barra__grid res-beneficios-barra__desktop page-width">
+    <div class="res-beneficios-barra__grid res-beneficios-barra__desktop page-width scroll-trigger animate--slide-in">
       {%- for block in section.blocks -%}
         <div class="res-beneficios-barra__grid-item" {{ block.shopify_attributes }}>
           {%- if block.settings.link != blank -%}
