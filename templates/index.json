@@ -9,54 +9,6 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Image banner",
-            "heading_size": "h0"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text",
-        "button"
-      ],
-      "disabled": true,
-      "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-3",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
-      }
-    },
     "res_hero_8CHBni": {
       "type": "res-hero",
       "blocks": {
@@ -82,123 +34,76 @@
         "pagination_color_active": "#000000"
       }
     },
-    "res_barra_de_avisos_6Vy3Dh": {
-      "type": "res-barra-de-avisos",
+    "res_benefits_R4a3TW": {
+      "type": "res-benefits",
       "blocks": {
-        "announcement_npqXHT": {
-          "type": "announcement",
+        "beneficio_d7VacJ": {
+          "type": "beneficio",
           "settings": {
-            "text": "<p>Cashback em todas compras</p>",
-            "link": "",
-            "text_size_px": 18,
-            "image_width": 24,
-            "image_position": "before",
-            "background_color": "rgba(0,0,0,0)",
-            "enable_border": false,
-            "border_width": 1,
-            "border_color": "#e0e0e0",
-            "border_radius": 0,
-            "padding": 12,
-            "width": 0,
-            "height": 0
+            "image": "shopify://shop_images/icone_frete_gratis.webp",
+            "titulo": "Frete Grátis",
+            "subtitulo": "<p>Acima de R$ 149,90</p>",
+            "link": ""
           }
         },
-        "announcement_xwTyzJ": {
-          "type": "announcement",
+        "beneficio_NkTWXA": {
+          "type": "beneficio",
           "settings": {
-            "text": "<p>7% de desconto no Pix</p>",
-            "link": "",
-            "text_size_px": 18,
-            "image_width": 24,
-            "image_position": "before",
-            "background_color": "rgba(0,0,0,0)",
-            "enable_border": false,
-            "border_width": 1,
-            "border_color": "#e0e0e0",
-            "border_radius": 0,
-            "padding": 12,
-            "width": 0,
-            "height": 0
+            "image": "shopify://shop_images/icone_frete_gratis.webp",
+            "titulo": "Frete Grátis",
+            "subtitulo": "<p>Acima de R$ 149,90</p>",
+            "link": ""
           }
         },
-        "announcement_ny7rJz": {
-          "type": "announcement",
+        "beneficio_z6Ep88": {
+          "type": "beneficio",
           "settings": {
-            "text": "<p>Frete grátis nas compras acima de 499,00</p>",
-            "link": "",
-            "text_size_px": 18,
-            "image_width": 24,
-            "image_position": "before",
-            "background_color": "rgba(0,0,0,0)",
-            "enable_border": false,
-            "border_width": 1,
-            "border_color": "#e0e0e0",
-            "border_radius": 0,
-            "padding": 12,
-            "width": 0,
-            "height": 0
+            "image": "shopify://shop_images/icone_frete_gratis.webp",
+            "titulo": "Frete Grátis",
+            "subtitulo": "<p>Acima de R$ 149,90</p>",
+            "link": ""
           }
         },
-        "announcement_bYUTAH": {
-          "type": "announcement",
+        "beneficio_dYiR3W": {
+          "type": "beneficio",
           "settings": {
-            "text": "<p>Desconto progressivo</p>",
-            "link": "",
-            "text_size_px": 18,
-            "image_width": 24,
-            "image_position": "before",
-            "background_color": "rgba(0,0,0,0)",
-            "enable_border": false,
-            "border_width": 1,
-            "border_color": "#e0e0e0",
-            "border_radius": 0,
-            "padding": 12,
-            "width": 0,
-            "height": 0
-          }
-        },
-        "announcement_UJ3fU9": {
-          "type": "announcement",
-          "settings": {
-            "text": "<p>Compras em até 6x sem juros</p>",
-            "link": "",
-            "text_size_px": 18,
-            "image_width": 24,
-            "image_position": "before",
-            "background_color": "rgba(0,0,0,0)",
-            "enable_border": false,
-            "border_width": 1,
-            "border_color": "#e0e0e0",
-            "border_radius": 0,
-            "padding": 12,
-            "width": 0,
-            "height": 0
+            "image": "shopify://shop_images/icone_frete_gratis.webp",
+            "titulo": "Frete Grátis",
+            "subtitulo": "<p>Acima de R$ 149,90</p>",
+            "link": ""
           }
         }
       },
       "block_order": [
-        "announcement_npqXHT",
-        "announcement_xwTyzJ",
-        "announcement_ny7rJz",
-        "announcement_bYUTAH",
-        "announcement_UJ3fU9"
+        "beneficio_d7VacJ",
+        "beneficio_NkTWXA",
+        "beneficio_z6Ep88",
+        "beneficio_dYiR3W"
       ],
-      "name": "res - Barra de Avisos",
+      "name": "RES - Benefícios",
       "settings": {
-        "marquee_speed": 60,
-        "gap_between_items": 32,
-        "background_color": "#1a4789",
-        "text_color": "#ffffff",
-        "show_line_separator": true,
-        "padding_top": 0,
-        "padding_bottom": 0,
+        "columns_desktop": 4,
+        "gap_items": 24,
+        "gap_icon_text": 12,
+        "marquee_speed": 50,
+        "marquee_direction": "left",
+        "gap_items_mobile": 32,
+        "gap_icon_text_mobile": 10,
+        "icon_size_desktop": 60,
+        "icon_size_mobile": 32,
+        "font_size_title_desktop": 16,
+        "font_size_title_mobile": 13,
+        "font_size_subtitulo_desktop": 15,
+        "font_size_subtitulo_mobile": 12,
         "letter_spacing": 0,
+        "padding_top": 20,
+        "padding_bottom": 16,
+        "background_color": "#334fb4",
+        "text_color": "#ffffff",
+        "show_line_separator": false,
         "enable_borders": false,
         "border_width": 1,
-        "border_color": "#e0e0e0",
-        "show_social": false,
-        "enable_country_selector": false,
-        "enable_language_selector": false
+        "border_color": "#e0e0e0"
       }
     },
     "res_featured_collection_Nb3wGJ": {
@@ -394,14 +299,14 @@
             "button_url": "",
             "image_desktop": "shopify://shop_images/freepik__fotografia-publicitria-premium-clean-e-minimalista__80492.png",
             "image_mobile": "shopify://shop_images/freepik__fotografia-publicitria-premium-clean-e-minimalista__80492_1.png",
-            "left_bg": "#1A4789",
+            "left_bg": "#1a4789",
             "tag_bg": "rgba(0,0,0,0)",
             "tag_text_color": "#e0be80",
-            "title_color": "#FFFFFF",
-            "desc_color": "#FFFFFF",
-            "btn_bg": "#4CAF50",
-            "btn_text_color": "#FFFFFF",
-            "arrow_color": "#FFFFFF"
+            "title_color": "#ffffff",
+            "desc_color": "#ffffff",
+            "btn_bg": "#4caf50",
+            "btn_text_color": "#ffffff",
+            "arrow_color": "#ffffff"
           }
         },
         "slide_Eyg8A9": {
@@ -415,14 +320,14 @@
             "button_url": "",
             "image_desktop": "shopify://shop_images/freepik__fotografia-publicitria-premium-clean-e-minimalista__80492.png",
             "image_mobile": "shopify://shop_images/freepik__fotografia-publicitria-premium-clean-e-minimalista__80492_1.png",
-            "left_bg": "#1A4789",
+            "left_bg": "#1a4789",
             "tag_bg": "rgba(0,0,0,0)",
             "tag_text_color": "#e0be80",
-            "title_color": "#FFFFFF",
-            "desc_color": "#FFFFFF",
-            "btn_bg": "#4CAF50",
-            "btn_text_color": "#FFFFFF",
-            "arrow_color": "#FFFFFF"
+            "title_color": "#ffffff",
+            "desc_color": "#ffffff",
+            "btn_bg": "#4caf50",
+            "btn_text_color": "#ffffff",
+            "arrow_color": "#ffffff"
           }
         }
       },
@@ -469,9 +374,8 @@
     }
   },
   "order": [
-    "image_banner",
     "res_hero_8CHBni",
-    "res_barra_de_avisos_6Vy3Dh",
+    "res_benefits_R4a3TW",
     "res_featured_collection_Nb3wGJ",
     "res_accordion_EatW3W",
     "res_split_slider_AFbzai",
