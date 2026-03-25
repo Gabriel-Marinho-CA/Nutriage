@@ -16,9 +16,17 @@
   gap: 24px;
 }
 
-.res-tp__esquerda { grid-area: esquerda; }
-.res-tp__centro   { grid-area: centro; }
-.res-tp__direita  { grid-area: direita; }
+.res-tp__esquerda {
+  grid-area: esquerda;
+}
+
+.res-tp__centro {
+  grid-area: centro;
+}
+
+.res-tp__direita {
+  grid-area: direita;
+}
 
 /* ── Left column ── */
 .res-tp__tags {
@@ -249,6 +257,22 @@
   text-decoration: none;
   transition: opacity 0.2s, transform 0.15s;
   letter-spacing: 0.02em;
+  flex-direction: column;
+
+  .wrapper-timmer {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  &::before,
+  &::before {
+    display: none;
+  }
+
+  .wrapper-btn-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 }
 
 .res-tp__comprar:hover {
