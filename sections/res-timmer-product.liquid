@@ -219,7 +219,9 @@
       <div
         class="res-tp__timer-display"
         id="res-tp-timer-{{ section.id }}"
-        data-end="{{ section.settings.timer_end }}"
+        data-horas="{{ section.settings.timer_horas | default: 24 }}"
+        data-minutos="{{ section.settings.timer_minutos | default: 0 }}"
+        data-segundos="{{ section.settings.timer_segundos | default: 0 }}"
         aria-live="polite"
       >
         <div class="res-tp__timer-part">
@@ -279,8 +281,8 @@
 
 <script>
   (function () {
-    var sid    = {{ section.id | json }};
-    var endStr = {{ section.settings.timer_end | default: '' | json }};
+    var sid     = {{ section.id | json }};
+    var timerEl = document.getElementById('res-tp-timer-' + sid);
 
     var elHH = document.getElementById('res-tp-hh-' + sid);
     var elMM = document.getElementById('res-tp-mm-' + sid);
@@ -288,15 +290,33 @@
 
     function pad(n) { return n < 10 ? '0' + n : String(n); }
 
-    function tick() {
-      var diff = Math.max(0, Math.floor((new Date(endStr) - Date.now()) / 1000));
-      if (elHH) elHH.textContent = pad(Math.floor(diff / 3600));
-      if (elMM) elMM.textContent = pad(Math.floor((diff % 3600) / 60));
-      if (elSS) elSS.textContent = pad(diff % 60);
-      if (diff > 0) setTimeout(tick, 1000);
-    }
+    if (timerEl) {
+      var durSeg =
+        parseInt(timerEl.dataset.horas,   10) * 3600 +
+        parseInt(timerEl.dataset.minutos, 10) * 60   +
+        parseInt(timerEl.dataset.segundos,10);
 
-    if (endStr) tick();
+      var lsKey  = 'res-tp-end-' + sid;
+      var stored = localStorage.getItem(lsKey);
+      var endTs;
+
+      if (stored && parseInt(stored, 10) > Date.now()) {
+        endTs = parseInt(stored, 10);
+      } else {
+        endTs = Date.now() + durSeg * 1000;
+        localStorage.setItem(lsKey, endTs);
+      }
+
+      function tick() {
+        var diff = Math.max(0, Math.floor((endTs - Date.now()) / 1000));
+        if (elHH) elHH.textContent = pad(Math.floor(diff / 3600));
+        if (elMM) elMM.textContent = pad(Math.floor((diff % 3600) / 60));
+        if (elSS) elSS.textContent = pad(diff % 60);
+        if (diff > 0) setTimeout(tick, 1000);
+      }
+
+      tick();
+    }
 
     // ── Coupon copy ──
     document.querySelectorAll('#res-tp-' + sid + ' [data-codigo]').forEach(function (btn) {
@@ -629,9 +649,22 @@
     },
     {
       "type": "text",
-      "id": "timer_end",
-      "label": "Data/hora de término",
-      "info": "Formato ISO 8601. Ex: 2025-12-31T23:59:59"
+      "id": "timer_horas",
+      "label": "Duração — Horas",
+      "default": "24",
+      "info": "O timer inicia na primeira visita do usuário e persiste entre reloads."
+    },
+    {
+      "type": "text",
+      "id": "timer_minutos",
+      "label": "Duração — Minutos",
+      "default": "0"
+    },
+    {
+      "type": "text",
+      "id": "timer_segundos",
+      "label": "Duração — Segundos",
+      "default": "0"
     },
     {
       "type": "range",
