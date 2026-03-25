@@ -323,6 +323,7 @@
     },
     "res_related_products_pNiAMp": {
       "type": "res-related-products",
+      "disabled": true,
       "name": "Produtos Relacionados",
       "settings": {
         "intent": "complementary",
