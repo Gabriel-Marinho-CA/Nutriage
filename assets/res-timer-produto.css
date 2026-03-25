@@ -9,11 +9,16 @@
 
 /* ── Grid desktop ── */
 .res-tp__grid {
-  display: grid;
-  grid-template-columns: 1fr 1.6fr 1fr;
-  grid-template-areas: "esquerda centro direita";
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
   gap: 24px;
+
+  @media (max-width:750px) {
+    flex-direction: column;
+  }
 }
 
 .res-tp__esquerda {
@@ -22,6 +27,7 @@
 
 .res-tp__centro {
   grid-area: centro;
+  max-width: 369px;
 }
 
 .res-tp__direita {
@@ -254,18 +260,21 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
-  opacity: 0.98;
   text-decoration: none;
   transition: opacity 0.2s, transform 0.15s;
   letter-spacing: 0.02em;
   flex-direction: column;
+
+  &:hover {
+    transform: scale(1.06);
+  }
 
   .wrapper-timmer {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   &::before,
-  &::after {
+  &::before {
     display: none;
   }
 
@@ -277,8 +286,8 @@
 }
 
 .res-tp__comprar:hover {
-  opacity: 1;
-  transform: translateY(-1px) scale(1.06);
+  opacity: 0.88;
+  transform: translateY(-1px);
 }
 
 .res-tp__comprar:disabled {
