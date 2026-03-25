@@ -22,8 +22,8 @@
       "type": "main-collection-product-grid",
       "settings": {
         "breadcrumb_collections_label": "Produtos",
-        "breadcrumb_color": "#1a4789",
-        "breadcrumb_bg": "rgba(0,0,0,0)",
+        "breadcrumb_color": "#ffffff",
+        "breadcrumb_bg": "#5873F9",
         "products_per_page": 16,
         "columns_desktop": 3,
         "columns_mobile": "2",
