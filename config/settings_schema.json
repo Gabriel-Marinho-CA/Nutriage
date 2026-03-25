@@ -1478,5 +1478,22 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": "WhatsApp",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "wpp_enable",
+        "label": "Ativar botão do WhatsApp",
+        "default": false
+      },
+      {
+        "type": "url",
+        "id": "wpp_url",
+        "label": "Link do botão (WhatsApp)",
+        "info": "Ex: https://wa.me/5511999999999"
+      }
+    ]
   }
 ]

@@ -376,5 +376,17 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    {%- if settings.wpp_enable and settings.wpp_url != blank -%}
+      <a
+        href="{{ settings.wpp_url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Falar pelo WhatsApp"
+        style="position:fixed;bottom:5%;right:3%;z-index:9999;display:flex;line-height:0;"
+      >
+        {{ 'wpp-btn.svg' | inline_asset_content }}
+      </a>
+    {%- endif -%}
   </body>
 </html>
