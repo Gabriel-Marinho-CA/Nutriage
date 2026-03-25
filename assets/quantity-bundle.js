@@ -89,23 +89,37 @@ class QuantityBundle extends HTMLElement {
     if (!newSrc) return;
 
     const sectionId = this.dataset.sectionId;
+
+    // ── Galeria principal ────────────────────────────────────────────────────
     const viewer = document.getElementById('GalleryViewer-' + sectionId);
-    if (!viewer) return;
-
-    const activeSlide = viewer.querySelector('.product__media-item.is-active');
-    if (!activeSlide) return;
-
-    const img = activeSlide.querySelector('.product__media img');
-    if (!img) return;
-
-    // Preserva src/srcset originais na primeira troca
-    if (!img.dataset.originalSrc) {
-      img.dataset.originalSrc = img.src;
-      img.dataset.originalSrcset = img.srcset || '';
+    if (viewer) {
+      const activeSlide = viewer.querySelector('.product__media-item.is-active');
+      if (activeSlide) {
+        const img = activeSlide.querySelector('.product__media img');
+        if (img) {
+          if (!img.dataset.originalSrc) {
+            img.dataset.originalSrc = img.src;
+            img.dataset.originalSrcset = img.srcset || '';
+          }
+          img.src = newSrc;
+          img.srcset = newSrcset || '';
+        }
+      }
     }
 
-    img.src = newSrc;
-    img.srcset = newSrcset || '';
+    // ── Modal de zoom ────────────────────────────────────────────────────────
+    const modal = document.getElementById('ProductModal-' + sectionId);
+    if (modal) {
+      const modalImg = modal.querySelector('.product-media-modal__content img[data-media-id]');
+      if (modalImg) {
+        if (!modalImg.dataset.originalSrc) {
+          modalImg.dataset.originalSrc = modalImg.src;
+          modalImg.dataset.originalSrcset = modalImg.srcset || '';
+        }
+        modalImg.src = newSrc;
+        modalImg.srcset = newSrcset || '';
+      }
+    }
   }
 
   _updateSummary(price, compare, qtyTotal = 1) {
