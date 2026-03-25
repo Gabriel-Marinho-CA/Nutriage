@@ -79,7 +79,11 @@
 {%- endstyle -%}
 
 <div
-  class="banner-wrapper page-width"
+  class=" page-width"
+
+>
+<div
+  class="banner-wrapper"
   {%- unless collection.metafields.custom.banner_desktop != blank -%}
     {%- if collection.metafields.custom.cor_de_background_do_banner != blank -%}
       style="background: {{ collection.metafields.custom.cor_de_background_do_banner }};"
@@ -112,6 +116,9 @@
 
   <h1 style="color: {{ section.settings.text_color }}" class="banner-wrapper__title">{{ collection.title }}</h1>
 </div>
+
+</div>
+
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }} product-collection-grid-wrapper ">
   {%- paginate collection.products by section.settings.products_per_page -%}
