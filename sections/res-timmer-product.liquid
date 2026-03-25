@@ -15,10 +15,12 @@
 -%}
 
 {% style %}
-  #res-tp-{{ section.id }} {
-    background-color: {{ section.settings.bg_color }};
-    color: {{ section.settings.text_color }};
-    border-radius: {{ section.settings.border_radius }}px;
+
+  #res-tp-{{ section.id }} .res-tp__grid {
+   background-color: {{ section.settings.bg_color }};
+     border-radius: {{ section.settings.border_radius }}px;
+         color: {{ section.settings.text_color }};
+  
     padding: {{ section.settings.padding_top }}px {{ section.settings.padding_horizontal }}px {{ section.settings.padding_bottom }}px;
   }
 
@@ -104,7 +106,7 @@
   }
 {% endstyle %}
 
-<div id="res-tp-{{ section.id }}" class="res-tp">
+<div id="res-tp-{{ section.id }}" class="res-tp page-width">
   <div class="res-tp__grid page-width">
     {%- comment -%} ══ ESQUERDA ══ {%- endcomment -%}
     <div class="res-tp__esquerda">
