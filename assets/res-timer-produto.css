@@ -254,6 +254,7 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
+  opacity: 0.89;
   text-decoration: none;
   transition: opacity 0.2s, transform 0.15s;
   letter-spacing: 0.02em;
@@ -276,7 +277,7 @@
 }
 
 .res-tp__comprar:hover {
-  opacity: 0.88;
+  opacity: 1;
   transform: translateY(-1px) scale(1.06);
 }
 
