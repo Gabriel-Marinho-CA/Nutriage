@@ -259,10 +259,6 @@
   letter-spacing: 0.02em;
   flex-direction: column;
 
-  &:hover {
-    transform: scale(1.06);
-  }
-
   .wrapper-timmer {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
@@ -281,7 +277,7 @@
 
 .res-tp__comprar:hover {
   opacity: 0.88;
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.06);
 }
 
 .res-tp__comprar:disabled {
