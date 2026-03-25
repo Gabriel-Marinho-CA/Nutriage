@@ -246,9 +246,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 8px;
   width: 100%;
-  padding: 14px 24px 2rem 24px;
+  padding: 14px 24px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
@@ -259,12 +259,16 @@
   letter-spacing: 0.02em;
   flex-direction: column;
 
+  &:hover {
+    transform: scale(1.06);
+  }
+
   .wrapper-timmer {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   &::before,
-  &::after {
+  &::before {
     display: none;
   }
 
