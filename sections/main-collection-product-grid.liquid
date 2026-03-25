@@ -56,8 +56,12 @@
   .banner-wrapper {
     position: relative;
     width: 100%;
-    min-height: 160px;
-    padding-top: 2rem;
+
+    margin-top: 2rem;
+
+    &:not(:has(img)) {
+    min-height: 380px;
+    }
   }
 
   .banner-wrapper__picture,
