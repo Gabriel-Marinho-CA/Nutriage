@@ -274,7 +274,7 @@
   }
 
   &::before,
-  &::before {
+  &::after {
     display: none;
   }
 
