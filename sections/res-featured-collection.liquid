@@ -130,7 +130,7 @@
                 card_product: product,
                 media_aspect_ratio: section.settings.image_ratio,
                 lazy_load: true,
-                show_secondary_image: true,
+                show_secondary_image: false,
                 show_vendor: section.settings.show_vendor,
                 show_rating: false,
                 skip_styles: skip_card_product_styles,
@@ -206,16 +206,19 @@
 
 <script>
   (function () {
-    var sectionId = {{ section.id | json }};
+    var sectionId   = {{ section.id | json }};
+    var autoplay    = {{ section.settings.autoplay_loop | json }};
+    var autoplayMs  = {{ section.settings.autoplay_delay | json }};
 
     function initSwiper() {
       var el = document.getElementById('res-fc-swiper-' + sectionId);
       if (!el || typeof Swiper === 'undefined') return;
 
-      new Swiper(el, {
+      var config = {
         // Mobile: always 1.4 slides (peek effect + bleed right)
         slidesPerView: 1.4,
         spaceBetween: 16,
+        loop: autoplay,
         navigation: {
           prevEl: '#res-fc-prev-' + sectionId + ', #res-fc-mob-prev-' + sectionId,
           nextEl: '#res-fc-next-' + sectionId + ', #res-fc-mob-next-' + sectionId,
@@ -230,7 +233,17 @@
             spaceBetween: 24,
           },
         },
-      });
+      };
+
+      if (autoplay) {
+        config.autoplay = {
+          delay: autoplayMs,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        };
+      }
+
+      new Swiper(el, config);
     }
 
     if (document.readyState === 'loading') {
@@ -323,6 +336,23 @@
     {
       "type": "header",
       "content": "Layout do slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay_loop",
+      "default": false,
+      "label": "Rolagem automática (autoplay + loop)"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "min": 1000,
+      "max": 8000,
+      "step": 500,
+      "unit": "ms",
+      "label": "Intervalo entre slides",
+      "default": 3000,
+      "visible_if": "{{ section.settings.autoplay_loop == true }}"
     },
     {
       "type": "checkbox",
