@@ -179,7 +179,7 @@
       ],
       "name": "res - Barra de Avisos",
       "settings": {
-        "marquee_speed": 80,
+        "marquee_speed": 100,
         "marquee_direction": "left",
         "font_size_desktop": 15,
         "font_size_mobile": 14,
