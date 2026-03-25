@@ -1,0 +1,436 @@
+{{ 'res-beneficios-barra.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.enable_borders %}
+      border-top: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+      border-bottom: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+    {% endif %}
+  }
+
+  /* Desktop grid */
+  .{{ section.id }} .res-beneficios-barra__grid {
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    gap: {{ section.settings.gap_items }}px;
+  }
+
+  .{{ section.id }} .res-beneficios-barra__inner {
+    gap: {{ section.settings.gap_icon_text }}px;
+  }
+
+  .{{ section.id }} .res-beneficios-barra__icone {
+    width: {{ section.settings.icon_size_desktop }}px;
+    height: {{ section.settings.icon_size_desktop }}px;
+  }
+
+  .{{ section.id }} .res-beneficios-barra__titulo {
+    font-size: {{ section.settings.font_size_title_desktop }}px;
+    letter-spacing: {{ section.settings.letter_spacing }}px;
+  }
+
+  .{{ section.id }} .res-beneficios-barra__subtitulo {
+    font-size: {{ section.settings.font_size_subtitulo_desktop }}px;
+    letter-spacing: {{ section.settings.letter_spacing }}px;
+  }
+
+  /* Mobile marquee */
+  .{{ section.id }} .res-beneficios-barra__faixa {
+    animation-name: {% if section.settings.marquee_direction == 'right' %}res-marquee-rtl{% else %}res-marquee-ltr{% endif %};
+    animation-duration: {{ section.settings.marquee_speed }}s;
+  }
+
+  .{{ section.id }} .res-beneficios-barra__item {
+    padding-inline: {{ section.settings.gap_items_mobile }}px;
+  }
+
+  @media (max-width: 749px) {
+    .{{ section.id }} .res-beneficios-barra__icone {
+      width: {{ section.settings.icon_size_mobile }}px;
+      height: {{ section.settings.icon_size_mobile }}px;
+    }
+
+    .{{ section.id }} .res-beneficios-barra__titulo {
+      font-size: {{ section.settings.font_size_title_mobile }}px;
+    }
+
+    .{{ section.id }} .res-beneficios-barra__subtitulo {
+      font-size: {{ section.settings.font_size_subtitulo_mobile }}px;
+    }
+
+    .{{ section.id }} .res-beneficios-barra__inner {
+      gap: {{ section.settings.gap_icon_text_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="res-beneficios-barra {{ section.id }}{% if section.settings.show_line_separator %} res-beneficios-barra--bordas{% endif %}">
+  {%- if section.blocks.size >= 1 -%}
+
+    {%- comment -%} Desktop: grid {%- endcomment -%}
+    <div class="res-beneficios-barra__grid res-beneficios-barra__desktop page-width">
+      {%- for block in section.blocks -%}
+        <div class="res-beneficios-barra__grid-item" {{ block.shopify_attributes }}>
+          {%- if block.settings.link != blank -%}
+            <a href="{{ block.settings.link }}" class="res-beneficios-barra__inner focus-inset">
+          {%- else -%}
+            <div class="res-beneficios-barra__inner">
+          {%- endif -%}
+
+          {%- if block.settings.image != blank -%}
+            <div class="res-beneficios-barra__icone">
+              {{
+                block.settings.image
+                | image_url: width: 160
+                | image_tag:
+                  loading: 'lazy',
+                  alt: block.settings.image.alt | default: ''
+              }}
+            </div>
+          {%- endif -%}
+
+          <div class="res-beneficios-barra__texto">
+            {%- if block.settings.titulo != blank -%}
+              <span class="res-beneficios-barra__titulo">{{ block.settings.titulo }}</span>
+            {%- endif -%}
+            {%- if block.settings.subtitulo != blank -%}
+              <div class="res-beneficios-barra__subtitulo">{{ block.settings.subtitulo }}</div>
+            {%- endif -%}
+          </div>
+
+          {%- if block.settings.link != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Mobile: marquee {%- endcomment -%}
+    <div class="res-beneficios-barra__marquee res-beneficios-barra__mobile" role="region" aria-label="Benefícios">
+      <div class="res-beneficios-barra__faixa">
+        {%- for i in (1..10) -%}
+          {%- for block in section.blocks -%}
+            <div class="res-beneficios-barra__item">
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}" class="res-beneficios-barra__inner focus-inset">
+              {%- else -%}
+                <div class="res-beneficios-barra__inner">
+              {%- endif -%}
+
+              {%- if block.settings.image != blank -%}
+                <div class="res-beneficios-barra__icone">
+                  {{
+                    block.settings.image
+                    | image_url: width: 80
+                    | image_tag:
+                      loading: 'lazy',
+                      alt: block.settings.image.alt | default: ''
+                  }}
+                </div>
+              {%- endif -%}
+
+              <div class="res-beneficios-barra__texto">
+                {%- if block.settings.titulo != blank -%}
+                  <span class="res-beneficios-barra__titulo">{{ block.settings.titulo }}</span>
+                {%- endif -%}
+                {%- if block.settings.subtitulo != blank -%}
+                  <div class="res-beneficios-barra__subtitulo">{{ block.settings.subtitulo }}</div>
+                {%- endif -%}
+              </div>
+
+              {%- if block.settings.link != blank -%}
+                </a>
+              {%- else -%}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "RES - Benefícios Barra",
+  "max_blocks": 12,
+  "class": "res-beneficios-barra-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Desktop"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Colunas (desktop)",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "gap_items",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap entre itens (desktop)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "gap_icon_text",
+      "min": 4,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap ícone/texto (desktop)",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Animação Mobile"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "min": 5,
+      "max": 80,
+      "step": 5,
+      "unit": "s",
+      "label": "Velocidade",
+      "default": 20,
+      "info": "Valores menores = mais rápido"
+    },
+    {
+      "type": "select",
+      "id": "marquee_direction",
+      "label": "Direção",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Esquerda (padrão)" },
+        { "value": "right", "label": "Direita" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "gap_items_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap entre itens (mobile)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "gap_icon_text_mobile",
+      "min": 4,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap ícone/texto (mobile)",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Ícone"
+    },
+    {
+      "type": "range",
+      "id": "icon_size_desktop",
+      "min": 16,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho do ícone (desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho do ícone (mobile)",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Tipografia"
+    },
+    {
+      "type": "range",
+      "id": "font_size_title_desktop",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do título (desktop)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "font_size_title_mobile",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do título (mobile)",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "font_size_subtitulo_desktop",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do subtítulo (desktop)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "font_size_subtitulo_mobile",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do subtítulo (mobile)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": -2,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "label": "Espaçamento entre letras",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding superior",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding inferior",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Aparência"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#1a5c2a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do texto",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": false,
+      "label": "Mostrar separador de linha"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_borders",
+      "default": false,
+      "label": "Ativar bordas"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Largura da borda",
+      "default": 1,
+      "visible_if": "{{ section.settings.enable_borders == true }}"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Cor da borda",
+      "default": "#e0e0e0",
+      "visible_if": "{{ section.settings.enable_borders == true }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "beneficio",
+      "name": "Benefício",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Ícone/Imagem"
+        },
+        {
+          "type": "text",
+          "id": "titulo",
+          "label": "Título",
+          "default": "Frete Grátis"
+        },
+        {
+          "type": "richtext",
+          "id": "subtitulo",
+          "label": "Subtítulo",
+          "default": "<p>Acima de R$ 149,90</p>"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (opcional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RES - Benefícios",
+      "category": "RES - Seções",
+      "blocks": [
+        { "type": "beneficio" },
+        { "type": "beneficio" },
+        { "type": "beneficio" },
+        { "type": "beneficio" }
+      ]
+    }
+  ]
+}
+{% endschema %}
