@@ -137,7 +137,7 @@
         "announcement_HGCUBL": {
           "type": "announcement",
           "settings": {
-            "text": "<p>Cashback em todas compras</p>",
+            "text": "<p>Produto notificado anvisa</p>",
             "link": "",
             "image": "shopify://shop_images/separator-line_63153666-4e40-4e2b-ace0-76da70a38c53.svg",
             "image_width": 36,
@@ -164,7 +164,7 @@
         "announcement_7JCGL8": {
           "type": "announcement",
           "settings": {
-            "text": "<p>7% de desconto no Pix</p>",
+            "text": "<p>Direto da fábrica</p>",
             "link": "",
             "image": "shopify://shop_images/separator-line_63153666-4e40-4e2b-ace0-76da70a38c53.svg",
             "image_width": 36,
@@ -191,7 +191,7 @@
         "announcement_qRcRD7": {
           "type": "announcement",
           "settings": {
-            "text": "<p>Frete grátis nas compras acima de 499,00</p>",
+            "text": "<p>100% Natural</p>",
             "link": "",
             "image": "shopify://shop_images/separator-line_63153666-4e40-4e2b-ace0-76da70a38c53.svg",
             "image_width": 36,
@@ -218,34 +218,7 @@
         "announcement_xKd97L": {
           "type": "announcement",
           "settings": {
-            "text": "<p>Desconto progressivo</p>",
-            "link": "",
-            "image": "shopify://shop_images/separator-line_63153666-4e40-4e2b-ace0-76da70a38c53.svg",
-            "image_width": 36,
-            "image_position": "before",
-            "item_bg_type": "none",
-            "item_bg_color": "",
-            "item_bg_gradient": "",
-            "text_bg_type": "none",
-            "text_bg_color": "",
-            "text_bg_gradient": "",
-            "text_enable_border": false,
-            "text_border_width": 1,
-            "text_border_color": "#e0e0e0",
-            "text_border_radius": 0,
-            "text_padding": 0,
-            "enable_border": false,
-            "border_width": 1,
-            "border_color": "#e0e0e0",
-            "border_radius": 0,
-            "width": 0,
-            "height": 0
-          }
-        },
-        "announcement_RP7bTd": {
-          "type": "announcement",
-          "settings": {
-            "text": "<p>Compras em até 6x sem juros</p>",
+            "text": "<p>Controle de qualidade</p>",
             "link": "",
             "image": "shopify://shop_images/separator-line_63153666-4e40-4e2b-ace0-76da70a38c53.svg",
             "image_width": 36,
@@ -274,8 +247,7 @@
         "announcement_HGCUBL",
         "announcement_7JCGL8",
         "announcement_qRcRD7",
-        "announcement_xKd97L",
-        "announcement_RP7bTd"
+        "announcement_xKd97L"
       ],
       "name": "res - Barra de Avisos",
       "settings": {
