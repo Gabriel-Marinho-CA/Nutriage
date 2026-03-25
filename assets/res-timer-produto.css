@@ -88,6 +88,9 @@
 
 .res-tp__row--atual {
   margin-bottom: 10px;
+    @media (max-width:750px) {
+    justify-content: center;
+  }
 }
 
 .res-tp__preco-original {
