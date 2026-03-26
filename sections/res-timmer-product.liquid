@@ -18,7 +18,7 @@
   #shopify-section-{{section.id }}.res-timer-produto-section {
     margin-block: {{ section.settings.margin_top }}px  {{ section.settings.margin_bottom }}px;
   }
-  #res-tp-{{ section.id }} {
+  #res-tp-{{ section.id }} .res-tp__grid{
     background-color: {{ section.settings.bg_color }};
     color: {{ section.settings.text_color }};
     border-radius: {{ section.settings.border_radius }}px;
@@ -113,7 +113,7 @@
 {% endstyle %}
 
 <div id="res-tp-{{ section.id }}" class="res-tp page-width">
-  <div class="res-tp__grid page-width">
+  <div class="res-tp__grid">
     {%- comment -%} ══ ESQUERDA ══ {%- endcomment -%}
     <div class="res-tp__esquerda">
       {%- comment -%} Tags do topo {%- endcomment -%}
@@ -423,7 +423,7 @@
 {% schema %}
 {
   "name": "RES - Timer Produto",
-  "class": "res-timer-produto-section page-width",
+  "class": "res-timer-produto-section",
   "settings": [
     {
       "type": "header",
