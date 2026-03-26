@@ -23,14 +23,15 @@
     color: {{ section.settings.text_color }};
     border-radius: {{ section.settings.border_radius }}px;
     padding: {{ section.settings.padding_top }}px {{ section.settings.padding_horizontal }}px {{ section.settings.padding_bottom }}px;
-    width: fit-content;
-  margin-inline: auto;
+
  
 
       @media (min-width:1000px) {
         flex-wrap: initial;
+            width: fit-content;
+  margin-inline: auto;
       }
-    @media (max-width:750px) {
+    @media (max-width:1000px) {
       padding-inline: 1rem;
     }
   }
