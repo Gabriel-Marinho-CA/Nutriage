@@ -15,10 +15,10 @@
         "banner_Hyc3zP": {
           "type": "banner",
           "settings": {
-            "image_mobile": "shopify://shop_images/NUT01.png",
-            "image_desktop": "shopify://shop_images/Frame_1_1.png",
-            "url": "shopify://products/coenzima-q10-plus-60-capsulas-nutriage",
-            "image_alt": "Imagem Hero"
+            "image_mobile": "shopify://shop_images/novo-site-04-26-Temporada-Frio-potes-gratis-mobile.png",
+            "image_desktop": "shopify://shop_images/novo-site-04-26-Temporada-Frio-potes-gratis-desktop.png",
+            "url": "shopify://collections/all",
+            "image_alt": "Temporada de frio"
           }
         }
       },
