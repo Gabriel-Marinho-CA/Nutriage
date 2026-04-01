@@ -29,11 +29,21 @@
             "url": "shopify://products/power-men-60-comprimidos-nutriage-793657278",
             "image_alt": "Nem o frio apaga - power men"
           }
+        },
+        "banner_7UH3Cy": {
+          "type": "banner",
+          "settings": {
+            "image_mobile": "shopify://shop_images/novo-site-04-26-Durma-bem-no-frio-Magnesium-mobile.png",
+            "image_desktop": "shopify://shop_images/novo-site-04-26-Durma-bem-no-frio-Magnesium-desktop.png",
+            "url": "shopify://products/magnesium-3-ultra-60-comprimidos-nutriage",
+            "image_alt": "Durma bem no frio"
+          }
         }
       },
       "block_order": [
         "banner_Hyc3zP",
-        "banner_jDrw4B"
+        "banner_jDrw4B",
+        "banner_7UH3Cy"
       ],
       "name": "res - Banner Principal",
       "settings": {
