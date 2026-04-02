@@ -239,6 +239,29 @@
         "bg_color": "#ffffff"
       }
     },
+    "res_minibanners_texto_GW7Kaw": {
+      "type": "res-minibanners-texto",
+      "name": "RES - Minibanners e Texto",
+      "settings": {
+        "titulo_size_desktop": 36,
+        "titulo_size_mobile": 26,
+        "titulo_weight": "700",
+        "titulo_line_height": "1.15",
+        "titulo_color": "#1a3c8c",
+        "conteudo_size_desktop": 15,
+        "conteudo_size_mobile": 14,
+        "conteudo_line_height": "1.6",
+        "conteudo_color": "#333333",
+        "img_border_radius": 16,
+        "gap_colunas": 24,
+        "gap_mobile": 12,
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "bg_color": "#ffffff"
+      }
+    },
     "res_barra_de_avisos_XRh7fn": {
       "type": "res-barra-de-avisos",
       "blocks": {
@@ -486,6 +509,7 @@
     "res_info_produto_icones_fpiBeE",
     "res_banner_com_imagem_2_rTbxcG",
     "res_quem_usou_rHF6WH",
+    "res_minibanners_texto_GW7Kaw",
     "res_barra_de_avisos_XRh7fn",
     "res_related_products_rxHHNP",
     "17736049086dc3f1c2",
