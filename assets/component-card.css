@@ -108,6 +108,8 @@
   left: 1rem;
   top: 1rem;
   z-index: 2;
+  font-size: 13px;
+  font-weight: bold;
 
   color: #fff;
   border-radius: 40px;
