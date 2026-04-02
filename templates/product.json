@@ -141,7 +141,7 @@
         "gap_titulo_conteudo": 16,
         "img_border_radius": 12,
         "titulo_size_desktop": 36,
-        "titulo_size_mobile": 26,
+        "titulo_size_mobile": 20,
         "titulo_weight": "700",
         "titulo_line_height": "1.15",
         "titulo_color": "#1a4789",
