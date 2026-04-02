@@ -1,0 +1,286 @@
+{{ 'res-faq.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign meta = product.metafields.custom.faq_novo.value
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }}.res-faq-section {
+    background-color: {{ section.settings.bg_color }};
+    margin-block: {{ section.settings.margin_top }}px {{ section.settings.margin_bottom }}px;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #res-faq-{{ section.id }} {
+    --faq-item-bg:         {{ section.settings.item_bg }};
+    --faq-item-open-bg:    {{ section.settings.item_open_bg }};
+    --faq-pergunta-color:  {{ section.settings.pergunta_color }};
+    --faq-chevron-color:   {{ section.settings.pergunta_color }};
+    --faq-resposta-color:  {{ section.settings.resposta_color }};
+  }
+
+  #res-faq-{{ section.id }} .res-faq__titulo-secao {
+    color: {{ section.settings.titulo_color }};
+    font-size: {{ section.settings.titulo_size_desktop }}px;
+    font-weight: {{ section.settings.titulo_weight }};
+  }
+
+  #res-faq-{{ section.id }} .res-faq__pergunta {
+    font-size: {{ section.settings.pergunta_size }}px;
+  }
+
+  #res-faq-{{ section.id }} .res-faq__resposta {
+    font-size: {{ section.settings.resposta_size }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #res-faq-{{ section.id }} .res-faq__titulo-secao {
+      font-size: {{ section.settings.titulo_size_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<div id="res-faq-{{ section.id }}" class="res-faq">
+  <div class="page-width">
+
+    {%- comment -%} ── Título da seção ── {%- endcomment -%}
+    {%- if section.settings.titulo != blank -%}
+      <h2 class="res-faq__titulo-secao">{{ section.settings.titulo }}</h2>
+    {%- endif -%}
+
+    {%- if meta != blank -%}
+      <div class="res-faq__list">
+        {%- for pergunta_item in meta.pergunta.value -%}
+          {%- assign resposta_item = meta.resposta.value[forloop.index0] -%}
+          <div class="res-faq__item">
+            <details class="res-faq__details">
+              <summary class="res-faq__summary">
+                <span class="res-faq__pergunta">{{ pergunta_item }}</span>
+                <span class="res-faq__chevron" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </span>
+              </summary>
+              <div class="res-faq__body">
+                <p class="res-faq__resposta">{{ resposta_item }}</p>
+              </div>
+            </details>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      {%- if request.design_mode -%}
+        <div style="padding: 2rem; text-align: center; border: 2px dashed #ccc; border-radius: 8px; color: #999;">
+          Metafield <strong>custom.faq_novo</strong> não encontrado neste produto.
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    var sid = {{ section.id | json }};
+    var el  = document.getElementById('res-faq-' + sid);
+    if (!el) return;
+
+    var allDetails = Array.prototype.slice.call(el.querySelectorAll('.res-faq__details'));
+
+    allDetails.forEach(function (det) {
+      det.querySelector('summary').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        if (det.open) {
+          animateClose(det);
+        } else {
+          allDetails.forEach(function (other) {
+            if (other !== det && other.open) animateClose(other);
+          });
+          det.setAttribute('open', '');
+        }
+      });
+    });
+
+    function animateClose(det) {
+      var body = det.querySelector('.res-faq__body');
+      if (!body) { det.removeAttribute('open'); return; }
+      body.classList.add('res-faq__body--closing');
+      body.addEventListener('animationend', function handler() {
+        body.removeEventListener('animationend', handler);
+        body.classList.remove('res-faq__body--closing');
+        det.removeAttribute('open');
+      }, { once: true });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "RES - FAQ",
+  "class": "res-faq-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Título da seção"
+    },
+    {
+      "type": "text",
+      "id": "titulo",
+      "label": "Título",
+      "default": "Dúvidas Frequentes"
+    },
+    {
+      "type": "range",
+      "id": "titulo_size_desktop",
+      "min": 20,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho (desktop)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "titulo_size_mobile",
+      "min": 18,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho (mobile)",
+      "default": 26
+    },
+    {
+      "type": "select",
+      "id": "titulo_weight",
+      "label": "Peso da fonte",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400 — Regular" },
+        { "value": "600", "label": "600 — Semi-bold" },
+        { "value": "700", "label": "700 — Bold" },
+        { "value": "800", "label": "800 — Extra-bold" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "titulo_color",
+      "label": "Cor do título",
+      "default": "#1a3c8c"
+    },
+    {
+      "type": "header",
+      "content": "Itens"
+    },
+    {
+      "type": "range",
+      "id": "pergunta_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da pergunta",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "resposta_size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da resposta",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Cores"
+    },
+    {
+      "type": "color",
+      "id": "item_bg",
+      "label": "Fundo do item",
+      "default": "#e8f0fa"
+    },
+    {
+      "type": "color",
+      "id": "item_open_bg",
+      "label": "Fundo do item aberto",
+      "default": "#e8f0fa"
+    },
+    {
+      "type": "color",
+      "id": "pergunta_color",
+      "label": "Cor da pergunta",
+      "default": "#1a3c8c"
+    },
+    {
+      "type": "color",
+      "id": "resposta_color",
+      "label": "Cor da resposta",
+      "default": "#444444"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding superior",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding inferior",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin superior",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin inferior",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Aparência"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Cor de fundo da seção",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "RES - FAQ",
+      "category": "Res Meta - Seções"
+    }
+  ]
+}
+{% endschema %}
