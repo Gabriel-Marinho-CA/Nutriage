@@ -121,6 +121,9 @@
   }
 
   @media (min-width:1400px) {
+    max-width: 1400px !important;
+  }
+  @media (min-width:1500px) {
     max-width: 1500px !important;
   }
 }
