@@ -19,6 +19,13 @@
     background-color: {{ c_background_secao }};
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
     position:relative;
+
+    @media (max-width:547px) {
+      padding-bottom:0;
+      .res-ipi__bottom {
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
   }
 
   #res-ipi-{{ section.id }} .res-ipi__main {
