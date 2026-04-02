@@ -10,8 +10,15 @@
     .page-width {
       padding-inline: 0;
     }
+
     .res-ipi__main {
       padding-inline: 16px;
+    }
+
+    .res-ipi__bottom {
+      background: #fff;
+      padding-inline: 16px;
+      padding-block: 4rem;
     }
   }
 }
@@ -145,10 +152,10 @@
   padding: 2rem 1.2rem;
   border-radius: 12px;
 
-   @media (max-width: 500px) {
+  @media (max-width: 500px) {
     flex-direction: column;
     text-align: center;
-   }
+  }
 
   img {
     display: block;
@@ -159,7 +166,7 @@
       width: 100%;
       height: auto;
       flex: 1;
-      min-width:32px;
+      min-width: 32px;
     }
   }
 
