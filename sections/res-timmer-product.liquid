@@ -20,6 +20,12 @@
   }
   #res-tp-{{ section.id }} .res-tp__grid{
     background-color: {{ section.settings.bg_color }};
+    {% if section.settings.bg_image != blank %}
+      background-image: url('{{ section.settings.bg_image | image_url: width: 1600 }}');
+      background-size: {{ section.settings.bg_image_size }};
+      background-position: {{ section.settings.bg_image_position }};
+      background-repeat: no-repeat;
+    {% endif %}
     color: {{ section.settings.text_color }};
     border-radius: {{ section.settings.border_radius }}px;
     padding: {{ section.settings.padding_top }}px {{ section.settings.padding_horizontal }}px {{ section.settings.padding_bottom }}px;
@@ -828,6 +834,35 @@
       "id": "bg_color",
       "label": "Cor de fundo",
       "default": "#1a5c2a"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Imagem de fundo"
+    },
+    {
+      "type": "select",
+      "id": "bg_image_size",
+      "label": "Tamanho da imagem de fundo",
+      "default": "cover",
+      "options": [
+        { "value": "cover", "label": "Cobrir (cover)" },
+        { "value": "contain", "label": "Conter (contain)" },
+        { "value": "auto", "label": "Auto" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bg_image_position",
+      "label": "Posição da imagem de fundo",
+      "default": "center center",
+      "options": [
+        { "value": "center center", "label": "Centro" },
+        { "value": "top center", "label": "Topo" },
+        { "value": "bottom center", "label": "Base" },
+        { "value": "left center", "label": "Esquerda" },
+        { "value": "right center", "label": "Direita" }
+      ]
     },
     {
       "type": "color",
