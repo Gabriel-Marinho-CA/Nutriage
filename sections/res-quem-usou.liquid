@@ -88,6 +88,96 @@
             </div>
           </div>
         {%- endfor -%}
+           {%- for video_item in meta.videos.value -%}
+          <div class="swiper-slide">
+            <div class="res-qur__slide" data-index="{{ forloop.index0 }}">
+
+              {%- comment -%} Thumbnail (preview da imagem) {%- endcomment -%}
+              {%- if video_item.preview_image != blank -%}
+                {{
+                  video_item.preview_image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'res-qur__thumb',
+                    alt: ''
+                }}
+              {%- endif -%}
+
+              {%- comment -%} Botão play {%- endcomment -%}
+              <div class="res-qur__play" aria-label="Reproduzir vídeo">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="32" cy="32" r="32" fill="white" fill-opacity="0.9"/>
+                  <path d="M26 20L48 32L26 44V20Z" fill="#111"/>
+                </svg>
+              </div>
+
+              {%- comment -%} Vídeo inline {%- endcomment -%}
+              {{ video_item | video_tag: class: 'res-qur__video', controls: true, autoplay: false, loop: false, muted: false }}
+
+            </div>
+          </div>
+        {%- endfor -%}
+           {%- for video_item in meta.videos.value -%}
+          <div class="swiper-slide">
+            <div class="res-qur__slide" data-index="{{ forloop.index0 }}">
+
+              {%- comment -%} Thumbnail (preview da imagem) {%- endcomment -%}
+              {%- if video_item.preview_image != blank -%}
+                {{
+                  video_item.preview_image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'res-qur__thumb',
+                    alt: ''
+                }}
+              {%- endif -%}
+
+              {%- comment -%} Botão play {%- endcomment -%}
+              <div class="res-qur__play" aria-label="Reproduzir vídeo">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="32" cy="32" r="32" fill="white" fill-opacity="0.9"/>
+                  <path d="M26 20L48 32L26 44V20Z" fill="#111"/>
+                </svg>
+              </div>
+
+              {%- comment -%} Vídeo inline {%- endcomment -%}
+              {{ video_item | video_tag: class: 'res-qur__video', controls: true, autoplay: false, loop: false, muted: false }}
+
+            </div>
+          </div>
+        {%- endfor -%}
+           {%- for video_item in meta.videos.value -%}
+          <div class="swiper-slide">
+            <div class="res-qur__slide" data-index="{{ forloop.index0 }}">
+
+              {%- comment -%} Thumbnail (preview da imagem) {%- endcomment -%}
+              {%- if video_item.preview_image != blank -%}
+                {{
+                  video_item.preview_image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'res-qur__thumb',
+                    alt: ''
+                }}
+              {%- endif -%}
+
+              {%- comment -%} Botão play {%- endcomment -%}
+              <div class="res-qur__play" aria-label="Reproduzir vídeo">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="32" cy="32" r="32" fill="white" fill-opacity="0.9"/>
+                  <path d="M26 20L48 32L26 44V20Z" fill="#111"/>
+                </svg>
+              </div>
+
+              {%- comment -%} Vídeo inline {%- endcomment -%}
+              {{ video_item | video_tag: class: 'res-qur__video', controls: true, autoplay: false, loop: false, muted: false }}
+
+            </div>
+          </div>
+        {%- endfor -%}
       </div>
     </div>
   {%- endif -%}
