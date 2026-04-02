@@ -121,6 +121,14 @@
     #res-tp-{{ section.id }} .res-tp__preco-atual-valor {
       font-size: {{ section.settings.price_size_mobile }}px;
     }
+    {% if section.settings.bg_image_mobile != blank %}
+      #res-tp-{{ section.id }} .res-tp__grid {
+        background-image: url('{{ section.settings.bg_image_mobile | image_url: width: 800 }}');
+        background-size: {{ section.settings.bg_image_size }};
+        background-position: {{ section.settings.bg_image_position }};
+        background-repeat: no-repeat;
+      }
+    {% endif %}
   }
 {% endstyle %}
 
@@ -838,7 +846,13 @@
     {
       "type": "image_picker",
       "id": "bg_image",
-      "label": "Imagem de fundo"
+      "label": "Imagem de fundo (desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Imagem de fundo (mobile)",
+      "info": "Se vazio, usa a mesma imagem do desktop."
     },
     {
       "type": "select",
