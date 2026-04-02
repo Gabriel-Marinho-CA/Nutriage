@@ -1,0 +1,94 @@
+/* =============================================
+   RES - Seção Garantia
+   ============================================= */
+
+.res-gar {
+  width: 100%;
+}
+
+/* ── Grid ── */
+.res-gar__grid {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+/* ── Imagem ── */
+.res-gar__imagem {
+  flex:1;
+  .res-gar__img--mobile { display: none; }
+  .res-gar__img--desktop { display: block; }
+
+  @media (min-width:1000px) {
+    max-width: 400px;
+  }
+  img {
+    display: block;
+    object-fit: contain;
+  }
+}
+
+/* ── Texto ── */
+.res-gar__texto {
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.res-gar__titulo {
+  margin: 0;
+  p, h1, h2, h3 { margin: 0; }
+}
+
+.res-gar__conteudo {
+  p { margin: 0 0 0.75em; }
+  p:last-child { margin-bottom: 0; }
+}
+
+/* ── Botão ── */
+.res-gar__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 48px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  align-self: flex-start;
+
+  &:hover {
+    opacity: 0.88;
+    transform: scale(1.03);
+  }
+}
+
+/* ── Mobile ── */
+@media screen and (max-width: 749px) {
+  .res-gar__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .res-gar__imagem {
+    order: -1;
+    display: flex;
+    justify-content: center;
+
+    .res-gar__img--desktop { display: none; }
+    .res-gar__img--mobile  { display: block; }
+  }
+
+  .res-gar__texto {
+    order: 1;
+    align-items: center;
+  }
+
+  .res-gar__btn {
+    align-self: center;
+    width: 100%;
+    max-width: 360px;
+  }
+}
