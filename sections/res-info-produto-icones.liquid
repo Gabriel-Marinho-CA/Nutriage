@@ -118,7 +118,7 @@
 
         {%- comment -%} ── Direita: cards ── {%- endcomment -%}
         <div class="res-ipi__direita">
-          {%- for titulo_item in meta.titulo_card -%}
+          {%- for titulo_item in meta.titulo_card.value -%}
             {%- assign conteudo_item = meta.conteudo_card[forloop.index0] -%}
             <div class="res-ipi__card">
               {%- if titulo_item != blank -%}
