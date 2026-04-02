@@ -101,11 +101,7 @@
 
         {%- comment -%} ── Centro: imagem do produto ── {%- endcomment -%}
         <div class="res-ipi__centro">
-          {%- assign img_produto = meta.imagem.value -%}
-          {{ img_produto | json }}
-          <hr><hr>
-          @@
-          {{ meta.imagem | json }}
+          {%- assign img_produto = meta.imagem -%}
           {%- if img_produto != blank -%}
             <div class="res-ipi__imagem">
               {{
