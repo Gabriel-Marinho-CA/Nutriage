@@ -137,7 +137,7 @@
       {%- if meta.icone_card_2 != blank -%}
         <div class="res-ipi__bottom">
           {%- for icone_item in meta.icone_card_2.value -%}
-            {%- assign texto_item = meta.texto_card_2[forloop.index0] -%}
+            {%- assign texto_item = meta.texto_card_2.value[forloop.index0] -%}
             <div class="res-ipi__card2">
               {%- if icone_item != blank -%}
                 {{
