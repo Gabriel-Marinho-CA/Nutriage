@@ -13,9 +13,11 @@
   align-items: center;
   gap: 32px;
 
-    @media (max-width:1000px) {
-        flex-direction: column;
-    }
+  @media (max-width:1000px) {
+    flex-direction: column;
+    text-align: center;
+  }
+
   @media (min-width:1000px) {
     padding-bottom: 7rem;
   }
@@ -160,7 +162,7 @@
   }
 
   .res-ipi__esquerda {
-    order: 0;
+    order: -1;
   }
 
   .res-ipi__direita {
