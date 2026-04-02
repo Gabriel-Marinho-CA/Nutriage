@@ -68,8 +68,10 @@
 
         {%- comment -%} ── Imagem ── {%- endcomment -%}
         <div class="res-sio__imagem">
+          {{ meta | json }}
           {%- assign img_desktop = meta.imagem.value -%}
           {%- assign img_mobile  = meta.imagem_mobile.value -%}
+          
 
           {%- if img_desktop != blank -%}
             {{
