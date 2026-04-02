@@ -61,7 +61,7 @@
         {%  liquid 
           assign parts = card_product.metafields.custom.tag_do_produto_new  | split: '|'
           assign text = parts[0]
-          assign bg_color = part[1]
+          assign bg_color = parts[1]
         %}
         <div class="tag-product" style="background: {{ bg_color }};">
           <span>{{ text }}</span>
