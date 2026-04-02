@@ -5,6 +5,15 @@
 .res-ipi {
   width: 100%;
   box-sizing: border-box;
+
+  @media (max-width:547px) {
+    .page-width {
+      padding-inline: 0;
+    }
+    .res-ipi__main {
+      padding-inline: 16px;
+    }
+  }
 }
 
 /* ── Main grid: 3 colunas ── */
