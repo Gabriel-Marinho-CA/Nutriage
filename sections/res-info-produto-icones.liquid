@@ -3,13 +3,13 @@
 {%- liquid
   assign meta = product.metafields.custom.informacoes_do_produto_com_icones_e_imagem_novo.value
 
-  assign c_background_secao = meta.background_secao.value | default: section.settings.background_secao
-  assign c_cor_do_titulo = meta.cor_do_titulo.value | default: section.settings.cor_do_titulo
-  assign c_cor_do_conteudo = meta.cor_do_conteudo.value | default: section.settings.cor_do_conteudo
-  assign c_cor_titulo_card = meta.cor_titulo_card.value | default: section.settings.cor_titulo_card
-  assign c_cor_conteudo_card = meta.cor_conteudo_card.value | default: section.settings.cor_conteudo_card
+  assign c_background_secao    = meta.background_secao.value    | default: section.settings.background_secao
+  assign c_cor_do_titulo       = meta.cor_do_titulo.value       | default: section.settings.cor_do_titulo
+  assign c_cor_do_conteudo     = meta.cor_do_conteudo.value     | default: section.settings.cor_do_conteudo
+  assign c_cor_titulo_card     = meta.cor_titulo_card.value     | default: section.settings.cor_titulo_card
+  assign c_cor_conteudo_card   = meta.cor_conteudo_card.value   | default: section.settings.cor_conteudo_card
   assign c_cor_background_card = meta.cor_background_card.value | default: section.settings.cor_background_card
-  assign c_cor_texto_card_2 = meta.cor_texto_card_2.value | default: section.settings.cor_texto_card_2
+  assign c_cor_texto_card_2    = meta.cor_texto_card_2.value    | default: section.settings.cor_texto_card_2
   assign c_cor_background_card_2 = meta.cor_background_card_2.value | default: section.settings.cor_background_card_2
 -%}
 
@@ -84,9 +84,12 @@
 
 <div id="res-ipi-{{ section.id }}" class="res-ipi">
   <div class="page-width">
+
     {%- if meta != blank -%}
+
       {%- comment -%} ══ GRID PRINCIPAL ══ {%- endcomment -%}
       <div class="res-ipi__main">
+
         {%- comment -%} ── Esquerda: título + conteúdo ── {%- endcomment -%}
         <div class="res-ipi__esquerda">
           {%- if meta.titulo != blank -%}
@@ -105,8 +108,10 @@
               {{
                 img_produto
                 | image_url: width: 800
-                | image_tag: loading: 'lazy', alt: img_produto.alt
-                | default: '', widths: '300, 500, 700, 800'
+                | image_tag:
+                  loading: 'lazy',
+                  alt: img_produto.alt | default: '',
+                  widths: '300, 500, 700, 800'
               }}
             </div>
           {%- endif -%}
@@ -126,16 +131,23 @@
             </div>
           {%- endfor -%}
         </div>
+
       </div>
 
       {%- comment -%} ══ CARDS INFERIORES ══ {%- endcomment -%}
       {%- if meta.icone_card_2 != blank -%}
-        <div class="res-ipi__bottom small-hide">
+        <div class="res-ipi__bottom">
           {%- for icone_item in meta.icone_card_2.value -%}
             {%- assign texto_item = meta.texto_card_2.value[forloop.index0] -%}
             <div class="res-ipi__card2">
               {%- if icone_item != blank -%}
-                {{ icone_item | image_url: width: 100 | image_tag: loading: 'lazy', alt: '' }}
+                {{
+                  icone_item
+                  | image_url: width: 100
+                  | image_tag:
+                    loading: 'lazy',
+                    alt: ''
+                }}
               {%- endif -%}
               {%- if texto_item != blank -%}
                 <p class="res-ipi__card2-texto">{{ texto_item }}</p>
@@ -148,28 +160,13 @@
     {%- else -%}
       {%- if request.design_mode -%}
         <div style="padding: 2rem; text-align: center; border: 2px dashed #ccc; border-radius: 8px; color: #999;">
-          Metafield <strong>custom.informacoes_do_produto_com_icones_e_imagem_novo</strong> não encontrado neste
-          produto.
+          Metafield <strong>custom.informacoes_do_produto_com_icones_e_imagem_novo</strong> não encontrado neste produto.
         </div>
       {%- endif -%}
     {%- endif -%}
+
   </div>
 </div>
-{%- if meta.icone_card_2 != blank -%}
-  <div class="res-ipi__bottom large-up-hide medium-hide">
-    {%- for icone_item in meta.icone_card_2.value -%}
-      {%- assign texto_item = meta.texto_card_2.value[forloop.index0] -%}
-      <div class="res-ipi__card2">
-        {%- if icone_item != blank -%}
-          {{ icone_item | image_url: width: 100 | image_tag: loading: 'lazy', alt: '' }}
-        {%- endif -%}
-        {%- if texto_item != blank -%}
-          <p class="res-ipi__card2-texto">{{ texto_item }}</p>
-        {%- endif -%}
-      </div>
-    {%- endfor -%}
-  </div>
-{%- endif -%}
 
 {% schema %}
 {
