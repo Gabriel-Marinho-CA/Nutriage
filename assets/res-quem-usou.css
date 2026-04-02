@@ -1,0 +1,105 @@
+/* =============================================
+   RES - Quem Usou, Recomenda
+   ============================================= */
+
+.res-qur {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ── Título ── */
+.res-qur__titulo {
+  text-align: center;
+  margin: 0 0 6rem;
+
+  p, h1, h2, h3 { margin: 0; }
+}
+
+/* ── Swiper ── */
+.res-qur__swiper {
+  width: 100%;
+  overflow: visible;
+}
+
+/* ── Slide / card de vídeo ── */
+.res-qur__slide {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 9 / 16;
+  cursor: pointer;
+  background: #111;
+
+  &.is-playing {
+    .res-qur__thumb  { display: none; }
+    .res-qur__play   { display: none; }
+    .res-qur__video  { display: block; }
+  }
+}
+
+.res-qur__thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.res-qur__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  transition: background 0.2s;
+
+  svg {
+    width: 56px;
+    height: 56px;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+  }
+
+  &:hover { background: rgba(0, 0, 0, 0.38); }
+}
+
+.res-qur__video {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── CTA ── */
+.res-qur__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 6rem;
+}
+
+.res-qur__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 48px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  width: 100%;
+  max-width: 400px;
+
+  &:hover {
+    opacity: 0.88;
+    transform: scale(1.03);
+  }
+}
+
+/* ── Mobile ── */
+@media screen and (max-width: 749px) {
+  .res-qur__play svg {
+    width: 44px;
+    height: 44px;
+  }
+}
