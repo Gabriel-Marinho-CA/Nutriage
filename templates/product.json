@@ -498,6 +498,28 @@
         "include_margins": true
       }
     },
+    "res_faq_qRG4CA": {
+      "type": "res-faq",
+      "name": "RES - FAQ",
+      "settings": {
+        "titulo": "Dúvidas Frequentes",
+        "titulo_size_desktop": 36,
+        "titulo_size_mobile": 26,
+        "titulo_weight": "700",
+        "titulo_color": "#1a3c8c",
+        "pergunta_size": 15,
+        "resposta_size": 14,
+        "item_bg": "#e8f0fa",
+        "item_open_bg": "#e8f0fa",
+        "pergunta_color": "#1a3c8c",
+        "resposta_color": "#444444",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "bg_color": "#ffffff"
+      }
+    },
     "res_related_products_pNiAMp": {
       "type": "res-related-products",
       "disabled": true,
@@ -560,6 +582,7 @@
     "res_barra_de_avisos_XRh7fn",
     "res_related_products_rxHHNP",
     "17736049086dc3f1c2",
+    "res_faq_qRG4CA",
     "res_related_products_pNiAMp",
     "related-products"
   ]
