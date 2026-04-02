@@ -262,6 +262,26 @@
         "bg_color": "#ffffff"
       }
     },
+    "res_secao_imagem_overflow_9Rqyak": {
+      "type": "res-secao-imagem-overflow",
+      "name": "RES - Seção Imagem Overflow",
+      "settings": {
+        "titulo_size_desktop": 36,
+        "titulo_size_mobile": 22,
+        "titulo_weight": "700",
+        "titulo_line_height": "1.2",
+        "conteudo_size_desktop": 15,
+        "conteudo_size_mobile": 14,
+        "conteudo_line_height": "1.3",
+        "img_overflow_top": 80,
+        "padding_vertical": 64,
+        "padding_vertical_mobile": 32,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "bg_color": "#1a4789",
+        "texto_color": "#ffffff"
+      }
+    },
     "res_barra_de_avisos_XRh7fn": {
       "type": "res-barra-de-avisos",
       "blocks": {
@@ -510,6 +530,7 @@
     "res_banner_com_imagem_2_rTbxcG",
     "res_quem_usou_rHF6WH",
     "res_minibanners_texto_GW7Kaw",
+    "res_secao_imagem_overflow_9Rqyak",
     "res_barra_de_avisos_XRh7fn",
     "res_related_products_rxHHNP",
     "17736049086dc3f1c2",
