@@ -1,0 +1,74 @@
+/* =============================================
+   RES - Seção com Imagem Overflow
+   ============================================= */
+
+.res-sio {
+  width: 100%;
+  /* overflow deve ser visible para a imagem transbordar no topo */
+  overflow: visible;
+}
+
+/* ── Grid ── */
+.res-sio__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-end;
+}
+
+/* ── Texto ── */
+.res-sio__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-block: 4rem;
+}
+
+.res-sio__titulo {
+  margin: 0;
+  p, h1, h2, h3 { margin: 0; }
+}
+
+.res-sio__conteudo {
+  p { margin: 0 0 0.5em; }
+  p:last-child { margin-bottom: 0; }
+}
+
+/* ── Imagem ── */
+.res-sio__imagem {
+  /* overflow-top controlado via inline style do section setting */
+  align-self: flex-end;
+
+  .res-sio__img--desktop { display: block; }
+  .res-sio__img--mobile  { display: none;  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+  }
+}
+
+/* ── Mobile ── */
+@media screen and (max-width: 749px) {
+  .res-sio__grid {
+    grid-template-columns: 1fr;
+    align-items: initial;
+  }
+
+  /* Texto vem primeiro, imagem depois */
+  .res-sio__texto {
+    order: -1;
+    padding-block: 2rem;
+    text-align: left;
+  }
+
+  .res-sio__imagem {
+    order: 1;
+    margin-top: 0 !important;
+
+    .res-sio__img--desktop { display: none;  }
+    .res-sio__img--mobile  { display: block; }
+  }
+}
