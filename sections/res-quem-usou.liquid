@@ -58,7 +58,7 @@
       style="padding-inline: {{ section.settings.swiper_padding_inline }}px;"
     >
       <div class="swiper-wrapper">
-        {%- for video_item in meta.videos -%}
+        {%- for video_item in meta.videos.value -%}
           <div class="swiper-slide">
             <div class="res-qur__slide" data-index="{{ forloop.index0 }}">
 
