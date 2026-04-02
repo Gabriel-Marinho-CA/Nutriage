@@ -1,0 +1,295 @@
+{{ 'res-minibanners-texto.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign meta = product.metafields.custom.secao_com_minibanners_e_texto_novo.value
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }}.res-mbt-section {
+    background-color: {{ section.settings.bg_color }};
+    margin-block: {{ section.settings.margin_top }}px {{ section.settings.margin_bottom }}px;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #res-mbt-{{ section.id }} .res-mbt__grid {
+    gap: {{ section.settings.gap_colunas }}px;
+  }
+
+  #res-mbt-{{ section.id }} .res-mbt__img-wrap {
+    border-radius: {{ section.settings.img_border_radius }}px;
+  }
+
+  #res-mbt-{{ section.id }} .res-mbt__titulo * {
+    color: {{ section.settings.titulo_color }};
+    font-size: {{ section.settings.titulo_size_desktop }}px;
+    font-weight: {{ section.settings.titulo_weight }};
+    line-height: {{ section.settings.titulo_line_height }};
+  }
+
+  #res-mbt-{{ section.id }} .res-mbt__conteudo * {
+    color: {{ section.settings.conteudo_color }};
+    font-size: {{ section.settings.conteudo_size_desktop }}px;
+    line-height: {{ section.settings.conteudo_line_height }};
+  }
+
+  @media screen and (max-width: 749px) {
+    #res-mbt-{{ section.id }} .res-mbt__grid {
+      gap: {{ section.settings.gap_mobile }}px;
+    }
+
+    #res-mbt-{{ section.id }} .res-mbt__titulo * {
+      font-size: {{ section.settings.titulo_size_mobile }}px;
+    }
+
+    #res-mbt-{{ section.id }} .res-mbt__conteudo * {
+      font-size: {{ section.settings.conteudo_size_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<div id="res-mbt-{{ section.id }}" class="res-mbt">
+  <div class="page-width">
+
+    {%- if meta != blank -%}
+      <div class="res-mbt__grid">
+
+        {%- comment -%} ── Texto (coluna esquerda) ── {%- endcomment -%}
+        <div class="res-mbt__texto">
+          {%- if meta.titulo != blank -%}
+            <div class="res-mbt__titulo">{{ meta.titulo | metafield_tag }}</div>
+          {%- endif -%}
+          {%- if meta.conteudo != blank -%}
+            <div class="res-mbt__conteudo">{{ meta.conteudo | metafield_tag }}</div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} ── Imagens (colunas 2 e 3) ── {%- endcomment -%}
+        <div class="res-mbt__imagens">
+          {%- assign img1 = meta.imagem.value -%}
+          {%- if img1 != blank -%}
+            <div class="res-mbt__img-wrap">
+              {{
+                img1
+                | image_url: width: 800
+                | image_tag:
+                  loading: 'lazy',
+                  alt: img1.alt | default: '',
+                  widths: '300, 500, 700, 800'
+              }}
+            </div>
+          {%- endif -%}
+
+          {%- assign img2 = meta.imagem_mobile.value -%}
+          {%- if img2 != blank -%}
+            <div class="res-mbt__img-wrap">
+              {{
+                img2
+                | image_url: width: 800
+                | image_tag:
+                  loading: 'lazy',
+                  alt: img2.alt | default: '',
+                  widths: '300, 500, 700, 800'
+              }}
+            </div>
+          {%- endif -%}
+        </div>
+
+      </div>
+    {%- else -%}
+      {%- if request.design_mode -%}
+        <div style="padding: 2rem; text-align: center; border: 2px dashed #ccc; border-radius: 8px; color: #999;">
+          Metafield <strong>custom.secao_com_minibanners_e_texto_novo</strong> não encontrado neste produto.
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "RES - Minibanners e Texto",
+  "class": "res-mbt-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Título"
+    },
+    {
+      "type": "range",
+      "id": "titulo_size_desktop",
+      "min": 18,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho (desktop)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "titulo_size_mobile",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho (mobile)",
+      "default": 26
+    },
+    {
+      "type": "select",
+      "id": "titulo_weight",
+      "label": "Peso da fonte",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400 — Regular" },
+        { "value": "500", "label": "500 — Medium" },
+        { "value": "600", "label": "600 — Semi-bold" },
+        { "value": "700", "label": "700 — Bold" },
+        { "value": "800", "label": "800 — Extra-bold" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "titulo_line_height",
+      "label": "Line-height do título",
+      "default": "1.15"
+    },
+    {
+      "type": "color",
+      "id": "titulo_color",
+      "label": "Cor do título",
+      "default": "#1a3c8c"
+    },
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "range",
+      "id": "conteudo_size_desktop",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho (desktop)",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "conteudo_size_mobile",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho (mobile)",
+      "default": 14
+    },
+    {
+      "type": "text",
+      "id": "conteudo_line_height",
+      "label": "Line-height do conteúdo",
+      "default": "1.6"
+    },
+    {
+      "type": "color",
+      "id": "conteudo_color",
+      "label": "Cor do conteúdo",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Imagens"
+    },
+    {
+      "type": "range",
+      "id": "img_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Arredondamento",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "gap_colunas",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap entre colunas (desktop)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "min": 0,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap (mobile)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding superior",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding inferior",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin superior",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin inferior",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Aparência"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Cor de fundo",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "RES - Minibanners e Texto",
+      "category": "Res Meta - Seções"
+    }
+  ]
+}
+{% endschema %}
