@@ -218,6 +218,27 @@
         "bg_color": "#ffffff"
       }
     },
+    "res_quem_usou_rHF6WH": {
+      "type": "res-quem-usou",
+      "name": "RES - Quem Usou Recomenda",
+      "settings": {
+        "titulo_size_desktop": 36,
+        "titulo_size_mobile": 26,
+        "titulo_weight": "700",
+        "titulo_color": "#1a3c8c",
+        "btn_bg_color": "#4caf50",
+        "btn_text_color": "#ffffff",
+        "btn_font_size": 16,
+        "slides_desktop": 4.5,
+        "space_between": 16,
+        "swiper_padding_inline": 40,
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "bg_color": "#ffffff"
+      }
+    },
     "res_barra_de_avisos_XRh7fn": {
       "type": "res-barra-de-avisos",
       "blocks": {
@@ -464,6 +485,7 @@
     "res_banner_com_imagem_j3LyfY",
     "res_info_produto_icones_fpiBeE",
     "res_banner_com_imagem_2_rTbxcG",
+    "res_quem_usou_rHF6WH",
     "res_barra_de_avisos_XRh7fn",
     "res_related_products_rxHHNP",
     "17736049086dc3f1c2",
