@@ -63,35 +63,47 @@
           {%- endif -%}
         </div>
 
-        {%- comment -%} ── Imagens (colunas 2 e 3) ── {%- endcomment -%}
+        {%- comment -%} ── Imagens ── {%- endcomment -%}
         <div class="res-mbt__imagens">
-          {%- assign img1 = meta.imagem.value -%}
-          {%- if img1 != blank -%}
+          {%- for img_desktop in meta.imagem.value -%}
+            {%- assign img_mobile = meta.imagem_mobile.value[forloop.index0] -%}
             <div class="res-mbt__img-wrap">
-              {{
-                img1
-                | image_url: width: 800
-                | image_tag:
-                  loading: 'lazy',
-                  alt: img1.alt | default: '',
-                  widths: '300, 500, 700, 800'
-              }}
+              {%- comment -%} Desktop {%- endcomment -%}
+              {%- if img_desktop != blank -%}
+                {{
+                  img_desktop
+                  | image_url: width: 800
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'res-mbt__img--desktop',
+                    alt: img_desktop.alt | default: '',
+                    widths: '300, 500, 700, 800'
+                }}
+              {%- endif -%}
+              {%- comment -%} Mobile {%- endcomment -%}
+              {%- if img_mobile != blank -%}
+                {{
+                  img_mobile
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'res-mbt__img--mobile',
+                    alt: img_mobile.alt | default: '',
+                    widths: '300, 500, 600'
+                }}
+              {%- elsif img_desktop != blank -%}
+                {{
+                  img_desktop
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'res-mbt__img--mobile',
+                    alt: img_desktop.alt | default: '',
+                    widths: '300, 500, 600'
+                }}
+              {%- endif -%}
             </div>
-          {%- endif -%}
-
-          {%- assign img2 = meta.imagem_mobile.value -%}
-          {%- if img2 != blank -%}
-            <div class="res-mbt__img-wrap">
-              {{
-                img2
-                | image_url: width: 800
-                | image_tag:
-                  loading: 'lazy',
-                  alt: img2.alt | default: '',
-                  widths: '300, 500, 700, 800'
-              }}
-            </div>
-          {%- endif -%}
+          {%- endfor -%}
         </div>
 
       </div>
