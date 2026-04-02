@@ -9,10 +9,19 @@
     background-color: {{ section.settings.bg_color }};
     margin-block: {{ section.settings.margin_top }}px {{ section.settings.margin_bottom }}px;
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+
+    @media (max-width:750px) {
+      padding-top:0;
+    }
   }
 
   #res-mbt-{{ section.id }} .res-mbt__grid {
     gap: {{ section.settings.gap_colunas }}px;
+        @media (max-width:750px) {
+                 border-top: 1px solid #1a4789;
+         padding-top:{{ section.settings.padding_top }}px;
+        }
+ 
   }
 
   #res-mbt-{{ section.id }} .res-mbt__img-wrap {
@@ -49,10 +58,8 @@
 
 <div id="res-mbt-{{ section.id }}" class="res-mbt">
   <div class="page-width">
-
     {%- if meta != blank -%}
       <div class="res-mbt__grid">
-
         {%- comment -%} ── Texto (coluna esquerda) ── {%- endcomment -%}
         <div class="res-mbt__texto">
           {%- if meta.titulo != blank -%}
@@ -73,11 +80,8 @@
                 {{
                   img_desktop
                   | image_url: width: 800
-                  | image_tag:
-                    loading: 'lazy',
-                    class: 'res-mbt__img--desktop',
-                    alt: img_desktop.alt | default: '',
-                    widths: '300, 500, 700, 800'
+                  | image_tag: loading: 'lazy', class: 'res-mbt__img--desktop', alt: img_desktop.alt
+                  | default: '', widths: '300, 500, 700, 800'
                 }}
               {%- endif -%}
               {%- comment -%} Mobile {%- endcomment -%}
@@ -85,27 +89,20 @@
                 {{
                   img_mobile
                   | image_url: width: 600
-                  | image_tag:
-                    loading: 'lazy',
-                    class: 'res-mbt__img--mobile',
-                    alt: img_mobile.alt | default: '',
-                    widths: '300, 500, 600'
+                  | image_tag: loading: 'lazy', class: 'res-mbt__img--mobile', alt: img_mobile.alt
+                  | default: '', widths: '300, 500, 600'
                 }}
               {%- elsif img_desktop != blank -%}
                 {{
                   img_desktop
                   | image_url: width: 600
-                  | image_tag:
-                    loading: 'lazy',
-                    class: 'res-mbt__img--mobile',
-                    alt: img_desktop.alt | default: '',
-                    widths: '300, 500, 600'
+                  | image_tag: loading: 'lazy', class: 'res-mbt__img--mobile', alt: img_desktop.alt
+                  | default: '', widths: '300, 500, 600'
                 }}
               {%- endif -%}
             </div>
           {%- endfor -%}
         </div>
-
       </div>
     {%- else -%}
       {%- if request.design_mode -%}
@@ -114,7 +111,6 @@
         </div>
       {%- endif -%}
     {%- endif -%}
-
   </div>
 </div>
 
