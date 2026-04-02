@@ -179,7 +179,7 @@
         "padding_top": 64,
         "padding_bottom": 64,
         "margin_top": 0,
-        "margin_bottom": 0,
+        "margin_bottom": 56,
         "background_secao": "#1a3c8c",
         "cor_do_titulo": "#d4a843",
         "cor_do_conteudo": "#ffffff",
