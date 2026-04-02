@@ -111,6 +111,8 @@
   margin-top: 32px;
 
   @media (min-width:1000px) {
+    left: 50%;
+    transform: translateX(-50%);
     bottom: -60px;
     width: 100%;
     max-width: calc(100% - 10rem);
