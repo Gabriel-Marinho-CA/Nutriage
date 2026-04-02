@@ -10,10 +10,12 @@
 /* ── Main grid: 3 colunas ── */
 .res-ipi__main {
   display: flex;
-
   align-items: center;
   gap: 32px;
 
+    @media (max-width:1000px) {
+        flex-direction: column;
+    }
   @media (min-width:1000px) {
     padding-bottom: 7rem;
   }
