@@ -59,10 +59,10 @@
         {%- comment -%} ══ TEXTO ══ {%- endcomment -%}
         <div class="res-bci__texto">
           {%- if meta.titulo != blank -%}
-            <div class="res-bci__titulo">{{ meta.titulo.value |  metafield_tag}}</div>
+            <div class="res-bci__titulo">{{ meta.titulo |  metafield_tag}}</div>
           {%- endif -%}
           {%- if meta.conteudo != blank -%}
-            <div class="res-bci__conteudo">{{ meta.conteudo.value | metafield_tag}}</div>
+            <div class="res-bci__conteudo">{{ meta.conteudo | metafield_tag}}</div>
           {%- endif -%}
         </div>
 
