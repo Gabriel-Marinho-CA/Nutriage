@@ -1,0 +1,325 @@
+{{ 'res-quem-usou.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign meta = product.metafields.custom.quem_usou_recomenda_novo.value
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }}.res-qur-section {
+    background-color: {{ section.settings.bg_color }};
+    margin-block: {{ section.settings.margin_top }}px {{ section.settings.margin_bottom }}px;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #res-qur-{{ section.id }} .res-qur__titulo * {
+    color: {{ section.settings.titulo_color }};
+    font-size: {{ section.settings.titulo_size_desktop }}px;
+    font-weight: {{ section.settings.titulo_weight }};
+  }
+
+  #res-qur-{{ section.id }} .res-qur__btn {
+    background-color: {{ section.settings.btn_bg_color }};
+    color: {{ section.settings.btn_text_color }};
+    font-size: {{ section.settings.btn_font_size }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #res-qur-{{ section.id }} .res-qur__titulo * {
+      font-size: {{ section.settings.titulo_size_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<div id="res-qur-{{ section.id }}" class="res-qur">
+  <div class="page-width">
+
+    {%- if meta != blank -%}
+
+      {%- comment -%} ── Título ── {%- endcomment -%}
+      {%- if meta.titulo != blank -%}
+        <div class="res-qur__titulo">{{ meta.titulo | metafield_tag }}</div>
+      {%- endif -%}
+
+    {%- else -%}
+      {%- if request.design_mode -%}
+        <div style="padding: 2rem; text-align: center; border: 2px dashed #ccc; border-radius: 8px; color: #999;">
+          Metafield <strong>custom.quem_usou_recomenda_novo</strong> não encontrado neste produto.
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+  </div>
+
+  {%- comment -%} ── Swiper (full-width, sem page-width) ── {%- endcomment -%}
+  {%- if meta != blank and meta.videos != blank -%}
+    <div
+      id="res-qur-swiper-{{ section.id }}"
+      class="swiper res-qur__swiper"
+      style="padding-inline: {{ section.settings.swiper_padding_inline }}px;"
+    >
+      <div class="swiper-wrapper">
+        {%- for video_item in meta.videos -%}
+          <div class="swiper-slide">
+            <div class="res-qur__slide" data-index="{{ forloop.index0 }}">
+
+              {%- comment -%} Thumbnail (preview da imagem) {%- endcomment -%}
+              {%- if video_item.preview_image != blank -%}
+                {{
+                  video_item.preview_image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'res-qur__thumb',
+                    alt: ''
+                }}
+              {%- endif -%}
+
+              {%- comment -%} Botão play {%- endcomment -%}
+              <div class="res-qur__play" aria-label="Reproduzir vídeo">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="32" cy="32" r="32" fill="white" fill-opacity="0.9"/>
+                  <path d="M26 20L48 32L26 44V20Z" fill="#111"/>
+                </svg>
+              </div>
+
+              {%- comment -%} Vídeo inline {%- endcomment -%}
+              {{ video_item | video_tag: class: 'res-qur__video', controls: true, autoplay: false, loop: false, muted: false }}
+
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── Botão CTA ── {%- endcomment -%}
+  {%- if meta != blank and meta.texto_botao != blank -%}
+    <div class="page-width">
+      <div class="res-qur__cta">
+        <a
+          href="{{ meta.url_botao.value | default: '#' }}"
+          class="res-qur__btn"
+        >
+          {{ meta.texto_botao }}
+        </a>
+      </div>
+    </div>
+  {%- endif -%}
+
+</div>
+
+<script>
+  (function () {
+    var sid = {{ section.id | json }};
+    var swiperEl = document.getElementById('res-qur-swiper-' + sid);
+    if (!swiperEl || typeof Swiper === 'undefined') return;
+
+    new Swiper(swiperEl, {
+      slidesPerView: {{ section.settings.slides_desktop }},
+      spaceBetween: {{ section.settings.space_between }},
+      loop: true,
+      grabCursor: true,
+      breakpoints: {
+        0: {
+          slidesPerView: 2.3,
+          spaceBetween: 12
+        },
+        750: {
+          slidesPerView: {{ section.settings.slides_desktop }},
+          spaceBetween: {{ section.settings.space_between }}
+        }
+      }
+    });
+
+    // Click-to-play
+    swiperEl.querySelectorAll('.res-qur__slide').forEach(function (slide) {
+      slide.addEventListener('click', function () {
+        if (slide.classList.contains('is-playing')) return;
+
+        var video = slide.querySelector('.res-qur__video');
+        if (!video) return;
+
+        // Pausa todos os outros vídeos
+        swiperEl.querySelectorAll('.res-qur__video').forEach(function (v) {
+          if (v !== video) {
+            v.pause();
+            v.closest('.res-qur__slide').classList.remove('is-playing');
+          }
+        });
+
+        slide.classList.add('is-playing');
+        video.play();
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "RES - Quem Usou Recomenda",
+  "class": "res-qur-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Título"
+    },
+    {
+      "type": "range",
+      "id": "titulo_size_desktop",
+      "min": 18,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho (desktop)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "titulo_size_mobile",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho (mobile)",
+      "default": 26
+    },
+    {
+      "type": "select",
+      "id": "titulo_weight",
+      "label": "Peso da fonte",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400 — Regular" },
+        { "value": "600", "label": "600 — Semi-bold" },
+        { "value": "700", "label": "700 — Bold" },
+        { "value": "800", "label": "800 — Extra-bold" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "titulo_color",
+      "label": "Cor do título",
+      "default": "#1a3c8c"
+    },
+    {
+      "type": "header",
+      "content": "Botão CTA"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Cor de fundo",
+      "default": "#4caf50"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Cor do texto",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do texto",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 0.5,
+      "label": "Slides visíveis (desktop)",
+      "default": 4.5
+    },
+    {
+      "type": "range",
+      "id": "space_between",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Espaço entre slides",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "swiper_padding_inline",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding lateral do slider",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding superior",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding inferior",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin superior",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin inferior",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Aparência"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Cor de fundo",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "RES - Quem Usou Recomenda",
+      "category": "Res Meta - Seções"
+    }
+  ]
+}
+{% endschema %}
