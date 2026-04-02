@@ -1,0 +1,415 @@
+{{ 'res-info-produto-icones.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign meta = product.metafields.custom.informacoes_do_produto_com_icones_e_imagem_novo.value
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }}.res-ipi-section {
+    margin-block: {{ section.settings.margin_top }}px {{ section.settings.margin_bottom }}px;
+    background-color: {{ section.settings.background_secao }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #res-ipi-{{ section.id }} .res-ipi__main {
+    gap: {{ section.settings.gap_colunas }}px;
+  }
+
+  #res-ipi-{{ section.id }} .res-ipi__titulo * {
+    color: {{ section.settings.cor_do_titulo }};
+    font-size: {{ section.settings.titulo_size_desktop }}px;
+    font-weight: {{ section.settings.titulo_weight }};
+    line-height: {{ section.settings.titulo_line_height }};
+  }
+
+  #res-ipi-{{ section.id }} .res-ipi__conteudo * {
+    color: {{ section.settings.cor_do_conteudo }};
+    font-size: {{ section.settings.conteudo_size_desktop }}px;
+    line-height: {{ section.settings.conteudo_line_height }};
+  }
+
+  #res-ipi-{{ section.id }} .res-ipi__card {
+    background-color: {{ section.settings.cor_background_card }};
+  }
+
+  #res-ipi-{{ section.id }} .res-ipi__card .res-ipi__card-titulo {
+    color: {{ section.settings.cor_titulo_card }};
+    font-size: {{ section.settings.card_titulo_size }}px;
+  }
+
+  #res-ipi-{{ section.id }} .res-ipi__card .res-ipi__card-conteudo,
+  #res-ipi-{{ section.id }} .res-ipi__card .res-ipi__card-conteudo * {
+    color: {{ section.settings.cor_conteudo_card }};
+    font-size: {{ section.settings.card_conteudo_size }}px;
+  }
+
+  #res-ipi-{{ section.id }} .res-ipi__card2 {
+    background-color: {{ section.settings.cor_background_card_2 }};
+  }
+
+  #res-ipi-{{ section.id }} .res-ipi__card2 .res-ipi__card2-texto {
+    color: {{ section.settings.cor_texto_card_2 }};
+    font-size: {{ section.settings.card2_size }}px;
+  }
+
+  #res-ipi-{{ section.id }} .res-ipi__card2 img {
+    width: {{ section.settings.icone_size }}px;
+    height: {{ section.settings.icone_size }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #res-ipi-{{ section.id }} .res-ipi__main {
+      gap: {{ section.settings.gap_colunas_mobile }}px;
+    }
+
+    #res-ipi-{{ section.id }} .res-ipi__titulo * {
+      font-size: {{ section.settings.titulo_size_mobile }}px;
+    }
+
+    #res-ipi-{{ section.id }} .res-ipi__conteudo * {
+      font-size: {{ section.settings.conteudo_size_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<div id="res-ipi-{{ section.id }}" class="res-ipi">
+  <div class="page-width">
+
+    {%- if meta != blank -%}
+
+      {%- comment -%} ══ GRID PRINCIPAL ══ {%- endcomment -%}
+      <div class="res-ipi__main">
+
+        {%- comment -%} ── Esquerda: título + conteúdo ── {%- endcomment -%}
+        <div class="res-ipi__esquerda">
+          {%- if meta.titulo != blank -%}
+            <div class="res-ipi__titulo">{{ meta.titulo | metafield_tag }}</div>
+          {%- endif -%}
+          {%- if meta.conteudo != blank -%}
+            <div class="res-ipi__conteudo">{{ meta.conteudo | metafield_tag }}</div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} ── Centro: imagem do produto ── {%- endcomment -%}
+        <div class="res-ipi__centro">
+          {%- assign img_produto = meta.imagem.value -%}
+          {%- if img_produto != blank -%}
+            <div class="res-ipi__imagem">
+              {{
+                img_produto
+                | image_url: width: 800
+                | image_tag:
+                  loading: 'lazy',
+                  alt: img_produto.alt | default: '',
+                  widths: '300, 500, 700, 800'
+              }}
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} ── Direita: cards ── {%- endcomment -%}
+        <div class="res-ipi__direita">
+          {%- for titulo_item in meta.titulo_card -%}
+            {%- assign conteudo_item = meta.conteudo_card[forloop.index0] -%}
+            <div class="res-ipi__card">
+              {%- if titulo_item != blank -%}
+                <p class="res-ipi__card-titulo">{{ titulo_item }}</p>
+              {%- endif -%}
+              {%- if conteudo_item != blank -%}
+                <div class="res-ipi__card-conteudo">{{ conteudo_item | metafield_tag }}</div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+
+      </div>
+
+      {%- comment -%} ══ CARDS INFERIORES ══ {%- endcomment -%}
+      {%- if meta.icone_card_2 != blank -%}
+        <div class="res-ipi__bottom">
+          {%- for icone_item in meta.icone_card_2 -%}
+            {%- assign texto_item = meta.texto_card_2[forloop.index0] -%}
+            <div class="res-ipi__card2">
+              {%- if icone_item != blank -%}
+                {{
+                  icone_item
+                  | image_url: width: 80
+                  | image_tag:
+                    loading: 'lazy',
+                    alt: ''
+                }}
+              {%- endif -%}
+              {%- if texto_item != blank -%}
+                <p class="res-ipi__card2-texto">{{ texto_item }}</p>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    {%- else -%}
+      {%- if request.design_mode -%}
+        <div style="padding: 2rem; text-align: center; border: 2px dashed #ccc; border-radius: 8px; color: #999;">
+          Metafield <strong>custom.informacoes_do_produto_com_icones_e_imagem_novo</strong> não encontrado neste produto.
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "RES - Info Produto Ícones",
+  "class": "res-ipi-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "gap_colunas",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap entre colunas (desktop)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "gap_colunas_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap entre colunas (mobile)",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Título principal"
+    },
+    {
+      "type": "range",
+      "id": "titulo_size_desktop",
+      "min": 20,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho (desktop)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "titulo_size_mobile",
+      "min": 18,
+      "max": 52,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho (mobile)",
+      "default": 28
+    },
+    {
+      "type": "select",
+      "id": "titulo_weight",
+      "label": "Peso da fonte",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400 — Regular" },
+        { "value": "500", "label": "500 — Medium" },
+        { "value": "600", "label": "600 — Semi-bold" },
+        { "value": "700", "label": "700 — Bold" },
+        { "value": "800", "label": "800 — Extra-bold" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "titulo_line_height",
+      "label": "Line-height",
+      "default": "1.15"
+    },
+    {
+      "type": "header",
+      "content": "Conteúdo principal"
+    },
+    {
+      "type": "range",
+      "id": "conteudo_size_desktop",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho (desktop)",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "conteudo_size_mobile",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho (mobile)",
+      "default": 14
+    },
+    {
+      "type": "text",
+      "id": "conteudo_line_height",
+      "label": "Line-height",
+      "default": "1.6"
+    },
+    {
+      "type": "header",
+      "content": "Cards (direita)"
+    },
+    {
+      "type": "range",
+      "id": "card_titulo_size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do título do card",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "card_conteudo_size",
+      "min": 11,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do conteúdo do card",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Cards inferiores"
+    },
+    {
+      "type": "range",
+      "id": "card2_size",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do texto",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "icone_size",
+      "min": 24,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Tamanho do ícone",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding superior",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding inferior",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin superior",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin inferior",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Cores"
+    },
+    {
+      "type": "color",
+      "id": "background_secao",
+      "label": "Fundo da seção",
+      "default": "#1a3c8c"
+    },
+    {
+      "type": "color",
+      "id": "cor_do_titulo",
+      "label": "Cor do título principal",
+      "default": "#d4a843"
+    },
+    {
+      "type": "color",
+      "id": "cor_do_conteudo",
+      "label": "Cor do conteúdo principal",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cor_background_card",
+      "label": "Fundo dos cards (direita)",
+      "default": "#c8daf0"
+    },
+    {
+      "type": "color",
+      "id": "cor_titulo_card",
+      "label": "Cor do título dos cards (direita)",
+      "default": "#1a2a4a"
+    },
+    {
+      "type": "color",
+      "id": "cor_conteudo_card",
+      "label": "Cor do conteúdo dos cards (direita)",
+      "default": "#1a2a4a"
+    },
+    {
+      "type": "color",
+      "id": "cor_background_card_2",
+      "label": "Fundo dos cards inferiores",
+      "default": "#1e4d9c"
+    },
+    {
+      "type": "color",
+      "id": "cor_texto_card_2",
+      "label": "Cor do texto dos cards inferiores",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "RES - Info Produto Ícones",
+      "category": "Res - Seções"
+    }
+  ]
+}
+{% endschema %}
