@@ -1,0 +1,367 @@
+{{ 'res-banner-com-imagem.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign meta = product.metafields.custom.banner_com_imagem_2_novo.value
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }}.res-bci-section {
+    margin-block: {{ section.settings.margin_top }}px {{ section.settings.margin_bottom }}px;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  #res-bci-{{ section.id }} .res-bci__grid {
+    border-top: 1px solid #1a4789;
+    gap: {{ section.settings.gap_colunas }}px;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #res-bci-{{ section.id }} .res-bci__imagem img {
+    border-radius: {{ section.settings.img_border_radius }}px;
+  }
+
+  #res-bci-{{ section.id }} .res-bci__titulo *{
+    color: {{ section.settings.titulo_color }};
+    font-size: {{ section.settings.titulo_size_desktop }}px;
+    font-weight: {{ section.settings.titulo_weight }};
+    line-height: {{ section.settings.titulo_line_height }};
+    margin-bottom: {{ section.settings.gap_titulo_conteudo }}px;
+  }
+
+  #res-bci-{{ section.id }} .res-bci__conteudo *{
+    color: {{ section.settings.conteudo_color }};
+    font-size: {{ section.settings.conteudo_size_desktop }}px;
+    font-weight: {{ section.settings.conteudo_weight }};
+    line-height: {{ section.settings.conteudo_line_height }};
+  }
+
+  @media screen and (max-width: 749px) {
+    #res-bci-{{ section.id }} .res-bci__grid {
+      gap: {{ section.settings.gap_colunas_mobile }}px;
+      padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px;
+    }
+
+    #res-bci-{{ section.id }} .res-bci__titulo * {
+      font-size: {{ section.settings.titulo_size_mobile }}px;
+    }
+
+    #res-bci-{{ section.id }} .res-bci__conteudo *{
+      font-size: {{ section.settings.conteudo_size_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<div id="res-bci-{{ section.id }}" class="res-bci">
+  <div class="page-width">
+
+    {%- if meta != blank -%}
+      <div class="res-bci__grid res-bci__grid--imagem-{{ section.settings.imagem_lado }}">
+
+        {%- comment -%} ══ TEXTO ══ {%- endcomment -%}
+        <div class="res-bci__texto">
+          {%- if meta.titulo != blank -%}
+            <div class="res-bci__titulo">{{ meta.titulo |  metafield_tag}}</div>
+          {%- endif -%}
+          {%- if meta.conteudo != blank -%}
+            <div class="res-bci__conteudo">{{ meta.conteudo | metafield_tag}}</div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} ══ IMAGEM ══ {%- endcomment -%}
+        <div class="res-bci__imagem">
+          {%- assign img_desktop = meta.imagem.value -%}
+          {%- assign img_mobile  = meta.imagem_mobile.value -%}
+
+          {%- if img_desktop != blank -%}
+            {{
+              img_desktop
+              | image_url: width: 1200
+              | image_tag:
+                loading: 'lazy',
+                class: 'res-bci__img--desktop',
+                alt: img_desktop.alt | default: '',
+                widths: '400, 600, 800, 1000, 1200'
+            }}
+          {%- endif -%}
+
+          {%- if img_mobile != blank -%}
+            {{
+              img_mobile
+              | image_url: width: 800
+              | image_tag:
+                loading: 'lazy',
+                class: 'res-bci__img--mobile',
+                alt: img_mobile.alt | default: '',
+                widths: '400, 600, 800'
+            }}
+          {%- elsif img_desktop != blank -%}
+            {{
+              img_desktop
+              | image_url: width: 800
+              | image_tag:
+                loading: 'lazy',
+                class: 'res-bci__img--mobile',
+                alt: img_desktop.alt | default: '',
+                widths: '400, 600, 800'
+            }}
+          {%- endif -%}
+        </div>
+
+      </div>
+    {%- else -%}
+      {%- if request.design_mode -%}
+        <div style="padding: 2rem; text-align: center; border: 2px dashed #ccc; border-radius: 8px; color: #999;">
+          Metafield <strong>custom.banner_com_imagem_1_novo</strong> não encontrado neste produto.
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "RES - Banner com Imagem 2",
+  "class": "res-bci-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "imagem_lado",
+      "label": "Posição da imagem",
+      "default": "direita",
+      "options": [
+        { "value": "direita", "label": "Direita" },
+        { "value": "esquerda", "label": "Esquerda" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "gap_colunas",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap entre colunas (desktop)",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "gap_colunas_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap entre colunas (mobile)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "gap_titulo_conteudo",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap título / conteúdo",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Imagem"
+    },
+    {
+      "type": "range",
+      "id": "img_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Arredondamento da imagem",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Título"
+    },
+    {
+      "type": "range",
+      "id": "titulo_size_desktop",
+      "min": 18,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho (desktop)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "titulo_size_mobile",
+      "min": 16,
+      "max": 52,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho (mobile)",
+      "default": 26
+    },
+    {
+      "type": "select",
+      "id": "titulo_weight",
+      "label": "Peso da fonte",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400 — Regular" },
+        { "value": "500", "label": "500 — Medium" },
+        { "value": "600", "label": "600 — Semi-bold" },
+        { "value": "700", "label": "700 — Bold" },
+        { "value": "800", "label": "800 — Extra-bold" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "titulo_line_height",
+      "label": "Line-height do título",
+      "default": "1.15"
+    },
+    {
+      "type": "color",
+      "id": "titulo_color",
+      "label": "Cor do título",
+      "default": "#1a3c5c"
+    },
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "range",
+      "id": "conteudo_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho (desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "conteudo_size_mobile",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho (mobile)",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "conteudo_weight",
+      "label": "Peso da fonte",
+      "default": "400",
+      "options": [
+        { "value": "400", "label": "400 — Regular" },
+        { "value": "500", "label": "500 — Medium" },
+        { "value": "600", "label": "600 — Semi-bold" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "conteudo_line_height",
+      "label": "Line-height do conteúdo",
+      "default": "1.6"
+    },
+    {
+      "type": "color",
+      "id": "conteudo_color",
+      "label": "Cor do conteúdo",
+      "default": "#444444"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento (desktop)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding superior",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding inferior",
+      "default": 64
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento (mobile)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding superior",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding inferior",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin superior",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin inferior",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Aparência"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Cor de fundo",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "res - Banner com Imagem 2",
+      "category": "Res Meta - Seções"
+    }
+  ]
+}
+{% endschema %}
