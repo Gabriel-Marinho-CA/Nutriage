@@ -71,9 +71,9 @@
           {%- assign img_desktop = meta.imagem -%}
           {%- assign img_mobile  = meta.imagem_mobile -%}
 
-          {%- if img_desktop != blank -%}
+          {%- if img_desktop -%}
             {{
-              img_desktop
+              meta.imagem 
               | image_url: width: 900
               | image_tag:
                 loading: 'lazy',
@@ -83,7 +83,7 @@
             }}
           {%- endif -%}
 
-          {%- if img_mobile != blank -%}
+          {%- if img_mobile -%}
             {{
               img_mobile
               | image_url: width: 600
