@@ -120,7 +120,7 @@
     z-index: 2;
   }
 
-  @media (min-width:1500px) {
+  @media (min-width:1400px) {
     max-width: 1500px !important;
   }
 }
