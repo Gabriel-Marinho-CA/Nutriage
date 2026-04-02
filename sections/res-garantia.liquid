@@ -53,69 +53,62 @@
 
 <div id="res-gar-{{ section.id }}" class="res-gar">
   <div class="page-width">
-
     {%- if meta != blank -%}
-      <div class="res-gar__grid">
+      <div class="wrapper-hr">
+        <div class="res-gar__grid">
+          {%- comment -%} ── Imagem ── {%- endcomment -%}
+          <div class="res-gar__imagem">
+            {%- assign img_desktop = meta.imagem.value -%}
+            {%- assign img_mobile = meta.imagem_mobile.value -%}
 
-        {%- comment -%} ── Imagem ── {%- endcomment -%}
-        <div class="res-gar__imagem">
-          {%- assign img_desktop = meta.imagem.value -%}
-          {%- assign img_mobile  = meta.imagem_mobile.value -%}
+            {%- if img_desktop != blank -%}
+              {{
+                img_desktop
+                | image_url: width: img_desktop.width
+                | image_tag: loading: 'lazy', class: 'res-gar__img--desktop', alt: img_desktop.alt
+                | default: ''
+              }}
+            {%- endif -%}
 
-          {%- if img_desktop != blank -%}
-            {{
-              img_desktop
-              | image_url: width: img_desktop.width
-              | image_tag:
-                loading: 'lazy',
-                class: 'res-gar__img--desktop',
-                alt: img_desktop.alt | default: ''
-            }}
-          {%- endif -%}
+            {%- if img_mobile != blank -%}
+              {{
+                img_mobile
+                | image_url: width: img_mobile.width
+                | image_tag: loading: 'lazy', class: 'res-gar__img--mobile', alt: img_mobile.alt
+                | default: ''
+              }}
+            {%- elsif img_desktop != blank -%}
+              {{
+                img_desktop
+                | image_url: width: 400
+                | image_tag: loading: 'lazy', class: 'res-gar__img--mobile', alt: img_desktop.alt
+                | default: '', widths: '200, 300, 400'
+              }}
+            {%- endif -%}
+          </div>
 
-          {%- if img_mobile != blank -%}
-            {{
-              img_mobile
-              | image_url: width: img_mobile.width
-              | image_tag:
-                loading: 'lazy',
-                class: 'res-gar__img--mobile',
-                alt: img_mobile.alt | default: ''
-            }}
-          {%- elsif img_desktop != blank -%}
-            {{
-              img_desktop
-              | image_url: width: 400
-              | image_tag:
-                loading: 'lazy',
-                class: 'res-gar__img--mobile',
-                alt: img_desktop.alt | default: '',
-                widths: '200, 300, 400'
-            }}
-          {%- endif -%}
+          {%- comment -%} ── Texto ── {%- endcomment -%}
+          <div class="res-gar__texto">
+            {%- if meta.titulo != blank -%}
+              <div class="res-gar__titulo">{{ meta.titulo | metafield_tag }}</div>
+            {%- endif -%}
+
+            {%- if meta.conteudo != blank -%}
+              <div class="res-gar__conteudo">{{ meta.conteudo | metafield_tag }}</div>
+            {%- endif -%}
+
+            {%- if meta.texto_botao != blank -%}
+              <a
+                href="{{ meta.url_botao.value | default: '#' }}"
+                class="res-gar__btn"
+              >
+                {{ meta.texto_botao }}
+              </a>
+            {%- endif -%}
+          </div>
         </div>
-
-        {%- comment -%} ── Texto ── {%- endcomment -%}
-        <div class="res-gar__texto">
-          {%- if meta.titulo != blank -%}
-            <div class="res-gar__titulo">{{ meta.titulo | metafield_tag }}</div>
-          {%- endif -%}
-
-          {%- if meta.conteudo != blank -%}
-            <div class="res-gar__conteudo">{{ meta.conteudo | metafield_tag }}</div>
-          {%- endif -%}
-
-          {%- if meta.texto_botao != blank -%}
-            <a
-              href="{{ meta.url_botao.value | default: '#' }}"
-              class="res-gar__btn"
-            >
-              {{ meta.texto_botao }}
-            </a>
-          {%- endif -%}
-        </div>
-
       </div>
+
     {%- else -%}
       {%- if request.design_mode -%}
         <div style="padding: 2rem; text-align: center; border: 2px dashed #ccc; border-radius: 8px; color: #999;">
@@ -123,7 +116,6 @@
         </div>
       {%- endif -%}
     {%- endif -%}
-
   </div>
 </div>
 

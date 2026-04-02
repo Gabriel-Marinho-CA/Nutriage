@@ -4,10 +4,12 @@
 
 .res-gar {
   width: 100%;
-  .page-width {
-    padding-bottom: 5rem;
-    border-bottom: 1px solid #1a4789;
-  }
+
+}
+
+.wrapper-hr {
+  padding-bottom: 5rem;
+  border-bottom: 1px solid #1a4789;
 }
 
 /* ── Grid ── */
