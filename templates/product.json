@@ -159,6 +159,37 @@
         "bg_color": "#ffffff"
       }
     },
+    "res_info_produto_icones_fpiBeE": {
+      "type": "res-info-produto-icones",
+      "name": "res - Info Produto Ícones",
+      "settings": {
+        "gap_colunas": 32,
+        "gap_colunas_mobile": 24,
+        "titulo_size_desktop": 36,
+        "titulo_size_mobile": 28,
+        "titulo_weight": "700",
+        "titulo_line_height": "1.15",
+        "conteudo_size_desktop": 15,
+        "conteudo_size_mobile": 14,
+        "conteudo_line_height": "1.6",
+        "card_titulo_size": 15,
+        "card_conteudo_size": 13,
+        "card2_size": 13,
+        "icone_size": 40,
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "background_secao": "#1a3c8c",
+        "cor_do_titulo": "#d4a843",
+        "cor_do_conteudo": "#ffffff",
+        "cor_background_card": "#c8daf0",
+        "cor_titulo_card": "#1a2a4a",
+        "cor_conteudo_card": "#1a2a4a",
+        "cor_background_card_2": "#1e4d9c",
+        "cor_texto_card_2": "#ffffff"
+      }
+    },
     "res_barra_de_avisos_XRh7fn": {
       "type": "res-barra-de-avisos",
       "blocks": {
@@ -277,6 +308,7 @@
         "announcement_qRcRD7",
         "announcement_xKd97L"
       ],
+      "disabled": true,
       "name": "res - Barra de Avisos",
       "settings": {
         "marquee_speed": 100,
@@ -402,6 +434,7 @@
   "order": [
     "main",
     "res_banner_com_imagem_j3LyfY",
+    "res_info_produto_icones_fpiBeE",
     "res_barra_de_avisos_XRh7fn",
     "res_related_products_rxHHNP",
     "17736049086dc3f1c2",
