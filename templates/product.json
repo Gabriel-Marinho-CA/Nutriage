@@ -179,7 +179,7 @@
         "padding_top": 64,
         "padding_bottom": 64,
         "margin_top": 0,
-        "margin_bottom": 56,
+        "margin_bottom": 100,
         "background_secao": "#1a3c8c",
         "cor_do_titulo": "#d4a843",
         "cor_do_conteudo": "#ffffff",
@@ -211,9 +211,9 @@
         "conteudo_color": "#7396c8",
         "padding_top": 64,
         "padding_bottom": 64,
-        "padding_top_mobile": 40,
+        "padding_top_mobile": 28,
         "padding_bottom_mobile": 40,
-        "margin_top": 0,
+        "margin_top": 40,
         "margin_bottom": 0,
         "bg_color": "#ffffff"
       }
