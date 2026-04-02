@@ -426,6 +426,7 @@
     },
     "res_related_products_rxHHNP": {
       "type": "res-related-products",
+      "disabled": true,
       "name": "Produtos Relacionados",
       "settings": {
         "intent": "related",
