@@ -1,0 +1,282 @@
+{{ 'res-secao-imagem-overflow.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign meta = product.metafields.custom.secao_com_imagem_overflow_novo.value
+
+  assign c_bg    = meta.background_da_secao.value    | default: section.settings.bg_color
+  assign c_texto = meta.cor_do_texto_da_secao.value  | default: section.settings.texto_color
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }}.res-sio-section {
+    background-color: {{ c_bg }};
+    margin-block: {{ section.settings.margin_top }}px {{ section.settings.margin_bottom }}px;
+    overflow: visible;
+  }
+
+  #res-sio-{{ section.id }} .res-sio__titulo * {
+    color: {{ c_texto }};
+    font-size: {{ section.settings.titulo_size_desktop }}px;
+    font-weight: {{ section.settings.titulo_weight }};
+    line-height: {{ section.settings.titulo_line_height }};
+  }
+
+  #res-sio-{{ section.id }} .res-sio__conteudo * {
+    color: {{ c_texto }};
+    font-size: {{ section.settings.conteudo_size_desktop }}px;
+    line-height: {{ section.settings.conteudo_line_height }};
+  }
+
+  #res-sio-{{ section.id }} .res-sio__texto {
+    padding-block: {{ section.settings.padding_vertical }}px;
+  }
+
+  #res-sio-{{ section.id }} .res-sio__imagem {
+    margin-top: -{{ section.settings.img_overflow_top }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #res-sio-{{ section.id }} .res-sio__titulo * {
+      font-size: {{ section.settings.titulo_size_mobile }}px;
+    }
+
+    #res-sio-{{ section.id }} .res-sio__conteudo * {
+      font-size: {{ section.settings.conteudo_size_mobile }}px;
+    }
+
+    #res-sio-{{ section.id }} .res-sio__texto {
+      padding-block: {{ section.settings.padding_vertical_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<div id="res-sio-{{ section.id }}" class="res-sio">
+  <div class="page-width">
+
+    {%- if meta != blank -%}
+      <div class="res-sio__grid">
+
+        {%- comment -%} ── Texto ── {%- endcomment -%}
+        <div class="res-sio__texto">
+          {%- if meta.titulo != blank -%}
+            <div class="res-sio__titulo">{{ meta.titulo | metafield_tag }}</div>
+          {%- endif -%}
+          {%- if meta.conteudo != blank -%}
+            <div class="res-sio__conteudo">{{ meta.conteudo | metafield_tag }}</div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} ── Imagem ── {%- endcomment -%}
+        <div class="res-sio__imagem">
+          {%- assign img_desktop = meta.imagem.value -%}
+          {%- assign img_mobile  = meta.imagem_mobile.value -%}
+
+          {%- if img_desktop != blank -%}
+            {{
+              img_desktop
+              | image_url: width: 900
+              | image_tag:
+                loading: 'lazy',
+                class: 'res-sio__img--desktop',
+                alt: img_desktop.alt | default: '',
+                widths: '400, 600, 800, 900'
+            }}
+          {%- endif -%}
+
+          {%- if img_mobile != blank -%}
+            {{
+              img_mobile
+              | image_url: width: 600
+              | image_tag:
+                loading: 'lazy',
+                class: 'res-sio__img--mobile',
+                alt: img_mobile.alt | default: '',
+                widths: '300, 500, 600'
+            }}
+          {%- elsif img_desktop != blank -%}
+            {{
+              img_desktop
+              | image_url: width: 600
+              | image_tag:
+                loading: 'lazy',
+                class: 'res-sio__img--mobile',
+                alt: img_desktop.alt | default: '',
+                widths: '300, 500, 600'
+            }}
+          {%- endif -%}
+        </div>
+
+      </div>
+    {%- else -%}
+      {%- if request.design_mode -%}
+        <div style="padding: 2rem; text-align: center; border: 2px dashed #ccc; border-radius: 8px; color: #999;">
+          Metafield <strong>custom.secao_com_imagem_overflow_novo</strong> não encontrado neste produto.
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "RES - Imagem Overflow",
+  "class": "res-sio-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Título"
+    },
+    {
+      "type": "range",
+      "id": "titulo_size_desktop",
+      "min": 18,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho (desktop)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "titulo_size_mobile",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho (mobile)",
+      "default": 26
+    },
+    {
+      "type": "select",
+      "id": "titulo_weight",
+      "label": "Peso da fonte",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400 — Regular" },
+        { "value": "500", "label": "500 — Medium" },
+        { "value": "600", "label": "600 — Semi-bold" },
+        { "value": "700", "label": "700 — Bold" },
+        { "value": "800", "label": "800 — Extra-bold" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "titulo_line_height",
+      "label": "Line-height do título",
+      "default": "1.2"
+    },
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "range",
+      "id": "conteudo_size_desktop",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho (desktop)",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "conteudo_size_mobile",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho (mobile)",
+      "default": 14
+    },
+    {
+      "type": "text",
+      "id": "conteudo_line_height",
+      "label": "Line-height do conteúdo",
+      "default": "1.7"
+    },
+    {
+      "type": "header",
+      "content": "Imagem"
+    },
+    {
+      "type": "range",
+      "id": "img_overflow_top",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "label": "Overflow superior da imagem",
+      "default": 80,
+      "info": "Quanto a imagem ultrapassa o topo da seção."
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding vertical do texto (desktop)",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding vertical do texto (mobile)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin superior",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin inferior",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Cores (fallback)"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fundo da seção",
+      "default": "#1a4789"
+    },
+    {
+      "type": "color",
+      "id": "texto_color",
+      "label": "Cor do texto",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "RES - Seção Imagem Overflow",
+      "category": "Res Meta - Seções"
+    }
+  ]
+}
+{% endschema %}
