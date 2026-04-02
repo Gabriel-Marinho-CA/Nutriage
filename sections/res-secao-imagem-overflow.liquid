@@ -68,12 +68,12 @@
 
         {%- comment -%} ── Imagem ── {%- endcomment -%}
         <div class="res-sio__imagem">
-          {%- assign img_desktop = meta.imagem -%}
-          {%- assign img_mobile  = meta.imagem_mobile -%}
+          {%- assign img_desktop = meta.imagem.value -%}
+          {%- assign img_mobile  = meta.imagem_mobile.value -%}
 
-          {%- if img_desktop -%}
+          {%- if img_desktop != blank -%}
             {{
-              meta.imagem 
+              img_desktop
               | image_url: width: 900
               | image_tag:
                 loading: 'lazy',
@@ -83,7 +83,7 @@
             }}
           {%- endif -%}
 
-          {%- if img_mobile -%}
+          {%- if img_mobile != blank -%}
             {{
               img_mobile
               | image_url: width: 600
