@@ -9,6 +9,14 @@
   .ts-v-stars-foreground svg { min-width: 1.5rem; }
 </style>
 
+{%- comment -%} Elementos hidden com os IDs dos produtos para o fetch da API Trustvox {%- endcomment -%}
+<div class="trustvox-fetch" data-code="{{ product.id }}" style="display:none;"></div>
+{%- if product.metafields.custom.kits != blank -%}
+  {%- for product_kit in product.metafields.custom.kits.value -%}
+    <div class="trustvox-fetch" data-code="{{ product_kit.id }}" style="display:none;"></div>
+  {%- endfor -%}
+{%- endif -%}
+
 <section id="reviews-sec">
   <div class="container">
 

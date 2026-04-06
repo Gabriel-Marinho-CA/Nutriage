@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', function () {
+  getReviewsDataReviews();
+});
+
 let arrData = { items: [] };
 let sortedItems = [];
 let currentIndex = 0;
