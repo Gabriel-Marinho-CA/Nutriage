@@ -40,9 +40,9 @@ async function getReviewsDataReviews() {
     document.querySelector('#load-more-btn').addEventListener('click', renderNextBatch);
     renderNextBatch();
   } else {
-    document.querySelector('#load-more-reviews').classList.add('hidden');
-    document.querySelector('#reviews-sec').classList.add('hidden');
-    const fallback = document.querySelector('#reviews-sec-2 .ts-product-reviews');
+    document.querySelector('#load-more-reviews').style.display = 'none';
+    document.querySelector('#reviews-sec').style.display = 'none';
+    const fallback = document.querySelector('#reviews-sec-2');
     if (fallback) fallback.style.display = 'block';
     console.log('Nenhuma avaliação encontrada.');
   }
@@ -50,12 +50,11 @@ async function getReviewsDataReviews() {
 
 function updateReviewsHeader(data) {
   const rates = data.map(({ rate }) => rate);
-  const average = calculateAverageRating(rates);
-  const total = rates.length;
-  const { percentage, strokeDashoffset, numericPercentage } = calculatePositiveReviewStats(rates);
 
-  document.querySelector('.custom-rating-note--js').textContent = average + ' ';
-  document.querySelector('.custom-based-on--js').textContent = total + ' ';
+  document.querySelector('.custom-rating-note--js').textContent = calculateAverageRating(rates) + ' ';
+  document.querySelector('.custom-based-on--js').textContent = rates.length + ' ';
+
+  const { percentage, strokeDashoffset, numericPercentage } = calculatePositiveReviewStats(rates);
   document.querySelector('.custom-percentage--js-reviews').textContent = percentage;
   document.querySelector('.custom--circle-percentage--js').style.strokeDashoffset = `${strokeDashoffset}px`;
   document.querySelector('.custom-star-bg--js').style.width = `${numericPercentage}%`;
@@ -63,8 +62,7 @@ function updateReviewsHeader(data) {
 
 function calculateAverageRating(rates) {
   if (!rates.length) return '0.0';
-  const total = rates.reduce((acc, r) => acc + r, 0);
-  return (total / rates.length).toFixed(1);
+  return (rates.reduce((acc, r) => acc + r, 0) / rates.length).toFixed(1);
 }
 
 function calculatePositiveReviewStats(rates) {
@@ -88,18 +86,19 @@ function generateRecommendation(recommends) {
   if (recommends === 'yes') {
     return `
       <i class="material-icons ts-recommendation-icon" style="font-size:20px">sentiment_very_satisfied</i>
-      <p class="text-sm text-[#6c6c6c] dark:text-white">Sim, eu recomendo este produto</p>`;
+      <p>${'Sim, eu recomendo este produto'}</p>`;
   }
   if (recommends === 'no') {
     return `
       <i class="material-icons ts-recommendation-icon" style="font-size:20px">sentiment_very_dissatisfied</i>
-      <p class="text-sm text-[#6c6c6c] dark:text-white">Não, eu não recomendo este produto</p>`;
+      <p>${'Não, eu não recomendo este produto'}</p>`;
   }
   return '';
 }
 
 function renderReviews(reviews) {
   const container = document.querySelector('#reviews-container');
+
   reviews.forEach((review) => {
     const fullName = `${review.client.first_name || ''} ${review.client.last_name || ''}`
       .trim()
@@ -110,22 +109,22 @@ function renderReviews(reviews) {
 
     container.insertAdjacentHTML(
       'beforeend',
-      `<div class="flex items-center py-8 justify-between gap-5 md:flex-col-reverse border-b border-[#e5e7eb]">
-        <div class="flex-1 max-w-[160px] md:flex md:gap-4 md:mr-auto">
-          <p class="text-sm text-[#6c6c6c] text-center font-bold dark:text-white">${fullName}</p>
-          <p class="text-sm text-[#6c6c6c] text-center dark:text-white">${date}</p>
+      `<div class="tv-review">
+        <div class="tv-review__meta">
+          <p class="tv-review__name">${fullName}</p>
+          <p class="tv-review__date">${date}</p>
         </div>
-        <div class="flex-1 md:w-full">
-          <div class="flex gap-0.5">${generateStars(review.rate)}</div>
-          ${review.title ? `<p class="text-[#6c6c6c] mt-3 font-bold dark:text-white">${review.title}</p>` : ''}
-          <p class="text-[#6c6c6c] mt-3 dark:text-white">${review.text || 'Cliente não escreveu uma avaliação, apenas deu a nota do produto.'}</p>
-          <div class="flex justify-between md:flex-col">
-            <div class="flex items-center gap-1 my-4">${generateRecommendation(review.recommends)}</div>
-            <div class="flex items-center gap-4 md:justify-start">
-              <span class="text-sm text-[#6c6c6c] dark:text-white">Esta avaliação foi útil?</span>
-              <button class="ts-thumb-up flex items-center gap-1 text-[#6c6c6c] dark:text-white">
-                <i class="material-icons text-lg">thumb_up</i>
-                <span class="text-sm">0</span>
+        <div class="tv-review__content">
+          <div class="tv-review__stars">${generateStars(review.rate)}</div>
+          ${review.title ? `<p class="tv-review__title">${review.title}</p>` : ''}
+          <p class="tv-review__text">${review.text || 'Cliente não escreveu uma avaliação, apenas deu a nota do produto.'}</p>
+          <div class="tv-review__actions">
+            <div class="tv-review__recommendation">${generateRecommendation(review.recommends)}</div>
+            <div class="tv-review__voting">
+              <span class="tv-review__voting-label">Esta avaliação foi útil?</span>
+              <button class="tv-thumb-up">
+                <i class="material-icons" style="font-size:18px">thumb_up</i>
+                <span>0</span>
               </button>
             </div>
           </div>
@@ -150,7 +149,7 @@ function filterReviews(filterType) {
 
   currentIndex = 0;
   document.querySelector('#reviews-container').innerHTML = '';
-  document.querySelector('#load-more-reviews').classList.remove('hidden');
+  document.querySelector('#load-more-reviews').style.display = 'flex';
   renderNextBatch();
 }
 
@@ -158,5 +157,5 @@ function renderNextBatch() {
   const loadMoreEl = document.querySelector('#load-more-reviews');
   renderReviews(sortedItems.slice(currentIndex, currentIndex + REVIEWS_STEP));
   currentIndex += REVIEWS_STEP;
-  loadMoreEl.classList.toggle('hidden', currentIndex >= sortedItems.length);
+  loadMoreEl.style.display = currentIndex >= sortedItems.length ? 'none' : 'flex';
 }
