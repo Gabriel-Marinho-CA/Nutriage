@@ -1,242 +1,126 @@
 <style>
-  /* Container principal */
-  .reviews-section {
-   /* background-color: #000;  dark:bg-black */
-  }
-
-  .container {
-    padding-top: 2.5rem;   /* lg:py-10 */
-    padding-bottom: 2.5rem;
-  }
-
-  @media (min-width: 1024px) {
-    .container {
-      padding-top: 4rem;   /* min_lg:py-16 */
-      padding-bottom: 4rem;
-    }
-  }
-
-  /* Rating block */
-  .ts-v-stars {
-    position: relative;
-    width: 137px;
-  }
-
-  .ts-v-stars-background {
-    display: flex;
-    width: 137px;
-  }
-
-  .ts-v-stars-foreground {
-    position: absolute;
-    top: 0;
-  }
-
-  .ts-v-stars-foreground span {
-    display: flex;
-    overflow: hidden;
-  }
-
-  .ts-v-stars-foreground svg {
-    min-width: 1.5rem; /* min-w-6 */
-  }
-
-  /* Wrapper título */
-  .wrapper-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #e2e2e2;
-    padding-bottom: 1.5rem;
-  }
-
-  @media (max-width: 768px) {
-    .wrapper-title {
-      flex-direction: column;
-      gap: 1rem;
-    }
-  }
-
-  .wrapper-title h4 {
-    color: #2c2c2c;
-    font-size: 1.25rem;
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
-    .wrapper-title h4 {
-      font-size: 1.125rem;
-    }
-  }
-
-  /* Select */
-  .select {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .select select {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 0.25rem;
-    padding: 0.75rem;
-    font-size: 0.875rem;
-    color: #6c6c6c;
-  }
-
-  /* Load more button */
-  #load-more-reviews {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-
-  #load-more-reviews button {
-    background: none;
-    border: 1px solid #2c2c2c;
-    color: #2c2c2c;
-    font-size: 1.125rem;
-    text-transform: uppercase;
-    border-radius: 0.375rem;
-    padding: 0.5rem;
-    text-align: center;
-  }
-
-  /* Footer */
-  .ts-v-footer-container {
-    display: flex;
-    align-items: center;
-    color: inherit;
-  }
-
-  /* Percentage circle */
-  .ts-v-percentage-circle {
-    height: 66px;
-    width: 66px;
-  }
-
-  /* Dark mode overrides */
-  @media (prefers-color-scheme: dark) {
-    .reviews-section {
-      background-color: #000;
-    }
-
-    .ts-product-reviews {
-      background-color: #000;
-    }
-
-    .ts-v-rating,
-    .ts-v-recommendations,
-    .wrapper-title h4,
-    .select label,
-    #load-more-reviews button,
-    .ts-v-footer-container {
-      color: #fff;
-    }
-
-    #load-more-reviews button {
-      border-color: #fff;
-    }
-  }
+  /* Apenas o necessário para o overlay das estrelas (posicionamento dinâmico via JS) */
+  .ts-v-stars { position: relative; width: 137px; }
+  .ts-v-stars-background { display: flex; width: 137px; }
+  .ts-v-stars-foreground { position: absolute; top: 0; }
+  .ts-v-stars-foreground span { display: flex; overflow: hidden; }
+  .ts-v-stars-foreground svg { min-width: 1.5rem; }
 </style>
 
-<section id="reviews-sec">
-  <div class="container">
-    <div data-trustvox-certificate-fixed="data-trustvox-certificate-fixed"></div>
+<section id="reviews-sec" class="dark:bg-black">
+  <div class="container py-10 lg:py-16">
+
+    {%- comment -%} Certificado Trustvox {%- endcomment -%}
+    <div data-trustvox-certificate-fixed></div>
+
     <div id="_sincero_widgets" class="trustvox-widget">
-      <div class="ts-product-reviews">
-        <div>
-          <section class="ts-product-reviews-overview">
-            <section class="ts-information-and-survey-result ts-block-one ts-block-three" data-v-99089b8c="">
-              <div data-v-108cfa34="" data-v-99089b8c="" class="ts-v-rating ts-block-one">
-                <div data-v-108cfa34="" class="ts-v-rating-note">
-                  <span data-v-108cfa34="" class="ts-v-rating-note_value custom-rating-note--js"> 4.8 </span>
-                  <span data-v-108cfa34="" class="ts-v-rating-note_of"> /<span data-v-108cfa34="">5</span></span>
-                  <meta data-v-108cfa34="" content="1">
-                </div>
-                <div data-v-108cfa34="" class="ts-v-rating_label">Nota do produto</div>
-                <div data-v-108cfa34="" class="ts-v-rating__align">
-                  <div data-v-61babeba="" data-v-108cfa34="" class="ts-v-stars">
-                    <span data-v-61babeba="" class="ts-v-stars-background">
-                      <!-- SVGs de fundo (cinza) -->
-                      <svg data-v-61babeba="" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 512 512"><path data-v-61babeba="" fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path></svg>
-                      <svg data-v-61babeba="" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 512 512"><path data-v-61babeba="" fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path></svg>
-                      <svg data-v-61babeba="" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 512 512"><path data-v-61babeba="" fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path></svg>
-                      <svg data-v-61babeba="" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 512 512"><path data-v-61babeba="" fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path></svg>
-                      <svg data-v-61babeba="" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 512 512"><path data-v-61babeba="" fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path></svg>
-                    </span>
-                    <span data-v-61babeba="" class="ts-v-stars-foreground">
-                      <span data-v-61babeba="" class="custom-star-bg--js">
-                        <!-- SVGs coloridos (amarelo) -->
-                        <svg data-v-61babeba="" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 512 512"><path data-v-61babeba="" fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path></svg>
-                        <svg data-v-61babeba="" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 512 512"><path data-v-61babeba="" fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path></svg>
-                        <svg data-v-61babeba="" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 512 512"><path data-v-61babeba="" fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path></svg>
-                        <svg data-v-61babeba="" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 512 512"><path data-v-61babeba="" fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path></svg>
-                        <svg data-v-61babeba="" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 512 512"><path data-v-61babeba="" fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path></svg>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-                <div data-v-108cfa34="" class="ts-v-rating-based-on">
-                  Baseado em
-                  <span data-v-108cfa34="" class="custom-based-on--js"> 5 </span> avaliações
-                </div>
-              </div>
-              <div data-v-99089b8c="" class="ts-block-three ts-repro-center">
-                <div data-v-99089b8c="" class="ts-product-reviews-overview-recommendations">
-                  <div data-v-f73f7d96="" class="ts-v-recommendations">
-                    <div data-v-f73f7d96="" class="ts-v-recommendations_percentage">
-                      <svg data-v-f73f7d96="" height="66" width="66" class="ts-v-percentage-circle">
-                        <circle data-v-f73f7d96="" stroke-width="5" fill="transparent" r="28" cx="32" cy="32" class="ts-v-circle-baseline"></circle>
-                        <circle data-v-f73f7d96="" stroke-dasharray="175.92918860102841 175.92918860102841" stroke-width="5" fill="transparent" r="28" cx="32" cy="32" class="ts-v-circle-mainline custom--circle-percentage--js" style="stroke-dashoffset: 0px;"></circle>
-                      </svg>
-                      <span data-v-f73f7d96="" class="ts-v-percentage-label custom-percentage--js-reviews"> 100% </span>
-                    </div>
-                    <span data-v-f73f7d96="" class="ts-v-recommendations_text">
-                      dos clientes recomendam este produto
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </section>
-          <section class="custom-wrapper-reviews">
-            <div class="wrapper-title">
-              <h4>Avaliações mais recentes</h4>
-              <div class="select">
-                <label for="filter-reviews">exibindo:</label>
-                <select name="" id="filter-reviews" onchange="filterReviews(event.target.value)">
-                  <option value="most-recent">Mais recentes</option>
-                  <option value="positive">Positivas</option>
-                  <option value="negative">Negativas</option>
-                  <option value="worth">Mais úteis</option>
-                </select>
-              </div>
+      <div class="ts-product-reviews dark:bg-black">
+
+        {%- comment -%} Overview: nota + recomendação {%- endcomment -%}
+        <section class="flex items-center gap-12 mb-8 max-md:flex-col max-md:items-start max-md:gap-6">
+
+          {%- comment -%} Bloco de nota {%- endcomment -%}
+          <div class="flex flex-col gap-1">
+            <div class="flex items-baseline gap-0.5">
+              <span class="custom-rating-note--js text-2xl font-bold text-[#2c2c2c] dark:text-white">4.8</span>
+              <span class="text-base text-[#6c6c6c] dark:text-white">/5</span>
             </div>
-            <div id="reviews-container"></div>
-            <div id="load-more-reviews">
-              <button>Carregar mais</button>
+            <p class="text-sm text-[#6c6c6c] dark:text-white">Nota do produto</p>
+            <div class="ts-v-stars mt-1">
+              <span class="ts-v-stars-background">
+                {%- for i in (1..5) -%}
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"/></svg>
+                {%- endfor -%}
+              </span>
+              <span class="ts-v-stars-foreground">
+                <span class="custom-star-bg--js">
+                  {%- for i in (1..5) -%}
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"/></svg>
+                  {%- endfor -%}
+                </span>
+              </span>
             </div>
-            <div data-v-55f06c67="" data-v-4b08f0d5="" class="ts-v-footer">
-              <a data-v-55f06c67="" href="https://site.trustvox.com.br/conheca-a-trustvox?utm_source=widget-rareviews&utm_medium=quizz&utm_campaign=nutriage.com.br" target="_blank" class="ts-v-footer-container">
-                <img data-v-55f06c67="" title="RA Icone" src="https://static.trustvox.com.br/sincero/img/ra-icon.svg" class="ts-v-footer-icon ts-icon">
-                Avaliações confiáveis do
-                <img data-v-55f06c67="" title="Reclame Aqui" src="https://static.trustvox.com.br/sincero/img/logo-reclameaqui.svg" class="ts-v-footer-logo ts-logo">
-              </a>
+            <p class="text-sm text-[#6c6c6c] dark:text-white mt-1">
+              Baseado em <span class="custom-based-on--js">5</span> avaliações
+            </p>
+          </div>
+
+          {%- comment -%} Bloco de recomendação {%- endcomment -%}
+          <div class="flex items-center gap-4">
+            <div class="relative h-[66px] w-[66px] shrink-0">
+              <svg height="66" width="66">
+                <circle stroke="#e2e2e2" stroke-width="5" fill="transparent" r="28" cx="32" cy="32"/>
+                <circle
+                  class="custom--circle-percentage--js"
+                  stroke="#ffc400"
+                  stroke-dasharray="175.93 175.93"
+                  stroke-width="5"
+                  fill="transparent"
+                  r="28" cx="32" cy="32"
+                  style="stroke-dashoffset: 0px; transform: rotate(-90deg); transform-origin: 50% 50%;"
+                />
+              </svg>
+              <span class="custom-percentage--js-reviews absolute inset-0 flex items-center justify-center text-xs font-bold text-[#2c2c2c] dark:text-white">100%</span>
             </div>
-          </section>
-        </div>
+            <p class="text-sm text-[#6c6c6c] dark:text-white max-w-[140px]">dos clientes recomendam este produto</p>
+          </div>
+
+        </section>
+
+        {%- comment -%} Lista de avaliações {%- endcomment -%}
+        <section>
+          <div class="flex items-center justify-between border-b border-[#e2e2e2] pb-6 max-md:flex-col max-md:items-start max-md:gap-4">
+            <h4 class="text-xl font-semibold text-[#2c2c2c] dark:text-white max-md:text-lg">Avaliações mais recentes</h4>
+            <div class="flex items-center gap-3">
+              <label for="filter-reviews" class="text-sm text-[#6c6c6c] dark:text-white">exibindo:</label>
+              <select
+                id="filter-reviews"
+                onchange="filterReviews(this.value)"
+                class="bg-white dark:bg-black border border-[#ddd] rounded px-3 py-2 text-sm text-[#6c6c6c] dark:text-white cursor-pointer"
+              >
+                <option value="most-recent">Mais recentes</option>
+                <option value="positive">Positivas</option>
+                <option value="negative">Negativas</option>
+                <option value="worth">Mais úteis</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="reviews-container"></div>
+
+          <div id="load-more-reviews" class="flex justify-center mt-8">
+            <button
+              id="load-more-btn"
+              class="border border-[#2c2c2c] dark:border-white text-[#2c2c2c] dark:text-white text-base uppercase tracking-wide rounded-md px-8 py-2.5 hover:bg-[#2c2c2c] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+            >
+              Carregar mais
+            </button>
+          </div>
+
+          <div class="mt-8">
+            <a
+              href="https://site.trustvox.com.br/conheca-a-trustvox?utm_source=widget-rareviews&utm_medium=quizz&utm_campaign=nutriage.com.br"
+              target="_blank"
+              class="inline-flex items-center gap-2 text-sm text-[#6c6c6c] dark:text-white"
+            >
+              <img title="RA Icone" src="https://static.trustvox.com.br/sincero/img/ra-icon.svg" width="20" height="20" class="h-5 w-auto">
+              Avaliações confiáveis do
+              <img title="Reclame Aqui" src="https://static.trustvox.com.br/sincero/img/logo-reclameaqui.svg" width="80" height="16" class="h-4 w-auto">
+            </a>
+          </div>
+        </section>
+
       </div>
     </div>
+
     <div id="_trustvox_colt"></div>
   </div>
 </section>
 
-<section class="dark:bg-black" id="reviews-sec-2">
-  <div class="container min_lg:py-16 lg:py-10">
-    <div data-trustvox-certificate-fixed="data-trustvox-certificate-fixed"></div>
+{%- comment -%} Fallback: widget nativo Trustvox (oculto por padrão) {%- endcomment -%}
+<section class="dark:bg-black hidden" id="reviews-sec-2">
+  <div class="container py-10 lg:py-16">
+    <div data-trustvox-certificate-fixed></div>
     <div id="_trustvox_widget"></div>
     <div id="_trustvox_colt"></div>
   </div>
@@ -249,274 +133,12 @@
   _trustvox_colt.push(['_storeId', '123342'], ['_limit', '7']);
 </script>
 
-<script>
+<script src="{{ 'trustvox-reviews.js' | asset_url }}" defer></script>
 
-let arrData = { items: [] };
-let sortedItems = [];
-let currentIndex = 0;
-const step = 4;
-
-async function getReviewsDataReviews() {
-  const elements = document.querySelectorAll(".trustvox-fetch");
-
-  const fetchAllPages = async (productId) => {
-    const endpoint = `http://trustvox.com.br/api/stores/123342/products/${productId}?opinions=true`;
-
-    try {
-      const res = await fetch(endpoint, {
-        method: "GET",
-        headers: {
-          Accept: "application/vnd.trustvox.com; version=1",
-          "Content-Type": "application/json",
-          Authorization: "AuEUeedcE_TH24aqbx4z",
-        },
-      });
-
-      if (!res.ok) {
-        throw new Error(`Erro na requisição: ${res.status}`);
-      }
-
-      const data = await res.json();
-
-      const allItems = data.opinions || [];
-
-      return allItems;
-    } catch (err) {
-      console.warn("Erro ao buscar dados do Trustvox:", err);
-      return [];
-    }
-  };
-
-  const fetches = Array.from(elements).map((el) => {
-    const code = el.dataset.code;
-
-    return fetchAllPages(code);
-  });
-
-  const allResults = await Promise.all(fetches);
-  const flattened = allResults.flat();
-
-  if (flattened.length > 0) {
-    getReviewsDataStars(flattened);
-    arrData.items = flattened;
-    sortedItems = [...arrData.items];
-    currentIndex = 0;
-
-    const loadMoreBtn = document.querySelector("#load-more-reviews");
-    loadMoreBtn.addEventListener("click", renderNextBatch);
-
-    renderNextBatch();
-  } else {
-    document.querySelector("#load-more-reviews").classList.add("hidden");
-    document.querySelector("#reviews-sec").classList.add("hidden");
-    if (document.querySelector("#reviews-sec-2 .ts-product-reviews")) {
-      document
-        .querySelector("#reviews-sec-2 .ts-product-reviews")
-        .setAttribute("style", "display: block !important");
-    }
-
-    console.log("Nenhuma avaliação encontrada.");
-  }
-}
-function getReviewsDataStars(data) {
-  if (Array.isArray(data) && data.length > 0) {
-    attHeaderCustomReviews(data);
-  }
-}
-
-function attHeaderCustomReviews(data) {
-  const percent = document.querySelector(".custom-percentage--js-reviews");
-  const percent_stroke = document.querySelector(
-    ".custom--circle-percentage--js"
-  );
-  const number_of_reviews = document.querySelector(".custom-based-on--js");
-  const rating_note = document.querySelector(".custom-rating-note--js");
-  const bg_star = document.querySelector(".custom-star-bg--js");
-
-  const filteredRates = data.map(({ rate }) => rate);
-
-  const average_ratings = calculateAverageRating(filteredRates);
-  const sumReviews = sumTotalReviews(filteredRates);
-  const { percentage, strokeDashoffset, numericPercentage } =
-    calculatePositiveReviewStats(filteredRates);
-
-  rating_note.innerHTML = average_ratings + " ";
-  number_of_reviews.innerHTML = sumReviews + " ";
-  percent.innerHTML = percentage;
-  percent_stroke.style.strokeDashoffset = `${strokeDashoffset}px`;
-  bg_star.style.width = `${numericPercentage}%`;
-}
-
-function sumTotalReviews(arr) {
-  if (!Array.isArray(arr) || arr.length === 0) {
-    return 0;
-  }
-  return arr.length;
-}
-function calculateAverageRating(rates) {
-  if (!Array.isArray(rates) || rates.length === 0) {
-    return "0.0";
-  }
-
-  const total = rates.reduce((acc, rate) => acc + rate, 0);
-  const average = total / rates.length;
-  return average.toFixed(1);
-}
-
-function calculatePositiveReviewStats(rates) {
-  if (!Array.isArray(rates) || rates.length === 0) {
-    return {
-      percentage: "0%",
-      numericPercentage: 0,
-      strokeDashoffset: 176,
-    };
-  }
-
-  const total = rates.length;
-  const sum = rates.reduce((acc, rate) => acc + rate, 0);
-  const average = sum / total;
-
-  const percentage = (average / 5) * 100;
-  const strokeDashoffset = 176 - (percentage / 100) * 176;
-
-  return {
-    percentage: `${percentage.toFixed(0)}%`,
-    numericPercentage: parseFloat(percentage.toFixed(1)),
-    strokeDashoffset: parseFloat(strokeDashoffset.toFixed(2)),
-  };
-}
-
-function generateStars(rate) {
-  const filledStar = `<img src="https://cdn.shopify.com/s/files/1/0911/4694/4831/files/star-solid.svg?v=1747428918" width="20" height="20" alt="star">`;
-  const emptyStar = `<img src="https://cdn.shopify.com/s/files/1/0911/4694/4831/files/star-empty.svg?v=1747429027" width="20" height="20" alt="star">`;
-  return filledStar.repeat(rate) + emptyStar.repeat(5 - rate);
-}
-
-function generateRecommendation(recommends) {
-  if (recommends === "yes") {
-    return `
-      <i class="material-icons check_box ts-recommendation-icon" style="font-size:20px">sentiment_very_satisfied</i>
-      <p class="text-sm text-[#6c6c6c] recommend-product dark:text-white">Sim, eu recomendo este produto</p>
-    `;
-  }
-  if (recommends === "no") {
-    return `
-      <i class="material-icons check_box ts-recommendation-icon" style="font-size:20px">sentiment_very_dissatisfied</i>
-      <p class="text-sm text-[#6c6c6c] recommend-product dark:text-white">Não, eu não recomendo este produto</p>
-    `;
-  }
-  return "";
-}
-
-function renderReviews(reviews) {
-  const container = document.querySelector("#reviews-container");
-
-  reviews.forEach((review) => {
-    const stars = generateStars(review.rate);
-    const recommendation = generateRecommendation(review.recommends);
-    const fullNameParts = `${review.client.first_name || ""} ${
-      review.client.last_name || ""
-    }`
-      .trim()
-      .split(/\s+/) // separa por qualquer espaço (1 ou mais)
-      .slice(0, 2) // pega só as 2 primeiras palavras
-      .join(" ");
-
-    const fullName = fullNameParts;
-    const reviewDate = new Date(review.created_at).toLocaleDateString("pt-BR");
-
-    const html = `
-      <div class="list-reviews flex items-center py-8 justify-between gap-5 md:flex-col-reverse border-b border-b-[#e5e7eb]">
-        <div class="flex-1 max-w-[160px] md:flex md:gap-4 md:mr-auto wrapper-user-name">
-          <p class="text-sm text-[#6c6c6c] text-center font-bold name-person dark:text-white">${fullName}</p>
-          <p class="text-sm text-[#6c6c6c] text-center date-post dark:text-white">${reviewDate}</p>
-        </div>
-        <div class="flex-1 md:w-full">
-          <div class="ts-v-stars">${stars}</div>
-          ${
-            review.title
-              ? `<p class="text-[#6c6c6c] mt-3 review font-bold dark:text-white">${review.title}</p>`
-              : ""
-          }
-          <p class="text-[#6c6c6c] mt-3 review dark:text-white">${
-            review.text ||
-            "Cliente não escreveu uma avaliação, apenas deu a nota do produto."
-          }</p>
-          <div class="flex justify-between md:flex-col">
-            <div class="flex items-center gap-1 my-4">
-              ${recommendation}
-            </div>
-            <div class="ts-product-reviews-list-item-voting md:!justify-start flex items-center gap-4">
-              <div class="ts-vote-question text-sm text-[#6c6c6c] dark:text-white">Esta avaliação foi útil?</div>
-              <button class="ts-thumb-up flex items-center">
-                <i class="material-icons thumb_up text-lg text-[#6c6c6c] dark:text-white">thumb_up&nbsp;</i>
-                <span class="ts-count dark:text-white">&nbsp;0</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-
-    container.insertAdjacentHTML("beforeend", html);
-  });
-}
-
-function filterReviews(filterType) {
-  if (!arrData.items.length) return;
-
-  sortedItems = [...arrData.items]; // Clone dos reviews
-
-  switch (filterType) {
-    case "positive":
-      sortedItems.sort((a, b) => b.rate - a.rate);
-      break;
-    case "negative":
-      sortedItems.sort((a, b) => a.rate - b.rate);
-      break;
-    case "worth":
-      sortedItems.sort((a, b) => b.upvotes_count - a.upvotes_count);
-      break;
-    case "most-recent":
-    default:
-      sortedItems.sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
-      );
-      break;
-  }
-
-  renderReviews(sortedItems);
-
-  currentIndex = 0;
-  document.querySelector("#reviews-container").innerHTML = "";
-  document.querySelector("#load-more-reviews").style.display = "flex";
-  renderNextBatch();
-}
-
-function renderNextBatch() {
-  const loadMoreBtn = document.querySelector("#load-more-reviews");
-
-  const nextBatch = sortedItems.slice(currentIndex, currentIndex + step);
-  renderReviews(nextBatch);
-  currentIndex += step;
-
-  if (currentIndex >= sortedItems.length) {
-    loadMoreBtn.style.display = "none";
-  } else {
-    loadMoreBtn.style.display = "flex";
-  }
-}
-
-</script>
-
-{%  schema %}
+{%- schema -%}
 {
-    "name": "TrustVox",
-    "settings": [],
-    "presets": [
-        {
-            "name":"TrustVox"
-        }
-    ]
+  "name": "TrustVox",
+  "settings": [],
+  "presets": [{ "name": "TrustVox" }]
 }
-{%  endschema %}
+{%- endschema -%}
