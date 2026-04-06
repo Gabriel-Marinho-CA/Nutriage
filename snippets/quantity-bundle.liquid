@@ -24,10 +24,12 @@
       ---- KITS (metafield)
     {%- endcomment -%}
 
+
     {%- if qb_kits != blank -%}
       {%- for kit in qb_kits reversed -%}
         {%- assign qb_v = kit.selected_or_first_available_variant -%}
         {%- assign qb_compare = qb_v.compare_at_price | default: qb_v.price -%}
+        {%- assign qb_threatment_month = kit.metafields.custom.tempo_de_tratamento -%}
 
         {%- comment -%} Seleciona settings por índice do kit {%- endcomment -%}
         {%- if forloop.index == 1 -%}
@@ -38,6 +40,7 @@
           {%- assign qb_qty_label = block.settings.kit1_qty_label | default: kit.title -%}
           {%- assign qb_show_badge = block.settings.kit1_show_badge -%}
           {%- assign qb_badge_text = block.settings.kit1_badge | default: 'Menor preço' -%}
+          {%- assign qb_threatment_month = kit.metafields.custom.tempo_de_tratamento  |  default: 3 -%}
         {%- elsif forloop.index == 2 -%}
           {%- assign qb_qty = block.settings.kit2_quantity | default: 4 -%}
           {%- assign qb_inst_count = block.settings.kit2_installment_count | default: 3 -%}
@@ -46,6 +49,7 @@
           {%- assign qb_qty_label = block.settings.kit2_qty_label | default: kit.title -%}
           {%- assign qb_show_badge = block.settings.kit2_show_badge -%}
           {%- assign qb_badge_text = block.settings.kit2_badge -%}
+          {%- assign qb_threatment_month = kit.metafields.custom.tempo_de_tratamento  | default:  2-%}
         {%- else -%}
           {%- assign qb_inst_count = 3 -%}
           {%- assign qb_inst_label = '3x sem juros de' -%}
@@ -53,6 +57,8 @@
           {%- assign qb_qty_label = kit.title -%}
           {%- assign qb_show_badge = false -%}
           {%- assign qb_badge_text = '' -%}
+
+          {%- assign qb_threatment_month = kit.metafields.custom.numero_meses_tratamento_1_pote |  default: 1 -%}
         {%- endif -%}
 
         <div
@@ -105,6 +111,8 @@
             </span>
 
             <span class="qb-price-cash"> ou {{ qb_compare | money }} à vista </span>
+            <span class="treatment-month"> {{ qb_threatment_month }} 
+            </span>
           </div>
         </div>
       {%- endfor -%}
