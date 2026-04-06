@@ -234,6 +234,21 @@
   </div>
 </section>
 
+<section class="dark:bg-black" id="reviews-sec-2">
+  <div class="container min_lg:py-16 lg:py-10">
+    <div data-trustvox-certificate-fixed="data-trustvox-certificate-fixed"></div>
+    <div id="_trustvox_widget"></div>
+    <div id="_trustvox_colt"></div>
+  </div>
+</section>
+
+<script type="text/javascript" src="//certificate.trustvox.com.br/widget.js" defer></script>
+<script type="text/javascript" src="//colt.trustvox.com.br/colt.min.js" defer></script>
+<script defer>
+  var _trustvox_colt = _trustvox_colt || [];
+  _trustvox_colt.push(['_storeId', '123342'], ['_limit', '7']);
+</script>
+
 {%  schema %}
 {
     "name": "TrustVox",
