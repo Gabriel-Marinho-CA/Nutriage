@@ -1856,7 +1856,7 @@ product-form .button {
   position: relative;
   overflow: hidden;
 
-  &::before {
+  &::after {
     content: "";
     position: absolute;
     top: 0;
