@@ -59,16 +59,16 @@
         class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"
         style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
       >
-      {%  if card_product.metafields.custom.tag_do_produto_new != blank %}
-        {%  liquid 
-          assign parts = card_product.metafields.custom.tag_do_produto_new  | split: '|'
-          assign text = parts[0]
-          assign bg_color = parts[1]
-        %}
-        <div class="tag-product" style="background: {{ bg_color }};">
-          <span>{{ text }}</span>
-        </div>  
-      {% endif %} 
+        {% if card_product.metafields.custom.tag_do_produto_new != blank %}
+          {% liquid
+            assign parts = card_product.metafields.custom.tag_do_produto_new | split: '|'
+            assign text = parts[0]
+            assign bg_color = parts[1]
+          %}
+          <div class="tag-product" style="background: {{ bg_color }};">
+            <span>{{ text }}</span>
+          </div>
+        {% endif %}
         {%- if card_product.featured_media -%}
           <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
             <div class="media media--transparent media--hover-effect">
@@ -221,7 +221,9 @@
               </p>
             {%- endif -%}
 
-            {% render 'res-price-card-product', product: card_product %}
+            {% if show_prices %}
+              {% render 'res-price-card-product', product: card_product %}
+            {% endif %}
             {%- if card_product.quantity_price_breaks_configured? -%}
               {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
                 {% liquid
@@ -533,7 +535,9 @@
                         <a href="{{ card_product.url }}" class="full-unstyled-link">
                           <h3>{{ card_product.title | escape }}</h3>
                         </a>
-                        {% render 'res-price-card-product', product: card_product %}
+                        {% if show_prices %}
+                          {% render 'res-price-card-product', product: card_product %}
+                        {% endif %}
                         {%- if card_product.quantity_price_breaks_configured? -%}
                           <div class="card__information-volume-pricing-note">
                             <span class="caption">{{ 'products.product.volume_pricing.note' | t }}</span>
@@ -548,7 +552,9 @@
                             {{ card_product.title | escape }}
                           </h3>
                         </a>
-                        {% render 'res-price-card-product', product: card_product %}
+                        {% if show_prices %}
+                          {% render 'res-price-card-product', product: card_product %}
+                        {% endif %}
                         {%- if card_product.quantity_price_breaks_configured? -%}
                           <div class="card__information-volume-pricing-note">
                             <span class="caption">{{ 'products.product.volume_pricing.note' | t }}</span>
@@ -636,7 +642,9 @@
               <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
               <div class="caption-with-letter-spacing light">{{ 'products.product.vendor' | t }}</div>
             {%- endif -%}
-
+            {% if show_prices %}
+              {% render 'price', placeholder: placeholder, show_compare_at_price: true %}
+            {% endif %}
           </div>
         </div>
       </div>
