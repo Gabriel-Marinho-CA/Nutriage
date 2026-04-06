@@ -249,6 +249,266 @@
   _trustvox_colt.push(['_storeId', '123342'], ['_limit', '7']);
 </script>
 
+<script>
+
+let arrData = { items: [] };
+let sortedItems = [];
+let currentIndex = 0;
+const step = 4;
+
+async function getReviewsDataReviews() {
+  const elements = document.querySelectorAll(".trustvox-fetch");
+
+  const fetchAllPages = async (productId) => {
+    const endpoint = `http://trustvox.com.br/api/stores/123342/products/${productId}?opinions=true`;
+
+    try {
+      const res = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          Accept: "application/vnd.trustvox.com; version=1",
+          "Content-Type": "application/json",
+          Authorization: "AuEUeedcE_TH24aqbx4z",
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error(`Erro na requisição: ${res.status}`);
+      }
+
+      const data = await res.json();
+
+      const allItems = data.opinions || [];
+
+      return allItems;
+    } catch (err) {
+      console.warn("Erro ao buscar dados do Trustvox:", err);
+      return [];
+    }
+  };
+
+  const fetches = Array.from(elements).map((el) => {
+    const code = el.dataset.code;
+
+    return fetchAllPages(code);
+  });
+
+  const allResults = await Promise.all(fetches);
+  const flattened = allResults.flat();
+
+  if (flattened.length > 0) {
+    getReviewsDataStars(flattened);
+    arrData.items = flattened;
+    sortedItems = [...arrData.items];
+    currentIndex = 0;
+
+    const loadMoreBtn = document.querySelector("#load-more-reviews");
+    loadMoreBtn.addEventListener("click", renderNextBatch);
+
+    renderNextBatch();
+  } else {
+    document.querySelector("#load-more-reviews").classList.add("hidden");
+    document.querySelector("#reviews-sec").classList.add("hidden");
+    if (document.querySelector("#reviews-sec-2 .ts-product-reviews")) {
+      document
+        .querySelector("#reviews-sec-2 .ts-product-reviews")
+        .setAttribute("style", "display: block !important");
+    }
+
+    console.log("Nenhuma avaliação encontrada.");
+  }
+}
+function getReviewsDataStars(data) {
+  if (Array.isArray(data) && data.length > 0) {
+    attHeaderCustomReviews(data);
+  }
+}
+
+function attHeaderCustomReviews(data) {
+  const percent = document.querySelector(".custom-percentage--js-reviews");
+  const percent_stroke = document.querySelector(
+    ".custom--circle-percentage--js"
+  );
+  const number_of_reviews = document.querySelector(".custom-based-on--js");
+  const rating_note = document.querySelector(".custom-rating-note--js");
+  const bg_star = document.querySelector(".custom-star-bg--js");
+
+  const filteredRates = data.map(({ rate }) => rate);
+
+  const average_ratings = calculateAverageRating(filteredRates);
+  const sumReviews = sumTotalReviews(filteredRates);
+  const { percentage, strokeDashoffset, numericPercentage } =
+    calculatePositiveReviewStats(filteredRates);
+
+  rating_note.innerHTML = average_ratings + " ";
+  number_of_reviews.innerHTML = sumReviews + " ";
+  percent.innerHTML = percentage;
+  percent_stroke.style.strokeDashoffset = `${strokeDashoffset}px`;
+  bg_star.style.width = `${numericPercentage}%`;
+}
+
+function sumTotalReviews(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) {
+    return 0;
+  }
+  return arr.length;
+}
+function calculateAverageRating(rates) {
+  if (!Array.isArray(rates) || rates.length === 0) {
+    return "0.0";
+  }
+
+  const total = rates.reduce((acc, rate) => acc + rate, 0);
+  const average = total / rates.length;
+  return average.toFixed(1);
+}
+
+function calculatePositiveReviewStats(rates) {
+  if (!Array.isArray(rates) || rates.length === 0) {
+    return {
+      percentage: "0%",
+      numericPercentage: 0,
+      strokeDashoffset: 176,
+    };
+  }
+
+  const total = rates.length;
+  const sum = rates.reduce((acc, rate) => acc + rate, 0);
+  const average = sum / total;
+
+  const percentage = (average / 5) * 100;
+  const strokeDashoffset = 176 - (percentage / 100) * 176;
+
+  return {
+    percentage: `${percentage.toFixed(0)}%`,
+    numericPercentage: parseFloat(percentage.toFixed(1)),
+    strokeDashoffset: parseFloat(strokeDashoffset.toFixed(2)),
+  };
+}
+
+function generateStars(rate) {
+  const filledStar = `<img src="https://cdn.shopify.com/s/files/1/0911/4694/4831/files/star-solid.svg?v=1747428918" width="20" height="20" alt="star">`;
+  const emptyStar = `<img src="https://cdn.shopify.com/s/files/1/0911/4694/4831/files/star-empty.svg?v=1747429027" width="20" height="20" alt="star">`;
+  return filledStar.repeat(rate) + emptyStar.repeat(5 - rate);
+}
+
+function generateRecommendation(recommends) {
+  if (recommends === "yes") {
+    return `
+      <i class="material-icons check_box ts-recommendation-icon" style="font-size:20px">sentiment_very_satisfied</i>
+      <p class="text-sm text-[#6c6c6c] recommend-product dark:text-white">Sim, eu recomendo este produto</p>
+    `;
+  }
+  if (recommends === "no") {
+    return `
+      <i class="material-icons check_box ts-recommendation-icon" style="font-size:20px">sentiment_very_dissatisfied</i>
+      <p class="text-sm text-[#6c6c6c] recommend-product dark:text-white">Não, eu não recomendo este produto</p>
+    `;
+  }
+  return "";
+}
+
+function renderReviews(reviews) {
+  const container = document.querySelector("#reviews-container");
+
+  reviews.forEach((review) => {
+    const stars = generateStars(review.rate);
+    const recommendation = generateRecommendation(review.recommends);
+    const fullNameParts = `${review.client.first_name || ""} ${
+      review.client.last_name || ""
+    }`
+      .trim()
+      .split(/\s+/) // separa por qualquer espaço (1 ou mais)
+      .slice(0, 2) // pega só as 2 primeiras palavras
+      .join(" ");
+
+    const fullName = fullNameParts;
+    const reviewDate = new Date(review.created_at).toLocaleDateString("pt-BR");
+
+    const html = `
+      <div class="list-reviews flex items-center py-8 justify-between gap-5 md:flex-col-reverse border-b border-b-[#e5e7eb]">
+        <div class="flex-1 max-w-[160px] md:flex md:gap-4 md:mr-auto wrapper-user-name">
+          <p class="text-sm text-[#6c6c6c] text-center font-bold name-person dark:text-white">${fullName}</p>
+          <p class="text-sm text-[#6c6c6c] text-center date-post dark:text-white">${reviewDate}</p>
+        </div>
+        <div class="flex-1 md:w-full">
+          <div class="ts-v-stars">${stars}</div>
+          ${
+            review.title
+              ? `<p class="text-[#6c6c6c] mt-3 review font-bold dark:text-white">${review.title}</p>`
+              : ""
+          }
+          <p class="text-[#6c6c6c] mt-3 review dark:text-white">${
+            review.text ||
+            "Cliente não escreveu uma avaliação, apenas deu a nota do produto."
+          }</p>
+          <div class="flex justify-between md:flex-col">
+            <div class="flex items-center gap-1 my-4">
+              ${recommendation}
+            </div>
+            <div class="ts-product-reviews-list-item-voting md:!justify-start flex items-center gap-4">
+              <div class="ts-vote-question text-sm text-[#6c6c6c] dark:text-white">Esta avaliação foi útil?</div>
+              <button class="ts-thumb-up flex items-center">
+                <i class="material-icons thumb_up text-lg text-[#6c6c6c] dark:text-white">thumb_up&nbsp;</i>
+                <span class="ts-count dark:text-white">&nbsp;0</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    container.insertAdjacentHTML("beforeend", html);
+  });
+}
+
+function filterReviews(filterType) {
+  if (!arrData.items.length) return;
+
+  sortedItems = [...arrData.items]; // Clone dos reviews
+
+  switch (filterType) {
+    case "positive":
+      sortedItems.sort((a, b) => b.rate - a.rate);
+      break;
+    case "negative":
+      sortedItems.sort((a, b) => a.rate - b.rate);
+      break;
+    case "worth":
+      sortedItems.sort((a, b) => b.upvotes_count - a.upvotes_count);
+      break;
+    case "most-recent":
+    default:
+      sortedItems.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+      break;
+  }
+
+  renderReviews(sortedItems);
+
+  currentIndex = 0;
+  document.querySelector("#reviews-container").innerHTML = "";
+  document.querySelector("#load-more-reviews").style.display = "flex";
+  renderNextBatch();
+}
+
+function renderNextBatch() {
+  const loadMoreBtn = document.querySelector("#load-more-reviews");
+
+  const nextBatch = sortedItems.slice(currentIndex, currentIndex + step);
+  renderReviews(nextBatch);
+  currentIndex += step;
+
+  if (currentIndex >= sortedItems.length) {
+    loadMoreBtn.style.display = "none";
+  } else {
+    loadMoreBtn.style.display = "flex";
+  }
+}
+
+</script>
+
 {%  schema %}
 {
     "name": "TrustVox",
