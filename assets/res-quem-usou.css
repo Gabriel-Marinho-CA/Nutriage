@@ -94,6 +94,9 @@
     opacity: 0.88;
     transform: scale(1.03);
   }
+  @media (max-width:547px) {
+    font-size:13px;
+  }
 }
 
 /* ── Mobile ── */
