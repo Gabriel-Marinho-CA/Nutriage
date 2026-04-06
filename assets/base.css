@@ -1852,6 +1852,41 @@ input[type='checkbox'] {
   margin-right: 1rem;
 }
 
+product-form .button {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg);
+    animation: move-shine 3s infinite;
+  }
+}
+
+@keyframes move-shine {
+  0% {
+    left: -100%;
+  }
+
+  90% {
+    /* O brilho agora leva 40% do tempo (2 segundos) para atravessar,
+             em vez de apenas 20% (0.6 segundos) como estava antes. */
+    left: 150%;
+  }
+
+  100% {
+    left: 150%;
+    /* O restante do tempo ele aguarda para reiniciar */
+  }
+}
+
+
 .customer .field .form__message .svg-wrapper {
   align-self: start;
 }
