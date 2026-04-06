@@ -494,9 +494,15 @@
       "block_order": [
         "judge_me_reviews_review_widget_7yyVmq"
       ],
+      "disabled": true,
       "settings": {
         "include_margins": true
       }
+    },
+    "section_trustvox_8RbBQX": {
+      "type": "section-trustvox",
+      "name": "TrustVox",
+      "settings": {}
     },
     "res_faq_qRG4CA": {
       "type": "res-faq",
@@ -582,6 +588,7 @@
     "res_barra_de_avisos_XRh7fn",
     "res_related_products_rxHHNP",
     "17736049086dc3f1c2",
+    "section_trustvox_8RbBQX",
     "res_faq_qRG4CA",
     "res_related_products_pNiAMp",
     "related-products"
