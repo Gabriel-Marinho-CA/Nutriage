@@ -36,7 +36,7 @@
       p { margin: 0; }
     }
 
-    .res-bci__conteudo {
+    .res-bci__conteudo { 
       p { margin: 0 0 0.75em; }
       p:last-child { margin-bottom: 0; }
     }
