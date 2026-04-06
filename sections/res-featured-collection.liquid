@@ -135,6 +135,7 @@
                 show_rating: false,
                 skip_styles: skip_card_product_styles,
                 section_id: section.id,
+                show_prices: section.settings.show_price,
                 quick_add: section.settings.quick_add
               -%}
             </div>
@@ -451,6 +452,12 @@
       "id": "show_vendor",
       "default": false,
       "label": "t:sections.featured-collection.settings.show_vendor.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "default": false,
+      "label": "Mostrar preços"
     },
     {
       "type": "header",
