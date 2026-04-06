@@ -1069,13 +1069,22 @@
         }
       }
 
-      new IntersectionObserver(
-        function (entries) {
-          productInfoVisible = entries[0].isIntersecting;
-          updateVisibility();
-        },
-        { threshold: 0 }
-      ).observe(productInfo);
+new IntersectionObserver(
+  function (entries) {
+    const entry = entries[0];
+    // Só considera "saiu" se saiu pelo topo (scroll pra baixo passou do botão)
+    // boundingClientRect.bottom <= 0 significa que o elemento está acima da viewport
+    if (!entry.isIntersecting) {
+      productInfoVisible = entry.boundingClientRect.bottom > 0;
+      // bottom > 0 = ainda visível abaixo do fold (não mostrar sticky)
+      // bottom <= 0 = saiu pelo topo = mostrar sticky
+    } else {
+      productInfoVisible = true;
+    }
+    updateVisibility();
+  },
+  { threshold: 0 }
+).observe(productInfo);
 
       const footer = document.querySelector('.res-footer, footer.footer');
       if (footer) {
