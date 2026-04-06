@@ -1,5 +1,7 @@
+{{ 'trustvox-reviews.css' | asset_url | stylesheet_tag }}
+
 <style>
-  /* Apenas o necessário para o overlay das estrelas (posicionamento dinâmico via JS) */
+  /* Apenas o necessário para o overlay de estrelas (largura controlada via JS) */
   .ts-v-stars { position: relative; width: 137px; }
   .ts-v-stars-background { display: flex; width: 137px; }
   .ts-v-stars-foreground { position: absolute; top: 0; }
@@ -7,47 +9,50 @@
   .ts-v-stars-foreground svg { min-width: 1.5rem; }
 </style>
 
-<section id="reviews-sec" class="dark:bg-black">
-  <div class="container py-10 lg:py-16">
+<section id="reviews-sec">
+  <div class="container">
 
-    {%- comment -%} Certificado Trustvox {%- endcomment -%}
     <div data-trustvox-certificate-fixed></div>
 
     <div id="_sincero_widgets" class="trustvox-widget">
-      <div class="ts-product-reviews dark:bg-black">
+      <div class="ts-product-reviews">
 
         {%- comment -%} Overview: nota + recomendação {%- endcomment -%}
-        <section class="flex items-center gap-12 mb-8 max-md:flex-col max-md:items-start max-md:gap-6">
+        <section class="tv-overview">
 
           {%- comment -%} Bloco de nota {%- endcomment -%}
-          <div class="flex flex-col gap-1">
-            <div class="flex items-baseline gap-0.5">
-              <span class="custom-rating-note--js text-2xl font-bold text-[#2c2c2c] dark:text-white">4.8</span>
-              <span class="text-base text-[#6c6c6c] dark:text-white">/5</span>
+          <div class="tv-rating">
+            <div class="tv-rating__score">
+              <span class="tv-rating__value custom-rating-note--js">4.8</span>
+              <span class="tv-rating__of">/5</span>
             </div>
-            <p class="text-sm text-[#6c6c6c] dark:text-white">Nota do produto</p>
-            <div class="ts-v-stars mt-1">
+            <p class="tv-rating__label">Nota do produto</p>
+            <div class="ts-v-stars">
               <span class="ts-v-stars-background">
                 {%- for i in (1..5) -%}
-                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"/></svg>
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
+                    <path fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"/>
+                  </svg>
                 {%- endfor -%}
               </span>
               <span class="ts-v-stars-foreground">
                 <span class="custom-star-bg--js">
                   {%- for i in (1..5) -%}
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"/></svg>
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
+                      <path fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"/>
+                    </svg>
                   {%- endfor -%}
                 </span>
               </span>
             </div>
-            <p class="text-sm text-[#6c6c6c] dark:text-white mt-1">
+            <p class="tv-rating__based-on">
               Baseado em <span class="custom-based-on--js">5</span> avaliações
             </p>
           </div>
 
           {%- comment -%} Bloco de recomendação {%- endcomment -%}
-          <div class="flex items-center gap-4">
-            <div class="relative h-[66px] w-[66px] shrink-0">
+          <div class="tv-recommend">
+            <div class="tv-recommend__circle-wrap">
               <svg height="66" width="66">
                 <circle stroke="#e2e2e2" stroke-width="5" fill="transparent" r="28" cx="32" cy="32"/>
                 <circle
@@ -60,24 +65,20 @@
                   style="stroke-dashoffset: 0px; transform: rotate(-90deg); transform-origin: 50% 50%;"
                 />
               </svg>
-              <span class="custom-percentage--js-reviews absolute inset-0 flex items-center justify-center text-xs font-bold text-[#2c2c2c] dark:text-white">100%</span>
+              <span class="tv-recommend__pct custom-percentage--js-reviews">100%</span>
             </div>
-            <p class="text-sm text-[#6c6c6c] dark:text-white max-w-[140px]">dos clientes recomendam este produto</p>
+            <p class="tv-recommend__text">dos clientes recomendam este produto</p>
           </div>
 
         </section>
 
         {%- comment -%} Lista de avaliações {%- endcomment -%}
         <section>
-          <div class="flex items-center justify-between border-b border-[#e2e2e2] pb-6 max-md:flex-col max-md:items-start max-md:gap-4">
-            <h4 class="text-xl font-semibold text-[#2c2c2c] dark:text-white max-md:text-lg">Avaliações mais recentes</h4>
-            <div class="flex items-center gap-3">
-              <label for="filter-reviews" class="text-sm text-[#6c6c6c] dark:text-white">exibindo:</label>
-              <select
-                id="filter-reviews"
-                onchange="filterReviews(this.value)"
-                class="bg-white dark:bg-black border border-[#ddd] rounded px-3 py-2 text-sm text-[#6c6c6c] dark:text-white cursor-pointer"
-              >
+          <div class="tv-list-header">
+            <h4 class="tv-list-header__title">Avaliações mais recentes</h4>
+            <div class="tv-list-header__filter">
+              <label for="filter-reviews">exibindo:</label>
+              <select id="filter-reviews" onchange="filterReviews(this.value)">
                 <option value="most-recent">Mais recentes</option>
                 <option value="positive">Positivas</option>
                 <option value="negative">Negativas</option>
@@ -88,24 +89,18 @@
 
           <div id="reviews-container"></div>
 
-          <div id="load-more-reviews" class="flex justify-center mt-8">
-            <button
-              id="load-more-btn"
-              class="border border-[#2c2c2c] dark:border-white text-[#2c2c2c] dark:text-white text-base uppercase tracking-wide rounded-md px-8 py-2.5 hover:bg-[#2c2c2c] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
-            >
-              Carregar mais
-            </button>
+          <div id="load-more-reviews" class="tv-load-more">
+            <button id="load-more-btn" class="tv-load-more__btn">Carregar mais</button>
           </div>
 
-          <div class="mt-8">
+          <div class="tv-footer">
             <a
               href="https://site.trustvox.com.br/conheca-a-trustvox?utm_source=widget-rareviews&utm_medium=quizz&utm_campaign=nutriage.com.br"
               target="_blank"
-              class="inline-flex items-center gap-2 text-sm text-[#6c6c6c] dark:text-white"
             >
-              <img title="RA Icone" src="https://static.trustvox.com.br/sincero/img/ra-icon.svg" width="20" height="20" class="h-5 w-auto">
+              <img title="RA Icone" src="https://static.trustvox.com.br/sincero/img/ra-icon.svg" width="20" height="20" alt="RA Icone">
               Avaliações confiáveis do
-              <img title="Reclame Aqui" src="https://static.trustvox.com.br/sincero/img/logo-reclameaqui.svg" width="80" height="16" class="h-4 w-auto">
+              <img title="Reclame Aqui" src="https://static.trustvox.com.br/sincero/img/logo-reclameaqui.svg" width="80" height="16" alt="Reclame Aqui">
             </a>
           </div>
         </section>
@@ -118,8 +113,8 @@
 </section>
 
 {%- comment -%} Fallback: widget nativo Trustvox (oculto por padrão) {%- endcomment -%}
-<section class="dark:bg-black hidden" id="reviews-sec-2">
-  <div class="container py-10 lg:py-16">
+<section id="reviews-sec-2" style="display: none;">
+  <div class="container">
     <div data-trustvox-certificate-fixed></div>
     <div id="_trustvox_widget"></div>
     <div id="_trustvox_colt"></div>
