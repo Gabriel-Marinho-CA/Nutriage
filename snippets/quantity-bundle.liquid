@@ -108,7 +108,7 @@
             </span>
 
             <span class="qb-price-cash"> ou {{ qb_compare | money }} à vista </span>
-            <span class="treatment-month"> {{ qb_threatment_month }} </span>
+            <span class="treatment-month">Tratamento {{ qb_threatment_month }} </span>
           </div>
         </div>
       {%- endfor -%}
@@ -167,7 +167,7 @@
           {{ qb_v.price | divided_by: block.settings.main_installment_count | money }}
         </span>
         <span class="qb-price-cash"> ou {{ qb_compare | money }} à vista </span>
-        <span class="treatment-month"> {{ qb_threatment_month }} </span>
+        <span class="treatment-month"> Tratamento {{ qb_threatment_month }} </span>
       </div>
     </div>
   </div>
