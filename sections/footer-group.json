@@ -80,7 +80,7 @@
             "show_pay_8": true,
             "icon_pay_8": "shopify://shop_images/pix-ico.png",
             "show_pay_9": true,
-            "icon_pay_9": "shopify://shop_images/Caminho_20.svg",
+            "icon_pay_9": "shopify://shop_images/icon-boleto.svg",
             "security_title": "Segurança",
             "seal_1": "shopify://shop_images/seal-security-badge.svg"
           }
