@@ -120,7 +120,7 @@
 
     {%- assign qb_v = product.selected_or_first_available_variant -%}
     {%- assign qb_compare = qb_v.compare_at_price | default: qb_v.price -%}
-    {%- assign qb_threatment_month = qb_v.metafields.custom.numero_meses_tratamento_1_pote | default: 1 -%}
+    {%- assign qb_threatment_month = qb_v.metafields.custom.numero_meses_tratamento_1_pote | default: '1 MÊS' -%}
 
     <div
       class="qb-card"
