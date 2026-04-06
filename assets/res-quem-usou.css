@@ -95,7 +95,7 @@
     transform: scale(1.03);
   }
   @media (max-width:547px) {
-    font-size:13px;
+    font-size:13px !important;
   }
 }
 
