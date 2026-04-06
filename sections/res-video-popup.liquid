@@ -1,0 +1,280 @@
+{{ 'res-video-popup.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #res-vp-{{ section.id }} {
+    --vp-modal-bg:      {{ section.settings.modal_bg }};
+    --vp-content-bg:    {{ section.settings.content_bg }};
+    --vp-titulo-color:  {{ section.settings.titulo_color }};
+    --vp-texto-color:   {{ section.settings.texto_color }};
+    --vp-btn-color:     {{ section.settings.btn_color }};
+    --vp-btn-border:    {{ section.settings.btn_border_color }};
+    --vp-max-width:     {{ section.settings.modal_max_width }}px;
+  }
+
+  #res-vp-{{ section.id }} .res-vp__titulo {
+    font-size: {{ section.settings.titulo_size }}px;
+  }
+ 
+  #res-vp-{{ section.id }} .res-vp__texto {
+    font-size: {{ section.settings.texto_size }}px;
+  }
+{% endstyle %}
+
+<div
+  id="res-vp-{{ section.id }}"
+  class="res-vp__overlay res-vp--hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="{{ section.settings.titulo | escape }}"
+>
+  <div class="res-vp__modal">
+
+    {%- comment -%} ── Botão fechar ── {%- endcomment -%}
+    <button class="res-vp__close" aria-label="Fechar" type="button">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    {%- comment -%} ── Vídeo ── {%- endcomment -%}
+    {%- if section.settings.video != blank -%}
+      <div class="res-vp__video-wrap">
+        {{
+          section.settings.video
+          | video_tag:
+            autoplay: section.settings.autoplay,
+            loop: section.settings.loop_video,
+            muted: section.settings.autoplay,
+            controls: true,
+            playsinline: true,
+            preload: 'metadata'
+        }}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} ── Conteúdo ── {%- endcomment -%}
+    {%- if section.settings.titulo != blank or section.settings.texto != blank or section.settings.btn_label != blank -%}
+      <div class="res-vp__content">
+        {%- if section.settings.titulo != blank -%}
+          <h3 class="res-vp__titulo">{{ section.settings.titulo | escape }}</h3>
+        {%- endif -%}
+
+        {%- if section.settings.texto != blank -%}
+          <div class="res-vp__texto">{{ section.settings.texto }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.btn_label != blank -%}
+          <a
+            href="{{ section.settings.btn_url | default: '#' }}"
+            class="res-vp__btn"
+          >
+            {{- section.settings.btn_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'res_vp_seen_{{ section.id }}';
+  var DELAY_MS    = {{ section.settings.delay_ms }};
+
+  // Não mostrar se já viu
+  if (localStorage.getItem(STORAGE_KEY)) return;
+
+  var overlay = document.getElementById('res-vp-{{ section.id }}');
+  if (!overlay) return;
+
+  function closePopup() {
+    overlay.classList.remove('res-vp--visible');
+    overlay.addEventListener('transitionend', function handler() {
+      overlay.removeEventListener('transitionend', handler);
+      overlay.classList.add('res-vp--hidden');
+    }, { once: true });
+    localStorage.setItem(STORAGE_KEY, '1');
+    document.body.style.overflow = '';
+  }
+
+  function openPopup() {
+    overlay.classList.remove('res-vp--hidden');
+    // força reflow antes de animar
+    void overlay.offsetHeight;
+    overlay.classList.add('res-vp--visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Fechar no X
+  overlay.querySelector('.res-vp__close').addEventListener('click', closePopup);
+
+  // Fechar clicando fora do modal
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closePopup();
+  });
+
+  // Fechar com Esc
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePopup();
+  });
+
+  // Abrir após delay
+  setTimeout(openPopup, DELAY_MS);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "RES - Video Popup",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Vídeo"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Vídeo"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay (sem som)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "loop_video",
+      "label": "Loop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "text",
+      "id": "titulo",
+      "label": "Título",
+      "default": "Peça ao Claude para mostrar"
+    },
+    {
+      "type": "richtext",
+      "id": "texto",
+      "label": "Texto",
+      "default": "<p>Descrição do vídeo ou chamada para ação.</p>"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Texto do botão"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Link do botão"
+    },
+    {
+      "type": "header",
+      "content": "Comportamento"
+    },
+    {
+      "type": "range",
+      "id": "delay_ms",
+      "min": 0,
+      "max": 1000,
+      "step": 500,
+      "unit": "ms",
+      "label": "Delay para abrir",
+      "default": 1000
+    },
+    {
+      "type": "header",
+      "content": "Aparência"
+    },
+    {
+      "type": "range",
+      "id": "modal_max_width",
+      "min": 320,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "label": "Largura máxima do modal",
+      "default": 620
+    },
+    {
+      "type": "header",
+      "content": "Cores"
+    },
+    {
+      "type": "color",
+      "id": "modal_bg",
+      "label": "Fundo do modal (vídeo)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "content_bg",
+      "label": "Fundo da área de texto",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "titulo_color",
+      "label": "Cor do título",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "texto_color",
+      "label": "Cor do texto",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "btn_color",
+      "label": "Cor do texto do botão",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_border_color",
+      "label": "Cor da borda do botão",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tipografia"
+    },
+    {
+      "type": "range",
+      "id": "titulo_size",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do título",
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "texto_size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do texto",
+      "default": 15
+    }
+  ],
+  "presets": [
+    {
+      "name": "res - Video Popup",
+      "category": "Res - Seções"
+    }
+  ]
+}
+{% endschema %}
