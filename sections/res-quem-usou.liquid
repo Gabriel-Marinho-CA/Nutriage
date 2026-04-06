@@ -32,9 +32,7 @@
 
 <div id="res-qur-{{ section.id }}" class="res-qur">
   <div class="page-width">
-
     {%- if meta != blank -%}
-
       {%- comment -%} ── Título ── {%- endcomment -%}
       {%- if meta.titulo != blank -%}
         <div class="res-qur__titulo">{{ meta.titulo | metafield_tag }}</div>
@@ -47,7 +45,6 @@
         </div>
       {%- endif -%}
     {%- endif -%}
-
   </div>
 
   {%- comment -%} ── Swiper (full-width, sem page-width) ── {%- endcomment -%}
@@ -61,16 +58,12 @@
         {%- for video_item in meta.videos.value -%}
           <div class="swiper-slide">
             <div class="res-qur__slide" data-index="{{ forloop.index0 }}">
-
               {%- comment -%} Thumbnail (preview da imagem) {%- endcomment -%}
               {%- if video_item.preview_image != blank -%}
                 {{
                   video_item.preview_image
                   | image_url: width: 600
-                  | image_tag:
-                    loading: 'lazy',
-                    class: 'res-qur__thumb',
-                    alt: ''
+                  | image_tag: loading: 'lazy', class: 'res-qur__thumb', alt: ''
                 }}
               {%- endif -%}
 
@@ -83,8 +76,10 @@
               </div>
 
               {%- comment -%} Vídeo inline {%- endcomment -%}
-              {{ video_item | video_tag: class: 'res-qur__video', controls: true, autoplay: false, loop: false, muted: false }}
-
+              {{
+                video_item
+                | video_tag: class: 'res-qur__video', controls: true, autoplay: false, loop: false, muted: false
+              }}
             </div>
           </div>
         {%- endfor -%}
@@ -105,7 +100,6 @@
       </div>
     </div>
   {%- endif -%}
-
 </div>
 
 <script>
@@ -134,9 +128,22 @@
     // Click-to-play
     swiperEl.querySelectorAll('.res-qur__slide').forEach(function (slide) {
       slide.addEventListener('click', function () {
-        if (slide.classList.contains('is-playing')) return;
+        // Resolve para o slide real (não um clone do loop do Swiper)
+        var parent = slide.closest('.swiper-slide');
+        var targetSlide = slide;
 
-        var video = slide.querySelector('.res-qur__video');
+        if (parent && parent.classList.contains('swiper-slide-duplicate')) {
+          var idx = parent.getAttribute('data-swiper-slide-index');
+          var realParent = swiperEl.querySelector(
+            '.swiper-slide:not(.swiper-slide-duplicate)[data-swiper-slide-index="' + idx + '"]'
+          );
+          if (realParent) targetSlide = realParent.querySelector('.res-qur__slide');
+          if (!targetSlide) return;
+        }
+
+        if (targetSlide.classList.contains('is-playing')) return;
+
+        var video = targetSlide.querySelector('.res-qur__video');
         if (!video) return;
 
         // Pausa todos os outros vídeos
@@ -147,7 +154,7 @@
           }
         });
 
-        slide.classList.add('is-playing');
+        targetSlide.classList.add('is-playing');
         video.play();
       });
     });
