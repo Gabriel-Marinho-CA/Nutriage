@@ -1,121 +1,1566 @@
-{{ 'trustvox-reviews.css' | asset_url | stylesheet_tag }}
+{{ 'product.css' | asset_url | stylesheet_tag }}
+<script src="{{ "Product.js" |  asset_url }}" defer></script>
+
+{% if product.metafields.custom.link_redirect != blank %}
+  {% assign true_product_url = product.metafields.custom.link_redirect %}
+
+  <script>
+    window.location = `{{ true_product_url }}`;
+  </script>
+{% endif %}
 
 <style>
-  /* Apenas o necessário para o overlay de estrelas (largura controlada via JS) */
-  .ts-v-stars { position: relative; width: 137px; }
-  .ts-v-stars-background { display: flex; width: 137px; }
-  .ts-v-stars-foreground { position: absolute; top: 0; }
-  .ts-v-stars-foreground span { display: flex; overflow: hidden; }
-  .ts-v-stars-foreground svg { min-width: 1.5rem; }
+    /* ==========================================================================
+       1. GERAL, REVIEWS E VÍDEO (Configurações do Sistema)
+       ========================================================================== */
+
+       .buy-button-pdps {}
+
+    #reviews-sec .review-card-title { font-weight: 600; }
+    #product-info-2 h3 strong { display: block; }
+    .restock-rocket-button-container-float-right { opacity: 0 !important; }
+    .restock-rocket-button-product { display: inline-block !important; }
+    .card:has(.restock-rocket-button) .buy-button-pdp { display: none; }
+    #reviews-sec-2 .ts-product-reviews { display: none !important; }
+
+    /* Animação de Brilho */
+    @keyframes pulseShineBt {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    /* Botões de Compra PDPS */
+    .buy-button-pdps, .restock-rocket-button {
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .buy-button-pdps::before, .restock-rocket-button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 9999px;
+      /*background: linear-gradient(45deg, #24c6dc, #514a9d, #24c6dc);*/
+      background-size: 400% 400%;
+      animation: pulseShineBt 1s ease infinite alternate both;
+      transition: all 0.2s ease;
+      z-index: -1;
+    }
+
+    /* Dark Mode - Reviews & Botões */
+   /* .dark .buy-button-pdps::before { background: linear-gradient(45deg, #FFC400, #FFE977); }*/
+    .dark .list-reviews .ts-vote-question,
+    .dark .list-reviews .material-icons,
+    .dark .list-reviews .ts-count,
+    .dark .carousel__icon,
+    .dark .ts-question-count,
+    .dark .trustvox-widget .ts-customer-questions__title,
+    .dark .ts-filter-question label,
+    .dark .ts-questions-list-item .ts-title,
+    .dark .ts-title_sub,
+    .dark .ts-date,
+    .dark .ts-section h2 { color: #fff; }
+    .dark .ts-customer-questions { background-color: #000; }
+
+    /* Floating Video Area */
+    #videoOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      z-index: 40;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
+    }
+    #videoOverlay.active { display: block; opacity: 1; }
+
+    #floatingVideo {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 1rem;
+      width: 9rem;
+      height: 9rem;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.7);
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      z-index: 50;
+    }
+
+    #floatingVideo video { width: 100%; height: 100%; object-fit: cover; }
+
+    #floatingVideo.expanded {
+      width: auto;
+      height: 80vh !important;
+      top: 50%;
+      left: 50% !important;
+      transform: translate(-50%, -50%);
+      border-radius: 12px;
+    }
+    #floatingVideo.expanded video { object-fit: contain; }
+
+    #closeVideo {
+      display: none;
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      z-index: 60;
+    }
+    #closeVideo.active { display: block; }
+
+    /* Responsivo Geral (Mobile) */
+    @media (max-width: 767px) {
+      .list-reviews { flex-direction: column-reverse; align-items: flex-start; }
+      .list-reviews .wrapper-user-name { display: flex; gap: 1rem; }
+      #floatingVideo:not(.rounded-lg) { right: 1rem; left: auto; bottom: 150px; width: 70px; height: 70px; }
+      #floatingVideo.rounded-lg { height: auto; width: 86%; }
+      #floatingVideo.expanded { width: 72% !important; height: fit-content !important; }
+      #floatingVideo.expanded video { height: fit-content; }
+    }
+
+    /* ==========================================================================
+       2. SEÇÃO DE KITS (PARTE NOVA - ISOLADA)
+       ========================================================================== */
+
+    #buy-area {}
+
+    .cards { margin-top: 5rem; margin-bottom: 1rem; }
+
+    /* Estrutura do Card */
+    .card {
+      background: #fff !important;
+      overflow: visible !important;
+      padding: 0 !important;
+      border: none !important;
+      border-radius: 25px;
+      margin: auto -20px 0;
+      --tw-shadow: 2px 2px 10px rgba(0, 0, 0, .2) !important;
+    }
+
+    /* Cabeçalho e Tipografia */
+    .kit-header {
+      padding: 25px 10px 55px;
+      position: relative;
+      background: #D1E3FF;
+      border-radius: 25px;
+      margin: 0 -20px 100px;
+      height: 200px;
+    }
+
+    .kit-header img { z-index: 3; margin-top: -45px; }
+
+    h3.bebas-font {
+      font-family: 'Bebas Neue', sans-serif !important;
+      text-transform: uppercase;
+      line-height: 1;
+      font-size: 70px;
+      color: #1A4889;
+      margin: -7px 0 -10px;
+    }
+
+    /* Selos e Pílulas */
+    .champion-label {
+      font-family: 'Bebas Neue', sans-serif !important;
+      background: #1a4889;
+      color: #D4B373;
+      font-size: 28px;
+      padding: 5px 0 0;
+      width: 100%;
+      border-radius: 25px 25px 0 0;
+    }
+
+    .unit-pill {
+      background: #fff;
+      color: #1a4889;
+      padding: 6px 15px;
+      border-radius: 25px;
+      font-weight: 700;
+      width: max-content;
+      margin: 15px auto 40px;
+      z-index: 10;
+      font-family: Helvetica, Arial, sans-serif !important;
+      font-size: 16px;
+    }
+
+    /* Lógica de Cores por Ordem (Kit 5 e Kit 3) */
+    .card[style*="order:2"] .top-sell,
+    .card[style*="order:3"] .top-sell {
+      margin: -30px auto 0;
+      width: 85%;
+      border-radius: 25px;
+      padding: 0 0 25px;
+      transform: translateY(-20%);
+      margin-bottom: 2%;
+    }
+
+    .card[style*="order:2"] .top-sell { background: #d4b373; } /* Kit Dourado */
+    .card[style*="order:3"] .top-sell { background: #1A4889; margin-bottom: 10%; } /* Kit Azul */
+
+    .card[style*="order:2"] h3.bebas-font,
+    .card[style*="order:3"] h3.bebas-font { margin: 10px auto 0; padding: 5px 15px; line-height: 0.8em; }
+
+    .card[style*="order:3"] h3.bebas-font { color: #fff; padding: 20px 20px 10px; }
+    .card[style*="order:2"] .top-sell .unit-pill,
+    .card[style*="order:3"] .top-sell .unit-pill { margin: 5px auto -40px !important; }
+
+      .card[style*="order:2"] .kit-header img{
+    width: 200px;
+    }
+    .card[style*="order:3"] .kit-header img{
+    width: 170px;
+    }
+
+    /* Corpo do Card e Preços */
+    .card-body {
+      padding: 0;
+      background-color: #fff;
+      border-radius: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .card-body p { font-family: Helvetica, Arial, sans-serif !important; font-size: 18px; }
+    .card-body .price { font-weight: 700; }
+    .card-body .price p { line-height: 1.2em; font-family: Helvetica, Arial, sans-serif !important; }
+    .card-body .price > p.font-black.text-3xl { font-size: 36px; }
+
+    /* Espaçamentos internos do corpo */
+    .card-body > div:nth-child(2),
+    .card-body > div:nth-child(3) { margin-top: 15px; margin-bottom: 15px; }
+
+    /* Botão de Compra dos Kits */
+    .btn-green {
+      background: #5aac3f !important;
+      color: white !important;
+      font-weight: 700 !important;
+      text-transform: uppercase;
+      border-radius: 25px !important;
+      padding: 12px 20px !important;
+      border: none !important;
+      transition: transform 0.2s;
+      font-size: 15px;
+      letter-spacing: 0.4px;
+      font-family: Helvetica, Arial, sans-serif !important;
+      cursor: pointer;
+    }
+    .btn-green:hover { transform: scale(1.02); }
+
+      /* 1. Garantir que o botão suporte o brilho */
+  .btn-green {
+      position: relative; /* Essencial para o brilho não flutuar fora do botão */
+      overflow: hidden;    /* Essencial para o brilho sumir ao sair da borda */
+  }
+
+  /* 2. O efeito de brilho (Flash) */
+  .btn-green::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%; /* Começa fora do botão à esquerda */
+      width: 50%;  /* Largura da faixa de brilho */
+      height: 100%;
+      background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-25deg); /* Inclinação do brilho */
+      animation: move-shine 3s infinite; /* Loop infinito a cada 3 segundos */
+  }
+
+  /* 3. A animação que faz o brilho correr */
+  @keyframes move-shine {
+      0% {
+          left: -100%;
+      }
+      90% {
+          /* O brilho agora leva 40% do tempo (2 segundos) para atravessar,
+             em vez de apenas 20% (0.6 segundos) como estava antes. */
+          left: 150%;
+      }
+      100% {
+          left: 150%; /* O restante do tempo ele aguarda para reiniciar */
+      }
+  }
+
+    /* Ajustes Responsivos dos Kits */
+    @media(min-width: 900px) {
+      #buy-area .grid { justify-content: space-between; }
+    }
+
+    @media(max-width: 900px) {
+      .cards { margin-top: 1rem; margin-bottom: 1rem; }
+      .cards .wrapper-products-kits { gap: 85px; }
+    }
 </style>
 
-<section id="reviews-sec">
+{% assign meta = product.metafields.custom %}
+{% assign bestPrice = product.price | times: 1.0 | divided_by: 100 %}
+{% assign bestPriceMoney = product.price | money %}
+{% assign tags = product.tags %}
+{% assign variants = product.variants %}
+
+{% if product.compare_at_price %}
+  {% assign listPrice = product.compare_at_price_min | times: 1.0 | divided_by: 100 %}
+  {% if listPrice > bestPrice %}
+    {% capture discountTag %}
+        {{  bestPrice | times: 100 |  divided_by: listPrice  | minus: 100  | times: -1 | floor }}%
+      {% endcapture %}
+  {% endif %}
+{% endif %}
+{% assign price_divided = product.price | divided_by: 10 %}
+
+{% assign best_price_pix = product.price | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
+
+{% assign economy = product.compare_at_price | minus: best_price_pix %}
+
+{% assign product_kit_3 = product.images[1] %}
+{% assign product_kit_5 = product.images[2] %}
+
+{% comment %}
+  Product Metafields
+{% endcomment %}
+
+{% assign image_title = meta.imagem_titulo_produto %}
+{% assign subtitle = meta.sub_titulo_produto %}
+{% assign images_benefits = meta.lista_imagens_beneficios %}
+{% assign content_benefit = meta.conteudo_beneficios %}
+{% assign title_reinforced = meta.titulo_reforcando %}
+{% assign content_reinforced = meta.conteudo_reforcando %}
+{% assign content_powerfull_combination = meta.poderosa_combinacao_texto %}
+{% assign title_poderosa_combinacao = meta.titulo_conheca_poderosa_combinacao %}
+{% assign list_powerfull_combination = meta.lista_poderosa_combinacao %}
+{% assign title_diff = meta.titulo_diferencial %}
+{% assign list_images_diff = meta.imagens_diferenciais %}
+{% assign content_diff_1 = meta.texto_diferencial_1 %}
+{% assign content_diff_2 = meta.texto_diferencial_2 %}
+{% assign content_diff_3 = meta.texto_diferencial_3 %}
+{% assign images_nutricional = meta.imagens_informacoes_nutricionais %}
+{% assign title_buy_area = meta.titulo_secao_compra %}
+{% assign number_caps_per_item = meta.numero_capsula_por_pote %}
+{% assign number_treatment_month = meta.numero_meses_tratamento_1_pote %}
+{% assign banners_buy_area = meta.mini_banners_secao_compra %}
+{% assign title_science = meta.titulo_secao_ciencia %}
+{% assign pdf_science = meta.pdf_ciencia %}
+{% assign list_faq = meta.duvidas_frequentes %}
+{% assign kits = meta.kits %}
+{% assign info_individuais = meta.informacoes_individuais %}
+{% assign cupom = meta.cupom %}
+{% assign minibanners = meta.minibanners %}
+{% assign minibanners_bf = meta.bf_minibanners %}
+{% assign images_benefits_bf = meta.bf_lista_imagens_beneficios %}
+
+{% assign images_benefits_cyber = meta.cyber_lista_imagens_beneficios %}
+
+{% assign people_talk_about = meta.people_task_about %}
+{% assign value_progressive_discount = meta.valor_desconto_progressivo %}
+{% assign text_quantity_pot = meta.quantidade_de_potes %}
+{% assign text_treatment_month = meta.tempo_de_tratamento %}
+{% assign text_seo = meta.texto_seo %}
+
+{% assign float_video = meta.video_flutuante %}
+{% comment %}
+  Product Metafields
+{% endcomment %}
+
+<div class="dark:bg-black  breadcrumb">
+  <div class="py-3 container bg-red">
+    <ul class="flex items-center gap-4">
+      <li>
+        <a class="text-sm text-[#aaa] font-medium" href="/" title="home">Home</a>
+      </li>
+      <li class="text-[#1a4889] dark:text-yellow-bf">/</li>
+      <li>
+        <a class="text-sm text-[#aaa] font-medium" href="/collections/produtos" title="Departamento produtos"
+          >Produtos</a
+        >
+      </li>
+      <li class="text-[#1a4889] dark:text-yellow-bf">/</li>
+      <li>
+        <p class="text-sm text-[#1a4889] font-semibold line-clamp-1 text-ellipsis overflow-hidden dark:text-yellow-bf">
+          {{ product.title }}
+        </p>
+      </li>
+    </ul>
+  </div>
+</div>
+<section id="product" class="relative">
+  <div
+    class="
+      bg-[#0c1b3e]
+      dark:bg-black
+      absolute
+      left-0
+      top-0
+      h-full
+      w-full
+      -z-[1]
+    "
+  >
+    <div class="h-full max-h-[410px] dark:bg-[#151a41]">
+      <img
+        class="h-full object-cover md:hidden animate-animatedBackgroundsImg hidden dark:block"
+        src="{{ 'product-page-bf.png' |  asset_url }}"
+        fetchpriority="high"
+        loading="eager"
+        preload="true"
+        width="1920"
+        height="681"
+        alt="Banner rotativo"
+        style="animation-direction: alternate-reverse;"
+      >
+      {% comment %}
+        <img
+          class="h-full object-cover md:hidden animate-animatedBackgroundsImg"
+          src="{{ 'product-page-background-info.jpg' |  asset_url }}"
+          fetchpriority="high"
+          loading="eager"
+          preload="true"
+          width="1920"
+          height="681"
+          alt="Banner rotativo"
+          style="animation-direction: alternate-reverse;"
+        >
+      {% endcomment %}
+      {% comment %}
+        <img
+          class="h-full object-cover min_md:hidden"
+          src="{{ 'banner-teste.png' |  asset_url }}"
+          fetchpriority="high"
+          loading="eager"
+          preload="true"
+          width="320"
+          height="558"
+          alt="Banner rotativo"
+        >
+      {% endcomment %}
+    </div>
+    {% comment %}
+      <div
+        class="
+          bg-[url('https://nutriage.vnda.dev/images/product-page-background-info.jpg?v=1695822012')]
+          bg-no-repeat
+          bg[length:100%_410px]
+          w-full
+          h-[410px]
+          bg-cover
+          bg-top
+          animate-animatedBackgrounds
+        "
+        style="animation-direction: alternate-reverse;"
+      ></div>
+    {% endcomment %}
+  </div>
+
   <div class="container">
+    {% if image_title.value %}
+      <div class="min_lg:translate-x-[-47px] w-fit mx-auto pt-6 product-title">
+        <img
+          src="{{ image_title.value | image_url }}"
+          alt="{{ product.title }}"
+          width="200"
+          height="110"
+          class="dark:max-h-[77px] dark:w-auto"
+        >
+        <h1 class="text-[0px]">{{ product.title }}</h1>
+      </div>
+    {% else %}
+      <h1 class="text-center py-6 text-3xl text-white font-bold">
+        {{ product.title }}
+      </h1>
+    {% endif %}
 
-    <div data-trustvox-certificate-fixed="data-trustvox-certificate-fixed"></div>
+    <div class="flex items-start justify-between lg:flex-col lg:items-center">
+      <div class="min_lg:max-w-[420px] w-full pt-12 subtitle-product">
+        <div class="text-[33px] leading-[35px] text-white uppercase font-light min_lg:h-[197px] lg:text-xl lg:text-center">
+          {% comment %} {{ product.metafields.subtitle_product }} {% endcomment %}
 
-    <div id="_sincero_widgets" class="trustvox-widget">
-      <div class="ts-product-reviews">
+          {% comment %} Transforme sua gordura <span class="block">em <strong class="font-medium">energia pura</strong></span> {% endcomment %}
 
-        {%- comment -%} Overview: nota + recomendação {%- endcomment -%}
-        <section class="tv-overview">
+          {{ subtitle | metafield_tag }}
+        </div>
+        <div
+          class="buy-now-subtitle rounded-full h-[45px]  max-w-[240px] animate-pulseBt mt-24 bg-btn-gradient hover:bg-[#27ae60] hover:bg-none transition lg:hidden min-w-[240px] dark:bg-gradient-bf"
+        >
+          <a
+            href="#buy-area"
+            class="text-white text-xl font-bold w-full h-full flex items-center justify-center dark:text-black"
+            >Comprar Agora</a
+          >
+        </div>
+      </div>
 
-          {%- comment -%} Bloco de nota {%- endcomment -%}
-          <div class="tv-rating">
-            <div class="tv-rating__score">
-              <span class="tv-rating__value custom-rating-note--js">4.8</span>
-              <span class="tv-rating__of">/5</span>
-            </div>
-            <p class="tv-rating__label">Nota do produto</p>
-            <div class="ts-v-stars">
-              <span class="ts-v-stars-background">
-                {%- for i in (1..5) -%}
-                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
-                    <path fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"/>
-                  </svg>
-                {%- endfor -%}
-              </span>
-              <span class="ts-v-stars-foreground">
-                <span class="custom-star-bg--js">
-                  {%- for i in (1..5) -%}
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
-                      <path fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"/>
-                    </svg>
-                  {%- endfor -%}
-                </span>
-              </span>
-            </div>
-            <p class="tv-rating__based-on">
-              Baseado em <span class="custom-based-on--js">5</span> avaliações
+      <div class="wrapper-main-product-image">
+        <a href="#buy-area">
+          <figure>
+            {% assign product_image_url = product.featured_image | image_url %}
+            <img
+              alt="{{ product.title | escape }}"
+              src="{{product_image_url}}"
+              width="{{product.featured_image.width}}"
+              height="{{product.featured_image.height}}"
+            >
+          </figure>
+        </a>
+      </div>
+      {% comment %}
+        <div class="flex-1 pt-12 lg:basis-full progressive-discount md:pb-4">
+          <h3 class="text-center bg-[#194788] text-base uppercase text-white font-bold p-2 rounded-t-md dark:bg-gradient-bf dark:text-black">
+            Desconto progressivo
+          </h3>
+          <div class="bg-[#d6d7e6] rounded-b-md px-4 py-8 min_lg:min-w-[320px] lg:w-full lg:max-w-[320px] wrapper-discount-info flex items-center justify-center h-[188px] md:h-auto dark:bg-black">
+            <p class="uppercase text-[#194788] text-[22px] leading-6 text-center dark:text-yellow-bf">
+              COMPRE E <span class="font-bold">LEVE MAIS</span>
+              {% comment %} Até
+              <strong class="font-semibold block text-[42px] leading-[45px]">{{ value_progressive_discount }}</strong> de
+              desconto! {% endcomment %}
             </p>
           </div>
-
-          {%- comment -%} Bloco de recomendação {%- endcomment -%}
-          <div class="tv-recommend">
-            <div class="tv-recommend__circle-wrap">
-              <svg height="66" width="66">
-                <circle stroke="#e2e2e2" stroke-width="5" fill="transparent" r="28" cx="32" cy="32"/>
-                <circle
-                  class="custom--circle-percentage--js"
-                  stroke="#ffc400"
-                  stroke-dasharray="175.93 175.93"
-                  stroke-width="5"
-                  fill="transparent"
-                  r="28" cx="32" cy="32"
-                  style="stroke-dashoffset: 0px; transform: rotate(-90deg); transform-origin: 50% 50%;"
-                />
-              </svg>
-              <span class="tv-recommend__pct custom-percentage--js-reviews">100%</span>
-            </div>
-            <p class="tv-recommend__text">dos clientes recomendam este produto</p>
-          </div>
-
-        </section>
-
-        {%- comment -%} Lista de avaliações {%- endcomment -%}
-        <section>
-          <div class="tv-list-header">
-            <h4 class="tv-list-header__title">Avaliações mais recentes</h4>
-            <div class="tv-list-header__filter">
-              <label for="filter-reviews">exibindo:</label>
-              <select id="filter-reviews" onchange="filterReviews(this.value)">
-                <option value="most-recent">Mais recentes</option>
-                <option value="positive">Positivas</option>
-                <option value="negative">Negativas</option>
-                <option value="worth">Mais úteis</option>
-              </select>
-            </div>
-          </div>
-
-          <div id="reviews-container"></div>
-
-          <div id="load-more-reviews" class="tv-load-more">
-            <button id="load-more-btn" class="tv-load-more__btn">Carregar mais</button>
-          </div>
-
-          <div class="tv-footer">
-            <a
-              href="https://site.trustvox.com.br/conheca-a-trustvox?utm_source=widget-rareviews&utm_medium=quizz&utm_campaign=nutriage.com.br"
-              target="_blank"
+          <div
+            class="rounded-full h-[45px]  max-w-[240px] animate-pulseBt mt-24 mx-auto bg-btn-gradient transition lg:mt-12 buy-now-discount hover:bg-[#27ae60] hover:bg-none transition dark:bg-gradient-bf"
+          >
+            <a href="#buy-area" class="text-white text-xl font-bold w-full h-full flex items-center justify-center dark:text-black"
+              >Peça já</a
             >
-              <img title="RA Icone" src="https://static.trustvox.com.br/sincero/img/ra-icon.svg" width="20" height="20" alt="RA Icone">
-              Avaliações confiáveis do
-              <img title="Reclame Aqui" src="https://static.trustvox.com.br/sincero/img/logo-reclameaqui.svg" width="80" height="16" alt="Reclame Aqui">
-            </a>
           </div>
-        </section>
+        </div>
+      {% endcomment %}
+      <div class="flex-1 pt-12 lg:basis-full progressive-discount md:pb-4">
+        <h3 class="text-center bg-[#70a9ce] text-base uppercase text-white font-bold p-2 rounded-t-md dark:bg-gradient-bf dark:text-black">
+          Desconto progressivo
+        </h3>
+        <div class="bg-[#d6d7e6] rounded-b-md px-4 py-8 min_lg:min-w-[320px] lg:w-full lg:max-w-[320px] wrapper-discount-info flex items-center justify-center h-[188px] md:h-auto dark:bg-black dark:hidden">
+          <p
+            class="uppercase text-[#194788] text-[22px] leading-6 font-medium text-center dark:text-yellow-bf"
+            style="font-size:20px"
+          >
+            {% if product.title contains 'Kit' or product.title contains 'KIT' %}
+              {% comment %}
+                Até metade do preço
+              {% endcomment %}
+              Super desconto no KIT
+            {% else %}
+              <span class="block whitespace-nowrap" style="font-size: 18px;"> Desconto progressivo </span>
+              <span class="block font-bold leading-none" style="font-size: 20px;"> + </span>
+              <span class="block" style="font-size: 18px;"> PIX com desconto </span>
+            {% endif %}
+          </p>
+        </div>
+        {% assign natal15_ids = '9767658127679|9774861418815|9767657439551|9774857453887|9774862958911|9774855881023|9767657603391|9774856438079|9767657210175|10127536128319'
+          | split: '|'
+        %}
+        {% assign product_id_str = product.id | append: '' %}
+        <div class="bg-[#d6d7e6] rounded-b-md px-4 py-8 min_lg:min-w-[320px] lg:w-full lg:max-w-[320px] wrapper-discount-info dark:bg-black hidden dark:block">
+          <p class="uppercase text-[#194788] text-[22px] leading-6 font-medium text-center dark:text-yellow-bf">
+            {% if product.id == 9774862467391 %}
+              10% OFF no PIX
+              <strong class="font-semibold block text-[42px] leading-[45px]">+</strong>
+              Cashback
+            {% else %}
+              {% if natal15_ids contains product_id_str %}
+                Até 45% de desconto
+              {% else %}
+                Até metade do preço
+              {% endif %}
+              {% assign compre_ganhe_ids = '9774858961215|9774862041407|9774858207551|9766687801663|9810636636479'
+                | split: '|'
+              %}
 
+              {% if compre_ganhe_ids contains product_id_str %}
+                <strong class="font-semibold block text-[42px] leading-[45px]">+</strong>
+                brinde
+              {% endif %}
+            {% endif %}
+          </p>
+        </div>
+        <div
+          class="rounded-full h-[45px]  max-w-[240px] animate-pulseBt mt-24 mx-auto bg-btn-gradient transition lg:mt-12 buy-now-discount hover:bg-[#27ae60] hover:bg-none transition dark:bg-gradient-bf"
+        >
+          <a
+            href="#buy-area"
+            class="text-white text-xl font-bold w-full h-full flex items-center justify-center dark:text-black"
+            >Peça já</a
+          >
+        </div>
       </div>
     </div>
+  </div>
+</section>
 
+{% if meta.isbrinde == true %}
+{% else %}
+  <section id="buy-area" class="py-10 bg-[#ecf3f8] dark:bg-black-bf">
+    <div class="container">
+      <div class="flex flex-col gap-4 justify-center">
+        <div class="flex place-items-center gap-4 text-center flex-col">
+          <style>
+            .title-buy-sec {
+              font-family: Lato, Arial, Helvetica, sans-serif;
+            }
+          </style>
+          <div class="text-[55px] lg:text-xl leading-[1.2] font-light text-[#194788] max-w-[757px] title-buy-sec dark:text-yellow-bf">
+            {{ title_buy_area | metafield_tag }}
+          </div>
+          <p class="bg-[#1a4889] rounded-full p-[1rem_2rem] text-white text-lg max-w-fit lg:text-base dark:bg-yellow-bf dark:text-black">
+            Escolha o melhor tratamento para você:
+          </p>
+        </div>
+        <div>
+          <div
+            id="popup"
+            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-10"
+          >
+            <div class="bg-white w-11/12 md:w-1/3 p-6 rounded-lg shadow-lg relative flex flex-col items-center justify-center max-w-[600px]">
+              <h2 class="text-xl font-bold mb-4">Titulo</h2>
+              <p class="mb-4">Conteudo</p>
+              <button
+                id="closePopupBtn"
+                class="bg-blue text-white px-4 py-2 rounded"
+              >
+                Fechar
+              </button>
+            </div>
+          </div>
+        </div>
+        {% if cupom != blank %}
+          <div class="flex gap-1.5 border border-dashed border-black justify-center items-center mx-auto p-4 max-w-fit">
+            <p>USE O CUPOM: {{ cupom | metafield_tag }}</p>
+          </div>
+        {% endif %}
+
+        <style>
+                  .wrapper-products-kits {
+                    grid-template-columns: repeat(3, 29%);
+
+
+          &.is-kit-product {
+            justify-content: center !important;
+            grid-template-columns: repeat(1, 29%);
+
+            @media (max-width:1023px) {
+              grid-template-columns: repeat(1, 35%) !important;
+            }
+
+            @media (max-width:750px) {
+              grid-template-columns: repeat(1, 40%) !important;
+            }
+                 @media (max-width:547px) {
+              grid-template-columns: repeat(1, 100%) !important;
+            }
+            .bebas-font {
+              display: none;
+            }
+
+            .kit-header {
+              margin: 0 -20px 56px;
+              height: 168px;
+              padding-top: 0;
+            }
+
+            .unit-pill {
+              margin: 15px auto 42px;
+            }
+
+            .top-sell {
+              margin-top: -19px;
+            }
+
+            .champion-label {
+              border-radius: 25px;
+              display:block;
+            }
+          }
+
+                    & .card {
+                      margin-inline: 0.5rem;
+                      @media (max-width: 700px) {
+                        margin-inline: 0;
+                      }
+                    }
+
+                    @media (max-width: 700px) {
+                      grid-template-columns: repeat(1, 100%);
+                    }
+                  }
+        </style>
+
+        <div class="flex justify-center mt-0 cards">
+          <div
+            class="
+              grid wrapper-products-kits items-center justify-center min_lg:max-w-[100%] w-full lg:flex-col lg:items-center lg:gap-4
+              {% if product.title contains 'Kit' or product.title contains 'KIT' %} is-kit-product {%endif %}
+            "
+          >
+            {% comment %} Variáveis de juros para o cálculo de parcelas {% endcomment %}
+            {% assign J = 0.04872 | plus: 1 %}
+            {% assign power = J | times: J | times: J | times: J | times: J %}
+
+            <div
+              class="card lg:w-full lg:max-w-[500px] flex-1 text-center shadow-cardShadow flex flex-col"
+              style="order:1"
+            >
+              <div class="kit-header">
+                <div class="top-sell">
+                  {% if product.title contains 'Kit' or product.title contains 'KIT' %}
+                    <div class="champion-label bebas-font">Campeão de Vendas</div>
+                  {% endif %}
+                  <h3 class="bebas-font text-4xl text-white">{{ text_quantity_pot | default: '1 POTE' }}</h3>
+                  {% assign price_pix_1 = product.price
+                    | times: 0.93
+                    | ceil
+                    | plus: 99
+                    | divided_by: 100
+                    | floor
+                    | times: 100
+                  %}
+                  <div class="unit-pill">Cada unidade por {{ price_pix_1 | money }}</div>
+                </div>
+                <div class="flex justify-center">
+                  <img src="{{ product.featured_image | image_url: width: 203 }}" alt="{{ product.title }}" width="160">
+                </div>
+              </div>
+
+              <div class="card-body">
+                <div class="text-[#1a4889]">
+                  <p class="bebas-font text-xl">{{ text_quantity_pot | default: '1 POTE' }}</p>
+                  <p class="text-sm">Tratamento 1 MÊS</p>
+                </div>
+                <div class="text-[#1a4889] price">
+                  <p class="line-through opacity-60 text-sm">{{ product.compare_at_price | money }}</p>
+                  {% assign P1 = product.price | money_without_currency %}
+                  {% assign val1 = P1
+                    | times: power
+                    | divided_by: 12
+                    | round: 2
+                    | times: 100
+                    | money_without_currency
+                  %}
+                  <p class="font-black text-3xl leading-none">12x de {{ val1 }}</p>
+                  <p class="font-bold text-sm">{{ price_pix_1 | money }} no Pix</p>
+                </div>
+
+                {% if product.available %}
+                  <button
+                    onclick="addToCart('{{ product.first_available_variant.id }}')"
+                    class="btn-green text-lg py-3"
+                  >
+                    Adicionar ao carrinho
+                  </button>
+                {% else %}
+                  <button class="text-lg buy-button-pdp py-3 px-4 rounded-full w-full" style="color:#fff">
+                    <span class="relative z-[1]"> Avise-me quando chegar </span>
+                  </button>
+                {% endif %}
+              </div>
+            </div>
+
+            {% for product_kit in kits.value %}
+              {% assign is_kit_highlight = false %}
+              {% if product_kit.title contains '5' or product_kit.title contains '7' %}
+                {% assign is_kit_highlight = true %}
+              {% endif %}
+
+              <div
+                class="card lg:w-full lg:max-w-[500px] flex-1 text-center shadow-cardShadow flex flex-col {% if is_kit_highlight %}md:!order-1{% else %}md:!order-2{% endif %}"
+                style="order:{% if is_kit_highlight %}2{% else %}3{% endif %}; {% if is_kit_highlight %}transform: scale(1.00); z-index: 2;{% endif %}"
+              >
+                <div class="kit-header">
+                  <div class="top-sell">
+                    {% if is_kit_highlight %}
+                      <div class="champion-label bebas-font">Campeão de Vendas</div>
+                    {% endif %}
+
+                    <h3 class="bebas-font text-4xl text-white">
+                      {{ product_kit.metafields.custom.quantidade_de_potes | default: product_kit.title }}
+                    </h3>
+
+                    {% assign pix_k = product_kit.price
+                      | times: 0.93
+                      | ceil
+                      | plus: 99
+                      | divided_by: 100
+                      | floor
+                      | times: 100
+                    %}
+                    {% assign qtd_potes = product_kit.metafields.custom.quantidade_de_potes
+                      | split: ' '
+                      | first
+                      | plus: 0
+                    %}
+                    {% assign default_potes = product_kit.metafields.custom.quantidade_de_potes
+                      | split: ' '
+                      | first
+                      | plus: 0
+                    %}
+
+                    {% if qtd_potes == 0 %}{% assign qtd_potes = 1 %}{% endif %}
+
+                    {% if default_potes == 3 %}{% assign qtd_potes = 3 %}{% endif %}
+                    {% if default_potes == 5 %}{% assign qtd_potes = 5 %}{% endif %}
+
+                    <div class="unit-pill" data-qt="{{ qtd_potes }}">
+                      Cada unidade por {{ pix_k | divided_by: qtd_potes | money }}
+                    </div>
+                  </div>
+                  <div class="flex justify-center">
+                    <img
+                      src="{{ product_kit.featured_image | image_url: width: 203 }}"
+                      alt="{{ product_kit.title }}"
+                      width="160"
+                    >
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <div class="text-[#1a4889]">
+                    <p class="bebas-font text-xl">
+                      {{ product_kit.metafields.custom.quantidade_de_potes | default: product_kit.title }}
+                    </p>
+                    <p class="text-sm">
+                      Tratamento
+                      {{ product_kit.metafields.custom.tempo_de_tratamento | default: 'Tratamento Completo' }}
+                    </p>
+                  </div>
+                  <div class="text-[#1a4889] price">
+                    <p class="line-through opacity-60 text-sm">{{ product_kit.compare_at_price | money }}</p>
+                    {% assign PK = product_kit.price | money_without_currency %}
+                    {% assign valK = PK
+                      | times: power
+                      | divided_by: 12
+                      | round: 2
+                      | times: 100
+                      | money_without_currency
+                    %}
+                    <p class="font-black text-3xl leading-none">12x de {{ valK }}</p>
+                    <p class="font-bold text-sm">{{ pix_k | money }} no Pix</p>
+                  </div>
+                  {% if product_kit.available %}
+                    <button
+                      onclick="addToCart('{{ product_kit.first_available_variant.id }}')"
+                      class="btn-green text-lg py-3"
+                    >
+                      Adicionar ao carrinho
+                    </button>
+                  {% else %}
+                    <button class="text-lg buy-button-pdp py-3 px-4 rounded-full w-full" style="color:#fff">
+                      <span class="relative z-[1]"> Avise-me quando chegar </span>
+                    </button>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div id="banners-buy-area" class="mt-10">
+        <ul class="flex items-center gap-5 lg:flex-col">
+          {% for item in banners_buy_area.value %}
+            <li>
+              <img
+                alt="{{ item.alt }}"
+                loading="lazy"
+                src="{{ item |  image_url  }}"
+                width="{{ item.width }}"
+                height="{{ item.height }}"
+              >
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <section id="minibanners-bottom">
+        <ul class="flex items-center gap-4 justify-center md:flex-wrap dark:hidden">
+          {% for item in minibanners.value %}
+            {% assign item_image = item | image_url %}
+            <li>
+              <img
+                alt="{{ item.alt | escape }}"
+                src="{{item_image}}"
+                width="{{ item.width }}"
+                height="{{ item.height }}"
+                loading="lazy"
+              >
+            </li>
+          {% endfor %}
+        </ul>
+        <ul class="items-center gap-4 justify-center md:flex-wrap hidden dark:flex">
+          {% for item in minibanners_bf.value %}
+            {% assign item_image = item | image_url %}
+            <li>
+              <img
+                alt="{{ item.alt | escape }}"
+                src="{{item_image}}"
+                width="{{ item.width }}"
+                height="{{ item.height }}"
+                loading="lazy"
+              >
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    </div>
+  </section>
+{% endif %}
+
+<section id="benefit" class="my-10 dark:my-0 dark:py-10 dark:bg-black-bf">
+  <div class="container">
+    <div class="text-center flex flex-col gap-5">
+      <h2 class="text-[55px] leading-[1.2] font-light text-[#1a4889] lg:text-xl dark:text-yellow-bf">
+        Quais os <strong>benefícios de usar</strong> {{ product.title }}?
+      </h2>
+      <ul class="flex items-center gap-1 justify-center sm:flex-col sm:gap-4">
+        {% comment %} Lista de imagens {% endcomment %}
+        {% for item in images_benefits.value %}
+          <li class="mx-1 overflow-hidden rounded-lg dark:hidden">
+            <img
+              class="rounded-lg animate-imageScale"
+              style="animation-direction: alternate-reverse;"
+              src="{{ item |  image_url }}"
+              width="{{ item.width }}"
+              height="{{ item.height }}"
+              loading="lazy"
+              alt="{{ item.alt }}"
+            >
+          </li>
+        {% endfor %}
+        {% for item in images_benefits_bf.value %}
+          <li class="mx-1 overflow-hidden rounded-lg hidden dark:block">
+            <img
+              class="rounded-lg animate-imageScale"
+              style="animation-direction: alternate-reverse;"
+              src="{{ item |  image_url }}"
+              width="{{ item.width }}"
+              height="{{ item.height }}"
+              loading="lazy"
+              alt="{{ item.alt }}"
+            >
+          </li>
+        {% endfor %}
+      </ul>
+
+      <div class="text-2xl font-light sm:hidden sm:mt-8 dark:text-yellow-bf">
+        {{ content_benefit | metafield_tag }}
+      </div>
+      <div>
+        <div
+          class="rounded-full h-[45px]  max-w-[240px] animate-pulseBt mx-auto bg-[#27ae60]  transition px-3 hover:bg-[#27ae60] hover:bg-none dark:bg-gradient-bf"
+        >
+          <a
+            href="#buy-area"
+            class="text-white text-xl font-bold w-full h-full flex items-center justify-center dark:text-black"
+            >Comprar Agora</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="more-info" class="">
+  <div class="bg-more-info-gradient-new py-9 dark:bg-gradient-bf">
+    <div class="container text-center text-white" id="product-info-1">
+      <div class="flex flex-col gap-4">
+        <div class="text-[24px] mb-6 leading-[1.2] font-light text-center lg:text-xl dark:text-black">
+          {{ title_reinforced | metafield_tag }}
+        </div>
+        <div class="flex flex-col gap-4 pt-4 text-lg font-normal text-center lg:text-base dark:text-black">
+          {{ content_reinforced | metafield_tag }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    id="know-combination"
+    class="
+      bg-[url('https://cdn.shopify.com/s/files/1/0911/4694/4831/files/product-page-background-info-v2-vitamina.jpg?v=1755090450')]
+      dark:bg-[linear-gradient(to_right,rgba(0,0,0,1),rgba(67,67,67,0.6)),url('https://cdn.shopify.com/s/files/1/0911/4694/4831/files/product-page-background-info-black.png?v=1760380128')]
+      bg-no-repeat
+      bg[length:100%_1434px]
+      min-h-[454px]
+      py-9
+      bg-top
+
+      lg:bg-cover
+    "
+  >
+    <div class="container text-white" id="product-info-2">
+      <div class="flex items-center gap-4 justify-center pb-5 lg:flex-col lg:text-center">
+        <div>
+          <a href="#buy-area">
+            {{ product.featured_image | image_url: width: 230, height: 230 | image_tag }}
+          </a>
+        </div>
+        <h3 class="font-light text-[55px] leading-[1.2] text-white lg:text-xl lg:hidden dark:text-yellow-bf">
+          {% if title_poderosa_combinacao != blank %}
+            {{ title_poderosa_combinacao | metafield_tag }}
+          {% else %}
+            Conheça nossa <strong class="block">poderosa combinação</strong>
+          {% endif %}
+        </h3>
+      </div>
+      <div class="text-lg font-normal text-center lg:text-base dark:text-yellow-bf">
+        {{ content_powerfull_combination | metafield_tag }}
+      </div>
+      <div class="max-w-[762px] my-10 mx-auto">
+        {% assign split_elements = list_powerfull_combination | split: '|' %}
+
+        {% for element in split_elements %}
+          {% assign title_and_contet = element | split: '/' %}
+          {% assign title_powerfull = title_and_contet[0] %}
+          {% assign content_powerfull = title_and_contet[1] %}
+
+          {% render 'faq-details', title: title_powerfull, content: content_powerfull %}
+        {% endfor %}
+      </div>
+      <div
+        id="product-info-3"
+        class="text-[#194788] text-center bg-white rounded-xl p-5 dark:bg-black-bf"
+      >
+        <h3 class="text-lg font-bold pb-4 dark:text-yellow-bf">
+          {% if title_diff != blank %}
+            {{ title_diff }}
+          {% else %}
+            Diferencial do {{ product.title }}
+          {% endif %}
+        </h3>
+        <style>
+          .wrapper-diff {
+            grid-template-columns: repeat(3, auto);
+            grid-template-rows: repeat(2, auto);
+
+            @media (max-width: 767px) {
+              grid-template-columns: repeat(1, auto);
+              grid-template-rows: repeat(1, auto);
+            }
+          }
+        </style>
+        <ul class="grid grid-cols-3 grid-rows-2 gap-4 sm:grid-cols-1 sm:grid-rows-1 wrapper-diff">
+          {% assign count = 1 %}
+          {% if list_images_diff %}
+            {% for image_diff in list_images_diff.value %}
+              <li class="grid grid-rows-subgrid row-span-2 sm:flex sm:flex-col sm:gap-4">
+                <img
+                  class="max-w-[210px] mx-auto min-h-[210px] object-cover"
+                  src="{{ image_diff |  image_url  }}"
+                  width="{{ image_diff.width }}"
+                  height="{{ image_diff.height }}"
+                  alt="{{ image_diff.alt }}"
+                >
+                <div class="text-base dark:text-yellow-bf">
+                  {% if count == 1 %}
+                    {{ content_diff_1 | metafield_tag }}
+                  {% endif %}
+                  {% if count == 2 %}
+                    {{ content_diff_2 | metafield_tag }}
+                  {% endif %}
+                  {% if count == 3 %}
+                    {{ content_diff_3 | metafield_tag }}
+                  {% endif %}
+                </div>
+                {% assign count = count | plus: 1 %}
+              </li>
+            {% endfor %}
+          {% else %}
+            <li>
+              {{ content_diff_1 | metafield_tag }}
+            </li>
+            <li>
+              {{ content_diff_2 | metafield_tag }}
+            </li>
+            <li>
+              {{ content_diff_3 | metafield_tag }}
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+      {% if images_nutricional.value %}
+        <div id="product-nutricional-info" class="pt-10">
+          <h2 class="font-bold text-[55px] leading-[1.2] text-white lg:text-xl text-center pb-4 dark:text-yellow-bf">
+            Informações Nutricionais
+          </h2>
+          <div class="flex items-center gap-4 justify-between sm:flex-col">
+            {% for item in images_nutricional.value %}
+              <div>
+                <img
+                  class="max-h-[369px] w-full rounded-xl"
+                  src="{{ item |  image_url: width:'600x' }}"
+                  width="{{item.width}}"
+                  height="{{item.height}}"
+                  {% if item.alt == blank %}
+                    alt="Banner"
+                  {% else %}
+                    alt="{{ item.alt }}"
+                  {% endif %}
+                >
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if info_individuais.value %}
+  <section id="informacoes-individuais" class="py-5">
+    <div class="container">
+      <style>
+        @media (min-width: 547px) {
+          .wrapper-individuais {
+            margin: 0 auto 40px;
+            max-width: 80%;
+            padding-bottom: 40px;
+            padding-left: 45px;
+            padding-right: 45px;
+            width: 80%;
+          }
+        }
+        .wrapper-individuais {
+          border-bottom: 1px solid #bac8dc;
+        }
+      </style>
+      <div class="wrapper-individuais">
+        <h2 class="text-[55px] lg:text-xl leading-[1.2] font-bold text-[#1a4889] text-center pb-5">
+          Informações Individuais
+        </h2>
+        <p class="text-[#1a4889]">
+          Deseja obter informações detalhadas sobre cada um dos nossos suplementos? Clique abaixo.
+        </p>
+        <ul class="mt-3">
+          {% for item in info_individuais.value %}
+            {% assign item_image = item.featured_image | image_url %}
+            <li class="flex items-center justify-between sm:flex-col sm:mb-6 sm:justify-start sm:items-start">
+              <div class="flex items-center gap-2 ">
+                <img
+                  alt="{{ item.title | escape }}"
+                  src="{{item_image}}"
+                  width="53"
+                  height="43"
+                  loading="lazy"
+                >
+                <p class="font-light">{{ item.title }}</p>
+              </div>
+              <a class="underline sm:block sm:text-center sm:w-full" href="{{ item.url }}">CLIQUE AQUI</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% assign title_scrience_meta = title_science | metafield_tag %}
+{% if pdf_science %}
+  <section id="science-talk" class="py-10 dark:bg-black">
+    <div class="container">
+      <div class="flex flex-col items-center gap-4 max-w-[80%] mx-auto">
+        <div class="text-[55px] lg:text-xl leading-[1.2] font-light text-[#1a4889] text-center max-w-[700px] dark:text-yellow-bf">
+          {{ title_scrience_meta }}
+        </div>
+        <ul class="flex flex-col gap-4 lg:mt-4 pb-6 border-b border-b-[#bac8dc]">
+          {% assign list_pdf = pdf_science | split: '|' %}
+          {% for item in list_pdf %}
+            {% assign text_and_url_science = item | split: '\' %}
+            {% assign text_science = text_and_url_science[0] %}
+            {% assign link_science = text_and_url_science[1] %}
+
+            <li class="flex items-center gap-4 lg:flex-wrap">
+              <img
+                class="max-w-[53px]"
+                src="https://cdn.vnda.dev/200x/nutriage/2023/09/28/11_9_0_062_iconedepdfvermelho.png?v=1695910580"
+                alt="Ícone de PDF"
+                width="53"
+                height="53"
+              >
+              <p class="md:flex-1 dark:text-white">{{ text_science }}</p>
+              <a
+                title="Ver Artigos Cientificos"
+                class="underline lg:w-full text-start !ml-auto dark:text-white"
+                href="{{ link_science }}"
+                target="_blank"
+                >Clique aqui <span class="text-[0px]">Artigos Cientificos</span></a
+              >
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% comment %}
+  <section id="people_talk_about" class="pb-10">
+    {% assign length = 0 %}
+    {% for item in people_talk_about.value %}
+      {% assign length = length | plus: 1 %}
+    {% endfor %}
+
+    <div class="container">
+      <h2 class="text-[55px] lg:text-xl leading-[1.2] font-light text-[#1a4889] text-center max-w-[700px] mx-auto mb-6">
+        O que as <strong>pessoas</strong> falam do <strong>nosso produto</strong>?
+      </h2>
+      <div
+        {% if length > 2 %}
+          class="swiper"
+        {% endif %}
+      >
+        <ul
+          {% if length > 2 %}
+            class="swiper-wrapper mb-11"
+          {% else %}
+            class="flex items-center gap-4 flex-wrap"
+          {% endif %}
+        >
+          {% for item in people_talk_about.value %}
+            {% assign item_image = item | image_url %}
+            <li
+              {% if length > 2 %}
+                class="swiper-slide"
+              {% endif %}
+            >
+              <img
+                class="mx-auto"
+                alt="{{ item.alt | escape }}"
+                src="{{item_image}}"
+                width="{{ item.width }}"
+                height="{{ item.height }}"
+                loading="lazy"
+              >
+            </li>
+          {% endfor %}
+        </ul>
+        <div
+          class="swiper-pagination mt-6 [&>span]:bg-[#e4e5e4] [&>span]:opacity-100 [&>span]:rounded-none [&>span]:h-[2px] [&>span]:w-[43px] [&>span.swiper-pagination-bullet-active]:bg-blue"
+        ></div>
+      </div>
+    </div>
+  </section>
+{% endcomment %}
+
+<section id="ask" class="bg-[#ecf3f8] py-10 dark:bg-black-bf">
+  <div class="container">
+    <div class="max-w-[66%] mx-auto lg:w-full lg:max-w-[780px]">
+      <h2 class="text-[55px] lg:text-xl leading-[1.2] font-bold text-[#1a4889] text-center pb-5 dark:text-yellow-bf">
+        Dúvidas Frequentes
+      </h2>
+      <div>
+        {% assign split_elements_faq = list_faq | split: '|' %}
+
+        {% for element in split_elements_faq %}
+          {% assign title_ask_and_content = element | split: '/' %}
+          {% assign title_ask = title_ask_and_content[0] %}
+          {% assign content_answer = title_ask_and_content[1] %}
+
+          {% render 'faq-details', title: title_ask, content: content_answer %}
+        {% endfor %}
+      </div>
+      <div
+        class="rounded-full h-[45px] max-w-[240px] animate-pulseBt mt-6 bg-[#27ae60] hover:bg-[#27ae60] hover:bg-none transition mx-auto dark:bg-gradient-bf"
+      >
+        <a
+          href="#buy-area"
+          class="text-white text-xl font-bold w-full h-full flex items-center justify-center dark:text-black"
+          >Comprar Agora</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+{% for product_kit in kits.value %}
+  <div
+    class="trustvox-fetch"
+    data-code="{{ product_kit.id }}"
+  ></div>
+{% endfor %}
+<div
+  class="trustvox-fetch"
+  data-code="{{ product.id }}"
+></div>
+
+<!-- Trustvox -->
+<section class="dark:bg-black" id="reviews-sec">
+  <div class="container min_lg:py-16 lg:py-10">
+    <div data-trustvox-certificate-fixed="data-trustvox-certificate-fixed"></div>
+    <div id="_sincero_widgets" class="trustvox-widget">
+      <div class="ts-product-reviews dark:bg-black">
+        <div>
+          <section class="ts-product-reviews-overview">
+            <section class="ts-information-and-survey-result ts-block-one ts-block-three" data-v-99089b8c="">
+              <div data-v-108cfa34="" data-v-99089b8c="" class="ts-v-rating ts-block-one dark:text-white">
+                <div data-v-108cfa34="" class="ts-v-rating-note">
+                  <span data-v-108cfa34="" class="ts-v-rating-note_value custom-rating-note--js"> 4.8 </span
+                  ><span data-v-108cfa34="" class="ts-v-rating-note_of"> /<span data-v-108cfa34="">5</span></span
+                  ><meta data-v-108cfa34="" content="1">
+                </div>
+                <div data-v-108cfa34="" class="ts-v-rating_label">Nota do produto</div>
+                <div data-v-108cfa34="" class="ts-v-rating__align">
+                  <div data-v-61babeba="" data-v-108cfa34="" class="ts-v-stars relative" style="width:137px">
+                    <span data-v-61babeba="" class="flex ts-v-stars-background" style="width:137px">
+                      <svg
+                        data-v-61babeba=""
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 512 512"
+                      >
+                        <path data-v-61babeba="" fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path>
+                      </svg>
+                      <svg
+                        data-v-61babeba=""
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 512 512"
+                      >
+                        <path data-v-61babeba="" fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path>
+                      </svg>
+                      <svg
+                        data-v-61babeba=""
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 512 512"
+                      >
+                        <path data-v-61babeba="" fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path>
+                      </svg>
+                      <svg
+                        data-v-61babeba=""
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 512 512"
+                      >
+                        <path data-v-61babeba="" fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path>
+                      </svg>
+                      <svg
+                        data-v-61babeba=""
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 512 512"
+                      >
+                        <path data-v-61babeba="" fill="#ddd" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path>
+                      </svg></span
+                    ><span data-v-61babeba="" class="absolute top-0 ts-v-stars-foreground"
+                      ><span data-v-61babeba="" class="flex overflow-hidden custom-star-bg--js [&>svg]:min-w-6">
+                        <svg
+                          data-v-61babeba=""
+                          version="1.1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 512 512"
+                        >
+                          <path data-v-61babeba="" fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path>
+                        </svg>
+                        <svg
+                          data-v-61babeba=""
+                          version="1.1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 512 512"
+                        >
+                          <path data-v-61babeba="" fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path>
+                        </svg>
+                        <svg
+                          data-v-61babeba=""
+                          version="1.1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 512 512"
+                        >
+                          <path data-v-61babeba="" fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path>
+                        </svg>
+                        <svg
+                          data-v-61babeba=""
+                          version="1.1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 512 512"
+                        >
+                          <path data-v-61babeba="" fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path>
+                        </svg>
+                        <svg
+                          data-v-61babeba=""
+                          version="1.1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 512 512"
+                        >
+                          <path data-v-61babeba="" fill="#ffc400" d="M457.888 210.672l-139.504-20.272-62.384-126.4-62.384 126.4-139.504 20.272 100.944 98.384-23.84 138.928 124.768-65.6 124.768 65.6-23.84-138.928c0 0 100.944-98.384 100.944-98.384z"></path>
+                        </svg></span
+                    ></span>
+                  </div>
+                </div>
+                <div data-v-108cfa34="" class="ts-v-rating-based-on ">
+                  Baseado em
+                  <span data-v-108cfa34="" class="custom-based-on--js"> 5 </span> avaliações
+                </div>
+              </div>
+              <div data-v-99089b8c="" class="ts-block-three ts-repro-center">
+                <div data-v-99089b8c="" class="ts-product-reviews-overview-recommendations">
+                  <div data-v-f73f7d96="" class="ts-v-recommendations dark:text-white">
+                    <div data-v-f73f7d96="" class="ts-v-recommendations_percentage">
+                      <svg data-v-f73f7d96="" height="66" width="66" class="ts-v-percentage-circle">
+                        <circle data-v-f73f7d96="" stroke-width="5" fill="transparent" r="28" cx="32" cy="32" class="ts-v-circle-baseline"></circle><circle data-v-f73f7d96="" stroke-dasharray="175.92918860102841 175.92918860102841" stroke-width="5" fill="transparent" r="28" cx="32" cy="32" class="ts-v-circle-mainline custom--circle-percentage--js" style="stroke-dashoffset: 0px;"></circle>
+                      </svg>
+                      <span data-v-f73f7d96="" class="ts-v-percentage-label custom-percentage--js-reviews"> 100% </span>
+                    </div>
+                    <span data-v-f73f7d96="" class="ts-v-recommendations_text">
+                      dos clientes recomendam este produto
+                    </span>
+                  </div>
+                </div>
+                <!--  -->
+              </div>
+            </section>
+          </section>
+          <section class="custom-wrapper-reviews">
+            <div class="wrapper-title flex items-center justify-between border-b-[#e2e2e2] border-b pb-6 md:flex-col md:gap-4">
+              <h4 class="text-[#2c2c2c] text-xl font-semibold md:text-lg dark:text-white">Avaliações mais recentes</h4>
+
+              <div class="select flex items-center gap-4">
+                <label for="filter-reviews" class="dark:text-white">exibindo:</label>
+                <select
+                  class="bg-white border border-[#ddd] rounded p-3"
+                  name=""
+                  id="filter-reviews"
+                  onchange="filterReviews(event.target.value)"
+                >
+                  <option class="text-sm text-[#6c6c6c]" value="most-recent">Mais recentes</option>
+                  <option class="text-sm text-[#6c6c6c]" value="positive">Positivas</option>
+                  <option class="text-sm text-[#6c6c6c]" value="negative">Negativas</option>
+                  <option class="text-sm text-[#6c6c6c]" value="worth">Mais úteis</option>
+                </select>
+              </div>
+            </div>
+            <div id="reviews-container"></div>
+            <div class="flex items-center justify-center mt-8" id="load-more-reviews">
+              <button
+                class="bg-none border border-[#2c2c2c] text-[#2c2c2c] text-lg uppercase rounded-md p-2 text-center dark:border-white dark:text-white"
+              >
+                Carregar mais
+              </button>
+            </div>
+
+            <div data-v-55f06c67="" data-v-4b08f0d5="" class="ts-v-footer">
+              <a
+                data-v-55f06c67=""
+                href="https://site.trustvox.com.br/conheca-a-trustvox?utm_source=widget-rareviews&amp;utm_medium=quizz&amp;utm_campaign=nutriage.com.br"
+                target="_blank"
+                class="ts-v-footer-container dark:text-white"
+                ><img
+                  data-v-55f06c67=""
+                  title="RA Icone"
+                  src="https://static.trustvox.com.br/sincero/img/ra-icon.svg"
+                  class="ts-v-footer-icon ts-icon">
+                Avaliações confiáveis do
+                <img
+                  data-v-55f06c67=""
+                  title="Reclame Aqui"
+                  src="https://static.trustvox.com.br/sincero/img/logo-reclameaqui.svg"
+                  class="ts-v-footer-logo ts-logo"
+              ></a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
     <div id="_trustvox_colt"></div>
   </div>
 </section>
 
-{%- comment -%} Fallback: widget nativo Trustvox (oculto por padrão) {%- endcomment -%}
-<section id="reviews-sec-2" style="display: none;">
-  <div class="container">
-    <div data-trustvox-certificate-fixed></div>
+{% if float_video != blank %}
+  <!-- Fundo escurecido -->
+  <div id="videoOverlay"></div>
+
+  <!-- Vídeo flutuante -->
+  <div id="floatingVideo">
+    {{ float_video.value | video_tag: autoplay: true, muted: true, loop: true, playsinline: true }}
+    <button id="closeVideo">✕</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('floatingVideo');
+      const overlay = document.getElementById('videoOverlay');
+      const closeBtn = document.getElementById('closeVideo');
+      const video = container.querySelector('video');
+      let expanded = false;
+
+      const expandVideo = () => {
+        if (expanded) return;
+        expanded = true;
+
+        container.classList.add('expanded');
+        overlay.classList.add('active');
+        closeBtn.classList.add('active');
+
+        video.currentTime = 0;
+        video.muted = false;
+        video.controls = true;
+        video.play();
+      };
+
+      const closeVideo = () => {
+        expanded = false;
+
+        container.classList.remove('expanded');
+        overlay.classList.remove('active');
+        closeBtn.classList.remove('active');
+
+        video.muted = true;
+        video.controls = false;
+      };
+
+      container.addEventListener('click', () => {
+        if (!expanded) expandVideo();
+      });
+
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeVideo();
+      });
+
+      overlay.addEventListener('click', closeVideo);
+    });
+  </script>
+{% endif %}
+<section class="dark:bg-black" id="reviews-sec-2">
+  <div class="container min_lg:py-16 lg:py-10">
+    <div data-trustvox-certificate-fixed="data-trustvox-certificate-fixed"></div>
     <div id="_trustvox_widget"></div>
     <div id="_trustvox_colt"></div>
   </div>
@@ -127,13 +1572,66 @@
   var _trustvox_colt = _trustvox_colt || [];
   _trustvox_colt.push(['_storeId', '123342'], ['_limit', '7']);
 </script>
+<!-- /Trustvox -->
 
-<script src="{{ 'trustvox-reviews.js' | asset_url }}" defer></script>
+<section class="hidden">
+  {% if text_seo %}
+    {{ text_seo }}
+  {% endif %}
+</section>
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "{{ product.title | escape }}",
+    "productID": "{{ product.variants[0].sku }}",
+    "sku": "{{ product.variants[0].sku }}",
+    "gtin": "{{ product.variants[0].barcode }}",
+    "url": "{{ shop.url }}{{ product.url }}",
+    "description": "{{ product.description | strip_html | escape }}",
+    {% if product.featured_image %}
+      {% assign image_size = product.featured_image.width | append: 'x' %}
+    "image": ["https:{{ product.featured_image.src | img_url: image_size }}"],
+    {% endif %}
+    "itemCondition": "https://schema.org/NewCondition",
+    "brand": {
+      "@type": "Brand",
+      "name": "{{ product.vendor | escape }}"
+    },
+    "countryOfOrigin": {
+      "@type": "Country",
+      "name": "Brasil"
+    },
+    "weight": {
+      "@type": "QuantitativeValue",
+      "value": "{{ product.variants[0].weight }}",
+      "unitCode": "GRM"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceValidUntil": "{{ 'now' | date: '%s' | plus: 7776000 | date: '%Y-%m-%d' }}",
+      "priceCurrency": "{{ shop.currency }}",
+      "price": "{{ best_price_pix_1 | divided_by: 100.0 }}",
+      "priceSpecification":
+      {
+        "@type": "UnitPriceSpecification",
+        "priceCategory": "https://schema.org/ListPrice",
+        "price": "{{ product.variants[0].compare_at_price | divided_by: 100.0 }}"
+      },
+      "availability": "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+      "acceptedPaymentMethod": [
+        "CreditCard",
+        "Boleto",
+        "Pix"
+      ]
+    }
+  }
+</script>
 
-{%- schema -%}
+{% schema %}
 {
-  "name": "TrustVox",
-  "settings": [],
-  "presets": [{ "name": "TrustVox" }]
+  "name": "Product",
+  "tag": "section",
+  "settings": []
 }
-{%- endschema -%}
+{% endschema %}
