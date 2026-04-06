@@ -1852,11 +1852,12 @@ input[type='checkbox'] {
   margin-right: 1rem;
 }
 
-product-form .button {
+product-form .button,
+.product-form__buttons button {
   position: relative;
   overflow: hidden;
 
-  &::after {
+  &::before {
     content: "";
     position: absolute;
     top: 0;
