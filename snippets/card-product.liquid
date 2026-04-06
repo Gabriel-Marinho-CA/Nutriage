@@ -21,8 +21,7 @@
   Usage:
   {% render 'card-product', show_vendor: section.settings.show_vendor %}
 {% endcomment %}
-{{ show_prices }} - @@
-{{ show_prices | json}} - @@
+
 {%- unless skip_styles -%}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
@@ -637,10 +636,7 @@
               <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
               <div class="caption-with-letter-spacing light">{{ 'products.product.vendor' | t }}</div>
             {%- endif -%}
-            {%  if show_prices %}  
-              {% render 'price', placeholder: placeholder, show_compare_at_price: true %}
-          
-            {% endif %}
+
           </div>
         </div>
       </div>
