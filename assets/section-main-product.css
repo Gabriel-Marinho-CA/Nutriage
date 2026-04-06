@@ -453,7 +453,6 @@ product-form.product-form {
       transform: translateY(-5px);
     }
 
-    &::before,
     &::after {
       display: none;
     }
