@@ -29,7 +29,7 @@
   position: relative;
   background-color: var(--vp-modal-bg, #ffffff);
   border-radius: 16px;
-  overflow: hidden;
+  /* sem overflow:hidden — impediria o fullscreen nativo do vídeo */
   width: 100%;
   max-width: var(--vp-max-width, 620px);
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
@@ -76,6 +76,8 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   background: #000;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
 }
 
 .res-vp__video-wrap video {
@@ -89,6 +91,7 @@
 .res-vp__content {
   padding: 24px 28px 28px;
   background-color: var(--vp-content-bg, #1a1a1a);
+  border-radius: 0 0 16px 16px;
 }
 
 .res-vp__titulo {
