@@ -131,181 +131,6 @@
         "padding_bottom": 96
       }
     },
-    "res_banner_com_imagem_j3LyfY": {
-      "type": "res-banner-com-imagem",
-      "name": "RES - Banner com Imagem",
-      "settings": {
-        "imagem_lado": "direita",
-        "gap_colunas": 64,
-        "gap_colunas_mobile": 24,
-        "gap_titulo_conteudo": 16,
-        "img_border_radius": 12,
-        "titulo_size_desktop": 36,
-        "titulo_size_mobile": 20,
-        "titulo_weight": "700",
-        "titulo_line_height": "1.15",
-        "titulo_color": "#1a4789",
-        "conteudo_size_desktop": 16,
-        "conteudo_size_mobile": 15,
-        "conteudo_weight": "400",
-        "conteudo_line_height": "1.6",
-        "conteudo_color": "#444444",
-        "padding_top": 64,
-        "padding_bottom": 64,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "margin_top": 0,
-        "margin_bottom": 0,
-        "bg_color": "#ffffff"
-      }
-    },
-    "res_info_produto_icones_fpiBeE": {
-      "type": "res-info-produto-icones",
-      "name": "res - Info Produto Ícones",
-      "settings": {
-        "gap_colunas": 32,
-        "gap_colunas_mobile": 24,
-        "titulo_size_desktop": 36,
-        "titulo_size_mobile": 24,
-        "titulo_weight": "700",
-        "titulo_line_height": "1.15",
-        "conteudo_size_desktop": 15,
-        "conteudo_size_mobile": 12,
-        "conteudo_line_height": "1.6",
-        "card_titulo_size": 15,
-        "card_conteudo_size": 13,
-        "card2_size": 13,
-        "icone_size": 68,
-        "padding_top": 64,
-        "padding_bottom": 64,
-        "margin_top": 0,
-        "margin_bottom": 100,
-        "background_secao": "#1a3c8c",
-        "cor_do_titulo": "#d4a843",
-        "cor_do_conteudo": "#ffffff",
-        "cor_background_card": "#c8daf0",
-        "cor_titulo_card": "#1a2a4a",
-        "cor_conteudo_card": "#1a2a4a",
-        "cor_background_card_2": "#1e4d9c",
-        "cor_texto_card_2": "#ffffff"
-      }
-    },
-    "res_banner_com_imagem_2_rTbxcG": {
-      "type": "res-banner-com-imagem-2",
-      "name": "res - Banner com Imagem 2",
-      "settings": {
-        "imagem_lado": "direita",
-        "gap_colunas": 64,
-        "gap_colunas_mobile": 24,
-        "gap_titulo_conteudo": 16,
-        "img_border_radius": 12,
-        "titulo_size_desktop": 36,
-        "titulo_size_mobile": 26,
-        "titulo_weight": "700",
-        "titulo_line_height": "1.15",
-        "titulo_color": "#1b4788",
-        "conteudo_size_desktop": 16,
-        "conteudo_size_mobile": 15,
-        "conteudo_weight": "400",
-        "conteudo_line_height": "1.2",
-        "conteudo_color": "#7396c8",
-        "padding_top": 64,
-        "padding_bottom": 64,
-        "padding_top_mobile": 28,
-        "padding_bottom_mobile": 40,
-        "margin_top": 40,
-        "margin_bottom": 0,
-        "bg_color": "#ffffff"
-      }
-    },
-    "res_quem_usou_rHF6WH": {
-      "type": "res-quem-usou",
-      "name": "RES - Quem Usou Recomenda",
-      "settings": {
-        "titulo_size_desktop": 36,
-        "titulo_size_mobile": 26,
-        "titulo_weight": "700",
-        "titulo_color": "#1a3c8c",
-        "btn_bg_color": "#4caf50",
-        "btn_text_color": "#ffffff",
-        "btn_font_size": 16,
-        "slides_desktop": 4.5,
-        "space_between": 16,
-        "swiper_padding_inline": 40,
-        "padding_top": 64,
-        "padding_bottom": 64,
-        "margin_top": 0,
-        "margin_bottom": 0,
-        "bg_color": "#ffffff"
-      }
-    },
-    "res_minibanners_texto_GW7Kaw": {
-      "type": "res-minibanners-texto",
-      "name": "RES - Minibanners e Texto",
-      "settings": {
-        "titulo_size_desktop": 36,
-        "titulo_size_mobile": 22,
-        "titulo_weight": "700",
-        "titulo_line_height": "1.15",
-        "titulo_color": "#1a3c8c",
-        "conteudo_size_desktop": 15,
-        "conteudo_size_mobile": 12,
-        "conteudo_line_height": "1.4",
-        "conteudo_color": "#333333",
-        "img_border_radius": 16,
-        "gap_colunas": 24,
-        "gap_mobile": 40,
-        "padding_top": 64,
-        "padding_bottom": 64,
-        "margin_top": 0,
-        "margin_bottom": 0,
-        "bg_color": "#ffffff"
-      }
-    },
-    "res_secao_imagem_overflow_9Rqyak": {
-      "type": "res-secao-imagem-overflow",
-      "name": "RES - Seção Imagem Overflow",
-      "settings": {
-        "titulo_size_desktop": 36,
-        "titulo_size_mobile": 22,
-        "titulo_weight": "700",
-        "titulo_line_height": "1.2",
-        "conteudo_size_desktop": 15,
-        "conteudo_size_mobile": 14,
-        "conteudo_line_height": "1.3",
-        "img_overflow_top": 112,
-        "padding_vertical": 64,
-        "padding_vertical_mobile": 32,
-        "margin_top": 0,
-        "margin_bottom": 0,
-        "bg_color": "#1a4789",
-        "texto_color": "#ffffff"
-      }
-    },
-    "res_garantia_jqfkhG": {
-      "type": "res-garantia",
-      "name": "RES - Garantia",
-      "settings": {
-        "titulo_size_desktop": 32,
-        "titulo_size_mobile": 24,
-        "titulo_weight": "700",
-        "titulo_line_height": "1.2",
-        "titulo_color": "#1a3c8c",
-        "conteudo_size_desktop": 16,
-        "conteudo_size_mobile": 15,
-        "conteudo_line_height": "1.65",
-        "conteudo_color": "#333333",
-        "btn_bg_color": "#4caf50",
-        "btn_text_color": "#ffffff",
-        "btn_font_size": 16,
-        "gap_colunas": 48,
-        "padding_top": 64,
-        "padding_bottom": 64,
-        "margin_top": 0,
-        "margin_bottom": 0,
-        "bg_color": "#ffffff"
-      }
-    },
     "res_barra_de_avisos_XRh7fn": {
       "type": "res-barra-de-avisos",
       "blocks": {
@@ -424,7 +249,6 @@
         "announcement_qRcRD7",
         "announcement_xKd97L"
       ],
-      "disabled": true,
       "name": "res - Barra de Avisos",
       "settings": {
         "marquee_speed": 100,
@@ -450,7 +274,6 @@
     },
     "res_related_products_rxHHNP": {
       "type": "res-related-products",
-      "disabled": true,
       "name": "Produtos Relacionados",
       "settings": {
         "intent": "related",
@@ -496,28 +319,6 @@
       ],
       "settings": {
         "include_margins": true
-      }
-    },
-    "res_faq_qRG4CA": {
-      "type": "res-faq",
-      "name": "RES - FAQ",
-      "settings": {
-        "titulo": "Dúvidas Frequentes",
-        "titulo_size_desktop": 36,
-        "titulo_size_mobile": 26,
-        "titulo_weight": "700",
-        "titulo_color": "#1a3c8c",
-        "pergunta_size": 15,
-        "resposta_size": 14,
-        "item_bg": "#e8f0fa",
-        "item_open_bg": "#e8f0fa",
-        "pergunta_color": "#1a3c8c",
-        "resposta_color": "#444444",
-        "padding_top": 64,
-        "padding_bottom": 64,
-        "margin_top": 0,
-        "margin_bottom": 0,
-        "bg_color": "#ffffff"
       }
     },
     "res_related_products_pNiAMp": {
@@ -572,17 +373,9 @@
   },
   "order": [
     "main",
-    "res_banner_com_imagem_j3LyfY",
-    "res_info_produto_icones_fpiBeE",
-    "res_banner_com_imagem_2_rTbxcG",
-    "res_quem_usou_rHF6WH",
-    "res_minibanners_texto_GW7Kaw",
-    "res_secao_imagem_overflow_9Rqyak",
-    "res_garantia_jqfkhG",
     "res_barra_de_avisos_XRh7fn",
     "res_related_products_rxHHNP",
     "17736049086dc3f1c2",
-    "res_faq_qRG4CA",
     "res_related_products_pNiAMp",
     "related-products"
   ]
