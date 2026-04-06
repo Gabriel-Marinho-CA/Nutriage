@@ -27,6 +27,22 @@
     {% endif %}
 
     {% render 'meta-tags' %}
+        <script type="text/javascript">
+      var _trustvox_shelf_rate = _trustvox_shelf_rate || [];
+      _trustvox_shelf_rate.push(['_storeId', '123342']);
+    </script>
+    <script type="text/javascript" async="true" src="//rate.trustvox.com.br/widget.js"></script>
+
+        {% if request.page_type == 'product' %}
+      <script type="text/javascript">
+        window._trustvox = [];
+        _trustvox.push(['_storeId', '123342']);
+        _trustvox.push(['_productId', '{{ product.id }}']);
+        _trustvox.push(['_productName', '{{ product.title | escape }}']);
+        _trustvox.push(['_productPhotos', ['{{ product.featured_image.src }}']]);
+      </script>
+      <script async="true" type="text/javascript" src="//static.trustvox.com.br/sincero/sincero.js"></script>
+    {% endif %}
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
