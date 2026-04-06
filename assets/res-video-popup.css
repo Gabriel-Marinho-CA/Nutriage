@@ -81,7 +81,7 @@
 .res-vp__video-wrap video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
@@ -132,7 +132,7 @@
 @media screen and (max-width: 749px) {
   .res-vp__overlay {
     padding: 12px;
-    align-items: flex-end;
+    align-items: center;
   }
 
   .res-vp__modal {
