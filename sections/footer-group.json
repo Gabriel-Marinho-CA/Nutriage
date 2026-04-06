@@ -64,9 +64,9 @@
           "settings": {
             "payment_title": "Formas de pagamento",
             "show_pay_1": true,
-            "icon_pay_1": "shopify://shop_images/Caminho_18.svg",
+            "icon_pay_1": "shopify://shop_images/visa-ico.png",
             "show_pay_2": true,
-            "icon_pay_2": "shopify://shop_images/bxl-mastercard.svg",
+            "icon_pay_2": "shopify://shop_images/mastercard-ico.png",
             "show_pay_3": true,
             "icon_pay_3": "shopify://shop_images/Caminho_20.svg",
             "show_pay_4": true,
