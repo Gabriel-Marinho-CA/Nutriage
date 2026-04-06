@@ -85,15 +85,15 @@
 /* ── Grid de ícones de pagamento ── */
 .res-footer__payment-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.8rem;
+  grid-template-columns: repeat(3, auto);
+  gap: 1rem;
   margin-top: 1.2rem;
 }
 
 .res-footer__payment-icon {
-  border: 1px solid #fff;
+  /*border: 1px solid #fff; */
   border-radius: 0;
-  padding: 0.8rem 0.6rem;
+ /* padding: 0.8rem 0.6rem;*/
   display: flex;
   align-items: center;
   justify-content: center;
