@@ -1852,8 +1852,12 @@ input[type='checkbox'] {
   margin-right: 1rem;
 }
 
+#CartDrawer-Checkout::before {
+  z-index: 1;
+}
+
 product-form .button,
-#CartDrawer-Checkout{
+#CartDrawer-Checkout {
   position: relative;
   overflow: hidden;
 
