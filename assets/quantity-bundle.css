@@ -174,6 +174,12 @@
   margin-top: 0.4rem;
 }
 
+/* ——— Meses de tratamento ——— */
+.treatment-month {
+  font-size: 11px;
+  font-weight: bold;
+}
+
 /* =============================================
    Barra de resumo de preço
    ============================================= */
@@ -243,7 +249,8 @@
 .qb-summary-unit {
   font-size: 1.2rem;
   color: #1A4789;
-    @media (max-width:750px) {
+
+  @media (max-width:750px) {
     font-size: .9rem;
   }
 }
