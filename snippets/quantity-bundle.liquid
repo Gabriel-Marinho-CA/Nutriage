@@ -110,7 +110,7 @@
               {{ qb_v.price | divided_by: qb_inst_count | money }}
             </span>
 
-            <span class="qb-price-cash"> ou {{ qb_v.price | times: 1.00 | times: pix_discount_value | round: 2  | money }} no pix </span>
+            <span class="qb-price-cash"> ou {{ qb_v.price | times: pix_discount_value | round: 2 | money }} no pix </span>
           </div>
         </div>
       {%- endfor -%}
