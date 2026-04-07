@@ -91,6 +91,8 @@
   if (!overlay) return;
 
   function closePopup() {
+    var video = overlay.querySelector('video');
+    if (video) { video.pause(); video.currentTime = 0; }
     overlay.classList.remove('res-vp--visible');
     overlay.addEventListener('transitionend', function handler() {
       overlay.removeEventListener('transitionend', handler);
