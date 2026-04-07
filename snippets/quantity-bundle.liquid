@@ -111,6 +111,7 @@
             </span>
 
             <span class="qb-price-cash"> ou {{ qb_v.price | times: pix_discount_value | ceil  | money }} no pix </span>
+            {{  qb_v.price | times: pix_discount_value }} --
           </div>
         </div>
       {%- endfor -%}
