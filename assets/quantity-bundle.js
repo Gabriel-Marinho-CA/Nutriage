@@ -157,7 +157,7 @@ class QuantityBundle extends HTMLElement {
     }
     if (this._summaryUnit) {
       const unitPixPrice = Math.ceil(pixPrice / qtyTotal)
-      this._summaryUnit.textContent = qtyTotal > 1 ? `(${this._fmtPix(unitPixPrice)}/unidade)` : '';
+      this._summaryUnit.textContent = qtyTotal > 1 ? `(${this._fmtPix(unitPixPrice)}/unidade) - ${qtyTotal}` : '';
     }
   }
 
