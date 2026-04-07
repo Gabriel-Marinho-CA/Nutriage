@@ -458,7 +458,7 @@
         "heading_size_mobile": 24,
         "heading_font_weight": "700",
         "heading_alignment": "center",
-        "autoplay_loop": false,
+        "autoplay_loop": true,
         "autoplay_delay": 3000,
         "full_width_layout": true,
         "arrows_position": "inline",
