@@ -121,8 +121,8 @@
 
     {%- assign qb_v = product.selected_or_first_available_variant -%}
     {%- assign qb_compare = qb_v.compare_at_price | default: qb_v.price -%}
-    {%- assign qb_threatment_month = qb_v.metafields.custom.tempo_de_tratamento | default: '1 MÊS' -%}
-    {{  product.metafields.custom.tempo_de_tratamento }} @@
+    {%- assign qb_threatment_month = product.metafields.custom.tempo_de_tratamento | default: '1 MÊS' -%}
+
     <div
       class="qb-card"
       data-variant-id="{{ qb_v.id }}"
