@@ -110,16 +110,9 @@
               {{ qb_v.price | divided_by: qb_inst_count | money }}
             </span>
 
-            {% assign price_pix_1 = qb_v.price
-              | times: 0.93
-              | ceil
-              | plus: 99
-              | divided_by: 100
-              | floor
-              | times: 100
-            %}
+            {% assign price_pix = qb_v.price | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
 
-            <span class="qb-price-cash"> ou {{ price_pix_1 | money }} no pix </span>
+            <span class="qb-price-cash"> ou {{ price_pix | money }} no pix </span>
           </div>
         </div>
       {%- endfor -%}
@@ -178,7 +171,8 @@
         <span class="qb-price-big">
           {{ qb_v.price | divided_by: block.settings.main_installment_count | money }}
         </span>
-        <span class="qb-price-cash"> ou {{ qb_compare | times: pix_discount_value | money }} no pix </span>
+        {% assign price_pix = qb_v.price | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
+        <span class="qb-price-cash"> ou {{ price_pix | times: price_pix | money }} no pix </span>
       </div>
     </div>
   </div>
