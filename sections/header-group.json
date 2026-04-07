@@ -225,7 +225,7 @@
         "mobile_logo_position": "center",
         "menu": "menu-header-novo",
         "help_text": "<p>Precisa de<br/>ajuda?</p>",
-        "link_help": "",
+        "link_help": "https://api.whatsapp.com/send?phone=553399568616",
         "menu_type_desktop": "mega",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
