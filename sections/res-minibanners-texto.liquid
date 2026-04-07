@@ -81,7 +81,7 @@
                   img_desktop
                   | image_url: width: 1900
                   | image_tag: loading: 'lazy', class: 'res-mbt__img--desktop', alt: img_desktop.alt
-                  | default: '', widths: '300, 500, 700, 800'
+                  | default: ''
                 }}
               {%- endif -%}
               {%- comment -%} Mobile {%- endcomment -%}
@@ -90,14 +90,14 @@
                   img_mobile
                   | image_url: width: 1000
                   | image_tag: loading: 'lazy', class: 'res-mbt__img--mobile', alt: img_mobile.alt
-                  | default: '', widths: '300, 500, 600'
+                  | default: ''
                 }}
               {%- elsif img_desktop != blank -%}
                 {{
                   img_desktop
                   | image_url: width: 1900
                   | image_tag: loading: 'lazy', class: 'res-mbt__img--mobile', alt: img_desktop.alt
-                  | default: '', widths: '300, 500, 600'
+                  | default: ''
                 }}
               {%- endif -%}
             </div>
