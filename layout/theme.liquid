@@ -404,6 +404,27 @@
         {{ 'wpp-btn.svg' | inline_asset_content }}
       </a>
     {%- endif -%}
+        <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        title="GTM"
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NP64PRC"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
+    <!-- Não remova. Checkout Yampi. -->
+    {% capture yampi_snippet_content %}{% include 'YampiSnippet' %}{% endcapture %}
+    {% unless yampi_snippet_content contains 'Liquid error' %} {% include 'YampiSnippet' %} {% endunless %}
+    <!-- Não remova. Checkout Yampi. -->
+    <!-- Não remova. Checkout Yampi. -->
+    {% capture yampi_snippet_content %}{% include 'YampiSnippet' %}{% endcapture %}
+    {% unless yampi_snippet_content contains 'Liquid error' %} {% include 'YampiSnippet' %} {% endunless %}
+    <!-- Não remova. Checkout Yampi. -->
   <!-- Não remova. Checkout Yampi. -->
 {% capture yampi_snippet_content %}{% include 'YampiSnippet' %}{% endcapture %} {% unless yampi_snippet_content contains 'Liquid error' %} {% include 'YampiSnippet' %} {% endunless %}
 <!-- Não remova. Checkout Yampi. --> </body>
