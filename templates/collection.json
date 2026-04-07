@@ -133,15 +133,15 @@
         "item_JrrNQK": {
           "type": "item",
           "settings": {
-            "title": "Energia e disposição",
-            "description": "Descrição desta categoria de produtos.",
-            "tag_1": "Cafeína",
-            "tag_2": "B12",
-            "tag_3": "",
+            "title": "Saúde articular",
+            "description": "Desconfortos nas articulações, rigidez e dores podem limitar sua mobilidade e qualidade de vida. O suporte nutricional ajuda na resposta inflamatória e na manutenção das articulações ao longo do tempo.",
+            "tag_1": "Magnésio",
+            "tag_2": "Colágeno II",
+            "tag_3": "Cúrcuma",
             "tag_4": "",
             "tag_5": "",
             "button_label": "Ver todos",
-            "button_url": ""
+            "button_url": "shopify://collections/saude-articular"
           }
         },
         "item_KCMYmE": {
