@@ -62,7 +62,7 @@ class QuantityBundle extends HTMLElement {
 
     if (this._headingTreatment) {
       const treatmentMonth = card.dataset.treatmentMonth || '';
-      this._headingTreatment.textContent = treatmentMonth ? `Tratamento ${treatmentMonth}` : '';
+      this._headingTreatment.textContent = treatmentMonth ? `- ${treatmentMonth}` : '';
     }
 
     // Barra de resumo
