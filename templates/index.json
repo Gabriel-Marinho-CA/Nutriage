@@ -232,28 +232,28 @@
           "type": "item",
           "settings": {
             "title": "Imunidade",
-            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+            "description": "Quando a imunidade está baixa, o corpo dá sinais: cansaço frequente, maior sensibilidade a gripes e dificuldade de recuperação. Fortalecer o sistema imunológico é essencial para manter o organismo protegido no dia a dia.\nCom a suplementação certa, você fornece vitaminas e minerais que atuam diretamente na defesa do corpo e no equilíbrio geral da saúde.",
             "tag_1": "Vitamina C",
-            "tag_2": "Zinco",
-            "tag_3": "",
+            "tag_2": "Vitamina D3K2",
+            "tag_3": "Vitamina D3 Gotas",
             "tag_4": "",
             "tag_5": "",
             "button_label": "Ver todos",
-            "button_url": ""
+            "button_url": "shopify://collections/imunidade"
           }
         },
         "item_J8bMx3": {
           "type": "item",
           "settings": {
-            "title": "Imunidade",
-            "description": "Descrição desta categoria de produtos.",
-            "tag_1": "Vitamina C",
-            "tag_2": "Zinco",
-            "tag_3": "",
-            "tag_4": "",
+            "title": "Energia celular",
+            "description": "Sensação de cansaço constante, falta de disposição e baixa produtividade podem estar ligados à queda na produção de energia celular.\nNutrientes específicos ajudam na produção de energia dentro das células, melhorando disposição, vitalidade e desempenho ao longo do dia.",
+            "tag_1": "Coenzima Q10",
+            "tag_2": "Magnésio",
+            "tag_3": "Creatina",
+            "tag_4": "Ômega 3",
             "tag_5": "",
             "button_label": "Ver todos",
-            "button_url": ""
+            "button_url": "shopify://collections/energia-celular"
           }
         },
         "item_j7jR37": {
@@ -355,7 +355,7 @@
       "settings": {
         "title": "O que você busca hoje?",
         "image": "shopify://shop_images/freepik__cena-de-fotografia-publicitria-premium-clean-e-min__80491.png",
-        "description": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>",
+        "description": "<p><br/>Encontre o que seu corpo precisa de forma simples e direta.</p>",
         "label_btn": "Ver todos produtos",
         "link_btn": "",
         "bg_color": "#EBF3F8",
