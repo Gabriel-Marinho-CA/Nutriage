@@ -153,7 +153,7 @@ class QuantityBundle extends HTMLElement {
     // Preço principal (com desconto PIX de 7%, arredondado pra cima no real inteiro)
     const pixPrice = Math.ceil(price * 0.93 / 100) * 100;
     if (this._summaryPrice) {
-      this._summaryPrice.textContent = this._fmtPix(pixPrice);
+      this._summaryPrice.textContent = `${this._fmtPix(pixPrice)} no pix`;
     }
     if (this._summaryUnit) {
       const unitPixPrice = Math.ceil(pixPrice / qtyTotal)
