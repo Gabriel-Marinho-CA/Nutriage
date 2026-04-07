@@ -172,7 +172,7 @@
           {{ qb_v.price | divided_by: block.settings.main_installment_count | money }}
         </span>
         {% assign price_pix = qb_v.price | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
-        <span class="qb-price-cash"> ou {{ price_pix | times: price_pix | money }} no pix </span>
+        <span class="qb-price-cash"> ou {{ price_pix  | money }} no pix </span>
       </div>
     </div>
   </div>
