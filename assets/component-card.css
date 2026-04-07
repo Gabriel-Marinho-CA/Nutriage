@@ -102,12 +102,17 @@
 .card .media {
   width: 100%;
 }
-
-.tag-product {
+.wrapper-tags-product {
   position: absolute;
   left: 1rem;
   top: 1rem;
   z-index: 2;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+.tag-product {
+
   font-size: 13px;
   font-weight: bold;
 
