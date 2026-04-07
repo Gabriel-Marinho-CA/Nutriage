@@ -110,7 +110,7 @@
               {{ qb_v.price | divided_by: qb_inst_count | money }}
             </span>
 
-            <span class="qb-price-cash"> ou {{ qb_v.price | times: pix_discount_value | money }} no pix </span>
+            <span class="qb-price-cash"> ou {{ qb_v.price | times: pix_discount_value | round | money }} no pix </span>
           </div>
         </div>
       {%- endfor -%}
@@ -169,7 +169,7 @@
         <span class="qb-price-big">
           {{ qb_v.price | divided_by: block.settings.main_installment_count | money }}
         </span>
-        <span class="qb-price-cash"> ou {{ qb_v.price | times: pix_discount_value | money }} no pix </span>
+        <span class="qb-price-cash"> ou {{ qb_v.price | times: pix_discount_value | round | money }} no pix </span>
       </div>
     </div>
   </div>
