@@ -7,6 +7,7 @@
 <script src="{{ 'quantity-bundle.js' | asset_url }}" defer="defer"></script>
 
 {%- assign qb_kits = product.metafields.custom.kits.value -%}
+{%  assign pix_discount_value = 0.93 %}
 
 <quantity-bundle
   class="quantity-bundle"
@@ -63,7 +64,7 @@
           class="qb-card"
           data-variant-id="{{ qb_v.id }}"
           data-price="{{ qb_v.price }}"
-          data-compare="{{ qb_compare }}"
+          data-compare="{{ qb_compare | times: pix_discount_value }}"
           data-qty-number="{{  qb_qty }}"
           data-installment-count="{{ qb_inst_count }}"
           data-installment-label="{{ qb_inst_label | escape }}"
@@ -109,7 +110,7 @@
               {{ qb_v.price | divided_by: qb_inst_count | money }}
             </span>
 
-            <span class="qb-price-cash"> ou {{ qb_compare | money }} à vista </span>
+            <span class="qb-price-cash"> ou {{ qb_compare | times: pix_discount_value | money }} no pix </span>
           </div>
         </div>
       {%- endfor -%}
@@ -127,7 +128,7 @@
       class="qb-card"
       data-variant-id="{{ qb_v.id }}"
       data-price="{{ qb_v.price }}"
-      data-compare="{{ qb_compare }}"
+      data-compare="{{ qb_compare | times: pix_discount_value}}"
       data-installment-count="{{ block.settings.main_installment_count | default: 3 }}"
       data-installment-label="{{ block.settings.main_installment_label | default: '3x sem juros de' | escape }}"
       data-qty-label="{{ block.settings.main_qty_label | default: '1 unidade' | escape }}"
@@ -168,7 +169,7 @@
         <span class="qb-price-big">
           {{ qb_v.price | divided_by: block.settings.main_installment_count | money }}
         </span>
-        <span class="qb-price-cash"> ou {{ qb_compare | money }} à vista </span>
+        <span class="qb-price-cash"> ou {{ qb_compare | times: pix_discount_value | money }} no pix </span>
       </div>
     </div>
   </div>
