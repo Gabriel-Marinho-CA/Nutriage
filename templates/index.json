@@ -164,7 +164,7 @@
       "name": "RES - Timer Produto",
       "settings": {
         "product": "smartwatch-ultra-pro",
-        "link_pdp": "shopify://products/creatina-3-ultra-1",
+        "link_pdp": "",
         "titulo": "SmartWatch Ultra",
         "title_color": "#ffffff",
         "title_size_desktop": 38,
