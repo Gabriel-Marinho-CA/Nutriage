@@ -164,7 +164,7 @@
       "name": "RES - Timer Produto",
       "settings": {
         "product": "smartwatch-ultra-pro",
-        "link_pdp": "",
+        "link_pdp": "shopify://collections/smartwatch-gratis",
         "titulo": "SmartWatch Ultra",
         "title_color": "#ffffff",
         "title_size_desktop": 38,
