@@ -450,9 +450,9 @@
       "type": "res-featured-collection",
       "name": "Coleção em Destaque",
       "settings": {
-        "collection": "header-kits",
+        "collection": "header",
         "products_to_show": 8,
-        "title": "Conheça nossos Kits",
+        "title": "Conheça nossa linha completa!",
         "heading_color": "#1a4789",
         "heading_size_desktop": 48,
         "heading_size_mobile": 24,
