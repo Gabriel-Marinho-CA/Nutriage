@@ -488,6 +488,11 @@
     "name": "t:settings_schema.cards.name",
     "settings": [
       {
+        "type":"text",
+        "id":"text_buy_button",
+        "label":"Texto do botão de comprar"
+      },
+      {
         "type": "select",
         "id": "card_style",
         "options": [
