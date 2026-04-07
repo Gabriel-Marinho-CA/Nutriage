@@ -70,27 +70,27 @@
         "beneficio_NkTWXA": {
           "type": "beneficio",
           "settings": {
-            "image": "shopify://shop_images/icone_frete_gratis.webp",
-            "titulo": "Frete Grátis",
-            "subtitulo": "<p>Acima de R$ 149,90</p>",
+            "image": "shopify://shop_images/icon-pix.svg",
+            "titulo": "Desconto no Pix",
+            "subtitulo": "<p>Em qualquer compra</p>",
             "link": ""
           }
         },
         "beneficio_z6Ep88": {
           "type": "beneficio",
           "settings": {
-            "image": "shopify://shop_images/icone_frete_gratis.webp",
-            "titulo": "Frete Grátis",
-            "subtitulo": "<p>Acima de R$ 149,90</p>",
+            "image": "shopify://shop_images/o_1.png",
+            "titulo": "Novas Ofertas",
+            "subtitulo": "<p>Todos os dias</p>",
             "link": ""
           }
         },
         "beneficio_dYiR3W": {
           "type": "beneficio",
           "settings": {
-            "image": "shopify://shop_images/icone_frete_gratis.webp",
-            "titulo": "Frete Grátis",
-            "subtitulo": "<p>Acima de R$ 149,90</p>",
+            "image": "shopify://shop_images/o_2.png",
+            "titulo": "Cashback",
+            "subtitulo": "<p>Em qualquer compra</p>",
             "link": ""
           }
         }
