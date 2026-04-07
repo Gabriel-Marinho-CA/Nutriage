@@ -66,9 +66,10 @@
           <div class="res-acc__item" {{ block.shopify_attributes }}>
             <details
               class="res-acc__details"
-              {% if forloop.first %}
+            {% comment %}  {% if forloop.first %}
                 open
               {% endif %}
+               {% endcomment %}
             >
               <summary class="res-acc__summary">
                 <span class="res-acc__summary-label">{{ block.settings.title | escape }}</span>
