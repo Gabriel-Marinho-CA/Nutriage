@@ -573,7 +573,8 @@
         <!-- CTAs -->
 
         <div class="cart__ctas" {{ block.shopify_attributes }}>
-          <button
+          <a
+            href="/cart"
             type="submit"
             id="CartDrawer-Checkout"
             class="cart__checkout-button button"
@@ -584,7 +585,7 @@
             {% endif %}
           >
             {{ 'sections.cart.checkout' | t }}
-          </button>
+          </a>
           <a     onclick="this.closest('cart-drawer').close()"class="keep-buying" href="#">Continuar comprando</a>
         </div>
       </div>
