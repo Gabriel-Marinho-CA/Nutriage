@@ -50,14 +50,14 @@
           "type": "item",
           "settings": {
             "title": "Imunidade",
-            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+            "description": "Quando a imunidade está baixa, o corpo dá sinais: cansaço frequente, maior sensibilidade a gripes e dificuldade de recuperação. Fortalecer o sistema imunológico é essencial para manter o organismo protegido no dia a dia. Com a suplementação certa, você fornece vitaminas e minerais que atuam diretamente na defesa do corpo e no equilíbrio geral da saúde.",
             "tag_1": "Vitamina C",
-            "tag_2": "Zinco",
-            "tag_3": "",
+            "tag_2": "Vitamina D3K2",
+            "tag_3": "Vitamina D3 Gotas",
             "tag_4": "",
             "tag_5": "",
             "button_label": "Ver todos",
-            "button_url": ""
+            "button_url": "shopify://collections/imunidade"
           }
         },
         "item_MpydWB": {
