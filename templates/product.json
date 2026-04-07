@@ -82,18 +82,18 @@
             "parcela_10_text": "Parcele em até 10x sem juros"
           }
         },
-        "composicao_produto_QLtDPV": {
-          "type": "composicao_produto",
-          "settings": {
-            "heading": "Composição",
-            "bg_color": "#ebf3f8",
-            "text_color": "#1a4789"
-          }
-        },
         "tabela_nutricional_WRfmzW": {
           "type": "tabela_nutricional",
           "settings": {
             "heading": "Tabela Nutricional",
+            "bg_color": "#ebf3f8",
+            "text_color": "#1a4789"
+          }
+        },
+        "composicao_produto_QLtDPV": {
+          "type": "composicao_produto",
+          "settings": {
+            "heading": "Composição",
             "bg_color": "#ebf3f8",
             "text_color": "#1a4789"
           }
@@ -110,8 +110,8 @@
         "buy_buttons_WepnzJ",
         "beneficio_do_produto_rkPxtQ",
         "parcelamento_7RRfn4",
-        "composicao_produto_QLtDPV",
         "tabela_nutricional_WRfmzW",
+        "composicao_produto_QLtDPV",
         "price"
       ],
       "settings": {
