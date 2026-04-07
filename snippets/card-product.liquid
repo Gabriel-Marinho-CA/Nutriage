@@ -60,16 +60,18 @@
         style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
       >
         {% if card_product.metafields.custom.tag_do_produto_new != blank %}
-          {% for item in card_product.metafields.custom.tag_do_produto_new.value %}
-            {% liquid
-              assign parts = item | split: '|'
-              assign text = parts[0]
-              assign bg_color = parts[1]
-            %}
-            <div class="tag-product" style="background: {{ bg_color }};">
-              <span>{{ text }}</span>
-            </div>
-          {% endfor %}
+          <div class="wrapper-tags-product">
+            {% for item in card_product.metafields.custom.tag_do_produto_new.value %}
+              {% liquid
+                assign parts = item | split: '|'
+                assign text = parts[0]
+                assign bg_color = parts[1]
+              %}
+              <div class="tag-product" style="background: {{ bg_color }};">
+                <span>{{ text }}</span>
+              </div>
+            {% endfor %}
+          </div>
         {% endif %}
         {%- if card_product.featured_media -%}
           <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
