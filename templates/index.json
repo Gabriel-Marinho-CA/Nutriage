@@ -382,11 +382,11 @@
           "type": "slide",
           "settings": {
             "product_image": "shopify://shop_images/freepik__inserir-sombra-na-img1-sombra-essa-de-contato-em-a__80493.png",
-            "tag_label": "Lançamento",
+            "tag_label": "O mais Querido!",
             "title": "Magnesium Ultra 3",
-            "description": "<p>O <strong>Magnésio + Zinco</strong>  que você já conhece,\u000bLorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod </p>",
+            "description": "<p>Fórmula com <strong>3 tipos de magnésio + zinco</strong> para suporte completo: sono, recuperação e equilíbrio do organismo.</p>",
             "button_label": "Conhecer",
-            "button_url": "",
+            "button_url": "shopify://products/magnesium-3-ultra-60-comprimidos-nutriage",
             "image_desktop": "shopify://shop_images/freepik__fotografia-publicitria-premium-clean-e-minimalista__80492.png",
             "image_mobile": "shopify://shop_images/freepik__fotografia-publicitria-premium-clean-e-minimalista__80492_1.png",
             "left_bg": "#1a4789",
@@ -401,6 +401,7 @@
         },
         "slide_Eyg8A9": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "product_image": "shopify://shop_images/freepik__inserir-sombra-na-img1-sombra-essa-de-contato-em-a__80493.png",
             "tag_label": "Lançamento",
