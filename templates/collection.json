@@ -105,15 +105,15 @@
         "item_KpMmnQ": {
           "type": "item",
           "settings": {
-            "title": "Imunidade",
-            "description": "Descrição desta categoria de produtos.",
-            "tag_1": "Vitamina C",
-            "tag_2": "Zinco",
-            "tag_3": "",
-            "tag_4": "",
+            "title": "Cuidados com o corpo",
+            "description": "Pele sem viço, ressecada ou com sinais precoces pode refletir falta de nutrientes essenciais. A nutrição correta contribui para hidratação, elasticidade e proteção contra danos do dia a dia.",
+            "tag_1": "Biotina",
+            "tag_2": "Complexo B",
+            "tag_3": "Vitamina D3K2",
+            "tag_4": "Luteína",
             "tag_5": "",
             "button_label": "Ver todos",
-            "button_url": ""
+            "button_url": "shopify://collections/cuidados-com-o-corpo"
           }
         },
         "item_YpX4hf": {
