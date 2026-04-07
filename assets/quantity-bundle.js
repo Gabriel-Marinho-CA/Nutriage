@@ -150,15 +150,14 @@ class QuantityBundle extends HTMLElement {
       }
     }
 
-    // Preço principal
+    // Preço principal (com desconto PIX de 7%, arredondado pra cima no real inteiro)
+    const pixPrice = Math.ceil(price * 0.93 / 100) * 100;
     if (this._summaryPrice) {
-      this._summaryPrice.textContent = fmt(price);
+      this._summaryPrice.textContent = this._fmtPix(pixPrice);
     }
     if (this._summaryUnit) {
-
-
-      const unitPrice = Math.round(price / qtyTotal);
-      this._summaryUnit.textContent = qtyTotal > 1 ? `(${this._fmt(unitPrice)}/unidade)`: '';
+      const unitPixPrice = Math.ceil((price / qtyTotal) * 0.93 / 100) * 100;
+      this._summaryUnit.textContent = qtyTotal > 1 ? `(${this._fmtPix(unitPixPrice)}/unidade)` : '';
     }
   }
 
@@ -171,6 +170,19 @@ class QuantityBundle extends HTMLElement {
       style: 'currency',
       currency: 'BRL',
       minimumFractionDigits: 2,
+    }).format(cents / 100);
+  }
+
+  /**
+   * Formata centavos em BRL sem casas decimais (usado para preço PIX).
+   * Exemplo: 59700 → "R$ 597"
+   */
+  _fmtPix(cents) {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
     }).format(cents / 100);
   }
 }
