@@ -329,15 +329,15 @@
         "item_YXzdVX": {
           "type": "item",
           "settings": {
-            "title": "Cuidados com a pele",
-            "description": "Descrição desta categoria de produtos.",
-            "tag_1": "",
-            "tag_2": "",
-            "tag_3": "",
+            "title": "Saúde cardiovascular",
+            "description": "O coração nem sempre dá sinais claros, mas fatores como má alimentação, estresse e rotina desregulada podem impactar diretamente sua saúde ao longo do tempo.\nCuidar da saúde cardiovascular é essencial para manter energia, disposição e qualidade de vida no dia a dia.\nCom os nutrientes certos, você apoia a circulação, o equilíbrio dos níveis de gordura no sangue e o bom funcionamento do coração.",
+            "tag_1": "Ômega 3",
+            "tag_2": "Magnésio",
+            "tag_3": "Coenzima Q10",
             "tag_4": "",
             "tag_5": "",
             "button_label": "Ver todos",
-            "button_url": ""
+            "button_url": "shopify://collections/saude-cardiovascular"
           }
         }
       },
