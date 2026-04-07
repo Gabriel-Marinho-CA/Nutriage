@@ -113,10 +113,10 @@
             {%- assign raw = qb_v.price | times: pix_discount_value | divided_by: 100.00 -%}
             {%- assign remainder = qb_v.price | times: pix_discount_value | modulo: 100.00 -%}
             {%- if remainder > 0 -%}
-              {%- assign raw = raw | plus: 1 -%}
+              {%- assign raw = raw | plus: 1.00 -%}
             {%- endif -%}
             <span class="qb-price-cash">
-              ou {{ raw | money }} no pix
+              ou {{ raw | times: 100.00| money }} no pix
             </span>
           </div>
         </div>
