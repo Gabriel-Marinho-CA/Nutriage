@@ -12,6 +12,16 @@
     "res_hero_8CHBni": {
       "type": "res-hero",
       "blocks": {
+        "banner_JQ8nkJ": {
+          "type": "banner",
+          "disabled": true,
+          "settings": {
+            "image_mobile": "shopify://shop_images/M7.png",
+            "image_desktop": "shopify://shop_images/P9.png",
+            "url": "shopify://collections/smartwatch-gratis",
+            "image_alt": "Smartwatch grátis"
+          }
+        },
         "banner_Hyc3zP": {
           "type": "banner",
           "settings": {
@@ -42,6 +52,7 @@
         }
       },
       "block_order": [
+        "banner_JQ8nkJ",
         "banner_Hyc3zP",
         "banner_7UH3Cy",
         "banner_jDrw4B"
