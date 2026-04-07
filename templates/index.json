@@ -357,7 +357,7 @@
         "image": "shopify://shop_images/freepik__cena-de-fotografia-publicitria-premium-clean-e-min__80491.png",
         "description": "<p><br/>Encontre o que seu corpo precisa de forma simples e direta.</p>",
         "label_btn": "Ver todos produtos",
-        "link_btn": "",
+        "link_btn": "shopify://collections/all",
         "bg_color": "#EBF3F8",
         "title_color": "#1a4789",
         "description_color": "#1a4789",
