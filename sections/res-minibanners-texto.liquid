@@ -79,7 +79,7 @@
               {%- if img_desktop != blank -%}
                 {{
                   img_desktop
-                  | image_url: width: 1900
+                  | image_url: width: img_desktop.width
                   | image_tag: loading: 'lazy', class: 'res-mbt__img--desktop', alt: img_desktop.alt
                   | default: ''
                 }}
@@ -88,14 +88,14 @@
               {%- if img_mobile != blank -%}
                 {{
                   img_mobile
-                  | image_url: width: 1000
+                  | image_url: width: img_mobile.width
                   | image_tag: loading: 'lazy', class: 'res-mbt__img--mobile', alt: img_mobile.alt
                   | default: ''
                 }}
               {%- elsif img_desktop != blank -%}
                 {{
                   img_desktop
-                  | image_url: width: 1900
+                  | image_url: width: img_desktop.width
                   | image_tag: loading: 'lazy', class: 'res-mbt__img--mobile', alt: img_desktop.alt
                   | default: ''
                 }}
