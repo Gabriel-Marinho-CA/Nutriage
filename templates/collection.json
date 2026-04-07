@@ -63,15 +63,15 @@
         "item_MpydWB": {
           "type": "item",
           "settings": {
-            "title": "Imunidade",
-            "description": "Descrição desta categoria de produtos.",
-            "tag_1": "Vitamina C",
-            "tag_2": "Zinco",
-            "tag_3": "",
-            "tag_4": "",
+            "title": "Energia celular",
+            "description": "Sensação de cansaço constante, falta de disposição e baixa produtividade podem estar ligados à queda na produção de energia celular. Nutrientes específicos ajudam na produção de energia dentro das células, melhorando disposição, vitalidade e desempenho ao longo do dia.",
+            "tag_1": "Coenzima Q10",
+            "tag_2": "Magnésio",
+            "tag_3": "Creatina",
+            "tag_4": "Ômega 3",
             "tag_5": "",
             "button_label": "Ver todos",
-            "button_url": ""
+            "button_url": "shopify://collections/energia-celular"
           }
         },
         "item_qyXrLH": {
