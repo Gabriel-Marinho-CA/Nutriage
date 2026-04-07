@@ -75,34 +75,31 @@
           {%- if img_desktop != blank -%}
             {{
               img_desktop
-              | image_url: width: 1200
+              | image_url: width: img_desktop.width
               | image_tag:
                 loading: 'lazy',
                 class: 'res-bci__img--desktop',
-                alt: img_desktop.alt | default: '',
-                widths: '400, 600, 800, 1000, 1200'
+                alt: img_desktop.alt | default: ''
             }}
           {%- endif -%}
 
           {%- if img_mobile != blank -%}
             {{
               img_mobile
-              | image_url: width: 800
+              | image_url: width: img_mobile.width
               | image_tag:
                 loading: 'lazy',
                 class: 'res-bci__img--mobile',
-                alt: img_mobile.alt | default: '',
-                widths: '400, 600, 800'
+                alt: img_mobile.alt | default: ''
             }}
           {%- elsif img_desktop != blank -%}
             {{
               img_desktop
-              | image_url: width: 800
+              | image_url: width: img_desktop.width
               | image_tag:
                 loading: 'lazy',
                 class: 'res-bci__img--mobile',
-                alt: img_desktop.alt | default: '',
-                widths: '400, 600, 800'
+                alt: img_desktop.alt | default: ''
             }}
           {%- endif -%}
         </div>
