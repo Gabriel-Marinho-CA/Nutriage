@@ -112,7 +112,7 @@
   gap:1rem;
 }
 .tag-product {
-
+  width:fit-content;
   font-size: 13px;
   font-weight: bold;
 
