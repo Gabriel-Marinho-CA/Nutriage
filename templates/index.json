@@ -479,7 +479,7 @@
         "delay_ms": 1000,
         "modal_max_width": 620,
         "modal_bg": "#ffffff",
-        "content_bg": "#1a1a1a",
+        "content_bg": "#334fb4",
         "titulo_color": "#ffffff",
         "texto_color": "#cccccc",
         "btn_color": "#ffffff",
