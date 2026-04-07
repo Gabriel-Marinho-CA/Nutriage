@@ -68,6 +68,7 @@
           data-installment-count="{{ qb_inst_count }}"
           data-installment-label="{{ qb_inst_label | escape }}"
           data-qty-label="{{ qb_qty_label | escape }}"
+          data-treatment-month="{{ qb_threatment_month | escape }}"
           {%- if kit.featured_image -%}
             data-featured-image="{{ kit.featured_image | image_url: width: 1946 }}"
             data-featured-srcset="{{ kit.featured_image | image_url: width: 493 }} 493w, {{ kit.featured_image | image_url: width: 823 }} 823w, {{ kit.featured_image | image_url: width: 1100 }} 1100w, {{ kit.featured_image | image_url: width: 1946 }} 1946w"
@@ -109,7 +110,6 @@
             </span>
 
             <span class="qb-price-cash"> ou {{ qb_compare | money }} à vista </span>
-            <span class="treatment-month">Tratamento {{ qb_threatment_month }} </span>
           </div>
         </div>
       {%- endfor -%}
@@ -131,6 +131,7 @@
       data-installment-count="{{ block.settings.main_installment_count | default: 3 }}"
       data-installment-label="{{ block.settings.main_installment_label | default: '3x sem juros de' | escape }}"
       data-qty-label="{{ block.settings.main_qty_label | default: '1 unidade' | escape }}"
+      data-treatment-month="{{ qb_threatment_month | escape }}"
       {%- if product.featured_image -%}
         data-featured-image="{{ product.featured_image | image_url: width: 1946 }}"
         data-featured-srcset="{{ product.featured_image | image_url: width: 493 }} 493w, {{ product.featured_image | image_url: width: 823 }} 823w, {{ product.featured_image | image_url: width: 1100 }} 1100w, {{ product.featured_image | image_url: width: 1946 }} 1946w"
@@ -168,7 +169,6 @@
           {{ qb_v.price | divided_by: block.settings.main_installment_count | money }}
         </span>
         <span class="qb-price-cash"> ou {{ qb_compare | money }} à vista </span>
-        <span class="treatment-month"> Tratamento {{ qb_threatment_month }} </span>
       </div>
     </div>
   </div>

@@ -14,6 +14,7 @@ class QuantityBundle extends HTMLElement {
   connectedCallback() {
     this._cards = Array.from(this.querySelectorAll('.qb-card'));
     this._headingQty = this.querySelector('.qb-heading-qty');
+    this._headingTreatment = this.querySelector('.treatment-month');
     this._summaryBadge = this.querySelector('.qb-summary-badge');
     this._summaryCompare = this.querySelector('.qb-summary-compare');
     this._summaryPrice = this.querySelector('.qb-summary-price');
@@ -57,6 +58,11 @@ class QuantityBundle extends HTMLElement {
     // Heading
     if (this._headingQty) {
       this._headingQty.textContent = qtyLabel;
+    }
+
+    if (this._headingTreatment) {
+      const treatmentMonth = card.dataset.treatmentMonth || '';
+      this._headingTreatment.textContent = treatmentMonth ? `Tratamento ${treatmentMonth}` : '';
     }
 
     // Barra de resumo
