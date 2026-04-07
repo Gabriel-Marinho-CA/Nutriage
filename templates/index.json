@@ -450,7 +450,7 @@
       "type": "res-featured-collection",
       "name": "Coleção em Destaque",
       "settings": {
-        "collection": "header",
+        "collection": "header-kits",
         "products_to_show": 8,
         "title": "Conheça nossos Kits",
         "heading_color": "#1a4789",
