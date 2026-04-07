@@ -7,7 +7,7 @@
 <script src="{{ 'quantity-bundle.js' | asset_url }}" defer="defer"></script>
 
 {%- assign qb_kits = product.metafields.custom.kits.value -%}
-{%  assign pix_discount_value = 0.93 %}
+{% assign pix_discount_value = 0.93 %}
 
 <quantity-bundle
   class="quantity-bundle"
@@ -110,12 +110,10 @@
               {{ qb_v.price | divided_by: qb_inst_count | money }}
             </span>
 
-            <span class="qb-price-cash"> ou {{ qb_v.price 
-  | times: pix_discount_value 
-  | divided_by: 100.0 
-  | ceil 
-  | money }} no pix </span>
-            {{  qb_v.price | times: pix_discount_value }} --
+            <span class="qb-price-cash">
+              ou {{ qb_v.price | times: pix_discount_value | times: 100 | divided_by: 100.0 | ceil | money }} no pix
+            </span>
+            {{ qb_v.price | times: pix_discount_value }} --
           </div>
         </div>
       {%- endfor -%}
