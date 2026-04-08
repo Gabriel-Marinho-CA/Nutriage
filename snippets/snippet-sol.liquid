@@ -1,0 +1,418 @@
+<script>
+  (function() {
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        function isBot(userAgent) {
+            const bots = ['googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider', 'yandexbot', 'sogou', 'exabot', 'facebookexternalhit', 'twitterbot',
+                        'bytespider', 'ev-crawler', 'storebot', 'sitecheckerbotcrawler', 'ahrefsbot', 'webpagetest.org bot', 'facebookbot', 
+                        'claudebot',  'seekportbot'];
+            return bots.some(bot => userAgent.toLowerCase().includes(bot));
+        }
+
+        var utmTerm = new URLSearchParams(window.location.search).get('utm_term');
+        var userAgent = navigator.userAgent;    
+
+        function removeUndefinedUTMParameters() {
+            const utms = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
+            const currentUrlParams = new URLSearchParams(window.location.search);
+            
+            utms.forEach(utm => {
+                // Verifica se o parâmetro está como 'undefined' ou não existe
+                if (currentUrlParams.get(utm) === 'undefined') {
+                    // Remove da URL
+                    currentUrlParams.delete(utm);
+                    // Remove do local storage
+                    localStorage.removeItem(utm);
+                }
+            });
+
+            // Atualiza a URL sem os parâmetros removidos
+            const newUrl = new URL(window.location);
+            newUrl.search = currentUrlParams.toString();
+            window.history.replaceState({}, '', newUrl.toString());
+        }
+
+        removeUndefinedUTMParameters();
+
+
+        // Se é um bot, não procede com a lógica de ID
+        if (isBot(userAgent)) {            
+            return; // Pode adicionar qualquer lógica adicional para bots aqui, se necessário
+        }
+        // GoogleBot
+
+        let shopifyDomain;
+        let shopifyId;
+        if (window.Shopify && window.Shopify.shop) {
+          shopifyDomain = window.Shopify.shop;
+          shopifyId = shopifyDomain.split('.myshopify.com')[0];        
+        }      
+        // Para URL e domínio, você pode usar métodos JavaScript puros que funcionam em qualquer ambiente
+        var currentDomain = window.location.hostname;
+
+        // Função para pegar o valor numérico inteiro se existir, senão pegar o primeiro valor
+         function getUTMParameter(param, params) {
+            const values = params.getAll(param).map(v => v.toLowerCase());            
+            if (param === 'utm_campaign' || param === 'utm_content' ) {
+                for (let value of values) {
+                    if (/^\d+$/.test(value)) {
+                        return value;
+                    }
+                }
+            }
+
+            if (param === 'utm_source' || param === 'sol_source') {
+                const group = [ 'fb', 'ig', 'an', 'msg', 'facebook', 'facebookads','google', 'gg', 'institucional', 'discovery', 'pesquisa', 'youtube', 'kwai', 'tiktok'];
+                for (let preferred of group) {
+                    if (values.includes(preferred)) {
+                        return preferred;
+                    }
+                }
+            }
+            return values[0] || '';
+        }
+
+      
+       // Função para ler um cookie pelo nome
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Verifica se o cookie começa com o nome especificado
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function getRootDomain() {
+            var hostname = window.location.hostname;
+            var parts = hostname.split('.');
+            
+            // Debug: log para verificar o processamento
+            // console.log('Hostname:', hostname, 'Parts:', parts);
+            
+            // Se tem apenas 2 partes (ex: site.com), retorna com ponto
+            if (parts.length === 2) {
+                return '.' + hostname;
+            }
+            
+            // Se tem 3 partes exatamente
+            if (parts.length === 3) {
+                var secondLastPart = parts[parts.length - 2];
+                var compositeTLDs = ['com', 'net', 'org', 'gov', 'edu', 'mil', 'co', 'ac', 'ad'];
+                
+                // Se é TLD composto, usa todas as 3 partes (.site.com.br)
+                if (compositeTLDs.indexOf(secondLastPart) !== -1) {
+                    return '.' + parts.join('.');
+                }
+                // Se não é TLD composto, usa apenas as últimas 2 (.site.shop)
+                else {
+                    return '.' + parts.slice(-2).join('.');
+                }
+            }
+            
+            // Se tem 4 ou mais partes (ex: www.site.com.br, pagamento.site.com.br)
+            if (parts.length >= 4) {
+                var secondLastPart = parts[parts.length - 2];
+                var compositeTLDs = ['com', 'net', 'org', 'gov', 'edu', 'mil', 'co', 'ac', 'ad'];
+                
+                // Se é TLD composto, usa as últimas 3 partes (.site.com.br)
+                if (compositeTLDs.indexOf(secondLastPart) !== -1) {
+                    return '.' + parts.slice(-3).join('.');
+                }
+                // Se não é TLD composto, usa as últimas 2 partes (.site.shop)
+                else {
+                    return '.' + parts.slice(-2).join('.');
+                }
+            }
+            
+            // Fallback para hostname único
+            return hostname;
+        }
+
+        // Função para definir um cookie
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days*24*60*60*1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            var domain = getRootDomain();
+
+            if (name === 'uniqueId') {
+                document.cookie = name + "=" + (encodeURIComponent(value) || "") + expires + "; path=/; domain=" + domain + "; SameSite=None; Secure";
+            } else {
+                document.cookie = name + "=" + (value || "")  + expires + "; path=/; SameSite=None; Secure" ;
+            }
+        }
+
+      
+        const search_params = new URLSearchParams(window.location.search);
+        
+        var localStorageKey = 'uniqueId';
+        var cookieKey = 'uniqueId';
+        var uniqueId;
+        var debug;
+        const localeStr = navigator.language.replace('-', '_');
+        var queryParams =  window.location.search;
+    
+        // Coleta valores dos cookies
+        const fbp = search_params.get('fbp') || getCookie('_fbp') || "";
+        const fbc = search_params.get('fbc') || getCookie('_fbc') || "";
+        const fbclid = search_params.get('fbclid') || getCookie('_fbclid') || "";
+        const gaId = getCookie('_ga') || "";
+        var old_id;
+    
+        // Definição do comprimento esperado do uniqueId
+        const expectedUniqueIdLength = 9;
+      
+        const pattern = /^[a-z0-9]{9}_([0-9]+)$/;
+      
+        // Checa se utm_term está na URL
+        if (localStorage.getItem(localStorageKey)) {
+            // Se não está na URL, mas está no localStorage
+            uniqueId = localStorage.getItem(localStorageKey);
+            debug = 'sem url/ com local storage';
+        } else if(getCookie(cookieKey)){
+            // Se não está na URL, mas está no localStorage
+            uniqueId = getCookie(cookieKey);
+            localStorage.setItem(localStorageKey, uniqueId);
+            debug = 'sem url/ sem local storage/ mas no cookie';          
+        }else if (utmTerm && (pattern.test(utmTerm))  && (document.referrer.includes(window.location.hostname))) {
+            uniqueId = utmTerm;                 
+            localStorage.setItem(localStorageKey, uniqueId);
+            debug = 'com url/ sem local storage'            
+        } else {
+            // Se não está em nenhum dos dois, cria um novo
+            uniqueId = Math.random().toString(36).substr(2, 9) + "_" + new Date().getTime();
+            localStorage.setItem(localStorageKey, uniqueId);
+            debug = 'sem url/ sem local storage';
+        }
+
+        if (uniqueId != utmTerm){
+            old_id = utmTerm;
+        }
+        
+        setCookie(cookieKey, uniqueId, 365); // Expira em 365 dias
+    
+        const utms = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'sol_source', 'sol_medium', 'sol_campaign', 'sol_content'];
+        let shouldUpdateUrl = false;
+        const currentUrlParams = new URLSearchParams(window.location.search);
+        const storedUtms = {};
+    
+        // Verifica se alguma UTM é diferente de vazio
+        let hasAnyUtm = false;
+        utms.forEach(utm => {
+            const valueFromUrl = getUTMParameter(utm, currentUrlParams);
+            if (valueFromUrl) {
+                hasAnyUtm = true;
+            }
+        });
+
+        let hasExternalRefferrer = false;
+        // Função para extrair o domínio base (menor subdomínio)
+        function getBaseDomain(hostname) {
+            const parts = hostname.split('.');
+            
+            // Lista de TLDs compostos conhecidos
+            const compositeTLDs = [
+                'com.br', 'net.br', 'org.br', 'gov.br', 'edu.br',
+                'co.uk', 'co.jp', 'co.kr', 'co.za', 'co.in',
+                'com.au', 'com.mx', 'com.ar', 'com.co'
+            ];
+            
+            if (parts.length <= 2) {
+                return hostname; // Ex: example.com
+            }
+            
+            // Verifica se as últimas 2 partes formam um TLD composto
+            const lastTwoParts = parts.slice(-2).join('.');
+            if (compositeTLDs.includes(lastTwoParts)) {
+                // Para TLDs compostos, pega as últimas 3 partes
+                return parts.slice(-3).join('.');
+            }
+            
+            // Para TLDs simples, pega as últimas 2 partes
+            return parts.slice(-2).join('.');
+        }
+        
+        // Verifica se o referrer é externo
+        if (document.referrer) {
+            try {
+                const referrerUrl = new URL(document.referrer);
+                const currentDomain = getBaseDomain(window.location.hostname);
+                
+                // Lista de domínios permitidos
+                const allowedDomains = [
+                    'mercadopago.com',
+                    'myshopify.com'
+                ];
+                
+                // Verifica se o referrer contém o domínio atual ou é um gateway permitido
+                const isSameDomain = referrerUrl.hostname.includes(currentDomain);
+                const isAllowedGateway = allowedDomains.some(domain => 
+                    referrerUrl.hostname.includes(domain)
+                );
+                
+                // Se não contém o domínio atual nem é um gateway permitido, é externo
+                hasExternalRefferrer = !isSameDomain && !isAllowedGateway;
+                
+            } catch (error) {
+                // Se houver erro ao processar o referrer, considera como interno
+                hasExternalRefferrer = false;
+            }
+        }
+        
+
+        // Se alguma UTM for diferente de vazio, zera todas as UTMs
+        if (hasAnyUtm || hasExternalRefferrer) {
+            setCookie('utmsTrack', `utm_term=${uniqueId}`, 30);
+            utms.forEach(utm => {
+                localStorage.removeItem(utm);
+            });
+        }
+
+        // Tenta recuperar UTM tags do localStorage e da URL
+        utms.forEach(utm => {
+            const valueFromUrl = getUTMParameter(utm, currentUrlParams);
+            const valueFromStorage = localStorage.getItem(utm);
+    
+            if (valueFromUrl) {
+                // Se UTM tag está na URL, armazena no localStorage
+                localStorage.setItem(utm, valueFromUrl);
+                storedUtms[utm] = valueFromUrl;
+            } else if (valueFromStorage) {
+                // Se UTM tag não está na URL, mas está no localStorage, marca para adicionar na URL
+                storedUtms[utm] = valueFromStorage;
+                shouldUpdateUrl = false;
+            }
+        });
+    
+        // Atualiza a URL com UTM tags do localStorage se necessário
+        if (shouldUpdateUrl) {
+            const newUrl = new URL(window.location);
+            Object.keys(storedUtms).forEach(utm => {
+                newUrl.searchParams.set(utm, storedUtms[utm]);
+            });
+            console.log('Atualizando URL:', newUrl.toString());
+            window.history.replaceState({}, '', newUrl.toString());
+        }
+    
+        // Adiciona evento click para todos os links da página
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(event) {
+                // Verifica se o link é para o WhatsApp. Se for, não modifica o link.
+                if (this.href.includes('whatsapp.com')) return;
+    
+                // Modifica o link para incluir as UTM tags, exceto para links do WhatsApp
+                // const linkUrl = new URL(this.href);
+                // utms.forEach(utm => {
+                //     if (utm in storedUtms) {
+                //         linkUrl.searchParams.set(utm, storedUtms[utm]);
+                //     }                    
+                // });
+                // this.href = linkUrl.toString();
+            });
+        });
+
+        function getCartToken() {
+            let cartValue = getCookie('cart');
+            if (cartValue) {
+                let parts = decodeURIComponent(cartValue).split('?');
+                return parts[0]; // Retorna a parte antes do '?' ou a string inteira se não houver '?'
+            } else {
+                return null; // Ou qualquer valor padrão adequado
+            }
+        }
+
+
+        const url_params = new URLSearchParams(window.location.search);
+
+        // Função para pegar parâmetro primeiro da URL, depois do localStorage
+        function getParameterValue(param) {
+            const urlValue = getUTMParameter(param, url_params);
+            if (urlValue) {
+                return urlValue;
+            }
+            return localStorage.getItem(param) || '';
+        }
+    
+        // Prepara dados adicionais
+        var eventData = {
+            id: uniqueId,
+            referrer: document.referrer,
+            path: window.location.pathname,
+            utm_source: getParameterValue('utm_source'),
+            utm_medium: getParameterValue('utm_medium'),
+            utm_campaign: getParameterValue('utm_campaign'),
+            utm_term: uniqueId,
+            utm_content: getParameterValue('utm_content'),
+            sol_source: getParameterValue('sol_source'),
+            sol_medium: getParameterValue('sol_medium'),
+            sol_campaign: getParameterValue('sol_campaign'),
+            sol_content: getParameterValue('sol_content'),
+            fbp: fbp,
+            fbc: fbc,
+            ga_id: gaId,
+            fbclid: fbclid,
+            locale: localeStr.charAt(0).toUpperCase() + localeStr.slice(1),
+            timezone: /.*\s(.+)/.exec((new Date()).toLocaleDateString(navigator.language, { timeZoneName:'short' }))[1],
+            osVersion: navigator.appVersion.split(" ")[0],
+            screenWidth: screen.width,
+            screenHeight: screen.height,
+            density: window.devicePixelRatio,
+            cpuCores: navigator.hardwareConcurrency,
+            queryParams: queryParams,
+            debug: debug,
+            old_id: old_id,
+            utmsTrack: getCookie('utmsTrack'),
+            shopify_id: shopifyId,
+            current_domain: currentDomain,
+            cart_token: getCartToken(),
+        };
+    
+        // Envia uma requisição POST para o endpoint /events
+        fetch('https://pixel-events-se6wof3usq-ue.a.run.app/event', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(eventData),
+        })
+        .then(response => response.json())
+        .then(data => console.log('Evento enviado com sucesso:', data))
+        .catch((error) => {
+            console.error('Erro ao enviar evento:', error);
+        });
+
+        function updateUTMParametersInCookie() {
+          var existingParams = {};
+          var existingCookie = getCookie('utmsTrack');
+          if (existingCookie) {
+              existingCookie.split('&').forEach(function(part) {
+                  var item = part.split('=');
+                  existingParams[item[0]] = item[1];
+              });
+          }
+          var cookieParams = storedUtms;
+          cookieParams['utm_term'] = uniqueId;
+          var updatedParams = {...existingParams, ...cookieParams};
+      
+          var updatedString = Object.keys(updatedParams).map(key => `${key}=${updatedParams[key]}`).join('&');
+          setCookie('utmsTrack', updatedString, 30); // Armazena por 30 dias
+          setCookie('yeverUtmsTrack', updatedString, 30);
+        }
+        
+        updateUTMParametersInCookie();
+
+    });
+  })();  
+
+</script>
