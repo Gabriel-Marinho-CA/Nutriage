@@ -879,7 +879,8 @@
             </option>
             {%- for kit in product.metafields.custom.kits.value -%}
               {%- assign qb_v = kit.selected_or_first_available_variant -%}
-              <option value="{{ qb_v.id }}">{{ kit.title }} — {{ qb_v.price | money }}</option>
+              {% assign price_pix = qb_v.price  | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
+              <option value="{{ qb_v.id }}">{{ kit.title }} — {{ price_pix | money }} no pix</option>
             {%- endfor -%}
           </select>
           <span class="sticky-atc__select-arrow">
