@@ -902,7 +902,8 @@
           </span>
         </div>
       {%- else -%}
-        <p class="sticky-atc__price">{{ product.selected_or_first_available_variant.price | money }}</p>
+        {% assign price_pix = product.selected_or_first_available_variant.price  | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
+        <p class="sticky-atc__price">{{ price_pix | money }} no pix</p>
       {%- endif -%}
 
       <product-form
