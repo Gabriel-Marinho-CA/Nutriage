@@ -190,12 +190,13 @@
                                         {{ 'products.product.price.sale_price' | t }}
                                       </span>
                                       <span class="price price--end">
-                                        {{ item.final_line_price | money }}
+                                           {% assign price_pix = item.final_line_price  | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
+                                        {{ price_pix| money }} no pix
                                       </span>
                                     </div>
                                   {%- else -%}
                                     <span class="price price--end">
-                                      {{ item.original_line_price | money }} -
+                                      {{ item.original_line_price | money }} 
                                     </span>
                                   {%- endif -%}
 
