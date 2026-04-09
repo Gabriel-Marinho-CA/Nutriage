@@ -32,7 +32,7 @@
         "color_scheme": "scheme-21f2e6ec-094d-4baa-8861-c39f40e20225",
         "image_ratio": "adapt",
         "image_shape": "default",
-        "show_secondary_image": false,
+        "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
         "quick_add": "standard",
