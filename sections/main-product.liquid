@@ -867,7 +867,7 @@
             {{ product.selected_or_first_available_variant.compare_at_price | money }}
           </s>
            {% assign price_pix = product.selected_or_first_available_variant.price  | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
-          <span class="sticky-atc__summary-price">{{ price_pix | money }}</span>
+          <span class="sticky-atc__summary-price">{{ price_pix | money }} no pix</span>
         </div>
       </div>
 
