@@ -526,7 +526,8 @@
           <div class="totals" role="status">
             <h2 class="totals__total">Total</h2>
             <div class="wrapper-totals-price">
-              <p class="totals__total-value">{{ cart.total_price | money }}</p>
+              {% assign price_pix = cart.total_price  | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
+              <p class="totals__total-value">{{ price_pix | money }} no pix</p>
               {% render 'res-installments' %}
             </div>
           </div> 
