@@ -875,7 +875,8 @@
           <select id="StickyAtcSelect-{{ section.id }}" class="sticky-atc__select" aria-label="Selecione a quantidade">
             {%- comment -%} Fallback (JS sobrescreve com labels exatos do quantity-bundle, ordem: 1un primeiro) {%- endcomment -%}
             <option value="{{ product.selected_or_first_available_variant.id }}" selected>
-              1 Unidade — {{ product.selected_or_first_available_variant.price | money }}
+               {% assign price_pix = product.selected_or_first_available_variant.price  | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
+              1 Unidade — {{ price_pix | money }} no pix
             </option>
             {%- for kit in product.metafields.custom.kits.value -%}
               {%- assign qb_v = kit.selected_or_first_available_variant -%}
