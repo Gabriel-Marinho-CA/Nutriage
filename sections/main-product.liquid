@@ -866,7 +866,14 @@
           <s class="sticky-atc__summary-compare">
             {{ product.selected_or_first_available_variant.compare_at_price | money }}
           </s>
-           {% assign price_pix = product.selected_or_first_available_variant.price  | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
+          {% assign price_pix = product.selected_or_first_available_variant.price
+            | times: 0.93
+            | ceil
+            | plus: 99
+            | divided_by: 100
+            | floor
+            | times: 100
+          %}
           <span class="sticky-atc__summary-price">{{ price_pix | money }} no pix</span>
         </div>
       </div>
@@ -876,12 +883,19 @@
           <select id="StickyAtcSelect-{{ section.id }}" class="sticky-atc__select" aria-label="Selecione a quantidade">
             {%- comment -%} Fallback (JS sobrescreve com labels exatos do quantity-bundle, ordem: 1un primeiro) {%- endcomment -%}
             <option value="{{ product.selected_or_first_available_variant.id }}" selected>
-               {% assign price_pix = product.selected_or_first_available_variant.price  | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
+              {% assign price_pix = product.selected_or_first_available_variant.price
+                | times: 0.93
+                | ceil
+                | plus: 99
+                | divided_by: 100
+                | floor
+                | times: 100
+              %}
               1 Unidade — {{ price_pix | money }} no pix
             </option>
             {%- for kit in product.metafields.custom.kits.value -%}
               {%- assign qb_v = kit.selected_or_first_available_variant -%}
-              {% assign price_pix = qb_v.price  | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
+              {% assign price_pix = qb_v.price | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
               <option value="{{ qb_v.id }}">{{ kit.title }} — {{ price_pix | money }} no pix</option>
             {%- endfor -%}
           </select>
@@ -903,7 +917,14 @@
           </span>
         </div>
       {%- else -%}
-        {% assign price_pix = product.selected_or_first_available_variant.price  | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
+        {% assign price_pix = product.selected_or_first_available_variant.price
+          | times: 0.93
+          | ceil
+          | plus: 99
+          | divided_by: 100
+          | floor
+          | times: 100
+        %}
         <p class="sticky-atc__price">{{ price_pix | money }} no pix</p>
       {%- endif -%}
 
@@ -970,6 +991,14 @@
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(cents / 100);
       }
 
+      function fmtPix(cents) {
+        return new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(cents / 100);
+      }
       function updateSummary(price, compare) {
         if (!summaryPrice) return;
         summaryPrice.textContent = fmtMoney(price);
@@ -1012,10 +1041,11 @@
             const variantId = card.dataset.variantId;
             const qtyLabel = card.dataset.qtyLabel || '';
             const price = parseInt(card.dataset.price, 10) || 0;
+            const pixPrice = Math.ceil(price * 0.93 / 100) * 100; 
             const opt = document.createElement('option');
             opt.value = variantId;
             opt.dataset.baseLabel = qtyLabel;
-            opt.textContent = qtyLabel + ' — ' + fmtMoney(price);
+            opt.textContent = qtyLabel + ' — ' + fmtPix(pixPrice);
             // Always pre-select first option (main product / 1 Unidade)
             if (idx === 0) {
               opt.selected = true;
@@ -1073,22 +1103,22 @@
         }
       }
 
-new IntersectionObserver(
-  function (entries) {
-    const entry = entries[0];
-    // Só considera "saiu" se saiu pelo topo (scroll pra baixo passou do botão)
-    // boundingClientRect.bottom <= 0 significa que o elemento está acima da viewport
-    if (!entry.isIntersecting) {
-      productInfoVisible = entry.boundingClientRect.bottom > 0;
-      // bottom > 0 = ainda visível abaixo do fold (não mostrar sticky)
-      // bottom <= 0 = saiu pelo topo = mostrar sticky
-    } else {
-      productInfoVisible = true;
-    }
-    updateVisibility();
-  },
-  { threshold: 0 }
-).observe(productInfo);
+      new IntersectionObserver(
+        function (entries) {
+          const entry = entries[0];
+          // Só considera "saiu" se saiu pelo topo (scroll pra baixo passou do botão)
+          // boundingClientRect.bottom <= 0 significa que o elemento está acima da viewport
+          if (!entry.isIntersecting) {
+            productInfoVisible = entry.boundingClientRect.bottom > 0;
+            // bottom > 0 = ainda visível abaixo do fold (não mostrar sticky)
+            // bottom <= 0 = saiu pelo topo = mostrar sticky
+          } else {
+            productInfoVisible = true;
+          }
+          updateVisibility();
+        },
+        { threshold: 0 }
+      ).observe(productInfo);
 
       const footer = document.querySelector('.res-footer, footer.footer');
       if (footer) {
