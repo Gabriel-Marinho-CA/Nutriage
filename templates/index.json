@@ -171,6 +171,7 @@
     },
     "res_timmer_product_Brpegk": {
       "type": "res-timmer-product",
+      "disabled": true,
       "name": "RES - Timer Produto",
       "settings": {
         "product": "smartwatch-ultra-pro",
