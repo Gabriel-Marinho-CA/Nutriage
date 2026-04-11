@@ -480,6 +480,7 @@
     },
     "res_video_popup_m39ncP": {
       "type": "res-video-popup",
+      "disabled": true,
       "name": "res - Video Popup",
       "settings": {
         "video": "shopify://files/videos/Site Novo_1.mp4",
