@@ -576,7 +576,20 @@
         <!-- CTAs -->
 
         <div class="cart__ctas" {{ block.shopify_attributes }}>
-          <a
+                <button
+          
+            id="CartDrawer-Checkout"
+            class="cart__checkout-button button"
+            name="checkout"
+            onclick="yampiClick()"
+            {% if cart == empty %}
+              disabled
+            {% endif %}
+          >
+            {{ 'sections.cart.checkout' | t }}
+          </button>
+          {% comment %}
+                      <a
             href="/cart"
             type="submit"
             id="CartDrawer-Checkout"
@@ -589,7 +602,9 @@
           >
             {{ 'sections.cart.checkout' | t }}
           </a>
-          <a     onclick="this.closest('cart-drawer').close()"class="keep-buying" href="#">Continuar comprando</a>
+          {% endcomment %}
+
+          <a  onclick="this.closest('cart-drawer').close()"class="keep-buying" href="#">Continuar comprando</a>
         </div>
       </div>
     </div>
