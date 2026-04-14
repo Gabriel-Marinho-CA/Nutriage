@@ -26,7 +26,7 @@
   flex-direction: column;
   transform: translateX(100%);
   transition: transform var(--duration-default) ease;
-  height: 85%;
+  height: 100%;
   border-bottom-left-radius: 40px;
   border-top-left-radius: 40px;
   border-bottom-right-radius: 40px;
