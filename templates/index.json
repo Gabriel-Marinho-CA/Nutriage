@@ -12,6 +12,15 @@
     "res_hero_8CHBni": {
       "type": "res-hero",
       "blocks": {
+        "banner_hHgUTi": {
+          "type": "banner",
+          "settings": {
+            "image_mobile": "shopify://shop_images/P2_21f0cc70-8e18-4f47-ab40-d950d441bdb2.png",
+            "image_desktop": "shopify://shop_images/P13.png",
+            "url": "https://sndflw.com/i/saudearticularlive?utm_source=landing&utm_medium=cta&utm_campaign=hero",
+            "image_alt": "Imagem Hero"
+          }
+        },
         "banner_JQ8nkJ": {
           "type": "banner",
           "disabled": true,
@@ -52,6 +61,7 @@
         }
       },
       "block_order": [
+        "banner_hHgUTi",
         "banner_JQ8nkJ",
         "banner_Hyc3zP",
         "banner_7UH3Cy",
