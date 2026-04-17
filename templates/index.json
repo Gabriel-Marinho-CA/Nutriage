@@ -162,7 +162,6 @@
     },
     "res_timmer_product_Brpegk": {
       "type": "res-timmer-product",
-      "disabled": true,
       "name": "RES - Timer Produto",
       "settings": {
         "product": "",
@@ -201,7 +200,7 @@
         "cupom_label": "",
         "cupom_codigo": "",
         "cupom_copy_label": "Copiar",
-        "timer_label": "Compre em até",
+        "timer_label": "Compre em até 6x sem Juros!",
         "timer_label_color": "#ffffff",
         "timer_label_size": 18,
         "timer_horas": "22",
