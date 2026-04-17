@@ -1410,6 +1410,24 @@
       }
     ]
   },
+    {
+    "name": "RES COMPRE X LEVE Y",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "buy_x_get_y_enabled",
+        "label": "Habilitar promoção Compre X Leve Y",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "buy_x_get_y_cumulative",
+        "label": "Brindes cumulativos",
+        "info": "Ativado: brinde × quantidade comprada. Desativado: brinde fixo independente da quantidade.",
+        "default": false
+      }
+    ]
+  },
   {
     "name": "RES Frete Grátis",
     "settings": [
