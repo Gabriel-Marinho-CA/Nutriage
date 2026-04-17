@@ -84,7 +84,7 @@
           data-qty-number="{{  qb_qty }}"
           data-installment-count="{{ qb_inst_count }}"
           data-installment-label="{{ qb_inst_label | escape }}"
-          data-qty-label="{{ qb_qty_label | escape }}"
+          data-qty-label="{{ qb_qty_label | strip_html | escape }}"
           data-treatment-month="{{ qb_threatment_month | escape }}"
           {%- if kit.featured_image -%}
             data-featured-image="{{ kit.featured_image | image_url: width: 1946 }}"
