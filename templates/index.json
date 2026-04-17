@@ -165,7 +165,7 @@
       "disabled": true,
       "name": "RES - Timer Produto",
       "settings": {
-        "product": "smartwatch-ultra-pro",
+        "product": "massageador-portatil",
         "link_pdp": "shopify://collections/smartwatch-gratis",
         "titulo": "SmartWatch Ultra",
         "title_color": "#ffffff",
@@ -192,7 +192,7 @@
         "desconto2_texto": "",
         "desconto2_bg_color": "#f97316",
         "desconto2_text_color": "#ffffff",
-        "parcelamento": "Em compras acima de R$ 699,00",
+        "parcelamento": "Em compras acima de R$ 599,00",
         "frete_texto": "Compre e Ganhe!",
         "frete_estilo": "outline",
         "frete_color": "#ffffff",
