@@ -98,6 +98,7 @@
   justify-content: center;
   margin-bottom: 0.8rem;
   overflow: hidden;
+  position:relative;
 }
 
 .qb-card-img img {
@@ -178,6 +179,16 @@
 .treatment-month {
   font-size: 17px;
   font-weight: bold;
+}
+
+.qb-card-img-flag {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  background: #1a4789;
+  color: #fff;
+  font-size: 11px;
+  padding-inline: .68rem;
 }
 
 /* =============================================
