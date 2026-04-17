@@ -135,6 +135,129 @@ class CartDrawerItems extends CartItems {
 
 customElements.define('cart-drawer-items', CartDrawerItems);
 
+// ── Compre X Leve Y ───────────────────────────────────────────────────────────
+// Escuta o cartUpdate do product-form e adiciona o brinde correspondente.
+// Após adicionar, publica cartUpdate para que o CartDrawerItems atualize o drawer.
+subscribe(PUB_SUB_EVENTS.cartUpdate, async (event) => {
+  if (event.source !== 'product-form') return;
+  if (!window.buyXGetYEnabled) { console.log('[bxgy] desabilitado'); return; }
+
+  const addedId = parseInt(event.productVariantId, 10);
+
+  const groups = window.bxgyLinkedGroups || [];
+
+  const group = groups.find((g) => g.mains.some((m) => m.id === addedId));
+  if (!group) return;
+
+  const cartItems = await fetch('/cart.js').then((r) => r.json()).then((c) => c.items || []);
+
+  let expectedBonusQty = 0;
+  for (const main of group.mains) {
+    const mainQty = cartItems.find((i) => i.variant_id === main.id)?.quantity || 0;
+    expectedBonusQty += window.bxgyIsCumulative
+      ? main.factor * mainQty
+      : (mainQty > 0 ? main.factor : 0);
+  }
+
+  const currentBonusQty = cartItems.find((i) => i.variant_id === group.bonus)?.quantity || 0;
+  const delta = expectedBonusQty - currentBonusQty;
+  if (delta <= 0) return;
+
+  try {
+    const res = await fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: [{ id: group.bonus, quantity: delta }] }),
+    });
+    const json = await res.json();
+    publish(PUB_SUB_EVENTS.cartUpdate, { source: 'buy-x-get-y' });
+  } catch (e) {
+    console.error('[bxgy] Erro ao adicionar brinde:', e);
+  }
+});
+
+// Ajusta/remove brindes quando qty de produto principal é alterada ou removida do carrinho.
+// Escaneia todos os grupos pois remoções via botão não passam variantId no evento.
+subscribe(PUB_SUB_EVENTS.cartUpdate, async (event) => {
+  if (event.source !== 'cart-items') return;
+  if (!window.buyXGetYEnabled) return;
+
+  const cartItems = event.cartData?.items || [];
+  const groups = window.bxgyLinkedGroups || [];
+  let changed = false;
+
+  for (const group of groups) {
+    // Soma contribuição de todos os mains do grupo presentes no carrinho
+    let expectedBonusQty = 0;
+    for (const main of group.mains) {
+      const mainQty = cartItems.find((i) => i.variant_id === main.id)?.quantity || 0;
+      expectedBonusQty += window.bxgyIsCumulative
+        ? main.factor * mainQty
+        : (mainQty > 0 ? main.factor : 0);
+    }
+
+    const bonusItem = cartItems.find((i) => i.variant_id === group.bonus);
+    const currentBonusQty = bonusItem?.quantity || 0;
+    if (expectedBonusQty === currentBonusQty) continue;
+
+    try {
+      if (bonusItem) {
+        // Usa o item key (variantId:hash) que o /cart/change.js requer
+        await fetch('/cart/change.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: bonusItem.key, quantity: expectedBonusQty }),
+        });
+      } else if (expectedBonusQty > 0) {
+        // Brinde não está no carrinho ainda — adiciona
+        await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: [{ id: group.bonus, quantity: expectedBonusQty }] }),
+        });
+      }
+      changed = true;
+    } catch (e) {
+      console.error('[bxgy] Erro ao ajustar brinde:', e);
+    }
+  }
+
+  if (!changed) return;
+
+  // Atualiza drawer + bubble + is-empty explicitamente.
+  // onCartUpdate() não atualiza o bubble nem cobre o estado vazio do drawer.
+  try {
+    const [drawerText, bubbleText, cartJson] = await Promise.all([
+      fetch(`${routes.cart_url}?section_id=cart-drawer`).then((r) => r.text()),
+      fetch(`${routes.cart_url}?section_id=cart-icon-bubble`).then((r) => r.text()),
+      fetch('/cart.js').then((r) => r.json()),
+    ]);
+
+    // Substitui o conteúdo de #CartDrawer (cobre estado vazio e não-vazio)
+    const drawerDoc = new DOMParser().parseFromString(drawerText, 'text/html');
+    const cartDrawerContent = document.querySelector('#CartDrawer');
+    const newCartDrawerContent = drawerDoc.querySelector('#CartDrawer');
+    if (cartDrawerContent && newCartDrawerContent) {
+      cartDrawerContent.innerHTML = newCartDrawerContent.innerHTML;
+      // Re-attach overlay listener perdido após innerHTML replace
+      const overlay = cartDrawerContent.querySelector('#CartDrawer-Overlay');
+      const cartDrawerEl = document.querySelector('cart-drawer');
+      if (overlay && cartDrawerEl) overlay.addEventListener('click', cartDrawerEl.close.bind(cartDrawerEl));
+    }
+
+    // Sincroniza classe is-empty no <cart-drawer>
+    const cartDrawerEl = document.querySelector('cart-drawer');
+    if (cartDrawerEl) cartDrawerEl.classList.toggle('is-empty', cartJson.item_count === 0);
+
+    // Atualiza contador no header
+    const bubble = document.getElementById('cart-icon-bubble');
+    const newBubble = new DOMParser().parseFromString(bubbleText, 'text/html').querySelector('.shopify-section');
+    if (bubble && newBubble) bubble.innerHTML = newBubble.innerHTML;
+  } catch (e) {
+    console.error('[bxgy] Erro ao atualizar drawer:', e);
+  }
+});
+
 
 class OrderBumpSlider extends HTMLElement {
   constructor() {
