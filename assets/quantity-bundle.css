@@ -150,7 +150,7 @@
   line-height: 1.3;
 
   strong {
-    color:##3da843;
+    color:#3da843;
   }
 }
 
@@ -189,7 +189,7 @@
   position: absolute;
   bottom: 5px;
   left: 0;
-  background: #f5a623;
+  background: #3da843;
   color: #fff;
   font-size: 11px;
   padding-inline: .68rem;
