@@ -4,6 +4,10 @@
 {%- endcomment -%}
 
 {{ 'quantity-bundle.css' | asset_url | stylesheet_tag }}
+<script>
+  window.buyXGetYEnabled = {{ settings.buy_x_get_y_enabled | json }};
+  window.bxgyIsCumulative = {{ settings.buy_x_get_y_cumulative | json }};
+</script>
 <script src="{{ 'quantity-bundle.js' | asset_url }}" defer="defer"></script>
 
 {%- assign qb_kits = product.metafields.custom.kits.value -%}
@@ -13,6 +17,9 @@
   class="quantity-bundle"
   data-section-id="{{ section.id }}"
   data-form-id="{{ product_form_id }}"
+  {%- if settings.buy_x_get_y_enabled -%}
+    data-buy-x-get-y-enabled="true"
+  {%- endif -%}
   {{ block.shopify_attributes }}
 >
   <p class="qb-heading">
@@ -60,6 +67,15 @@
           {%- assign qb_badge_text = '' -%}
         {%- endif -%}
 
+        {%- assign qb_bonus_flag = '' -%}
+        {%- if settings.buy_x_get_y_enabled -%}
+          {%- if qb_qty == 5 -%}
+            {%- assign qb_bonus_flag = '+2 potes' -%}
+          {%- elsif qb_qty == 3 -%}
+            {%- assign qb_bonus_flag = '+1 pote' -%}
+          {%- endif -%}
+        {%- endif -%}
+
         <div
           class="qb-card"
           data-variant-id="{{ qb_v.id }}"
@@ -89,6 +105,9 @@
                   height="150"
                   loading="lazy"
                 >
+              {%- endif -%}
+              {%- if qb_bonus_flag != '' -%}
+                <span class="qb-card-img-flag">{{ qb_bonus_flag }}</span>
               {%- endif -%}
             </div>
 
