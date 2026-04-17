@@ -10,6 +10,51 @@
  *  5. Dispara evento customizado "quantity-bundle:change" para extensibilidade
  */
 
+/**
+ * Mapeamento de grupos Compre X Leve Y.
+ * mains: variantes principais com o fator de brindes que cada uma gera.
+ * bonus: variante do produto brinde.
+ * Exposto via window.bxgyLinkedGroups para ser lido pelo cart-drawer.js.
+ */
+window.bxgyLinkedGroups = [
+  // CÚRCUMA LIPOSSOMAL
+  { mains: [{ id: 51482708181311, factor: 2 }, { id: 51482708148543, factor: 1 }], bonus: 51668670087487 },
+  // VMAX
+  { mains: [{ id: 49952062308671, factor: 2 }, { id: 49952062079295, factor: 1 }], bonus: 51310042186047 },
+  // ThermoCaps
+  { mains: [{ id: 49925916754239, factor: 2 }, { id: 49925916950847, factor: 1 }], bonus: 50888322515263 },
+  // CREATINA
+  { mains: [{ id: 49952080396607, factor: 2 }, { id: 49952080363839, factor: 1 }], bonus: 51668669792575 },
+  // POWER MEN
+  { mains: [{ id: 49952060932415, factor: 2 }, { id: 49952060834111, factor: 1 }], bonus: 51668670480703 },
+  // ÔMEGA 3 FOCUS
+  { mains: [{ id: 49952059359551, factor: 2 }, { id: 49952058835263, factor: 1 }], bonus: 51668670120255 },
+  // ÔMEGA 3 PREVENT
+  { mains: [{ id: 49952057491775, factor: 2 }, { id: 49952057229631, factor: 1 }], bonus: 51668670185791 },
+  // MELATONINA
+  { mains: [{ id: 49925922259263, factor: 2 }, { id: 49925922029887, factor: 1 }], bonus: 51174591988031 },
+  // MAGNESIUM 3 ULTRA
+  { mains: [{ id: 49925921734975, factor: 2 }, { id: 49925921374527, factor: 1 }], bonus: 51588511695167 },
+  // COMPLEXO B OTIMIZADO
+  { mains: [{ id: 49925920194879, factor: 2 }, { id: 49925919736127, factor: 1 }], bonus: 51668669727039 },
+  // COENZIMA Q10 PLUS
+  { mains: [{ id: 49925917442367, factor: 2 }, { id: 49925917409599, factor: 1 }], bonus: 51668669595967 },
+  // ARTRO PLUS
+  { mains: [{ id: 49925917114687, factor: 2 }, { id: 49925917016383, factor: 1 }], bonus: 51668669563199 },
+  // VITAMINA D3+K2
+  { mains: [{ id: 49952073351487, factor: 2 }, { id: 49952073122111, factor: 1 }], bonus: 51241734340927 },
+  // Multivitamínico AaZinco
+  { mains: [{ id: 50003382731071, factor: 2 }, { id: 50003382698303, factor: 1 }], bonus: 51292515434815 },
+  // VITAMINA D3 GOTAS
+  { mains: [{ id: 50087558250815, factor: 2 }, { id: 50087558054207, factor: 1 }], bonus: 51310040056127 },
+  // VITAMINA C COM ZINCO
+  { mains: [{ id: 49952078987583, factor: 2 }, { id: 49952078790975, factor: 1 }], bonus: 51310040449343 },
+  // NEURO FOX
+  { mains: [{ id: 49952063979839, factor: 2 }, { id: 49952063947071, factor: 1 }], bonus: 51310041170239 },
+  // HAIR MAX 5
+  { mains: [{ id: 49952077250879, factor: 2 }, { id: 49952077185343, factor: 1 }], bonus: 51310041727295 },
+];
+
 class QuantityBundle extends HTMLElement {
   connectedCallback() {
     this._cards = Array.from(this.querySelectorAll('.qb-card'));
@@ -19,6 +64,8 @@ class QuantityBundle extends HTMLElement {
     this._summaryCompare = this.querySelector('.qb-summary-compare');
     this._summaryPrice = this.querySelector('.qb-summary-price');
     this._summaryUnit = this.querySelector('.qb-summary-unit');
+    this._buyXGetY = this._parseBuyXGetY();
+    this._currentBonusQty = 0;
 
     this._cards.forEach((card) => {
       card.addEventListener('click', () => this._select(card));
@@ -36,6 +83,7 @@ class QuantityBundle extends HTMLElement {
     if (this._cards.length > 0) {
       this._select(this._cards[0], { silent: true });
     }
+
   }
 
   _select(card, { silent = false } = {}) {
@@ -54,6 +102,13 @@ class QuantityBundle extends HTMLElement {
     const installmentLabel = card.dataset.installmentLabel || '';
     const qtyLabel = card.dataset.qtyLabel || '';
     const qtyTotal = card.dataset.qtyNumber || 0;
+
+    // Track bonus qty para este card via linkedGroups
+    if (this._buyXGetY) {
+      const variantIdNum = parseInt(variantId, 10);
+      const rule = this._buyXGetY.rules.find((r) => r.id === variantIdNum);
+      this._currentBonusQty = rule ? rule.factor : 0;
+    }
 
     // Heading
     if (this._headingQty) {
@@ -155,9 +210,14 @@ class QuantityBundle extends HTMLElement {
     if (this._summaryPrice) {
       this._summaryPrice.textContent = `${this._fmtPix(pixPrice)} no pix`;
     }
+
+    // Preço por unidade — quando promo ativa divide pelo total com brinde, senão divide por qtyTotal
     if (this._summaryUnit) {
-      const unitPixPrice = Math.ceil(pixPrice / qtyTotal)
-      this._summaryUnit.textContent = qtyTotal > 1 ? `(${this._fmtPix(unitPixPrice)}/unidade)` : '';
+      const promoActive = this._buyXGetY && this._currentBonusQty > 0;
+      const effectiveQty = promoActive ? qtyTotal + this._currentBonusQty : qtyTotal;
+      this._summaryUnit.textContent = effectiveQty > 1
+        ? `(${this._fmtPix(Math.ceil(pixPrice / effectiveQty))}/unidade)`
+        : '';
     }
   }
 
@@ -184,6 +244,12 @@ class QuantityBundle extends HTMLElement {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(cents / 100);
+  }
+  _parseBuyXGetY() {
+    if (this.dataset.buyXGetYEnabled !== 'true') return null;
+    const cardIds = this._cards.map((c) => parseInt(c.dataset.variantId, 10));
+    const group = (window.bxgyLinkedGroups || []).find((g) => g.mains.some((m) => cardIds.includes(m.id)));
+    return group ? { bonusId: group.bonus, rules: group.mains } : null;
   }
 }
 
