@@ -119,7 +119,7 @@
     "predictive_search_show_vendor": false,
     "predictive_search_show_price": false,
     "currency_code_enabled": false,
-    "buy_x_get_y_enabled": true,
+    "buy_x_get_y_enabled": false,
     "show_free_shipping": true,
     "min_free_shipping": "499",
     "cart_type": "drawer",
