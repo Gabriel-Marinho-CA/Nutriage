@@ -162,6 +162,7 @@
     },
     "res_timmer_product_Brpegk": {
       "type": "res-timmer-product",
+      "disabled": true,
       "name": "RES - Timer Produto",
       "settings": {
         "product": "artro-plus-60-capsulas-nutriage",
