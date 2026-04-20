@@ -1604,7 +1604,7 @@ product-form.product-form {
   z-index: 100;
   background: #fff;
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.12);
-  padding-block: 3rem;
+  padding-block: 1rem;
   transform: translateY(100%);
   transition: transform 0.3s ease;
   will-change: transform;
