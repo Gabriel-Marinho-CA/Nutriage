@@ -195,14 +195,6 @@
   padding-inline: .68rem;
 }
  
-.unit-price-mob  {
-  color: #fff;
-    background-color: #1a4789;
-    padding-inline: .75rem;
-    border-radius: 6px;
-    font-size: 10px;
-    padding: .2rem .7rem;
-}
 
 /* =============================================
    Barra de resumo de preço
@@ -281,6 +273,15 @@
   }
 }
 
+
+.unit-price-mob  {
+  color: #fff;
+    background-color: #1a4789;
+    padding-inline: .75rem;
+    border-radius: 6px;
+    font-size: 10px;
+    padding: .2rem .7rem;
+}
 
 
 
