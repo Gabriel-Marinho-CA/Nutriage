@@ -66,13 +66,13 @@
           {%- assign qb_show_badge = false -%}
           {%- assign qb_badge_text = '' -%}
         {%- endif -%}
-
+ 
         {%- assign qb_bonus_flag = '' -%}
         {%- if settings.buy_x_get_y_enabled -%}
           {%- if qb_qty == 5 -%}
-            {%- assign qb_bonus_flag = '+2 potes - grátis' -%}
+            {%- assign qb_bonus_flag = '+2 potes' -%}
           {%- elsif qb_qty == 3 -%}
-            {%- assign qb_bonus_flag = '+1 pote - grátis' -%}
+            {%- assign qb_bonus_flag = '+1 pote' -%}
           {%- endif -%}
         {%- endif -%}
 
@@ -107,7 +107,7 @@
                 >
               {%- endif -%}
               {%- if qb_bonus_flag != '' -%}
-                <span class="qb-card-img-flag">{{ qb_bonus_flag }}</span>
+                <span class="qb-card-img-flag">{{ qb_bonus_flag }} - <strong>grátis</strong></span>
               {%- endif -%}
             </div>
 
