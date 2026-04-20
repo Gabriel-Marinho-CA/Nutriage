@@ -15,7 +15,7 @@
 {%- if bump_product_id != blank -%}
   <product-recommendations
     class="order-bump-recommendations"
-    data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ bump_product_id }}&limit=6&intent=related"
+    data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ item.product_id }}&limit=6&intent=related"
   >
     {%- if recommendations.performed? and recommendations.products_count > 0 -%}
       <order-bump-slider class="order-bump">
