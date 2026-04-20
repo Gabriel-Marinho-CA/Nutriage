@@ -193,6 +193,10 @@
   color: #fff;
   font-size: 11px;
   padding-inline: .68rem;
+
+  @media (max-width:547px) {
+    font-size:10px;
+  }
 }
  
 
