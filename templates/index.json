@@ -35,8 +35,8 @@
           "type": "banner",
           "disabled": true,
           "settings": {
-            "image_mobile": "shopify://shop_images/Novo-Site-04-26-Nem-o-frio-apaga-mobile.png",
-            "image_desktop": "shopify://shop_images/Novo-Site-04-26-Nem-o-frio-apaga-deskp.png",
+            "image_mobile": "shopify://shop_images/MB_27.png",
+            "image_desktop": "shopify://shop_images/PC_1.png",
             "url": "shopify://products/power-men-60-comprimidos-nutriage",
             "image_alt": "Nem o frio apaga - power men"
           }
