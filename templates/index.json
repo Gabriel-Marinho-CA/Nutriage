@@ -14,7 +14,6 @@
       "blocks": {
         "banner_T7kDiF": {
           "type": "banner",
-          "disabled": true,
           "settings": {
             "image_mobile": "shopify://shop_images/artrouuu.png",
             "image_desktop": "shopify://shop_images/artrouu_pruis_desk.png",
@@ -24,7 +23,6 @@
         },
         "banner_9GfUNM": {
           "type": "banner",
-          "disabled": true,
           "settings": {
             "image_mobile": "shopify://shop_images/curcu_nao.png",
             "image_desktop": "shopify://shop_images/curcu_sim.png",
@@ -34,7 +32,6 @@
         },
         "banner_ine8zw": {
           "type": "banner",
-          "disabled": true,
           "settings": {
             "image_mobile": "shopify://shop_images/aham.png",
             "image_desktop": "shopify://shop_images/aham_desk.png",
@@ -44,6 +41,7 @@
         },
         "banner_hHgUTi": {
           "type": "banner",
+          "disabled": true,
           "settings": {
             "image_mobile": "shopify://shop_images/S11.png",
             "image_desktop": "shopify://shop_images/P13.png",
@@ -53,7 +51,6 @@
         },
         "banner_JQ8nkJ": {
           "type": "banner",
-          "disabled": true,
           "settings": {
             "image_mobile": "shopify://shop_images/S4.png",
             "image_desktop": "shopify://shop_images/P11.png",
@@ -63,7 +60,6 @@
         },
         "banner_jDrw4B": {
           "type": "banner",
-          "disabled": true,
           "settings": {
             "image_mobile": "shopify://shop_images/MB_27.png",
             "image_desktop": "shopify://shop_images/PC_1.png",
