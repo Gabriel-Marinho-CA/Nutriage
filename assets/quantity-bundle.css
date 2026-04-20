@@ -266,7 +266,7 @@
   font-size: 1.2rem;
   color: #fff;
   background-color: #1A4789;
-  padding-inline: .75rem;
+  padding-inline: .75rem; 
   border-radius: 6px;
   @media (max-width:750px) {
     font-size: .9rem;
