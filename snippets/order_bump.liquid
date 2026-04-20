@@ -4,13 +4,16 @@
   assign product_form_id = 'product-form-order-bump-' | append: section.id
   assign cart_product_ids = ''
   assign bump_product_id = blank
+  assign bump_found = false
   for item in cart.items
     assign cart_product_ids = cart_product_ids | append: item.product_id | append: ','
-    if item.product.title contains 'Brinde' or item.product.title contains 'BRINDE' or item.product.title contains 'brinde'
-    else
-    assign bump_product_id = item.product_id
-    endif
-
+    unless bump_found
+      assign title_lower = item.product.title | downcase
+      unless title_lower contains 'brinde'
+        assign bump_product_id = item.product_id
+        assign bump_found = true
+      endunless
+    endunless
   endfor
 -%}
 
