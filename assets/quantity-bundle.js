@@ -16,7 +16,6 @@
  * bonus: variante do produto brinde.
  * Exposto via window.bxgyLinkedGroups para ser lido pelo cart-drawer.js.
  */
-// window.bxgyLinkedGroups é definido globalmente em cart-drawer.js
 
 class QuantityBundle extends HTMLElement {
   connectedCallback() {
