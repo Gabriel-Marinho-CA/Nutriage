@@ -59,6 +59,10 @@
           background-color: #EBF3F8;
         }
       }
+
+      img {
+        border-radius:24px;
+      }
     }
   }
 }
