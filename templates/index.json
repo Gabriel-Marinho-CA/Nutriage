@@ -12,6 +12,16 @@
     "res_hero_8CHBni": {
       "type": "res-hero",
       "blocks": {
+        "banner_ine8zw": {
+          "type": "banner",
+          "disabled": true,
+          "settings": {
+            "image_mobile": "shopify://shop_images/aham.png",
+            "image_desktop": "shopify://shop_images/aham_desk.png",
+            "url": "shopify://collections/ㅤㅤㅤㅤㅤ",
+            "image_alt": "Imagem Hero"
+          }
+        },
         "banner_hHgUTi": {
           "type": "banner",
           "settings": {
@@ -43,6 +53,7 @@
         }
       },
       "block_order": [
+        "banner_ine8zw",
         "banner_hHgUTi",
         "banner_JQ8nkJ",
         "banner_jDrw4B"
