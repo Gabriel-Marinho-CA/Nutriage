@@ -20,7 +20,7 @@
 {%- if bump_product_id != blank -%}
   <product-recommendations
     class="order-bump-recommendations"
-    data-url="{{ routes.product_recommendations_url }}?limit=6&intent=related"
+    data-url="{{ routes.product_recommendations_url }}?limit=6&intent=complementary"
     data-section-id="cart-drawer"
     data-product-id="{{ bump_product_id }}"
   >
