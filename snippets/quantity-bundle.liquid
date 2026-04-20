@@ -138,7 +138,7 @@
               {%- elsif qb_qty == 3 -%}{%- assign qb_total_qty = 4 -%}
               {%- endif -%}
             {%- endif -%}
-            <span data-teste="{{ qb_qty }} class="unit-price-mob large-up-hide medium-hide">({{ price_pix | divided_by: qb_total_qty | money }}/unidade)</span>
+            <span  class="unit-price-mob large-up-hide medium-hide">({{ price_pix | divided_by: qb_total_qty | money }}/unidade)</span>
           </div>
         </div>
       {%- endfor -%}
