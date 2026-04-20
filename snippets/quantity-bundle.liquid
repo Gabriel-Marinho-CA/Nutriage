@@ -132,7 +132,13 @@
             {% assign price_pix = qb_v.price | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
 
             <span class="qb-price-cash"> ou {{ price_pix | money }} no pix </span>
-            <span class="unit-price-mob large-up-hide medium-hide">({{ price_pix | divided_by: qb_inst_count | money }}/unidade)</span>
+            {%- assign qb_total_qty = qb_qty -%}
+            {%- if settings.buy_x_get_y_enabled -%}
+              {%- if qb_qty == 5 -%}{%- assign qb_total_qty = 7 -%}
+              {%- elsif qb_qty == 3 -%}{%- assign qb_total_qty = 4 -%}
+              {%- endif -%}
+            {%- endif -%}
+            <span class="unit-price-mob large-up-hide medium-hide">({{ price_pix | divided_by: qb_total_qty | money }}/unidade)</span>
           </div>
         </div>
       {%- endfor -%}
@@ -193,7 +199,7 @@
         </span>
         {% assign price_pix = qb_v.price | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
         <span class="qb-price-cash"> ou {{ price_pix  | money }} no pix </span>
-        <span class="unit-price-mob large-up-hide medium-hide">({{ price_pix | divided_by: block.settings.main_installment_count | money }}/unidade)</span>
+        <span class="unit-price-mob large-up-hide medium-hide">({{ price_pix | divided_by: 1 | money }}/unidade)</span>
       </div>
     </div>
   </div>
