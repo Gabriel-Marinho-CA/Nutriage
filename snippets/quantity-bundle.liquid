@@ -132,7 +132,6 @@
             {% assign price_pix = qb_v.price | times: 0.93 | ceil | plus: 99 | divided_by: 100 | floor | times: 100 %}
 
             <span class="qb-price-cash"> ou {{ price_pix | money }} no pix </span>
-              <span class="unit-price-mob large-up-hide medium-hide>({{ price_pix | divided_by: qb_inst_count | money }}/unidade)</span>
           </div>
 
         </div>
