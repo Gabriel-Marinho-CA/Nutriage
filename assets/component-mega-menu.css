@@ -60,11 +60,14 @@
         }
       }
 
+
+    }
+  }
+}
+.mega-menu__content {
       img {
         border-radius:24px;
       }
-    }
-  }
 }
 
 .shopify-section-header-sticky .mega-menu__content {
