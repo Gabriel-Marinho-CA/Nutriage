@@ -12,43 +12,6 @@
     "res_hero_8CHBni": {
       "type": "res-hero",
       "blocks": {
-        "banner_T7kDiF": {
-          "type": "banner",
-          "settings": {
-            "image_mobile": "shopify://shop_images/artrouuu.png",
-            "image_desktop": "shopify://shop_images/artrouu_pruis_desk.png",
-            "url": "",
-            "image_alt": "Imagem Hero"
-          }
-        },
-        "banner_9GfUNM": {
-          "type": "banner",
-          "settings": {
-            "image_mobile": "shopify://shop_images/curcu_nao.png",
-            "image_desktop": "shopify://shop_images/curcu_sim.png",
-            "url": "shopify://collections/ㅤㅤㅤㅤ",
-            "image_alt": "Imagem Hero"
-          }
-        },
-        "banner_ine8zw": {
-          "type": "banner",
-          "settings": {
-            "image_mobile": "shopify://shop_images/aham.png",
-            "image_desktop": "shopify://shop_images/aham_desk.png",
-            "url": "shopify://collections/ㅤㅤㅤㅤㅤ",
-            "image_alt": "Imagem Hero"
-          }
-        },
-        "banner_hHgUTi": {
-          "type": "banner",
-          "disabled": true,
-          "settings": {
-            "image_mobile": "shopify://shop_images/S11.png",
-            "image_desktop": "shopify://shop_images/P13.png",
-            "url": "https://sndflw.com/i/saudearticularlive?utm_source=landing&utm_medium=cta&utm_campaign=hero",
-            "image_alt": "Imagem Hero"
-          }
-        },
         "banner_JQ8nkJ": {
           "type": "banner",
           "settings": {
@@ -66,15 +29,52 @@
             "url": "shopify://collections/ㅤㅤㅤ",
             "image_alt": "Nem o frio apaga - power men"
           }
+        },
+        "banner_ine8zw": {
+          "type": "banner",
+          "settings": {
+            "image_mobile": "shopify://shop_images/aham.png",
+            "image_desktop": "shopify://shop_images/aham_desk.png",
+            "url": "shopify://collections/ㅤㅤㅤㅤㅤ",
+            "image_alt": "Imagem Hero"
+          }
+        },
+        "banner_9GfUNM": {
+          "type": "banner",
+          "settings": {
+            "image_mobile": "shopify://shop_images/curcu_nao.png",
+            "image_desktop": "shopify://shop_images/curcu_sim.png",
+            "url": "shopify://collections/ㅤㅤㅤㅤ",
+            "image_alt": "Imagem Hero"
+          }
+        },
+        "banner_T7kDiF": {
+          "type": "banner",
+          "settings": {
+            "image_mobile": "shopify://shop_images/artrouuu.png",
+            "image_desktop": "shopify://shop_images/artrouu_pruis_desk.png",
+            "url": "",
+            "image_alt": "Imagem Hero"
+          }
+        },
+        "banner_hHgUTi": {
+          "type": "banner",
+          "disabled": true,
+          "settings": {
+            "image_mobile": "shopify://shop_images/S11.png",
+            "image_desktop": "shopify://shop_images/P13.png",
+            "url": "https://sndflw.com/i/saudearticularlive?utm_source=landing&utm_medium=cta&utm_campaign=hero",
+            "image_alt": "Imagem Hero"
+          }
         }
       },
       "block_order": [
-        "banner_T7kDiF",
-        "banner_9GfUNM",
-        "banner_ine8zw",
-        "banner_hHgUTi",
         "banner_JQ8nkJ",
-        "banner_jDrw4B"
+        "banner_jDrw4B",
+        "banner_ine8zw",
+        "banner_9GfUNM",
+        "banner_T7kDiF",
+        "banner_hHgUTi"
       ],
       "name": "res - Banner Principal",
       "settings": {
