@@ -6,9 +6,11 @@
   assign bump_product_id = blank
   for item in cart.items
     assign cart_product_ids = cart_product_ids | append: item.product_id | append: ','
-    unless item.product.title contains 'Brinde'
-      assign bump_product_id = item.product_id
-    endunless
+    if item.product.title contains 'Brinde' or item.product.title contains 'BRINDE' or item.product.title contains 'brinde'
+    else
+    assign bump_product_id = item.product_id
+    endif
+
   endfor
 -%}
 
