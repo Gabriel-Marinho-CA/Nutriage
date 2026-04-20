@@ -258,6 +258,40 @@ subscribe(PUB_SUB_EVENTS.cartUpdate, async (event) => {
   }
 });
 
+// Ao carregar a página, remove brindes órfãos (cujo produto principal não está no carrinho).
+// Cobre o caso onde o produto principal é removido fora do drawer (ex: refresh, navegação).
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!window.buyXGetYEnabled) return;
+
+  try {
+    const cart = await fetch('/cart.js').then((r) => r.json());
+    const cartItems = cart.items || [];
+    const groups = window.bxgyLinkedGroups || [];
+
+    for (const group of groups) {
+      let expectedBonusQty = 0;
+      for (const main of group.mains) {
+        const mainQty = cartItems.find((i) => i.variant_id === main.id)?.quantity || 0;
+        expectedBonusQty += window.bxgyIsCumulative
+          ? main.factor * mainQty
+          : (mainQty > 0 ? main.factor : 0);
+      }
+
+      const bonusItem = cartItems.find((i) => i.variant_id === group.bonus);
+      const currentBonusQty = bonusItem?.quantity || 0;
+
+      if (bonusItem && expectedBonusQty !== currentBonusQty) {
+        await fetch('/cart/change.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: bonusItem.key, quantity: expectedBonusQty }),
+        });
+      }
+    }
+  } catch (e) {
+    console.error('[bxgy] Erro ao validar brindes no carregamento:', e);
+  }
+});
 
 class OrderBumpSlider extends HTMLElement {
   constructor() {
