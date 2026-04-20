@@ -70,9 +70,9 @@
         {%- assign qb_bonus_flag = '' -%}
         {%- if settings.buy_x_get_y_enabled -%}
           {%- if qb_qty == 5 -%}
-            {%- assign qb_bonus_flag = '+2 potes' -%}
+            {%- assign qb_bonus_flag = '+2 potes - grátis' -%}
           {%- elsif qb_qty == 3 -%}
-            {%- assign qb_bonus_flag = '+1 pote' -%}
+            {%- assign qb_bonus_flag = '+1 pote - grátis' -%}
           {%- endif -%}
         {%- endif -%}
 
@@ -107,7 +107,7 @@
                 >
               {%- endif -%}
               {%- if qb_bonus_flag != '' -%}
-                <span class="qb-card-img-flag">{{ qb_bonus_flag }} - grátis</span>
+                <span class="qb-card-img-flag">{{ qb_bonus_flag }}</span>
               {%- endif -%}
             </div>
 
