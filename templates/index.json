@@ -12,6 +12,16 @@
     "res_hero_8CHBni": {
       "type": "res-hero",
       "blocks": {
+        "banner_T7kDiF": {
+          "type": "banner",
+          "disabled": true,
+          "settings": {
+            "image_mobile": "shopify://shop_images/artrouuu.png",
+            "image_desktop": "shopify://shop_images/artrouu_pruis_desk.png",
+            "url": "",
+            "image_alt": "Imagem Hero"
+          }
+        },
         "banner_9GfUNM": {
           "type": "banner",
           "disabled": true,
@@ -63,6 +73,7 @@
         }
       },
       "block_order": [
+        "banner_T7kDiF",
         "banner_9GfUNM",
         "banner_ine8zw",
         "banner_hHgUTi",
