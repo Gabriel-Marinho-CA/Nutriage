@@ -1,0 +1,28 @@
+
+
+<script>
+    var solomonCustomer;
+    {% if customer %}
+        console.log('has_customer_info');
+        solomonCustomer = {
+            'email': '{{ customer.email }}',
+            'firstName': '{{ customer.first_name }}',
+            'customer_id': '{{ customer.id }}',
+            'lastName': '{{ customer.last_name }}',
+            'phone': '{{ customer.phone }}',
+            'has_account': {{ customer.has_account }}
+        }
+        console.log('customer', solomonCustomer);
+    {% else %}
+        console.log('no_customer_info');
+        solomonCustomer = null;
+    {% endif  %}
+
+    window.solomonCustomer = solomonCustomer;
+</script>
+
+<script 
+    src="https://storage.googleapis.com/solomon-app-scripts/popup_send_internal_cdn.js"
+    async
+    defer
+></script>
