@@ -23,6 +23,7 @@
         },
         "banner_jDrw4B": {
           "type": "banner",
+          "disabled": true,
           "settings": {
             "image_mobile": "shopify://shop_images/MB_27.png",
             "image_desktop": "shopify://shop_images/PC_1.png",
