@@ -128,6 +128,7 @@
 
                   <tbody role="rowgroup">
                     {%- for item in cart.items -%}
+                      {%- assign item_redirect_url = item.product.metafields.custom.link_redirect | default: item.url -%}
                       <tr
                         id="CartDrawer-Item-{{ item.index | plus: 1 }}"
                         class="cart-item{% if item.parent_relationship.parent != null %} cart-item__nested-line{% endif %}"
@@ -143,12 +144,12 @@
                         >
                           {% if item.image %}
                             {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
-                            <a 
+                            <a
                                     {% unless item.product.title contains 'Brinde'
                             or item.product.title contains 'brinde'
                             or item.product.title contains 'BRINDE'
-                          %}  href="{{ item.url }}"{% endunless %}
-                              
+                          %}  href="{{ item_redirect_url }}"{% endunless %}
+
                               class="cart-item__link" tabindex="-1" aria-hidden="true"> </a>
                             <img
                               class="cart-item__image"
@@ -170,7 +171,7 @@
                                       {% unless item.product.title contains 'Brinde'
                             or item.product.title contains 'brinde'
                             or item.product.title contains 'BRINDE'
-                          %}  href="{{ item.url }}"{% endunless %}
+                          %}  href="{{ item_redirect_url }}"{% endunless %}
                             
                               class="cart-item__name h4 break">
                             {{- item.product.title | escape -}}
