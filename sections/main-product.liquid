@@ -853,7 +853,7 @@
       <div class="sticky-atc__info">
         <p class="sticky-atc__title">{{ product.title | escape }}</p>
         <div class="sticky-atc__summary">
-          <span class="sticky-atc__summary-badge">
+          <span class="sticky-atc__summary-badge" style="display:none;">
             {% liquid
               assign price = product.selected_or_first_available_variant.price
               assign compare = product.selected_or_first_available_variant.compare_at_price
