@@ -853,7 +853,7 @@
       <div class="sticky-atc__info">
         <p class="sticky-atc__title">{{ product.title | escape }}</p>
         <div class="sticky-atc__summary">
-          <span class="sticky-atc__summary-badge" style="display:none;">
+          <span class="sticky-atc__summary-badge">
             {% liquid
               assign price = product.selected_or_first_available_variant.price
               assign compare = product.selected_or_first_available_variant.compare_at_price
@@ -1024,7 +1024,7 @@
         const pixPrice = calcPix(price);
         summaryPrice.textContent = fmtMoney(pixPrice) + ' no pix';
         if (summaryCompare) {
-          summaryCompare.textContent = fmtMoney(price);
+          summaryCompare.textContent = fmtMoney(compare && compare > price ? compare : price);
           summaryCompare.hidden = false;
         }
         if (compare && compare > price) {
