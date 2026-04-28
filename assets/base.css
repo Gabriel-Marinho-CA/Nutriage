@@ -1851,8 +1851,7 @@ input[type='checkbox'] {
   width: 1.5rem;
   margin-right: 1rem;
 }
-
-#CartDrawer-Checkout::before {
+.order-bump__card .product-form__submit::before {
   z-index: 2;
 }
 
