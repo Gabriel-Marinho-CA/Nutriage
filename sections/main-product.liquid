@@ -917,15 +917,19 @@
           </span>
         </div>
       {%- else -%}
-        {% assign price_pix = product.selected_or_first_available_variant.price
+        {%- assign _sv = product.selected_or_first_available_variant -%}
+        {%- assign price_pix = _sv.price
           | times: 0.93
           | ceil
           | plus: 99
           | divided_by: 100
           | floor
           | times: 100
-        %}
-        <p class="sticky-atc__price">{{ price_pix | money }} no pix</p>
+        -%}
+        <div class="sticky-atc__price-wrap">
+          <s class="sticky-atc__price-original">{{ _sv.price | money }}</s>
+          <span class="sticky-atc__price-pix">{{ price_pix | money }} no pix</span>
+        </div>
       {%- endif -%}
 
       <product-form
@@ -974,6 +978,14 @@
   </div>
 
   <script>
+    window['stickyVariants_{{ section.id }}'] = {
+      {%- for v in product.variants -%}
+        "{{ v.id }}": { "price": {{ v.price }}, "compare": {{ v.compare_at_price | default: 0 }} }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    };
+  </script>
+
+  <script>
     (function () {
       const sectionId = '{{ section.id }}';
       const stickyBar = document.getElementById('StickyAtc-' + sectionId);
@@ -986,6 +998,9 @@
       const summaryBadge = stickyBar.querySelector('.sticky-atc__summary-badge');
       const summaryCompare = stickyBar.querySelector('.sticky-atc__summary-compare');
       const summaryPrice = stickyBar.querySelector('.sticky-atc__summary-price');
+      const stickyPriceOriginal = stickyBar.querySelector('.sticky-atc__price-original');
+      const stickyPricePix = stickyBar.querySelector('.sticky-atc__price-pix');
+      const variantMap = window['stickyVariants_' + sectionId] || {};
 
       function fmtMoney(cents) {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(cents / 100);
@@ -999,22 +1014,27 @@
           maximumFractionDigits: 2,
         }).format(cents / 100);
       }
+
+      function calcPix(cents) {
+        return Math.floor((Math.ceil(cents * 0.93) + 99) / 100) * 100;
+      }
+
       function updateSummary(price, compare) {
         if (!summaryPrice) return;
-        summaryPrice.textContent = fmtMoney(price);
+        const pixPrice = calcPix(price);
+        summaryPrice.textContent = fmtMoney(pixPrice) + ' no pix';
+        if (summaryCompare) {
+          summaryCompare.textContent = fmtMoney(price);
+          summaryCompare.hidden = false;
+        }
         if (compare && compare > price) {
           const pct = Math.round(((compare - price) / compare) * 100);
           if (summaryBadge) {
             summaryBadge.textContent = pct + '% off';
             summaryBadge.hidden = false;
           }
-          if (summaryCompare) {
-            summaryCompare.textContent = fmtMoney(compare);
-            summaryCompare.hidden = false;
-          }
         } else {
           if (summaryBadge) summaryBadge.hidden = true;
-          if (summaryCompare) summaryCompare.hidden = true;
         }
       }
 
@@ -1041,7 +1061,7 @@
             const variantId = card.dataset.variantId;
             const qtyLabel = card.dataset.qtyLabel || '';
             const price = parseInt(card.dataset.price, 10) || 0;
-            const pixPrice = Math.ceil(price * 0.93 / 100) * 100; 
+            const pixPrice = calcPix(price);
             const opt = document.createElement('option');
             opt.value = variantId;
             opt.dataset.baseLabel = qtyLabel;
@@ -1084,6 +1104,12 @@
               stickyFormInput.setAttribute('disabled', '');
             } else {
               stickyFormInput.removeAttribute('disabled');
+            }
+            const vData = variantMap[mainFormInput.value];
+            if (vData) {
+              const pixPrice = calcPix(vData.price);
+              if (stickyPriceOriginal) stickyPriceOriginal.textContent = fmtMoney(vData.price);
+              if (stickyPricePix) stickyPricePix.textContent = fmtMoney(pixPrice) + ' no pix';
             }
           });
         }
