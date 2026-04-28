@@ -477,6 +477,7 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
       }
       .price {
         font-weight: bold;
+        color:#14b766;
       }
 
       .cart-item__quantity {
